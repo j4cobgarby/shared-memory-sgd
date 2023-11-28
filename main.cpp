@@ -26,14 +26,15 @@ int cas_backoff = 200;
 bool check_concurrent_updates = 0;
 
 enum class ALGORITHM {
-    ASYNC, HOG, LSH, SEQ, SYNC
+    ASYNC, HOG, LSH, SEQ, SYNC, ELASYNC,
 };
 std::vector<std::string> AlgoTypes = {
         "ASYNC",
         "HOG",
         "LSH",
         "SEQ",
-        "SYNC"
+        "SYNC",
+        "ELASYNC",
 };
 ALGORITHM run_algo = ALGORITHM::SEQ;
 
@@ -354,13 +355,17 @@ int main(int argc, char *argv[]) {
             executor.run_parallel_sync(batch_size, num_epochs, rounds_per_epoch, rand_seed);
             break;
         case ALGORITHM::ASYNC:
-            executor.run_parallel_async(batch_size, num_epochs, rounds_per_epoch, rand_seed, true);
+            executor.run_parallel_async(batch_size, num_epochs, rounds_per_epoch, rand_seed, false);
             break;
         case ALGORITHM::HOG:
             executor.run_parallel_async(batch_size, num_epochs, rounds_per_epoch, rand_seed);
             break;
         case ALGORITHM::LSH:
             executor.run_parallel_leashed(batch_size, num_epochs, rounds_per_epoch, cas_backoff, check_concurrent_updates, rand_seed);
+            break;
+        case ALGORITHM::ELASYNC:
+            executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, 2, 800, 70, num_threads/2, rand_seed, false);
+            std::cout << "Back to main" << std::endl;
             break;
         default:
             printf("Use -h or --help for help\n");

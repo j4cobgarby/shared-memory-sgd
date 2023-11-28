@@ -47,6 +47,7 @@ namespace MiniDNN {
         }
 
         void wait_for_all() {
+            // std::cout << "Waiting for workers" << std::endl;
             std::unique_lock<std::mutex> lock(this->m_mutex);
             workers_are_availble.wait(lock, [this] { return this->num_waiting == this->num_threads; });
             this->num_waiting = 0;
@@ -59,6 +60,7 @@ namespace MiniDNN {
         }
 
         void start_all() {
+            // std::cout << "Workers started" << std::endl;
             for (int i = 0, n = this->flags.size(); i < n; ++i) {
                 *this->flags[i] = true;  // command the threads to stop
             }
@@ -68,7 +70,10 @@ namespace MiniDNN {
 
 
     private:
-
+        // For a given thread id, create a new thread which constantly:
+        // - locks mtx; waits for a task to become available AND for this thread's flag to be true
+        // - If threadpool has been stopped, then don't do anything (i.e. don't run the task)
+        // - Otherwise, _do_ run the task function, and then set the flag to false.
         void set_thread(int i) {
             std::shared_ptr<std::atomic<bool>> flag(this->flags[i]);
 
@@ -81,6 +86,8 @@ namespace MiniDNN {
                         ++this->num_waiting;
                         this->workers_are_availble.notify_one();
                         this->tasks_are_available.wait(lock, [this, i, &_flag]() { return _flag.load(); });
+                        
+                        // mtx gets unlocked when this scope ends...
                     }
 
                     if (this->isDone) {
@@ -103,6 +110,9 @@ namespace MiniDNN {
         std::atomic<int> num_waiting{0};  // how many threads are waiting
         size_t num_threads{0};
         std::vector<std::unique_ptr<std::thread>> threads;
+
+        // Seems like flags basically represents whether a notification on
+        // tasks_are_available wakes up a given task i or not.
         std::vector<std::shared_ptr<std::atomic<bool>>> flags;
 
         std::vector<std::function<void(int id)>> &tasks;
