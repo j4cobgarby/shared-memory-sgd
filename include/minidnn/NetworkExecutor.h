@@ -527,6 +527,9 @@ namespace MiniDNN {
                 for (int m_diff = -window; m_diff <= window; m_diff++) {
                     current_parallelism = m_last + m_diff;
                     if (current_parallelism > 0 && current_parallelism <= num_threads) {
+                        struct timeval now;
+                        gettimeofday(&now, NULL);
+                        std::cout << "{\"time\": " << now.tv_sec - start_time << ", \"m\": " << current_parallelism << "}" << std::endl;
                         workers.start_all();
                         workers.wait_for_all();
                     
