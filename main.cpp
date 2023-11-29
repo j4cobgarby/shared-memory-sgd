@@ -24,6 +24,10 @@ int num_hidden_units = 128;
 int rounds_per_epoch = -1;
 int cas_backoff = 200;
 bool check_concurrent_updates = 0;
+int probing_duration = -1;
+int probing_interval = -1;
+int probing_window = 1;
+int initial_parallelism = -1;
 
 enum class ALGORITHM {
     ASYNC, HOG, LSH, SEQ, SYNC, ELASYNC,
@@ -67,6 +71,7 @@ int main(int argc, char *argv[]) {
             {"epochs",              required_argument, nullptr, 'e'},
             {"num-threads",         required_argument, nullptr, 'n'},
             {"print-vals",          required_argument, nullptr, 'v'},
+            
             {nullptr, 0,                                  nullptr, 0}
     };
 
@@ -80,7 +85,7 @@ int main(int argc, char *argv[]) {
 
     while (1) {
         i = 0;
-        c = getopt_long(argc, argv, "a:b:e:n:r:l:m:B:R:C:A:L:U:t:D:", long_options, &i);
+        c = getopt_long(argc, argv, "a:b:e:n:r:l:m:B:R:C:A:L:U:t:D:w:i:d:s:", long_options, &i);
 
         if (c == -1) {
             //printf("Use -h or --help for help\n");
@@ -173,6 +178,9 @@ int main(int argc, char *argv[]) {
                 break;
             case 'n':
                 num_threads = atoi(optarg);
+                if (initial_parallelism == -1) initial_parallelism = num_threads/2;
+                if (probing_interval == -1) probing_interval = 100 * initial_parallelism;
+                if (probing_duration == -1) probing_duration = 10 * initial_parallelism;
                 break;
             case 'R':
                 run_n = atoi(optarg);
@@ -197,6 +205,20 @@ int main(int argc, char *argv[]) {
                 break;
             case 'm':
                 momentum_mu = atof(optarg);
+                break;
+            case 'w':
+                probing_window = atoi(optarg);
+                break;
+            case 'i':
+                probing_interval = atoi(optarg);
+                break;
+            case 'd':
+                probing_duration = atoi(optarg);
+                break;
+            case 's':
+                initial_parallelism = atoi(optarg);
+                if (probing_interval == -1) probing_interval = 100 * initial_parallelism;
+                if (probing_duration == -1) probing_duration = 10 * initial_parallelism;
                 break;
             case '?':
             default:
@@ -355,7 +377,7 @@ int main(int argc, char *argv[]) {
             executor.run_parallel_sync(batch_size, num_epochs, rounds_per_epoch, rand_seed);
             break;
         case ALGORITHM::ASYNC:
-            executor.run_parallel_async(batch_size, num_epochs, rounds_per_epoch, rand_seed, false);
+            executor.run_parallel_async(batch_size, num_epochs, rounds_per_epoch, rand_seed);
             break;
         case ALGORITHM::HOG:
             executor.run_parallel_async(batch_size, num_epochs, rounds_per_epoch, rand_seed);
@@ -364,8 +386,8 @@ int main(int argc, char *argv[]) {
             executor.run_parallel_leashed(batch_size, num_epochs, rounds_per_epoch, cas_backoff, check_concurrent_updates, rand_seed);
             break;
         case ALGORITHM::ELASYNC:
-            executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, 2, 800, 70, num_threads/2, rand_seed, false);
-            std::cout << "Back to main" << std::endl;
+            std::cout << "elasyncsgd with window = " << probing_window << ", interval = " << probing_interval << ", duration = " << probing_duration << ", m_0 = " << initial_parallelism << std::endl;
+            executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start.tv_sec, rand_seed);
             break;
         default:
             printf("Use -h or --help for help\n");
