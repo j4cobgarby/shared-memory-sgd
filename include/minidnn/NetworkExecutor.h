@@ -509,8 +509,6 @@ namespace MiniDNN {
             //     }
             // }
 
-            current_parallelism = best_m;
-
             while (step.load() < num_epochs * rounds_per_epoch) {
                 num_iterations = probing_duration;
                 unsigned best_m = -1;
