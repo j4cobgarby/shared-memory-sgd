@@ -2,6 +2,7 @@
 #define NETWORKEXECUTOR_H_
 
 #include <stdlib.h>     /* exit, EXIT_FAILURE */
+#include <sys/select.h>
 
 #include "ParameterContainer.h"
 #include "ThreadPool.h"
@@ -475,49 +476,42 @@ namespace MiniDNN {
             // workers.wait_for_all();
             // workers.stop();
 
-            unsigned best_m = -1;
-            double best_loss = std::numeric_limits<double>::infinity();
+            // unsigned best_m = -1;
+            // double best_loss = std::numeric_limits<double>::infinity();
 
             std::cout << "[" << std::endl;
 
             // Initial Probing
             // TODO: This whole phase should actually repeat untl best_m is not changed 
             // std::cout << "Initial probing" << std::endl;
-            for (int m_diff = -1; m_diff <= 1; m_diff++) {
-                current_parallelism = m_last + m_diff;
-                if (current_parallelism > 0 && current_parallelism <= num_threads) {
-                    struct timeval now;
-                    gettimeofday(&now, NULL);
-                    std::cout << "{\"time\": " << now.tv_sec - start_time << ", \"m\": " << current_parallelism << "}" << std::endl;
-                    // std::cout << "Trying with m=" << current_parallelism << "...";
-                    workers.start_all();
-                    workers.wait_for_all();
+            // for (int m_diff = -1; m_diff <= 1; m_diff++) {
+            //     current_parallelism = m_last + m_diff;
+            //     if (current_parallelism > 0 && current_parallelism <= num_threads) {
+            //         struct timeval now;
+            //         gettimeofday(&now, NULL);
+            //         std::cout << "{\"time\": " << now.tv_sec - start_time << ", \"m\": " << current_parallelism << "}" << std::endl;
+            //         // std::cout << "Trying with m=" << current_parallelism << "...";
+            //         workers.start_all();
+            //         workers.wait_for_all();
 
-                    double loss = 0;
-                    for (int i = 0; i < current_parallelism; i++) {
-                        loss += thread_local_networks[i]->get_loss();
-                    }
-                    loss /= current_parallelism;
+            //         double loss = 0;
+            //         for (int i = 0; i < current_parallelism; i++) {
+            //             loss += thread_local_networks[i]->get_loss();
+            //         }
+            //         loss /= current_parallelism;
 
-                    // std::cout << "loss = " << loss << std::endl;
+            //         // std::cout << "loss = " << loss << std::endl;
 
-                    if (loss < best_loss) {
-                        best_loss = loss;
-                        best_m = current_parallelism;
-                    }
-                }
-            }
+            //         if (loss < best_loss) {
+            //             best_loss = loss;
+            //             best_m = current_parallelism;
+            //         }
+            //     }
+            // }
 
             current_parallelism = best_m;
 
             while (step.load() < num_epochs * rounds_per_epoch) {
-                struct timeval now;
-                gettimeofday(&now, NULL);
-                std::cout << "{\"time\": " << now.tv_sec - start_time << ", \"m\": " << current_parallelism << "}" << std::endl;
-                num_iterations = probing_interval;
-                workers.start_all();
-                workers.wait_for_all();
-
                 num_iterations = probing_duration;
                 unsigned best_m = -1;
                 double best_loss = std::numeric_limits<double>::infinity();
@@ -527,17 +521,23 @@ namespace MiniDNN {
                 for (int m_diff = -window; m_diff <= window; m_diff++) {
                     current_parallelism = m_last + m_diff;
                     if (current_parallelism > 0 && current_parallelism <= num_threads) {
-                        struct timeval now;
-                        gettimeofday(&now, NULL);
-                        std::cout << "{\"time\": " << now.tv_sec - start_time << ", \"m\": " << current_parallelism << "}" << std::endl;
+                        struct timeval probe_start, probe_end;
+                        gettimeofday(&probe_start, NULL);
+                        std::cout << "{\"time\": " << (double)(probe_start.tv_usec - start_time)/1000000 << ", \"m\": " << current_parallelism << ", \"probing\": true}" << std::endl;
+
                         workers.start_all();
                         workers.wait_for_all();
+
+                        gettimeofday(&probe_end, NULL);
+
+                        double probe_elapsed = (double)(probe_end.tv_usec - probe_start.tv_usec)/1000000;
                     
                         double loss = 0;
                         for (int i = 0; i < current_parallelism; i++) {
                             loss += thread_local_networks[i]->get_loss();
                         }
-                        loss /= current_parallelism;
+                        loss /= current_parallelism; // average los of each model
+                        // loss *= probe_elapsed; // shorter elapsed time -> lower `loss` -> better "score"
 
                         if (loss < best_loss) {
                             best_loss = loss;
@@ -547,6 +547,13 @@ namespace MiniDNN {
                 }
 
                 current_parallelism = best_m;
+                struct timeval now;
+                gettimeofday(&now, NULL);
+                std::cout << "{\"time\": " << (double)(now.tv_usec - start_time)/1000000<< ", \"m\": " << current_parallelism << ", \"probing\": false}" << std::endl;
+                num_iterations = probing_interval;
+                workers.start_all();
+                workers.wait_for_all();
+
             }
 
             std::cout << "]" << std::endl;
