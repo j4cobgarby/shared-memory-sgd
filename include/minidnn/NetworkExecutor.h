@@ -295,6 +295,8 @@ namespace MiniDNN {
         }
 
         void run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, long start_time, int seed = -1, bool use_lock=true) {
+            const unsigned recent_loss_window = 20;
+            
             opt->reset();
 
             if (seed > 0) {
@@ -470,53 +472,30 @@ namespace MiniDNN {
 
             // Wait for all workers to be ready to go
             workers.wait_for_all(); 
-            // workers.start_all();
-            // workers.wait_for_all();
-            // workers.start_all();
-            // workers.wait_for_all();
-            // workers.stop();
-
-            // unsigned best_m = -1;
-            // double best_loss = std::numeric_limits<double>::infinity();
 
             std::cout << "[" << std::endl;
 
-            // Initial Probing
-            // TODO: This whole phase should actually repeat untl best_m is not changed 
-            // std::cout << "Initial probing" << std::endl;
-            // for (int m_diff = -1; m_diff <= 1; m_diff++) {
-            //     current_parallelism = m_last + m_diff;
-            //     if (current_parallelism > 0 && current_parallelism <= num_threads) {
-            //         struct timeval now;
-            //         gettimeofday(&now, NULL);
-            //         std::cout << "{\"time\": " << now.tv_sec - start_time << ", \"m\": " << current_parallelism << "}" << std::endl;
-            //         // std::cout << "Trying with m=" << current_parallelism << "...";
-            //         workers.start_all();
-            //         workers.wait_for_all();
+            long curr_step;
 
-            //         double loss = 0;
-            //         for (int i = 0; i < current_parallelism; i++) {
-            //             loss += thread_local_networks[i]->get_loss();
-            //         }
-            //         loss /= current_parallelism;
-
-            //         // std::cout << "loss = " << loss << std::endl;
-
-            //         if (loss < best_loss) {
-            //             best_loss = loss;
-            //             best_m = current_parallelism;
-            //         }
-            //     }
-            // }
-
-            while (step.load() < num_epochs * rounds_per_epoch) {
+            while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
                 num_iterations = probing_duration;
                 unsigned best_m = -1;
                 double best_loss = std::numeric_limits<double>::infinity();
                 unsigned m_last = current_parallelism;
-                // std::cout << "Probing phase" << std::endl;
 
-                for (int m_diff = -window; m_diff <= window; m_diff++) {
+                double period_loss = 0;
+                long prev_epoch = curr_step / rounds_per_epoch;
+                for (long i = prev_epoch - (recent_loss_window - 1); i <= prev_epoch; i++) {
+                    if (i < 0) continue;
+                    for (int th = 0; th < num_threads; th++) {
+                        period_loss += local_losses_per_epoch[th][i];
+                    }
+                }
+                period_loss /= recent_loss_window; // Average loss over window
+                int scaled_window = window * std::min(0.5 * period_loss, (double)1);
+                std::cout << "Period loss: " << period_loss << "\tScaled window: " << scaled_window << std::endl;
+
+                for (int m_diff = -scaled_window; m_diff <= scaled_window; m_diff++) {
                     current_parallelism = m_last + m_diff;
                     if (current_parallelism > 0 && current_parallelism <= num_threads) {
                         struct timeval probe_start, probe_end;
