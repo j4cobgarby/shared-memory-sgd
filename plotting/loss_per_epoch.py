@@ -4,23 +4,24 @@ import matplotlib.pyplot as plt
 
 def plot_epoch_loss_vs_time(ax, epoch_loss, epoch_time, label):
     ax.plot(epoch_time, epoch_loss, label=label)
+    # ax.scatter(epoch_time, epoch_loss, color='black', s=5)
     ax.set_xlabel('Epoch Time (seconds)')
     ax.set_ylabel('Epoch Loss')
     ax.set_title('Epoch Loss vs Epoch Time')
     ax.legend()
 
+def plot_staleness(ax, staleness_dist, epoch_time, label):
+    ax.plot(epoch_time, staleness_dist, label="Staleness for " + label)
+
 def plot_parallelism(ax, mlist_data, label):
-    ax2 = ax.twinx()
-    ax2.step([entry['time'] for entry in mlist_data], [entry['m'] for entry in mlist_data], label=label, color='black', where='post', linewidth=0.5)
+    ax.step([entry['time'] for entry in mlist_data], [entry['m'] for entry in mlist_data], label=label, where='post', linewidth=0.5)
     # ax2.scatter([entry['time'] for entry in mlist_data], [entry['m'] for entry in mlist_data], color='black', s=1)  # Scatter plot with circles
-    ax2.set_ylabel('Parallelism (m)')
-    ax2.set_ylim([0,60])
-    ax2.legend(loc='upper left')
+    ax.legend()
 
 def read_json(file_path):
     with open(file_path, 'r') as file:
         data = json.load(file)
-        return data['epoch_loss'], data['epoch_time']
+        return data['epoch_loss'], data['epoch_time'], data['staleness_dist']
 
 def read_mlist(file_path):
     with open(file_path, 'r') as file:
@@ -32,14 +33,20 @@ def plot_all_json_files():
 
     # Create a 1x1 subplot grid
     fig, ax = plt.subplots(1, 1, figsize=(8, 4))
+    twinaxis = ax.twinx()
+    twinaxis.legend(loc='upper left')
+    twinaxis.set_ylim([0, 60])
+    twinaxis.set_ylabel('Parallelism (m)')
+    
 
     for file in files:
         if file.startswith('mlist'):
             mlist_data = read_mlist(file)
-            plot_parallelism(ax, mlist_data, label=file)
+            plot_parallelism(twinaxis, mlist_data, label=file)
         else:
-            epoch_loss, epoch_time = read_json(file)
+            epoch_loss, epoch_time, staleness_dist = read_json(file)
             plot_epoch_loss_vs_time(ax, epoch_loss, epoch_time, label=file)
+            # plot_staleness(ax, staleness_dist, epoch_time, label=file)
 
     plt.tight_layout()  # Adjust layout to prevent clipping
     plt.show()
