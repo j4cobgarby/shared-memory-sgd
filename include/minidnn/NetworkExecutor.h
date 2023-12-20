@@ -294,9 +294,8 @@ namespace MiniDNN {
             loss /= num_threads;
         }
 
-        void run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, long start_time, int seed = -1, bool use_lock=true) {
+        void run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed = -1, bool use_lock=true) {
             const unsigned recent_loss_window = 20;
-            
             opt->reset();
 
             if (seed > 0) {
@@ -503,7 +502,7 @@ namespace MiniDNN {
                     if (current_parallelism > 0 && current_parallelism <= num_threads) {
                         struct timeval probe_start, probe_end;
                         gettimeofday(&probe_start, NULL);
-                        std::cout << "{\"time\": " << (double)(probe_start.tv_usec - start_time)/1000000 << ", \"m\": " << current_parallelism << ", \"probing\": true}" << std::endl;
+                        std::cout << "{\"time\": " << (double)(probe_start.tv_sec - start_time.tv_sec) + (double)(probe_start.tv_usec - start_time.tv_usec)/1000000 << ", \"m\": " << current_parallelism << ", \"probing\": true}," << std::endl;
 
                         workers.start_all();
                         workers.wait_for_all();
@@ -529,7 +528,7 @@ namespace MiniDNN {
                 current_parallelism = best_m;
                 struct timeval now;
                 gettimeofday(&now, NULL);
-                std::cout << "{\"time\": " << (double)(now.tv_usec - start_time)/1000000<< ", \"m\": " << current_parallelism << ", \"probing\": false}" << std::endl;
+                std::cout << "{\"time\": " << (double)(now.tv_sec - start_time.tv_sec) + (double)(now.tv_usec - start_time.tv_usec)/1000000 << ", \"m\": " << current_parallelism << ", \"probing\": false}," << std::endl;
                 num_iterations = probing_interval;
                 workers.start_all();
                 workers.wait_for_all();
