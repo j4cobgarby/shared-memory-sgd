@@ -487,11 +487,14 @@ namespace MiniDNN {
                 long prev_epoch = curr_step / rounds_per_epoch;
                 for (long i = prev_epoch - (recent_loss_window - 1); i <= prev_epoch; i++) {
                     if (i < 0) continue;
+                    double l = 0;
                     for (int th = 0; th < num_threads; th++) {
-                        period_loss += local_losses_per_epoch[th][i];
+                        l += local_losses_per_epoch[th][i];
                     }
+                    l /= rounds_per_epoch;
+                    period_loss += l;
                 }
-                period_loss /= recent_loss_window; // Average loss over window
+                period_loss /= (recent_loss_window * 2); // Average loss over window
                 int scaled_window = window * std::min(0.5 * period_loss, (double)1);
                 std::cout << "Period loss: " << period_loss << "\tScaled window: " << scaled_window << std::endl;
 
