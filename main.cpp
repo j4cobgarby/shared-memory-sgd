@@ -387,7 +387,7 @@ int main(int argc, char *argv[]) {
             break;
         case ALGORITHM::ELASYNC:
             std::cout << "elasyncsgd with window = " << probing_window << ", interval = " << probing_interval << ", duration = " << probing_duration << ", m_0 = " << initial_parallelism << std::endl;
-            executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start.tv_usec, rand_seed);
+            executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed);
             break;
         default:
             printf("Use -h or --help for help\n");
