@@ -10,6 +10,9 @@ def plot_epoch_loss_vs_time(ax, epoch_loss, epoch_time, label):
     ax.set_title('Epoch Loss vs Epoch Time')
     ax.legend()
 
+def plot_avg(ax, data, times, label):
+    ax.plot(times, data, label=label)
+
 def plot_staleness(ax, staleness_dist, epoch_time, label):
     ax.plot(epoch_time, staleness_dist, label="Staleness for " + label)
 
@@ -28,6 +31,11 @@ def read_mlist(file_path):
         mlist_data = json.load(file)
         return mlist_data
 
+def read_avg(file_path):
+    with open(file_path, 'r') as file:
+        data = json.load(file)
+        return data['avg'], data['times']
+
 def plot_all_json_files():
     files = [f for f in os.listdir('.') if f.endswith('.json')]
 
@@ -43,6 +51,10 @@ def plot_all_json_files():
         if file.startswith('mlist'):
             mlist_data = read_mlist(file)
             plot_parallelism(twinaxis, mlist_data, label=file)
+        elif file.startswith('avg'):
+            avg_data, avg_times = read_avg(file)
+            print('avg data', avg_data)
+            plot_avg(ax, avg_data, avg_times, label=file)
         else:
             epoch_loss, epoch_time, staleness_dist = read_json(file)
             plot_epoch_loss_vs_time(ax, epoch_loss, epoch_time, label=file)

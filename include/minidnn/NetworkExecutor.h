@@ -32,6 +32,8 @@ namespace MiniDNN {
         std::vector<Scalar> loss_per_epoch;
         std::vector<time_t> time_per_epoch;
 
+        Scalar loss_ema; // exponential moving average of loss
+
         int tau_threshold = 200;
         std::vector<long> tau_dist;
 
@@ -86,6 +88,10 @@ namespace MiniDNN {
             return loss_per_epoch;
         }
 
+        Scalar &get_last_epoch_loss() {
+            return loss_per_epoch.back();
+        }
+
         std::vector<time_t> &get_times_per_epoch() {
             return time_per_epoch;
         }
@@ -106,6 +112,10 @@ namespace MiniDNN {
                 cum_tau += tau_dist_sample[j];
             }
             tail_dist_finished = true;
+        }
+
+        void compute_loss_ema(float alpha) {
+            loss_ema = alpha * get_last_epoch_loss() + (1 - alpha) * loss_ema;
         }
 
         float get_stepsize_scaling_factor(int staleness, const std::string& strategy) {
@@ -292,6 +302,15 @@ namespace MiniDNN {
                 loss += thread_local_networks[i]->get_loss();
             }
             loss /= num_threads;
+        }
+
+        // Based on model's internal state, uses heuristics to determine a window
+        // size and skew for the next probing phase.
+        // window = the default window size, which we want to scale
+        // scaled_size = output variable for the new size of the window
+        // skew = output variable for how much the window is skewed (start and
+        //        end points of window are shifted by skew)
+        void heuristic_next_window_size_multiplier(int window, int &scaled_size, int &skew) {
         }
 
         void run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed = -1, bool use_lock=true) {
@@ -494,7 +513,7 @@ namespace MiniDNN {
                     period_loss += l;
                 }
                 period_loss /= (recent_loss_window * 2); // Average loss over window
-                int scaled_window = window * std::min(0.5 * period_loss, (double)1);
+                int scaled_window = window * std::min(1 * period_loss, (double)1);
                 std::cout << "Period loss: " << period_loss << "\tScaled window: " << scaled_window << std::endl;
 
                 for (int m_diff = -scaled_window; m_diff <= scaled_window; m_diff++) {
