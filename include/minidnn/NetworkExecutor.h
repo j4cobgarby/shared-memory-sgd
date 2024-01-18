@@ -430,9 +430,6 @@ namespace MiniDNN {
 
                     //std::cerr << id << ": [Epoch " << epoch << "] Loss = " << loss << std::endl;
 
-                    // add loss to total loss in this phase (be it probing or execution)
-                    // phase_loss.fetch_add(loss);
-
                     // add loss to thread local epoch loss sum
                     local_losses_per_epoch[id][epoch] += loss;
 
@@ -485,7 +482,6 @@ namespace MiniDNN {
 
             ThreadPool workers(num_threads, jobs);
 
-            unsigned int m_last = current_parallelism;
             num_iterations = probing_duration;
 
             // Wait for all workers to be ready to go
@@ -497,37 +493,50 @@ namespace MiniDNN {
 
             while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
                 num_iterations = probing_duration;
-                unsigned best_m = -1;
                 double best_loss = std::numeric_limits<double>::infinity();
+
+                // Determine what m-window size to use for this probing phase
+                // 1) Calculate the average loss over all threads' models
+                // double period_loss = 0;
+                // long prev_epoch = curr_step / rounds_per_epoch;
+                // for (long i = prev_epoch - (recent_loss_window - 1); i <= prev_epoch; i++) {
+                //     if (i < 0) continue;
+                //     double l = 0;
+                //     for (int th = 0; th < num_threads; th++) {
+                //         l += local_losses_per_epoch[th][i];
+                //     }
+                //     l /= rounds_per_epoch;
+                //     period_loss += l;
+                // }
+                // period_loss /= (recent_loss_window * 2); // Average loss over window
+                // int scaled_window = window * std::min(1 * period_loss, (double)1);
+                // std::cout << "Period loss: " << period_loss << "\tScaled window: " << scaled_window << std::endl;
+
+                // double avg_loss = 0;
+
+                // for (int th = 0; th < num_threads; th++) {
+                //     avg_loss += thread_local_networks.at(th)->get_loss();
+                // }
+
+                // int scaled_window = window * avg_loss;
+                int best_m = -1; // Will be set to the best performing m in the probing phase
                 unsigned m_last = current_parallelism;
 
-                double period_loss = 0;
-                long prev_epoch = curr_step / rounds_per_epoch;
-                for (long i = prev_epoch - (recent_loss_window - 1); i <= prev_epoch; i++) {
-                    if (i < 0) continue;
-                    double l = 0;
-                    for (int th = 0; th < num_threads; th++) {
-                        l += local_losses_per_epoch[th][i];
-                    }
-                    l /= rounds_per_epoch;
-                    period_loss += l;
-                }
-                period_loss /= (recent_loss_window * 2); // Average loss over window
-                int scaled_window = window * std::min(1 * period_loss, (double)1);
-                std::cout << "Period loss: " << period_loss << "\tScaled window: " << scaled_window << std::endl;
+                int scaled_window = window;
 
+                // Run a probing phase for each m in the m-window
                 for (int m_diff = -scaled_window; m_diff <= scaled_window; m_diff++) {
                     current_parallelism = m_last + m_diff;
                     if (current_parallelism > 0 && current_parallelism <= num_threads) {
                         struct timeval probe_start, probe_end;
                         gettimeofday(&probe_start, NULL);
+
                         std::cout << "{\"time\": " << (double)(probe_start.tv_sec - start_time.tv_sec) + (double)(probe_start.tv_usec - start_time.tv_usec)/1000000 << ", \"m\": " << current_parallelism << ", \"probing\": true}," << std::endl;
 
                         workers.start_all();
                         workers.wait_for_all();
 
                         gettimeofday(&probe_end, NULL);
-
                         double probe_elapsed = (double)(probe_end.tv_usec - probe_start.tv_usec)/1000000;
                     
                         double loss = 0;

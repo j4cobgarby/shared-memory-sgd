@@ -1,6 +1,7 @@
 #ifndef PARAMETERCONTAINER_H_
 #define PARAMETERCONTAINER_H_
 
+#include <iostream>
 #include <Eigen/Core>
 #include <vector>
 #include "Config.h"
