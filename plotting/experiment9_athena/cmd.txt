@@ -1,0 +1,1 @@
+./cmake-build-debug/mininn -a ELASYNC -A LENET -D CIFAR10 -n 60 -e 200 -b 16 -l 0.005 -tNONE -w8 -i500 -d50 -s30
