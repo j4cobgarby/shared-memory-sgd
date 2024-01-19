@@ -493,49 +493,52 @@ namespace MiniDNN {
                     avg_loss += thread_local_networks.at(th)->get_loss();
                 }
 
-                int scaled_window = window * avg_loss;
-                int best_m = -1; // Will be set to the best performing m in the probing phase
+                int scaled_window = window * std::min(avg_loss, 2.0); // Don't scale the window to any more than 2x original
+                int best_m = -1;
                 unsigned m_last = current_parallelism;
 
-                // int scaled_window = window;
-
                 // Run a probing phase for each m in the m-window
-                for (int m_diff = -scaled_window; m_diff <= scaled_window; m_diff++) {
+                for (int m_diff = -scaled_window/2; m_diff <= scaled_window/2; m_diff++) {
                     current_parallelism = m_last + m_diff;
-                    if (current_parallelism > 0 && current_parallelism <= num_threads) {
-                        struct timeval probe_start, probe_end;
-                        gettimeofday(&probe_start, NULL);
-
-                        std::cout << "{\"time\": " << (double)(probe_start.tv_sec - start_time.tv_sec) + (double)(probe_start.tv_usec - start_time.tv_usec)/1000000 << ", \"m\": " << current_parallelism << ", \"probing\": true}," << std::endl;
-
-                        workers.start_all();
-                        workers.wait_for_all();
-
-                        gettimeofday(&probe_end, NULL);
-                        double probe_elapsed = (double)(probe_end.tv_usec - probe_start.tv_usec)/1000000;
                     
-                        double loss = 0;
-                        for (int i = 0; i < current_parallelism; i++) {
-                            loss += thread_local_networks[i]->get_loss();
-                        }
-                        loss /= current_parallelism; // average los of each model
-                        // loss *= probe_elapsed; // shorter elapsed time -> lower `loss` -> better "score"
+                    if (current_parallelism > num_threads) break;
+                    if (current_parallelism < 1) continue;
+                    
+                    struct timeval probe_start, probe_end;
+                    gettimeofday(&probe_start, NULL);
 
-                        if (loss < best_loss) {
-                            best_loss = loss;
-                            best_m = current_parallelism;
-                        }
+                    std::cout << "{\"time\": " << (double)(probe_start.tv_sec - start_time.tv_sec) + (double)(probe_start.tv_usec - start_time.tv_usec)/1000000 << ", \"m\": " << current_parallelism << ", \"probing\": true}," << std::endl;
+
+                    workers.start_all();
+                    workers.wait_for_all();
+
+                    gettimeofday(&probe_end, NULL);
+                    double probe_elapsed = (double)(probe_end.tv_usec - probe_start.tv_usec)/1000000;
+                
+                    double loss = 0;
+                    for (int i = 0; i < current_parallelism; i++) {
+                        loss += thread_local_networks[i]->get_loss();
+                    }
+                    loss /= current_parallelism; // average los of each model
+                    // loss *= probe_elapsed; // shorter elapsed time -> lower `loss` -> better "score"
+
+                    if (loss < best_loss) {
+                        best_loss = loss;
+                        best_m = current_parallelism;
                     }
                 }
 
+                // After probing, run normal async execution for a while
                 current_parallelism = best_m;
+
                 struct timeval now;
                 gettimeofday(&now, NULL);
+
                 std::cout << "{\"time\": " << (double)(now.tv_sec - start_time.tv_sec) + (double)(now.tv_usec - start_time.tv_usec)/1000000 << ", \"m\": " << current_parallelism << ", \"probing\": false}," << std::endl;
+
                 num_iterations = probing_interval;
                 workers.start_all();
                 workers.wait_for_all();
-
             }
 
             std::cout << "]" << std::endl;
