@@ -126,7 +126,7 @@ int main(int argc, char *argv[]) {
                        "  -n, --num-threads <int>\n"
                        "        Number of threads\n"
                        "  -a, --algorithm <string>\n"
-                       "        {SEQ, SYNC, ASYNC, HOG, LSH}\n"
+                       "        {SEQ, SYNC, ASYNC, HOG, LSH, ELASYNC}\n"
                        "  -A, --architecture <string>\n"
                        "        {MLP, CNN, LENET}\n"
                        "  -L, <int>\n"
@@ -142,7 +142,10 @@ int main(int argc, char *argv[]) {
                        "  -t, <bool>\n"
                        "        Staleness-adaptive step size strategy\n"
                        "  -v, --print-vals <int>\n"
-                       "        Print debug informations\n", argv[0]);
+                       "        Print debug informations\n"
+                       "  -i (elasync only, probing interval)\n"
+                       "  -d (elasync only, probing duration)\n"
+                       "  -s (elasync only, initial parallelism)\n", argv[0]);
                 exit(0);
             case 'a':
                 algo_name = optarg;

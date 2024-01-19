@@ -343,7 +343,6 @@ namespace MiniDNN {
                 rounds_per_epoch = nbatch;
             }
 
-
             std::mutex mtx; // for accessing the shared network object
             std::mutex epoch_time_vector_lock; // for shared times measurements
 
@@ -369,13 +368,6 @@ namespace MiniDNN {
             // std::atomic<double> phase_loss;
 
             int num_iterations = -1;
-
-            // auto f = [&](int id) {
-            //     mtx.lock();
-            //     std::cout << "Thread " << id << " running." << std::endl;
-            //     mtx.unlock();
-            //     return;
-            // };
 
             auto f = [&](int id) {
                 // std::cout << "Starting learning thread function proper" << std::endl;
@@ -495,34 +487,17 @@ namespace MiniDNN {
                 num_iterations = probing_duration;
                 double best_loss = std::numeric_limits<double>::infinity();
 
-                // Determine what m-window size to use for this probing phase
-                // 1) Calculate the average loss over all threads' models
-                // double period_loss = 0;
-                // long prev_epoch = curr_step / rounds_per_epoch;
-                // for (long i = prev_epoch - (recent_loss_window - 1); i <= prev_epoch; i++) {
-                //     if (i < 0) continue;
-                //     double l = 0;
-                //     for (int th = 0; th < num_threads; th++) {
-                //         l += local_losses_per_epoch[th][i];
-                //     }
-                //     l /= rounds_per_epoch;
-                //     period_loss += l;
-                // }
-                // period_loss /= (recent_loss_window * 2); // Average loss over window
-                // int scaled_window = window * std::min(1 * period_loss, (double)1);
-                // std::cout << "Period loss: " << period_loss << "\tScaled window: " << scaled_window << std::endl;
+                double avg_loss = 0;
 
-                // double avg_loss = 0;
+                for (int th = 0; th < num_threads; th++) {
+                    avg_loss += thread_local_networks.at(th)->get_loss();
+                }
 
-                // for (int th = 0; th < num_threads; th++) {
-                //     avg_loss += thread_local_networks.at(th)->get_loss();
-                // }
-
-                // int scaled_window = window * avg_loss;
+                int scaled_window = window * avg_loss;
                 int best_m = -1; // Will be set to the best performing m in the probing phase
                 unsigned m_last = current_parallelism;
 
-                int scaled_window = window;
+                // int scaled_window = window;
 
                 // Run a probing phase for each m in the m-window
                 for (int m_diff = -scaled_window; m_diff <= scaled_window; m_diff++) {
