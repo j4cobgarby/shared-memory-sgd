@@ -292,7 +292,7 @@ namespace MiniDNN {
                 gettimeofday(&now, NULL);
                 time_per_epoch.push_back(now.tv_sec);
 
-                std::cerr << "[Epoch " << k << "] Loss = " << epoch_loss << std::endl;
+                //std::cerr << "[Epoch " << k << "] Loss = " << epoch_loss << std::endl;
 
             }
 
@@ -492,7 +492,7 @@ namespace MiniDNN {
                 int best_m = -1;
                 unsigned m_last = current_parallelism;
 
-                std::cout << "Avg loss after last training = " << avg_loss << "Scaled window size = " << scaled_window << std::endl;
+                // std::cout << "Avg loss after last training = " << avg_loss << "Scaled window size = " << scaled_window << std::endl;
 
                 // Run a probing phase for each m in the m-window
                 for (int m_diff = -scaled_window/2; m_diff <= scaled_window/2; m_diff++) {
