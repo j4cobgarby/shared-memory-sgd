@@ -274,7 +274,7 @@ namespace MiniDNN {
 
                     round_loss /= num_threads;
 
-                    //std::cerr << "[Step " << step << "] Loss = " << round_loss << std::endl;
+                    std::cerr << "[Step " << step << "] Loss = " << round_loss << std::endl;
 
                     epoch_loss += round_loss;
 
@@ -292,7 +292,7 @@ namespace MiniDNN {
                 gettimeofday(&now, NULL);
                 time_per_epoch.push_back(now.tv_sec);
 
-                //std::cerr << "[Epoch " << k << "] Loss = " << epoch_loss << std::endl;
+                std::cerr << "[Epoch " << k << "] Loss = " << epoch_loss << std::endl;
 
             }
 
