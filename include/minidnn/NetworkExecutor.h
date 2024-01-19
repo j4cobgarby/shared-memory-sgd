@@ -482,20 +482,17 @@ namespace MiniDNN {
             std::cout << "[" << std::endl;
 
             long curr_step;
+            double avg_loss = 1.0;
 
             while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
                 num_iterations = probing_duration;
                 double best_loss = std::numeric_limits<double>::infinity();
 
-                double avg_loss = 0;
-
-                for (int th = 0; th < num_threads; th++) {
-                    avg_loss += thread_local_networks.at(th)->get_loss();
-                }
-
                 int scaled_window = window * std::min(avg_loss, 2.0); // Don't scale the window to any more than 2x original
                 int best_m = -1;
                 unsigned m_last = current_parallelism;
+
+                std::cout << "Avg loss after last training = " << avg_loss << "Scaled window size = " << scaled_window << std::endl;
 
                 // Run a probing phase for each m in the m-window
                 for (int m_diff = -scaled_window/2; m_diff <= scaled_window/2; m_diff++) {
@@ -539,6 +536,12 @@ namespace MiniDNN {
                 num_iterations = probing_interval;
                 workers.start_all();
                 workers.wait_for_all();
+
+                // Recompute average loss for the next loop
+                avg_loss = 0;
+                for (int th = 0; th < num_threads; th++) {
+                    avg_loss += thread_local_networks.at(th)->get_loss();
+                }
             }
 
             std::cout << "]" << std::endl;
