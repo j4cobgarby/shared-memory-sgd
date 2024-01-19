@@ -542,6 +542,7 @@ namespace MiniDNN {
                 for (int th = 0; th < num_threads; th++) {
                     avg_loss += thread_local_networks.at(th)->get_loss();
                 }
+                avg_loss /= num_threads;
             }
 
             std::cout << "]" << std::endl;
