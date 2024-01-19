@@ -539,7 +539,7 @@ namespace MiniDNN {
 
                 // Recompute average loss for the next loop
                 avg_loss = 0;
-                for (int th = 0; th < num_threads; th++) {
+                for (int th = 0; th < current_parallelism; th++) {
                     avg_loss += thread_local_networks.at(th)->get_loss();
                 }
                 avg_loss /= num_threads;
