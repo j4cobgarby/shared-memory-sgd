@@ -12,6 +12,10 @@
 #include <NetworkExecutor.h>
 
 #include "cifar10_reader.hpp"
+<<<<<<< HEAD
+#include "cifar100_reader.hpp"
+=======
+>>>>>>> ea21645c5d1a90059eb0f04bc7b8f038b4786519
 
 using namespace MiniDNN;
 
@@ -240,11 +244,20 @@ int main(int argc, char *argv[]) {
     int in_dim_y;
     int in_no_chs;
 
+<<<<<<< HEAD
+    int num_outputs;
+
+=======
+>>>>>>> ea21645c5d1a90059eb0f04bc7b8f038b4786519
     if (use_dataset == "CIFAR10") {
 
         in_dim_x = 32;
         in_dim_y = 32;
         in_no_chs = 3;
+<<<<<<< HEAD
+        num_outputs = 10;
+=======
+>>>>>>> ea21645c5d1a90059eb0f04bc7b8f038b4786519
 
         auto DATASET = cifar::read_dataset<std::vector, std::vector, double, double>();
 
@@ -271,11 +284,57 @@ int main(int argc, char *argv[]) {
             else
                 std::cout << "Label value error: " << T << std::endl;
         }
+<<<<<<< HEAD
+    } else if (use_dataset == "CIFAR100") {
+        const bool use_fine_labels = true;
+        const unsigned n_labels = use_fine_labels ? 100 : 20;
+
+        in_dim_x = 32;
+        in_dim_y = 32;
+        in_no_chs = 3;
+        num_outputs = n_labels;
+
+        cifar::CIFAR100_dataset dset;
+
+        cifar::read_cifar100_file(dset.training_images, dset.training_labels, "data/cifar-100/train.bin", use_fine_labels);
+        cifar::read_cifar100_file(dset.test_images, dset.test_labels, "data/cifar-100/test.bin", use_fine_labels);
+
+        long n_training = dset.training_images.size();
+        long img_n_vals = dset.training_images.at(0).size();
+        assert(img_n_vals == 3072);
+
+        typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> Matrix;
+        typedef Eigen::Matrix<double, Eigen::Dynamic, 1> Vector;
+
+        x = Matrix::Zero(img_n_vals, n_training); // One column per training img, one row per pixel
+
+        // Copy data from dataset into matrix
+        for (int i = 0; i < n_training; i++) {
+            x.col(i) = Vector::Map(&dset.training_images[i][0], dset.training_images[i].size());
+        }
+
+        x /= 255;
+        y = Matrix::Zero(n_labels, n_training);
+
+        for (int i = 0; i < n_training; i++) {
+            int lbl = dset.training_labels.at(i);
+            if (lbl < 0 || lbl >= n_labels) {
+                std::cout << "Label error (" << lbl << ")\n";
+            } else {
+                y(lbl, i) = 1;
+            }
+        }
+=======
+>>>>>>> ea21645c5d1a90059eb0f04bc7b8f038b4786519
     } else {
 
         in_dim_x = 28;
         in_dim_y = 28;
         in_no_chs = 1;
+<<<<<<< HEAD
+        num_outputs = 10;
+=======
+>>>>>>> ea21645c5d1a90059eb0f04bc7b8f038b4786519
 
         std::string data_dir;
         if (use_dataset == "MNIST") {
@@ -301,7 +360,7 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < num_hidden_layers - 1; i++) {
             network.add_layer(new FullyConnected<ReLU>(num_hidden_units, num_hidden_units));
         }
-        network.add_layer(new FullyConnected<Softmax>(num_hidden_units, 10));
+        network.add_layer(new FullyConnected<Softmax>(num_hidden_units, num_outputs));
     } else if (use_arch == ARCHITECTURE::CNN) {
 
         network.add_layer(new Convolutional<ReLU>(28, 28, 1, 4, 3, 3));

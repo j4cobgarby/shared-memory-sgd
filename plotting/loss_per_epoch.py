@@ -43,7 +43,7 @@ def plot_all_json_files():
     fig, ax = plt.subplots(1, 1, figsize=(8, 4))
     twinaxis = ax.twinx()
     twinaxis.legend(loc='upper left')
-    twinaxis.set_ylim([0, 60])
+    twinaxis.set_ylim([0, 300])
     twinaxis.set_ylabel('Parallelism (m)')
     
 
