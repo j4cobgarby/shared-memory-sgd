@@ -12,10 +12,7 @@
 #include <NetworkExecutor.h>
 
 #include "cifar10_reader.hpp"
-<<<<<<< HEAD
 #include "cifar100_reader.hpp"
-=======
->>>>>>> ea21645c5d1a90059eb0f04bc7b8f038b4786519
 
 using namespace MiniDNN;
 
@@ -244,20 +241,14 @@ int main(int argc, char *argv[]) {
     int in_dim_y;
     int in_no_chs;
 
-<<<<<<< HEAD
     int num_outputs;
 
-=======
->>>>>>> ea21645c5d1a90059eb0f04bc7b8f038b4786519
     if (use_dataset == "CIFAR10") {
 
         in_dim_x = 32;
         in_dim_y = 32;
         in_no_chs = 3;
-<<<<<<< HEAD
         num_outputs = 10;
-=======
->>>>>>> ea21645c5d1a90059eb0f04bc7b8f038b4786519
 
         auto DATASET = cifar::read_dataset<std::vector, std::vector, double, double>();
 
@@ -284,7 +275,6 @@ int main(int argc, char *argv[]) {
             else
                 std::cout << "Label value error: " << T << std::endl;
         }
-<<<<<<< HEAD
     } else if (use_dataset == "CIFAR100") {
         const bool use_fine_labels = true;
         const unsigned n_labels = use_fine_labels ? 100 : 20;
@@ -324,17 +314,12 @@ int main(int argc, char *argv[]) {
                 y(lbl, i) = 1;
             }
         }
-=======
->>>>>>> ea21645c5d1a90059eb0f04bc7b8f038b4786519
     } else {
 
         in_dim_x = 28;
         in_dim_y = 28;
         in_no_chs = 1;
-<<<<<<< HEAD
         num_outputs = 10;
-=======
->>>>>>> ea21645c5d1a90059eb0f04bc7b8f038b4786519
 
         std::string data_dir;
         if (use_dataset == "MNIST") {
@@ -384,6 +369,14 @@ int main(int argc, char *argv[]) {
 
             network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
 
+        } else if (use_dataset == "CIFAR100") {
+            network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
+            network.add_layer(new MaxPooling<ReLU>(28, 28, 6, 2, 2));
+
+            network.add_layer(new Convolutional<ReLU>(14, 14, 6, 16, 5, 5));
+            network.add_layer(new MaxPooling<ReLU>(10, 10, 16, 2, 2));
+
+            network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
         } else if (use_dataset == "MNIST" || use_dataset == "FASHION-MNIST") {
 
             network.add_layer(new Convolutional<ReLU>(28, 28, 1, 6, 5, 5));
