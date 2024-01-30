@@ -347,7 +347,7 @@ int main(int argc, char *argv[]) {
         }
         network.add_layer(new FullyConnected<Softmax>(num_hidden_units, num_outputs));
     } else if (use_arch == ARCHITECTURE::CNN) {
-
+        std::cout << "CNN Arch used\n";
         network.add_layer(new Convolutional<ReLU>(28, 28, 1, 4, 3, 3));
         network.add_layer(new MaxPooling<ReLU>(26, 26, 4, 2, 2));
 
@@ -360,7 +360,7 @@ int main(int argc, char *argv[]) {
     } else if (use_arch == ARCHITECTURE::LENET) {
 
         if (use_dataset == "CIFAR10") {
-
+            std::cout << "We're using CIFAR10 with LENET arch\n";
             network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
             network.add_layer(new MaxPooling<ReLU>(28, 28, 6, 2, 2));
 
@@ -370,6 +370,7 @@ int main(int argc, char *argv[]) {
             network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
 
         } else if (use_dataset == "CIFAR100") {
+            std::cout << "We're using CIFAR100 with LENET arch\n";
             network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
             network.add_layer(new MaxPooling<ReLU>(28, 28, 6, 2, 2));
 
@@ -389,7 +390,7 @@ int main(int argc, char *argv[]) {
 
         }
 
-        network.add_layer(new FullyConnected<Softmax>(120, 10));
+        network.add_layer(new FullyConnected<Softmax>(120, num_outputs));
 
     }
 
