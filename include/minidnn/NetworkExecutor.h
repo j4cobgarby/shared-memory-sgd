@@ -376,8 +376,12 @@ namespace MiniDNN {
                 if (id >= current_parallelism) {
                     return;
                 }
+
+                std::cout << "I am running!\n";
+                int iters = 0;
                 
                 while (true) {
+                    iters++;
                     // std::cout << id << ") iteration counter = " << local_iterations << std::endl;
                     if (local_iterations != -1 && local_iterations-- <= 0) break;
                     
@@ -394,6 +398,7 @@ namespace MiniDNN {
 
                     // termination criterion
                     if (local_step >= num_epochs * rounds_per_epoch) {
+                        std::cout << "I'm exiting after " << iters <<  " iterations\n";
                         break;
                     }
 
