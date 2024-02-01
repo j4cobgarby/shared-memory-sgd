@@ -252,6 +252,7 @@ int main(int argc, char *argv[]) {
 
         auto DATASET = cifar::read_dataset<std::vector, std::vector, double, double>();
 
+        std::cout << "Loaded CIFAR10 dset" << std::endl;
         long n_train = DATASET.training_images.size(); // 50K
         long dim_in = DATASET.training_images[0].size(); // 3072
 
@@ -286,6 +287,7 @@ int main(int argc, char *argv[]) {
 
         cifar::CIFAR100_dataset dset;
 
+        std::cout << "Reading cifar100 dset" << std::endl;
         cifar::read_cifar100_file(dset.training_images, dset.training_labels, "data/cifar-100/train.bin", use_fine_labels);
         cifar::read_cifar100_file(dset.test_images, dset.test_labels, "data/cifar-100/test.bin", use_fine_labels);
 

@@ -506,8 +506,11 @@ namespace MiniDNN {
 
                     std::cout << "{\"time\": " << (double)(probe_start.tv_sec - start_time.tv_sec) + (double)(probe_start.tv_usec - start_time.tv_usec)/1000000 << ", \"m\": " << current_parallelism << ", \"probing\": true}," << std::endl;
 
+                    std::cout <<"Starting workers" << std::endl;
                     workers.start_all();
+                    std::cout << "Waiting for workers" << std::endl;
                     workers.wait_for_all();
+                    std::cout << "Workers returned" << std::endl;
 
                     gettimeofday(&probe_end, NULL);
                     double probe_elapsed = (double)(probe_end.tv_usec - probe_start.tv_usec)/1000000;

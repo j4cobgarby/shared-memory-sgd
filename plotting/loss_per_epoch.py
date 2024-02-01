@@ -24,6 +24,7 @@ def plot_parallelism(ax, mlist_data, label):
 def read_json(file_path):
     with open(file_path, 'r') as file:
         data = json.load(file)
+        print(f"data = {data}")
         return data['epoch_loss'], data['epoch_time'], data['staleness_dist']
 
 def read_mlist(file_path):
@@ -43,7 +44,7 @@ def plot_all_json_files():
     fig, ax = plt.subplots(1, 1, figsize=(8, 4))
     twinaxis = ax.twinx()
     twinaxis.legend(loc='upper left')
-    twinaxis.set_ylim([0, 300])
+    twinaxis.set_ylim([0, 100])
     twinaxis.set_ylabel('Parallelism (m)')
     
 
