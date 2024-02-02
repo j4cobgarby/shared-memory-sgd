@@ -479,6 +479,8 @@ namespace MiniDNN {
 
             ThreadPool workers(num_threads, jobs);
 
+            std::cout << "Set up worker pool\n";
+
             num_iterations = probing_duration;
 
             // Wait for all workers to be ready to go

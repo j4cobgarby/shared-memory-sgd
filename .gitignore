@@ -34,4 +34,5 @@ data/cifar-100
 *.out
 *.app
 cmake-build-debug
+cmake-build
 .cache
