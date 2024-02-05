@@ -14,6 +14,8 @@
 #include "cifar10_reader.hpp"
 #include "cifar100_reader.hpp"
 
+#include <jsoncons/json.hpp>
+
 using namespace MiniDNN;
 
 int rand_seed = 1337;
@@ -63,6 +65,12 @@ std::ostream &operator<<(typename std::enable_if<std::is_enum<T>::value, std::os
 }
 
 int main(int argc, char *argv[]) {
+    std::vector<double> my_vec = {1, 2, 5.3, 231.23, 5.231, 3.141, -23, 0.0001};
+    std::vector<double> vec2 = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5};
+    std::map<std::string, std::vector<double>> mymap = {{"vector1", my_vec}, {"vector2", vec2}};
+    std::string s;
+    jsoncons::encode_json(mymap, s, jsoncons::indenting::indent);
+    std::cout << s << std::endl;
 
     struct option long_options[] = {
             // These options don't set a flag
@@ -444,7 +452,7 @@ int main(int argc, char *argv[]) {
             executor.run_parallel_leashed(batch_size, num_epochs, rounds_per_epoch, cas_backoff, check_concurrent_updates, rand_seed);
             break;
         case ALGORITHM::ELASYNC:
-            std::cout << "elasyncsgd with window = " << probing_window << ", interval = " << probing_interval << ", duration = " << probing_duration << ", m_0 = " << initial_parallelism << std::endl;
+            std::cout << "elasyncsgd with window = " << probing_window << ", interval = " << probing_interval << ", duration = " << probing_duration << ", m_0 = " << initial_parallelism << " rounds_per_epoch = " << rounds_per_epoch << std::endl;
             executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed);
             break;
         default:
@@ -464,6 +472,13 @@ int main(int argc, char *argv[]) {
     auto epoch_times = executor.get_times_per_epoch();
     auto tau_dist = executor.get_tau_dist();
     auto num_tries_dist = executor.get_num_tries_dist();
+ 
+    std::map<std::string, std::vector<double>> out_map = {
+        {"epoch_loss", epoch_losses},
+        {"epoch_time", epoch_times},
+        {"staleness_dist", tau_dist},
+        {"numtriesdist", num_tries_dist},
+    };
 
     std::cout << "{";
 

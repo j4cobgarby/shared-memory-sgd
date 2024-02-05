@@ -30,12 +30,10 @@ namespace MiniDNN {
         NetworkTopology *net;
         Scalar loss = 0;
         std::vector<Scalar> loss_per_epoch;
-        std::vector<time_t> time_per_epoch;
-
-        Scalar loss_ema; // exponential moving average of loss
+        std::vector<double> time_per_epoch;
 
         int tau_threshold = 200;
-        std::vector<long> tau_dist;
+        std::vector<double> tau_dist;
 
         // adaptation amplitude when using the TAIL step size function
         float adaptation_amplitude = 1.0;
@@ -47,7 +45,7 @@ namespace MiniDNN {
         std::vector<float> tail_dist; // tail distribution (CDF)
         bool tail_dist_finished = false; // indicates wether the tail distribution has been computed yet
 
-        std::vector<long> num_tries_dist;
+        std::vector<double> num_tries_dist;
 
         std::string tauadaptstrat;
         double base_stepsize;
@@ -92,15 +90,15 @@ namespace MiniDNN {
             return loss_per_epoch.back();
         }
 
-        std::vector<time_t> &get_times_per_epoch() {
+        std::vector<double> &get_times_per_epoch() {
             return time_per_epoch;
         }
 
-        std::vector<long> &get_tau_dist() {
+        std::vector<double> &get_tau_dist() {
             return tau_dist;
         }
 
-        std::vector<long> &get_num_tries_dist() {
+        std::vector<double> &get_num_tries_dist() {
             return num_tries_dist;
         }
 
@@ -114,8 +112,8 @@ namespace MiniDNN {
             tail_dist_finished = true;
         }
 
-        void compute_loss_ema(float alpha) {
-            loss_ema = alpha * get_last_epoch_loss() + (1 - alpha) * loss_ema;
+        double compute_loss_ema(double acc, double this_loss, double alpha) {
+            return alpha * this_loss + (1 - alpha) * acc;
         }
 
         float get_stepsize_scaling_factor(int staleness, const std::string& strategy) {
@@ -329,7 +327,11 @@ namespace MiniDNN {
             std::vector<NetworkTopology *> thread_local_networks(num_threads);
             std::vector<MultiClassEntropy *> thread_local_outputs(num_threads);
 
-            unsigned int current_parallelism = m_0 < 0 ? num_threads : m_0;
+            unsigned int current_parallelism = m_0 < 0 ? num_threads / 2 : m_0;
+
+            /* Exponential moving average of change in loss of each thread */
+            std::vector<double> thread_gradients(num_threads, 0.0);
+            std::vector<double> thread_prev_losses(num_threads, NAN);
 
             ParameterContainer *global_param = net->current_param_container_ptr;
 
@@ -341,6 +343,7 @@ namespace MiniDNN {
 
             if (rounds_per_epoch < 0) {
                 rounds_per_epoch = nbatch;
+                std::cout << "Rounds per epoch set to " << rounds_per_epoch << std::endl;
             }
 
             std::mutex mtx; // for accessing the shared network object
@@ -425,6 +428,13 @@ namespace MiniDNN {
                     thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
                     const Scalar loss = thread_local_networks[id]->get_loss();
 
+                    double &grad_ema = thread_gradients[id];
+                    double &prev_loss = thread_prev_losses[id];
+
+                    if (prev_loss == NAN) prev_loss = loss;
+
+                    grad_ema = compute_loss_ema(grad_ema, loss - prev_loss, 0.3);
+
                     //std::cerr << id << ": [Epoch " << epoch << "] Loss = " << loss << std::endl;
 
                     // add loss to thread local epoch loss sum
@@ -492,6 +502,17 @@ namespace MiniDNN {
             double avg_loss = 1.0;
 
             while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
+                avg_loss = 0;
+                for (int th = 0; th < current_parallelism; th++) {
+                    avg_loss += thread_local_networks.at(th)->get_loss();
+                }
+                avg_loss /= num_threads;
+
+                /* Here, all threads are not running.
+                 * We want to get the loss trend over the previous execution phase.
+                 * In the previous iteration, there should be `probing_interval` training steps.
+                 */
+                
                 num_iterations = probing_duration;
                 double best_loss = std::numeric_limits<double>::infinity();
 
@@ -547,12 +568,6 @@ namespace MiniDNN {
                 workers.start_all();
                 workers.wait_for_all();
 
-                // Recompute average loss for the next loop
-                avg_loss = 0;
-                for (int th = 0; th < current_parallelism; th++) {
-                    avg_loss += thread_local_networks.at(th)->get_loss();
-                }
-                avg_loss /= num_threads;
             }
 
             std::cout << "]" << std::endl;
@@ -673,6 +688,7 @@ namespace MiniDNN {
                     thread_local_networks[id]->forward(x_batches[batch_index]);
                     thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
                     const Scalar loss = thread_local_networks[id]->get_loss();
+
 
                     //std::cerr << id << ": [Epoch " << epoch << "] Loss = " << loss << std::endl;
 
