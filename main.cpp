@@ -480,6 +480,12 @@ int main(int argc, char *argv[]) {
         {"numtriesdist", num_tries_dist},
     };
 
+    std::string json_out;
+    jsoncons::encode_json(out_map, json_out, jsoncons::indenting::indent);
+    std::cout << json_out << std::endl;
+
+    std::cout << "===============" << std::endl;
+
     std::cout << "{";
 
     std::cout << "\"epoch_loss\": [ ";
