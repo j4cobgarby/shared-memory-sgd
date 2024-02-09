@@ -29,8 +29,9 @@ namespace MiniDNN {
         // otherwise reference to m_default_rng
         NetworkTopology *net;
         Scalar loss = 0;
+        Scalar prev_loss = NAN;
         std::vector<Scalar> loss_per_epoch;
-        std::vector<double> time_per_epoch;
+        std::vector<long> time_per_epoch;
 
         int tau_threshold = 200;
         std::vector<double> tau_dist;
@@ -54,6 +55,11 @@ namespace MiniDNN {
         int arch_id;  // 0: MLP, 1: CNN
 
         int max_staleness = 199;
+
+        std::vector<double> loss_grads;
+        std::vector<double> loss_grad_times;
+        std::vector<double> m_times;
+        std::vector<int> m_values;
 
     public:
 
@@ -82,6 +88,14 @@ namespace MiniDNN {
             return loss;
         }
 
+        std::vector<double> &get_loss_grads() {
+            return loss_grads;
+        }
+
+        std::vector<double> &get_loss_grad_times() {
+            return loss_grad_times;
+        }
+
         std::vector<Scalar> &get_losses_per_epoch() {
             return loss_per_epoch;
         }
@@ -90,7 +104,7 @@ namespace MiniDNN {
             return loss_per_epoch.back();
         }
 
-        std::vector<double> &get_times_per_epoch() {
+        std::vector<long> &get_times_per_epoch() {
             return time_per_epoch;
         }
 
@@ -100,6 +114,14 @@ namespace MiniDNN {
 
         std::vector<double> &get_num_tries_dist() {
             return num_tries_dist;
+        }
+
+        std::vector<double> &get_m_times() {
+            return m_times;
+        }
+
+        std::vector<int> &get_m_values() {
+            return m_values;
         }
 
         void compute_tail_dist() {
@@ -302,13 +324,15 @@ namespace MiniDNN {
             loss /= num_threads;
         }
 
-        // Based on model's internal state, uses heuristics to determine a window
-        // size and skew for the next probing phase.
-        // window = the default window size, which we want to scale
-        // scaled_size = output variable for the new size of the window
-        // skew = output variable for how much the window is skewed (start and
-        //        end points of window are shifted by skew)
-        void heuristic_next_window_size_multiplier(int window, int &scaled_size, int &skew) {
+        void update_loss_grad(double this_loss, struct timeval &start_time) {
+            if (std::isnan(prev_loss)) prev_loss = this_loss;
+            double prev_grad_ema = loss_grads.empty() ? 0 : loss_grads.back();
+            double to_push = compute_loss_ema(prev_grad_ema, this_loss - prev_loss, 0.3); 
+            loss_grads.push_back(to_push);
+
+            struct timeval now;
+            gettimeofday(&now, NULL);
+            loss_grad_times.push_back((double)(now.tv_sec - start_time.tv_sec) + (double)(now.tv_usec - start_time.tv_usec)/1000000);
         }
 
         void run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed = -1, bool use_lock=true) {
@@ -327,11 +351,7 @@ namespace MiniDNN {
             std::vector<NetworkTopology *> thread_local_networks(num_threads);
             std::vector<MultiClassEntropy *> thread_local_outputs(num_threads);
 
-            unsigned int current_parallelism = m_0 < 0 ? num_threads / 2 : m_0;
-
-            /* Exponential moving average of change in loss of each thread */
-            std::vector<double> thread_gradients(num_threads, 0.0);
-            std::vector<double> thread_prev_losses(num_threads, NAN);
+            int current_parallelism = m_0 < 0 ? num_threads / 2 : m_0;
 
             ParameterContainer *global_param = net->current_param_container_ptr;
 
@@ -380,7 +400,6 @@ namespace MiniDNN {
                     return;
                 }
 
-                std::cout << "I am running!\n";
                 int iters = 0;
                 
                 while (true) {
@@ -401,7 +420,6 @@ namespace MiniDNN {
 
                     // termination criterion
                     if (local_step >= num_epochs * rounds_per_epoch) {
-                        std::cout << "I'm exiting after " << iters <<  " iterations\n";
                         break;
                     }
 
@@ -428,12 +446,6 @@ namespace MiniDNN {
                     thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
                     const Scalar loss = thread_local_networks[id]->get_loss();
 
-                    double &grad_ema = thread_gradients[id];
-                    double &prev_loss = thread_prev_losses[id];
-
-                    if (prev_loss == NAN) prev_loss = loss;
-
-                    grad_ema = compute_loss_ema(grad_ema, loss - prev_loss, 0.3);
 
                     //std::cerr << id << ": [Epoch " << epoch << "] Loss = " << loss << std::endl;
 
@@ -471,11 +483,7 @@ namespace MiniDNN {
                         gettimeofday(&now, NULL);
 
                         epoch_time_vector_lock.lock();
-                        if (!time_per_epoch.empty()) {
-                            if (time_per_epoch.back() > now.tv_sec)
-                                std::cout << "WARNING: inconsistent epoch time values" << std::endl;
-                        }
-                        time_per_epoch.push_back(now.tv_sec);
+                        time_per_epoch.push_back(now.tv_sec - start_time.tv_sec);
                         epoch_time_vector_lock.unlock();
                     }
                 }
@@ -496,59 +504,77 @@ namespace MiniDNN {
             // Wait for all workers to be ready to go
             workers.wait_for_all(); 
 
-            std::cout << "[" << std::endl;
-
             long curr_step;
             double avg_loss = 1.0;
 
             while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
-                avg_loss = 0;
-                for (int th = 0; th < current_parallelism; th++) {
-                    avg_loss += thread_local_networks.at(th)->get_loss();
-                }
-                avg_loss /= num_threads;
-
                 /* Here, all threads are not running.
                  * We want to get the loss trend over the previous execution phase.
                  * In the previous iteration, there should be `probing_interval` training steps.
                  */
-                
+
                 num_iterations = probing_duration;
                 double best_loss = std::numeric_limits<double>::infinity();
 
-                int scaled_window = window * std::min(avg_loss, 2.0); // Don't scale the window to any more than 2x original
+                // int scaled_window = window * std::min(avg_loss, 2.0); // Don't scale the window to any more than 2x original
+                int scaled_window = window; // Don't scale the window at all
                 int best_m = -1;
                 unsigned m_last = current_parallelism;
 
-                // std::cout << "Avg loss after last training = " << avg_loss << "Scaled window size = " << scaled_window << std::endl;
+                int window_skew;
+                if (loss_grads.empty()) {
+                    window_skew = 0;
+                } else {
+                    // If our loss is getting better, then we can try pushing the window
+                    // up, to try some more aggressive parallelism.
+                    // If it's getting worse, then maybe the async induced noise is getting
+                    // too much, so try skewing the window down.
+                    window_skew = loss_grads.back() * -200;
+                    std::cout << "Skewing window by " << window_skew << std::endl;
+                }
+
+                // Contruct top and bottom of window. If the window would ordinarily go off the "screen",
+                // then shift it down so that it touches the top.
+                int window_top = m_last + scaled_window/2 + window_skew;
+                if (window_top >= num_threads) window_top = num_threads - 1;
+                int window_btm = window_top - scaled_window;
+                if (window_btm < 1) {
+                    window_btm = 1;
+                    window_top = window_btm + scaled_window;
+                }
+
+                std::cout << "m_last = " << m_last << "\n";
+                std::cout << "Window = ["<<window_btm << ", " << window_top << "]\n";
 
                 // Run a probing phase for each m in the m-window
-                for (int m_diff = -scaled_window/2; m_diff <= scaled_window/2; m_diff++) {
-                    current_parallelism = m_last + m_diff;
+                for (int m = window_btm; m <= window_top; m++) {
+                    current_parallelism = m;
+                    std::cout << "current_parallelism == " << current_parallelism << std::endl;
                     
-                    if (current_parallelism > num_threads) break;
+                    if (current_parallelism >= num_threads) break;
                     if (current_parallelism < 1) continue;
                     
                     struct timeval probe_start, probe_end;
                     gettimeofday(&probe_start, NULL);
 
-                    std::cout << "{\"time\": " << (double)(probe_start.tv_sec - start_time.tv_sec) + (double)(probe_start.tv_usec - start_time.tv_usec)/1000000 << ", \"m\": " << current_parallelism << ", \"probing\": true}," << std::endl;
+                    m_values.push_back(current_parallelism);
+                    m_times.push_back((double)(probe_start.tv_sec - start_time.tv_sec) + (double)(probe_start.tv_usec - start_time.tv_usec)/1000000); 
 
-                    std::cout <<"Starting workers" << std::endl;
                     workers.start_all();
-                    std::cout << "Waiting for workers" << std::endl;
                     workers.wait_for_all();
-                    std::cout << "Workers returned" << std::endl;
 
                     gettimeofday(&probe_end, NULL);
                     double probe_elapsed = (double)(probe_end.tv_usec - probe_start.tv_usec)/1000000;
-                
+
                     double loss = 0;
                     for (int i = 0; i < current_parallelism; i++) {
                         loss += thread_local_networks[i]->get_loss();
                     }
                     loss /= current_parallelism; // average los of each model
                     // loss *= probe_elapsed; // shorter elapsed time -> lower `loss` -> better "score"
+                    
+                    update_loss_grad(loss, start_time);
+                    prev_loss = loss;
 
                     if (loss < best_loss) {
                         best_loss = loss;
@@ -559,18 +585,35 @@ namespace MiniDNN {
                 // After probing, run normal async execution for a while
                 current_parallelism = best_m;
 
+                std::cout << "<execution> current_parallelism == " << current_parallelism << std::endl;
+
                 struct timeval now;
                 gettimeofday(&now, NULL);
 
-                std::cout << "{\"time\": " << (double)(now.tv_sec - start_time.tv_sec) + (double)(now.tv_usec - start_time.tv_usec)/1000000 << ", \"m\": " << current_parallelism << ", \"probing\": false}," << std::endl;
+                m_values.push_back(current_parallelism);
+                m_times.push_back((double)(now.tv_sec - start_time.tv_sec) + (double)(now.tv_usec - start_time.tv_usec)/1000000); 
 
                 num_iterations = probing_interval;
                 workers.start_all();
                 workers.wait_for_all();
 
+                avg_loss = 0;
+                for (int th = 0; th < current_parallelism; th++) {
+                    avg_loss += thread_local_networks.at(th)->get_loss();
+                }
+                avg_loss /= num_threads;
+
+                update_loss_grad(avg_loss, start_time);
+                prev_loss = avg_loss;
+
+                // double &grad_ema = thread_gradients[id];
+                // double &prev_loss = thread_prev_losses[id];
+                //
+                // if (prev_loss == NAN) prev_loss = loss;
+                //
+                // grad_ema = compute_loss_ema(grad_ema, loss - prev_loss, 0.3);
             }
 
-            std::cout << "]" << std::endl;
         
             workers.stop();
 
