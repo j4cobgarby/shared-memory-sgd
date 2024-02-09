@@ -4,6 +4,9 @@ import json
 import os
 import matplotlib.pyplot as plt
 import matplotlib.colors as cols
+from matplotlib.cm import get_cmap
+
+import numpy as np
 
 def plot_files(files):
     fig, ax1 = plt.subplots(figsize=(8, 5), layout='constrained')
@@ -20,18 +23,19 @@ def plot_files(files):
     ax2.set_ylabel("Parallelism")
     ax3.set_ylabel("Change in loss since previous execution phase")
 
+    ax1.set_prop_cycle(color=get_cmap('Set1').colors)
+    ax2.set_prop_cycle(color=get_cmap('Set2').colors)
+    ax3.set_prop_cycle(color=get_cmap('tab10').colors)
+
     plots = []
 
     for fn in files:
         with open(fn, 'r') as file:
             dat = json.load(file)
 
-            plots.append(ax1.plot(dat['epoch_time'], dat['epoch_loss'], color='red', label="Loss"))
-            plots.append(ax2.step(
-                dat['mlist']['time'], dat['mlist']['m'], color='green', label="Parallelism"
-            ))
-            #plots.append(ax2.plot(dat['mlist']['time'], dat['mlist']['m'], color='green', label="Parallelism"))
-            plots.append(ax3.plot(dat['lossgrad']['time'], dat['lossgrad']['grad'], color='blue', label="Delta Loss"))
+            plots.append(ax1.plot(dat['epoch_time'], dat['epoch_loss'], label=f"Loss ({fn})"))
+            plots.append(ax2.step(dat['mlist']['time'], dat['mlist']['m'], label=f"m ({fn})"))
+            plots.append(ax3.plot(dat['lossgrad']['time'], dat['lossgrad']['grad'], label=f"ΔLoss ({fn})"))
 
     lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
     lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
