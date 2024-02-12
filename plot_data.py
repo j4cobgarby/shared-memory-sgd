@@ -4,9 +4,11 @@ import json
 import os
 import matplotlib.pyplot as plt
 import matplotlib.colors as cols
-from matplotlib.cm import get_cmap
+import matplotlib
 
 import numpy as np
+
+import sys
 
 def plot_files(files):
     fig, ax1 = plt.subplots(figsize=(8, 5), layout='constrained')
@@ -23,9 +25,9 @@ def plot_files(files):
     ax2.set_ylabel("Parallelism")
     ax3.set_ylabel("Change in loss since previous execution phase")
 
-    ax1.set_prop_cycle(color=get_cmap('Set1').colors)
-    ax2.set_prop_cycle(color=get_cmap('Set2').colors)
-    ax3.set_prop_cycle(color=get_cmap('tab10').colors)
+    ax1.set_prop_cycle(color=matplotlib.colormaps['Set1'].colors)
+    ax2.set_prop_cycle(color=matplotlib.colormaps['Set1'].colors)
+    ax3.set_prop_cycle(color=matplotlib.colormaps['Pastel1'].colors)
 
     plots = []
 
@@ -33,9 +35,9 @@ def plot_files(files):
         with open(fn, 'r') as file:
             dat = json.load(file)
 
-            plots.append(ax1.plot(dat['epoch_time'], dat['epoch_loss'], label=f"Loss ({fn})"))
-            plots.append(ax2.step(dat['mlist']['time'], dat['mlist']['m'], label=f"m ({fn})"))
-            plots.append(ax3.plot(dat['lossgrad']['time'], dat['lossgrad']['grad'], label=f"ΔLoss ({fn})"))
+            plots.append(ax1.plot(dat['epoch_time'], dat['epoch_loss'], label=f"Loss ({fn})", marker='o', ms=3))
+            plots.append(ax2.step(dat['mlist']['time'], dat['mlist']['m'], '--', label=f"m ({fn})"))
+            plots.append(ax3.plot(dat['lossgrad']['time'], dat['lossgrad']['grad'], label=f"ΔLoss ({fn})", marker='o', ms=3))
 
     lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
     lines, labels = [sum(lol, []) for lol in zip(*lines_labels)]
@@ -48,6 +50,11 @@ def plot_files(files):
     plt.show()
 
 if __name__ == "__main__":
-    files = [f for f in os.listdir('.') if f.endswith('.json')]
+    if len(sys.argv) == 0:
+        files = [f for f in os.listdir('.') if f.endswith('.json')]
+        plot_files(files)
+    else:
+        exp_dir = sys.argv[1]
+        files = [exp_dir + "/" + f for f in os.listdir(exp_dir) if f.endswith('.json')]
+        plot_files(files)
 
-    plot_files(files)

@@ -1,0 +1,4 @@
+some terminology:
+
+in these subfolders, when alpha=xxx is in a filename, that refers to the value
+of alpha when calculating the smoothed delta-loss series
