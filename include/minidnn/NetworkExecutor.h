@@ -544,23 +544,26 @@ namespace MiniDNN {
                 //     window_top = window_btm + scaled_window;
                 // }
                 
-                int window_top = m_last + scaled_window/2;
-                int window_btm = window_top - (scaled_window - 1);
+                /* int window_top = m_last + scaled_window/2; */
+                /* int window_btm = window_top - (scaled_window - 1); */
+                int window_step = 8;
+                int window_btm = 1;
+                int window_top = num_threads - 1;
 
-                if (window_skew < 0) {
-                    window_btm -= window_skew;
-                } else {
-                    window_top += window_skew;
-                }
-
-                window_btm = window_btm < 1 ? 1 : window_btm;
-                window_top = window_top >= num_threads ? num_threads-1 : window_top;
+                /* if (window_skew < 0) { */
+                /*     window_btm -= window_skew; */
+                /* } else { */
+                /*     window_top += window_skew; */
+                /* } */
+                /**/
+                /* window_btm = window_btm < 1 ? 1 : window_btm; */
+                /* window_top = window_top >= num_threads ? num_threads-1 : window_top; */
 
                 std::cout << "m_last = " << m_last << "\n";
                 std::cout << "Window = ["<<window_btm << ", " << window_top << "]\n";
 
                 // Run a probing phase for each m in the m-window
-                for (int m = window_btm; m <= window_top; m++) {
+                for (int m = window_btm; m <= window_top; m += window_step) {
                     current_parallelism = m;
                     
                     if (current_parallelism >= num_threads) break;

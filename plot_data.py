@@ -17,7 +17,7 @@ def plot_files(files):
     ax3 = ax1.twinx()
 
     ax1.set_ylim(0, 3) # Model loss
-    ax2.set_ylim(0, 60) # Parallelism
+    # ax2.set_ylim(0, 60) # Parallelism
     #ax3.set_ylim(-1, 1) # Loss gradient (smoothed)
 
     ax1.set_xlabel("Time (seconds)")
@@ -36,7 +36,7 @@ def plot_files(files):
             dat = json.load(file)
 
             plots.append(ax1.plot(dat['epoch_time'], dat['epoch_loss'], label=f"Loss ({fn})", marker='o', ms=3))
-            plots.append(ax2.step(dat['mlist']['time'], dat['mlist']['m'], '--', label=f"m ({fn})"))
+            plots.append(ax2.step(dat['mlist']['time'], dat['mlist']['m'], '--', where='post', label=f"m ({fn})"))
             plots.append(ax3.plot(dat['lossgrad']['time'], dat['lossgrad']['grad'], label=f"ΔLoss ({fn})", marker='o', ms=3))
 
     lines_labels = [ax.get_legend_handles_labels() for ax in fig.axes]
