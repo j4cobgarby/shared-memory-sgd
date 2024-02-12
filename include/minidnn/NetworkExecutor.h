@@ -327,8 +327,9 @@ namespace MiniDNN {
         void update_loss_grad(double this_loss, struct timeval &start_time) {
             if (std::isnan(prev_loss)) prev_loss = this_loss;
             double prev_grad_ema = loss_grads.empty() ? 0 : loss_grads.back();
-            double to_push = compute_loss_ema(prev_grad_ema, this_loss - prev_loss, 0.3); 
-            loss_grads.push_back(to_push);
+            /* double to_push = compute_loss_ema(prev_grad_ema, this_loss - prev_loss, 0.3);  */
+            loss_grads.push_back(this_loss - prev_loss);
+            prev_loss = this_loss;
 
             struct timeval now;
             gettimeofday(&now, NULL);
@@ -502,7 +503,7 @@ namespace MiniDNN {
             num_iterations = probing_duration;
 
             // Wait for all workers to be ready to go
-            workers.wait_for_all(); 
+            workers.wait_for_all();
 
             long curr_step;
             double avg_loss = 1.0;
@@ -573,8 +574,8 @@ namespace MiniDNN {
                     loss /= current_parallelism; // average los of each model
                     // loss *= probe_elapsed; // shorter elapsed time -> lower `loss` -> better "score"
                     
-                    update_loss_grad(loss, start_time);
-                    prev_loss = loss;
+                    /* update_loss_grad(loss, start_time); */
+                    /* prev_loss = loss; */
 
                     if (loss < best_loss) {
                         best_loss = loss;
@@ -604,7 +605,6 @@ namespace MiniDNN {
                 avg_loss /= num_threads;
 
                 update_loss_grad(avg_loss, start_time);
-                prev_loss = avg_loss;
 
                 // double &grad_ema = thread_gradients[id];
                 // double &prev_loss = thread_prev_losses[id];
