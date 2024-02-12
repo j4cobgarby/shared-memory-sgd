@@ -134,10 +134,6 @@ namespace MiniDNN {
             tail_dist_finished = true;
         }
 
-        double compute_loss_ema(double acc, double this_loss, double alpha) {
-            return alpha * this_loss + (1 - alpha) * acc;
-        }
-
         float get_stepsize_scaling_factor(int staleness, const std::string& strategy) {
             if (staleness >> max_staleness)
                 staleness = max_staleness;
@@ -324,10 +320,14 @@ namespace MiniDNN {
             loss /= num_threads;
         }
 
+        double compute_loss_ema(double acc, double this_loss, double alpha) {
+            return alpha * this_loss + (1 - alpha) * acc;
+        }
+
         void update_loss_grad(double this_loss, struct timeval &start_time) {
             if (std::isnan(prev_loss)) prev_loss = this_loss;
             double prev_grad_ema = loss_grads.empty() ? 0 : loss_grads.back();
-            double to_push = compute_loss_ema(prev_grad_ema, this_loss - prev_loss, 0.3); 
+            double to_push = compute_loss_ema(prev_grad_ema, this_loss - prev_loss, 0.9); 
             loss_grads.push_back(to_push);
 
             struct timeval now;
@@ -529,19 +529,31 @@ namespace MiniDNN {
                     // up, to try some more aggressive parallelism.
                     // If it's getting worse, then maybe the async induced noise is getting
                     // too much, so try skewing the window down.
-                    window_skew = loss_grads.back() * -200;
+                    window_skew = loss_grads.back() * -20;
                     std::cout << "Skewing window by " << window_skew << std::endl;
                 }
 
                 // Contruct top and bottom of window. If the window would ordinarily go off the "screen",
                 // then shift it down so that it touches the top.
-                int window_top = m_last + scaled_window/2 + window_skew;
-                if (window_top >= num_threads) window_top = num_threads - 1;
-                int window_btm = window_top - scaled_window;
-                if (window_btm < 1) {
-                    window_btm = 1;
-                    window_top = window_btm + scaled_window;
+                // int window_top = m_last + scaled_window/2 + window_skew;
+                // if (window_top >= num_threads) window_top = num_threads - 1;
+                // int window_btm = window_top - scaled_window;
+                // if (window_btm < 1) {
+                //     window_btm = 1;
+                //     window_top = window_btm + scaled_window;
+                // }
+                
+                int window_top = m_last + scaled_window/2;
+                int window_btm = window_top - (scaled_window - 1);
+
+                if (window_skew < 0) {
+                    window_btm -= window_skew;
+                } else {
+                    window_top += window_skew;
                 }
+
+                window_btm = window_btm < 1 ? 1 : window_btm;
+                window_top = window_top >= num_threads ? num_threads-1 : window_top;
 
                 std::cout << "m_last = " << m_last << "\n";
                 std::cout << "Window = ["<<window_btm << ", " << window_top << "]\n";
@@ -573,8 +585,8 @@ namespace MiniDNN {
                     loss /= current_parallelism; // average los of each model
                     // loss *= probe_elapsed; // shorter elapsed time -> lower `loss` -> better "score"
                     
-                    update_loss_grad(loss, start_time);
-                    prev_loss = loss;
+                    //update_loss_grad(loss, start_time);
+                    //prev_loss = loss;
 
                     if (loss < best_loss) {
                         best_loss = loss;

@@ -58,6 +58,8 @@ ARCHITECTURE use_arch = ARCHITECTURE::MLP;
 std::string tauadaptstrat = "NONE";
 
 std::string use_dataset = "MNIST";
+std::string algo_name;
+std::string arch_name;
 
 template<typename T>
 std::ostream &operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type &stream, const T &e) {
@@ -99,9 +101,7 @@ int main(int argc, char *argv[]) {
             c = long_options[i].val;
 
         unsigned long algo_id = AlgoTypes.size() - 1;
-        std::string algo_name;
         arch_id = ArchTypes.size() - 1;
-        std::string arch_name;
 
         switch (c) {
             case 0:
@@ -475,8 +475,26 @@ int main(int argc, char *argv[]) {
     lossgrad["grad"] = executor.get_loss_grads();
     lossgrad["time"] = executor.get_loss_grad_times();
 
+    jsoncons::json meta;
+    meta["rand_seed"] = rand_seed;
+    meta["learning_rate"] = learning_rate;
+    meta["momentum"] = momentum_mu;
+    meta["num_threads"] = num_threads;
+    meta["batch_size"] = batch_size;
+    meta["num_epochs"] = num_epochs;
+    meta["run_n"] = run_n;
+    meta["probing_duration"] = probing_duration;
+    meta["probing_interval"] = probing_interval;
+    meta["probing_window"] = probing_window;
+    meta["intial_parallelism"] = initial_parallelism;
+    meta["dataset"] = use_dataset;
+    meta["tauadaptstrat"] = tauadaptstrat;
+    meta["arch"] = arch_name;
+    meta["algo"] = algo_name;
+
     out_json["mlist"] = mlist;
     out_json["lossgrad"] = lossgrad;
+    out_json["meta"] = meta;
  
     std::cerr << jsoncons::pretty_print(out_json) << std::endl;
 
