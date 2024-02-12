@@ -562,7 +562,6 @@ namespace MiniDNN {
                 // Run a probing phase for each m in the m-window
                 for (int m = window_btm; m <= window_top; m++) {
                     current_parallelism = m;
-                    std::cout << "current_parallelism == " << current_parallelism << std::endl;
                     
                     if (current_parallelism >= num_threads) break;
                     if (current_parallelism < 1) continue;
@@ -572,6 +571,7 @@ namespace MiniDNN {
 
                     m_values.push_back(current_parallelism);
                     m_times.push_back((double)(probe_start.tv_sec - start_time.tv_sec) + (double)(probe_start.tv_usec - start_time.tv_usec)/1000000); 
+                    std::cout << "current_parallelism == " << current_parallelism << std::endl;
 
                     workers.start_all();
                     workers.wait_for_all();

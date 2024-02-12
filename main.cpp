@@ -496,7 +496,7 @@ int main(int argc, char *argv[]) {
     out_json["lossgrad"] = lossgrad;
     out_json["meta"] = meta;
  
-    std::cerr << jsoncons::pretty_print(out_json) << std::endl;
+    std::cerr << out_json << std::endl;
 
     return 0;
 }

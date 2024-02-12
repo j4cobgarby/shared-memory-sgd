@@ -50,7 +50,7 @@ def plot_files(files):
     plt.show()
 
 if __name__ == "__main__":
-    if len(sys.argv) == 0:
+    if len(sys.argv) == 1:
         files = [f for f in os.listdir('.') if f.endswith('.json')]
         plot_files(files)
     else:
