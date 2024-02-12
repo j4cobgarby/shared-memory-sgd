@@ -65,13 +65,6 @@ std::ostream &operator<<(typename std::enable_if<std::is_enum<T>::value, std::os
 }
 
 int main(int argc, char *argv[]) {
-    std::vector<double> my_vec = {1, 2, 5.3, 231.23, 5.231, 3.141, -23, 0.0001};
-    std::vector<double> vec2 = {9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -1, -2, -3, -4, -5};
-    std::map<std::string, std::vector<double>> mymap = {{"vector1", my_vec}, {"vector2", vec2}};
-    std::string s;
-    jsoncons::encode_json(mymap, s, jsoncons::indenting::indent);
-    std::cout << s << std::endl;
-
     struct option long_options[] = {
             // These options don't set a flag
             {"help",                no_argument,       nullptr, 'h'},
@@ -467,79 +460,25 @@ int main(int argc, char *argv[]) {
 
     Scalar epoch_loss = executor.get_loss();
 
-    i = 0;
-    auto epoch_losses = executor.get_losses_per_epoch();
-    auto epoch_times = executor.get_times_per_epoch();
-    auto tau_dist = executor.get_tau_dist();
-    auto num_tries_dist = executor.get_num_tries_dist();
+    jsoncons::json out_json;
+
+    out_json["epoch_loss"] = executor.get_losses_per_epoch();  
+    out_json["epoch_time"] = executor.get_times_per_epoch(); 
+    out_json["staleness_dist"] = executor.get_tau_dist();
+    out_json["numtriesdist"] = executor.get_num_tries_dist();
+    
+    jsoncons::json mlist;
+    mlist["m"] = executor.get_m_values();
+    mlist["time"] = executor.get_m_times();
+
+    jsoncons::json lossgrad;
+    lossgrad["grad"] = executor.get_loss_grads();
+    lossgrad["time"] = executor.get_loss_grad_times();
+
+    out_json["mlist"] = mlist;
+    out_json["lossgrad"] = lossgrad;
  
-    std::map<std::string, std::vector<double>> out_map = {
-        {"epoch_loss", epoch_losses},
-        {"epoch_time", epoch_times},
-        {"staleness_dist", tau_dist},
-        {"numtriesdist", num_tries_dist},
-    };
-
-    std::string json_out;
-    jsoncons::encode_json(out_map, json_out, jsoncons::indenting::indent);
-    std::cout << json_out << std::endl;
-
-    std::cout << "===============" << std::endl;
-
-    std::cout << "{";
-
-    std::cout << "\"epoch_loss\": [ ";
-
-    bool frst = true;
-    for (float l : epoch_losses) {
-        if (!frst) {
-            std::cout << ", ";
-        }
-        frst = false;
-        std::cout << l;
-    }
-    std::cout << " ], ";
-
-    std::cout << "\"epoch_time\": [ ";
-
-    frst = true;
-    for (auto t : epoch_times) {
-        if (!frst) {
-            std::cout << ", ";
-        }
-        frst = false;
-        std::cout << (t - start.tv_sec);
-    }
-    std::cout << " ], ";
-
-    std::cout << "\"staleness_dist\": [ ";
-
-    frst = true;
-    for (long tau_count : tau_dist) {
-        if (!frst) {
-            std::cout << ", ";
-        }
-        frst = false;
-        std::cout << tau_count;
-    }
-    std::cout << " ], ";
-
-    std::cout << "\"numtriesdist\": [ ";
-
-    frst = true;
-    for (long num_tries_count : num_tries_dist) {
-        if (!frst) {
-            std::cout << ", ";
-        }
-        frst = false;
-        std::cout << num_tries_count;
-    }
-    std::cout << " ], ";
-
-    std::cout << "\"numfailedcas\": ";
-    std::cout << executor.failed_cas;
-
-    std::cout << "}";
+    std::cerr << jsoncons::pretty_print(out_json) << std::endl;
 
     return 0;
 }
