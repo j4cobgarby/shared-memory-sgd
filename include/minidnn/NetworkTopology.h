@@ -13,7 +13,6 @@
 #include "Utils/Random.h"
 #include "ParameterContainer.h"
 
-
 namespace MiniDNN {
 
 ///

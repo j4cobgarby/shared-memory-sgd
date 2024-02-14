@@ -420,7 +420,7 @@ int main(int argc, char *argv[]) {
 
     int algorithm_id = static_cast<int>(run_algo);
     int architecture_id = static_cast<int>(use_arch);
-    NetworkExecutor<Matrix, Matrix> executor(&network, opt, thread_local_opts, x, y, tauadaptstrat, num_threads, learning_rate, algorithm_id, architecture_id);
+    NetworkExecutor executor(&network, opt, thread_local_opts, x, y, tauadaptstrat, num_threads, learning_rate, algorithm_id, architecture_id);
 
 
     struct timeval start, end;
