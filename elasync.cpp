@@ -284,13 +284,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         avg_loss /= num_threads;
 
         update_loss_grad(avg_loss, start_time);
-
-        // double &grad_ema = thread_gradients[id];
-        // double &prev_loss = thread_prev_losses[id];
-        //
-        // if (prev_loss == NAN) prev_loss = loss;
-        //
-        // grad_ema = compute_loss_ema(grad_ema, loss - prev_loss, 0.3);
     }
 
 
