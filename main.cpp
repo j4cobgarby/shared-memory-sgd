@@ -33,7 +33,7 @@ int probing_window = 1;
 int initial_parallelism = -1;
 
 enum class ALGORITHM {
-    ASYNC, HOG, LSH, SEQ, SYNC, ELASYNC,
+    ASYNC, HOG, LSH, SEQ, SYNC, ELASYNC, SEMISYNC,
 };
 std::vector<std::string> AlgoTypes = {
         "ASYNC",
@@ -42,6 +42,7 @@ std::vector<std::string> AlgoTypes = {
         "SEQ",
         "SYNC",
         "ELASYNC",
+        "SEMISYNC",
 };
 ALGORITHM run_algo = ALGORITHM::SEQ;
 
@@ -448,6 +449,9 @@ int main(int argc, char *argv[]) {
             std::cout << "elasyncsgd with window = " << probing_window << ", interval = " << probing_interval << ", duration = " << probing_duration << ", m_0 = " << initial_parallelism << " rounds_per_epoch = " << rounds_per_epoch << std::endl;
             executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed);
             break;
+        case ALGORITHM::SEMISYNC:
+            std::cout << "Running semisync training\n";
+            executor.run_semisync(batch_size, num_epochs, rounds_per_epoch, start, rand_seed);
         default:
             printf("Use -h or --help for help\n");
             exit(1);
