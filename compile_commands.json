@@ -1,14 +1,1 @@
-[
-{
-  "directory": "/home/garby/Documents/code/cpp/shared-memory-sgd/cmake-build-debug",
-  "command": "/usr/bin/c++  -I/usr/local/opt/llvm/include -I/home/garby/Documents/code/cpp/shared-memory-sgd/include -I/home/garby/Documents/code/cpp/shared-memory-sgd/include/minidnn  -g -O3 -fopenmp -g -std=gnu++14 -o CMakeFiles/mininn.dir/main.cpp.o -c /home/garby/Documents/code/cpp/shared-memory-sgd/main.cpp",
-  "file": "/home/garby/Documents/code/cpp/shared-memory-sgd/main.cpp",
-  "output": "CMakeFiles/mininn.dir/main.cpp.o"
-},
-{
-  "directory": "/home/garby/Documents/code/cpp/shared-memory-sgd/cmake-build-debug",
-  "command": "/usr/bin/c++  -I/usr/local/opt/llvm/include -I/home/garby/Documents/code/cpp/shared-memory-sgd/include -I/home/garby/Documents/code/cpp/shared-memory-sgd/include/minidnn  -g -O3 -fopenmp -g -std=gnu++14 -o CMakeFiles/mininn.dir/mnist.cc.o -c /home/garby/Documents/code/cpp/shared-memory-sgd/mnist.cc",
-  "file": "/home/garby/Documents/code/cpp/shared-memory-sgd/mnist.cc",
-  "output": "CMakeFiles/mininn.dir/mnist.cc.o"
-}
-]
+cmake-build/compile_commands.json
