@@ -16,7 +16,7 @@ def plot_files(files):
     ax2 = ax1.twinx()
     ax3 = ax1.twinx()
 
-    ax1.set_ylim(0, 3) # Model loss
+    # ax1.set_ylim(0, 3) # Model loss
     # ax2.set_ylim(0, 60) # Parallelism
     #ax3.set_ylim(-1, 1) # Loss gradient (smoothed)
 

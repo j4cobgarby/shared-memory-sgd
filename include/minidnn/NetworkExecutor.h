@@ -1,6 +1,7 @@
 #ifndef NETWORKEXECUTOR_H_
 #define NETWORKEXECUTOR_H_
 
+#include <bits/types/struct_timeval.h>
 #include <stdlib.h>     /* exit, EXIT_FAILURE */
 #include <sys/select.h>
 
@@ -447,9 +448,6 @@ namespace MiniDNN {
                     thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
                     const Scalar loss = thread_local_networks[id]->get_loss();
 
-
-                    //std::cerr << id << ": [Epoch " << epoch << "] Loss = " << loss << std::endl;
-
                     // add loss to thread local epoch loss sum
                     local_losses_per_epoch[id][epoch] += loss;
 
@@ -652,8 +650,12 @@ namespace MiniDNN {
 
             std::cout << "Returning" << std::endl;
         }
+
+    void run_elastic_semisync(int batch_size, int num_epochs, int rounds_per_epoch, struct timeval start_time, int seed=-1) {
+
+    }
         
-        void run_parallel_async(int batch_size, int num_epochs, int rounds_per_epoch, int seed = -1, bool use_lock = false) {
+        void run_parallel_async(int batch_size, int num_epochs, int rounds_per_epoch, struct timeval start_time, int seed = -1, bool use_lock = false) {
 
             opt->reset();
 
@@ -754,7 +756,7 @@ namespace MiniDNN {
                     local_losses_per_epoch[id][epoch] += loss;
 
                     thread_local_networks[id]->set_pointer(global_param);
-                    
+
                     delete local_param;
 
                     if (use_lock)
