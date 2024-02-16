@@ -1,8 +1,11 @@
+#include <filesystem>
+#include <sstream>
 #include <unistd.h>
 #include <getopt.h>
 #include <iostream>
 #include <sys/time.h>
 #include <type_traits>
+#include <fstream>
 
 #include <MiniDNN.h>
 #include <mnist.h>
@@ -500,7 +503,17 @@ int main(int argc, char *argv[]) {
     out_json["lossgrad"] = lossgrad;
     out_json["meta"] = meta;
  
-    std::cerr << out_json << std::endl;
+    const std::filesystem::path exp_dir = "experiments";
+    std::filesystem::create_directory(exp_dir);
+
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    std::stringstream ss;
+    ss << exp_dir << "/" << std::put_time(&tm, "%d-%m-%Y;%H-%M-%S") << "-" << arch_name << "-" << algo_name << "-" << use_dataset << ".json";
+    std::ofstream out_file(ss.str());
+    out_file << out_json;
+
+    std::cout << "Saved as " << ss.str();
 
     return 0;
 }
