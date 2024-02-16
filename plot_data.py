@@ -53,10 +53,10 @@ if __name__ == "__main__":
     if len(sys.argv) == 1: # read all jsons in cwd
         files = [f for f in os.listdir('.') if f.endswith('.json')]
         plot_files(files)
-    elif len(sys.argv) == 2: # arg is a directory, read all jsons in it
-        exp_dir = sys.argv[1]
-        files = [exp_dir + "/" + f for f in os.listdir(exp_dir) if f.endswith('.json')]
-        plot_files(files)
+    # elif len(sys.argv) == 2: # arg is a directory, read all jsons in it
+    #     exp_dir = sys.argv[1]
+    #     files = [exp_dir + "/" + f for f in os.listdir(exp_dir) if f.endswith('.json')]
+    #     plot_files(files)
     else: # all args are (json) files
         plot_files(sys.argv[1:])
 
