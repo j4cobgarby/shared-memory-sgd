@@ -223,7 +223,7 @@ int main(int argc, char *argv[]) {
                 probing_window = atoi(optarg);
                 break;
             case 'i':
-                probing_interval = atoi(optarg);
+                probing_interval = atoi(optarg); // also sync interval for semisync
                 break;
             case 'd':
                 probing_duration = atoi(optarg);
@@ -459,7 +459,7 @@ int main(int argc, char *argv[]) {
             break;
         case ALGORITHM::SEMISYNC:
             std::cout << "Running semisync training\n";
-            executor.run_semisync(batch_size, num_epochs, rounds_per_epoch, start, rand_seed);
+            executor.run_semisync(batch_size, num_epochs, rounds_per_epoch, start, probing_interval, rand_seed);
             break;
         default:
             printf("Use -h or --help for help\n");

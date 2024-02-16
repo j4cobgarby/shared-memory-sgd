@@ -11,7 +11,7 @@ enum semisync_state {
     
 };
 
-void MiniDNN::NetworkExecutor::run_semisync(int batch_size, int num_epochs, int rounds_per_epoch, struct timeval start_time, int seed) {
+void MiniDNN::NetworkExecutor::run_semisync(int batch_size, int num_epochs, int rounds_per_epoch, struct timeval start_time, int sync_interval, int seed) {
     opt->reset();
     if (seed > 0) m_rng.seed(seed);
 
@@ -54,7 +54,8 @@ void MiniDNN::NetworkExecutor::run_semisync(int batch_size, int num_epochs, int 
     std::atomic<int> next_batch(0);
     std::atomic<long> step(0);
 
-    int num_iterations = 1024;
+    int num_iterations = sync_interval;
+    std::cout << "sync_interval: " << num_iterations << std::endl;
     std::atomic_flag should_stop = ATOMIC_FLAG_INIT;
 
     auto f = [&](int id) {
