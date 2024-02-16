@@ -54,7 +54,7 @@ void MiniDNN::NetworkExecutor::run_semisync(int batch_size, int num_epochs, int 
     std::atomic<int> next_batch(0);
     std::atomic<long> step(0);
 
-    int num_iterations = 64;
+    int num_iterations = 1024;
     std::atomic_flag should_stop = ATOMIC_FLAG_INIT;
 
     auto f = [&](int id) {
@@ -117,7 +117,7 @@ void MiniDNN::NetworkExecutor::run_semisync(int batch_size, int num_epochs, int 
                 mtx_time.unlock();
             }
         }
-        std::cout << "[" << id << "]" << "f() finished after " << i << " iterations\n";
+        // std::cout << "[" << id << "]" << "f() finished after " << i << " iterations\n";
     };
 
     std::vector<std::function<void(int id)>> jobs;

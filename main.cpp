@@ -510,8 +510,9 @@ int main(int argc, char *argv[]) {
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);
     std::stringstream ss;
-    ss << exp_dir << "/" << std::put_time(&tm, "%d-%m-%Y;%H-%M-%S") << "-" << arch_name << "-" << algo_name << "-" << use_dataset << ".json";
-    std::ofstream out_file(ss.str());
+    ss << std::put_time(&tm, "%d-%m-%Y;%H-%M-%S") << "-" << arch_name << "-" << algo_name << "-" << use_dataset << ".json";
+    std::filesystem::path filepath = exp_dir / ss.str();
+    std::ofstream out_file(filepath);
     out_file << out_json;
 
     std::cout << "Saved as " << ss.str();
