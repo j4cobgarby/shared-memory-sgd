@@ -452,6 +452,7 @@ int main(int argc, char *argv[]) {
         case ALGORITHM::SEMISYNC:
             std::cout << "Running semisync training\n";
             executor.run_semisync(batch_size, num_epochs, rounds_per_epoch, start, rand_seed);
+            break;
         default:
             printf("Use -h or --help for help\n");
             exit(1);

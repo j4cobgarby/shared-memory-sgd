@@ -53,7 +53,7 @@ void MiniDNN::NetworkExecutor::run_semisync(int batch_size, int num_epochs, int 
     std::atomic<int> next_batch(0);
     std::atomic<long> step(0);
 
-    int num_iterations = 512;
+    int num_iterations = 32;
 
     auto f = [&](int id) {
         for (int i = 0; i < num_iterations; i++) {
