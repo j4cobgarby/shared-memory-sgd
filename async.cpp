@@ -131,11 +131,7 @@ void MiniDNN::NetworkExecutor::run_parallel_async(int batch_size, int num_epochs
                 gettimeofday(&now, NULL);
 
                 epoch_time_vector_lock.lock();
-                if (!time_per_epoch.empty()) {
-                    if (time_per_epoch.back() > now.tv_sec)
-                        std::cout << "WARNING: inconsistent epoch time values" << std::endl;
-                }
-                time_per_epoch.push_back(now.tv_sec);
+                time_per_epoch.push_back(now.tv_sec - start_time.tv_sec);
                 epoch_time_vector_lock.unlock();
             }
         }
