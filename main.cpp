@@ -34,7 +34,6 @@ int probing_duration = -1;
 int probing_interval = -1;
 int probing_window = 1;
 int initial_parallelism = -1;
-std::string experiment_name = "";
 
 enum class ALGORITHM {
     ASYNC, HOG, LSH, SEQ, SYNC, ELASYNC, SEMISYNC,
@@ -65,6 +64,7 @@ std::string tauadaptstrat = "NONE";
 std::string use_dataset = "MNIST";
 std::string algo_name;
 std::string arch_name;
+std::string experiment_name;
 
 template<typename T>
 std::ostream &operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type &stream, const T &e) {
@@ -94,7 +94,7 @@ int main(int argc, char *argv[]) {
 
     while (1) {
         i = 0;
-        c = getopt_long(argc, argv, "a:b:e:n:r:l:m:B:R:C:A:L:U:t:D:w:i:d:s:N", long_options, &i);
+        c = getopt_long(argc, argv, "a:b:e:n:r:l:m:B:R:C:A:N:L:U:t:D:w:i:d:s:", long_options, &i);
 
         if (c == -1) {
             //printf("Use -h or --help for help\n");
@@ -174,6 +174,9 @@ int main(int argc, char *argv[]) {
                 }
                 use_arch = static_cast<ARCHITECTURE>(arch_id);
                 break;
+            case 'N':
+                experiment_name = optarg;
+                break;
             case 'b':
                 batch_size = atoi(optarg);
                 break;
@@ -229,9 +232,6 @@ int main(int argc, char *argv[]) {
                 initial_parallelism = atoi(optarg);
                 if (probing_interval == -1) probing_interval = 100 * initial_parallelism;
                 if (probing_duration == -1) probing_duration = 10 * initial_parallelism;
-                break;
-            case 'N':
-                experiment_name = optarg;
                 break;
             case '?':
             default:
