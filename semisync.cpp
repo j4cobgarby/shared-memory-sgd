@@ -5,7 +5,7 @@
 #include "ThreadPool.h"
 #include "Utils/Random.h"
 #include <sys/select.h>
-/* #include <barrier> */
+#include <atomic>
 
 enum semisync_state {
     
@@ -54,11 +54,15 @@ void MiniDNN::NetworkExecutor::run_semisync(int batch_size, int num_epochs, int 
     std::atomic<int> next_batch(0);
     std::atomic<long> step(0);
 
-    int num_iterations = 512;
-    /* std::barrier sync_point(num_threads, barrier_cbk); */
+    int num_iterations = 64;
+    std::atomic_flag should_stop = ATOMIC_FLAG_INIT;
 
     auto f = [&](int id) {
-        for (int i = 0; i < num_iterations; i++) {
+        int i;
+        for (i = 0; i < num_iterations; i++) {
+            if (should_stop.test()) break;
+            if (i + 1 == num_iterations) should_stop.test_and_set();
+
             long local_step = step.fetch_add(1);
 
             if (tauadaptstrat != "NONE" && local_step == tau_sample_stop * num_threads) {
@@ -113,6 +117,7 @@ void MiniDNN::NetworkExecutor::run_semisync(int batch_size, int num_epochs, int 
                 mtx_time.unlock();
             }
         }
+        std::cout << "[" << id << "]" << "f() finished after " << i << " iterations\n";
     };
 
     std::vector<std::function<void(int id)>> jobs;
@@ -125,6 +130,8 @@ void MiniDNN::NetworkExecutor::run_semisync(int batch_size, int num_epochs, int 
 
     long curr_step;
     while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
+        std::cout << "====\n";
+        should_stop.clear();
         workers.start_all();
         workers.wait_for_all();
     }
