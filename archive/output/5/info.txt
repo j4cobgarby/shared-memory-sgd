@@ -1,0 +1,1 @@
+In this experiment, delta-loss vector is only updated after each execution phase
