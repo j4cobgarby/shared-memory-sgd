@@ -4,7 +4,8 @@
 #include <Eigen/Core>
 #include "../Config.h"
 #include "../Optimizer.h"
-#include "../Utils/sparsepp.h"
+/* #include "../Utils/sparsepp.h" */
+#include <parallel_hashmap/phmap.h>
 
 namespace MiniDNN {
 
@@ -21,7 +22,8 @@ namespace MiniDNN {
         typedef Vector::ConstAlignedMapType ConstAlignedMapVec;
         typedef Vector::AlignedMapType AlignedMapVec;
 
-        spp::sparse_hash_map<const Scalar *, Array> m_history;
+        /* spp::sparse_hash_map<const Scalar *, Array> m_history; */
+        phmap::flat_hash_map<const Scalar *, Array> m_history;
 
     public:
         Scalar m_lrate;
@@ -36,15 +38,15 @@ namespace MiniDNN {
             return new AdaGrad(*this);
         }
 
-        void reset() {
+        void reset() override {
             m_history.clear();
         }
 
-        void initialize_state(int num_layers) {}
+        void initialize_state(int num_layers) override {}
 
-        void initialize_layer_state(int layer_n, int m_dw_size, int m_db_size) {}
+        void initialize_layer_state(int layer_n, int m_dw_size, int m_db_size) override {}
 
-        void update(ConstAlignedMapVec &dvec, AlignedMapVec &vec) {
+        void update(ConstAlignedMapVec &dvec, AlignedMapVec &vec) override {
             // Get the accumulated squared gradient associated with this gradient
             Array &grad_square = m_history[dvec.data()];
 
@@ -60,11 +62,11 @@ namespace MiniDNN {
             vec.array() -= m_lrate * dvec.array() / (grad_square.sqrt() + m_eps);
         }
 
-        Scalar get_w_delta(int layer_n, int i, Scalar m_dw_i) {
+        Scalar get_w_delta(int layer_n, int i, Scalar m_dw_i) override {
             return - m_lrate * m_dw_i;
         }
 
-        Scalar get_b_delta(int layer_n, int i, Scalar m_db_i) {
+        Scalar get_b_delta(int layer_n, int i, Scalar m_db_i) override {
             return - m_lrate * m_db_i;
         }
     };

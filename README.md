@@ -74,6 +74,10 @@ The following asynchrony-aware step size options are implemented:
 
 To get a local copy up and running follow these steps.
 
+### Dependencies
+
+Eigen3 is required. It's expected to have its headers at /usr/include/eigen3 and /usr/include/eigen3/unsupported
+
 ### Installation
 
 1. Clone the repo
