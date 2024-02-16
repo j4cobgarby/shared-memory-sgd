@@ -5,6 +5,7 @@
 #include "ThreadPool.h"
 #include "Utils/Random.h"
 #include <sys/select.h>
+/* #include <barrier> */
 
 enum semisync_state {
     
@@ -54,6 +55,7 @@ void MiniDNN::NetworkExecutor::run_semisync(int batch_size, int num_epochs, int 
     std::atomic<long> step(0);
 
     int num_iterations = 512;
+    /* std::barrier sync_point(num_threads, barrier_cbk); */
 
     auto f = [&](int id) {
         for (int i = 0; i < num_iterations; i++) {

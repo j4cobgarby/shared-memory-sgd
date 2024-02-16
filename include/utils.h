@@ -31,8 +31,9 @@ inline void set_normal_random(MiniDNN::Scalar *arr, int n, MiniDNN::Scalar mu, M
 inline void shuffle_data(Matrix &data, Matrix &labels) {
     Eigen::PermutationMatrix<Eigen::Dynamic, Eigen::Dynamic> perm(data.cols());
     perm.setIdentity();
-    std::random_shuffle(perm.indices().data(), perm.indices().data()
-                                               + perm.indices().size());
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::shuffle(perm.indices().data(), perm.indices().data() + perm.indices().size(), gen);
     data = data * perm;  // permute columns
     labels = labels * perm;
 }

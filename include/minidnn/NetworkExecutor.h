@@ -163,6 +163,7 @@ namespace MiniDNN {
                 float scaling_factor = exp( - beta * staleness );
                 return scaling_factor;
             }
+            return 1.0;
         }
 
         void update_loss_grad(double this_loss, struct timeval &start_time) {
