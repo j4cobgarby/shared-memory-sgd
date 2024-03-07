@@ -1,5 +1,9 @@
 #include "NetworkExecutor.h"
 
+
+#define EXTEND_WINDOW
+#define ALL_THREADS_MUST_FINISH
+
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
     const unsigned recent_loss_window = 20;
     opt->reset();
@@ -56,7 +60,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     // std::atomic<double> phase_loss;
 
     int num_iterations = -1;
+#ifndef ALL_THREADS_MUST_FINISH
     std::atomic_flag should_stop = ATOMIC_FLAG_INIT;
+#endif
 
     auto f = [&](int id) {
         // std::cout << "Starting learning thread function proper" << std::endl;
@@ -72,10 +78,14 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             iters++;
             // std::cout << id << ") iteration counter = " << local_iterations << std::endl;
 
+#ifndef ALL_THREADS_MUST_FINISH
             if (should_stop.test()) break; // Stop execution once at least one worker has reached num_iterations
+#endif
 
             if (local_iterations != -1 && local_iterations-- <= 0) {
+#ifndef ALL_THREADS_MUST_FINISH
                 should_stop.test_and_set();
+#endif
                 break;
             }
             
@@ -205,7 +215,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             std::cout << "Skewing window by " << window_skew << std::endl;
         }
 
-#define EXTEND_WINDOW
 
 #ifdef SHIFT_WINDOW
         // Contruct top and bottom of window. If the window would ordinarily go off the "screen",
@@ -258,7 +267,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             m_times.push_back((double)(probe_start.tv_sec - start_time.tv_sec) + (double)(probe_start.tv_usec - start_time.tv_usec)/1000000); 
             std::cout << "current_parallelism == " << current_parallelism << std::endl;
 
+#ifndef ALL_THREADS_MUST_FINISH
             should_stop.clear();
+#endif
             workers.start_all();
             workers.wait_for_all();
 
@@ -293,7 +304,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         m_times.push_back((double)(now.tv_sec - start_time.tv_sec) + (double)(now.tv_usec - start_time.tv_usec)/1000000); 
 
         num_iterations = probing_interval;
+#ifndef ALL_THREADS_MUST_FINISH
         should_stop.clear();
+#endif
         workers.start_all();
         workers.wait_for_all();
 
