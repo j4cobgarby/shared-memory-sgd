@@ -56,6 +56,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     // std::atomic<double> phase_loss;
 
     int num_iterations = -1;
+    std::atomic_flag should_stop = ATOMIC_FLAG_INIT;
 
     auto f = [&](int id) {
         // std::cout << "Starting learning thread function proper" << std::endl;
@@ -70,7 +71,13 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         while (true) {
             iters++;
             // std::cout << id << ") iteration counter = " << local_iterations << std::endl;
-            if (local_iterations != -1 && local_iterations-- <= 0) break;
+
+            if (should_stop.test()) break; // Stop execution once at least one worker has reached num_iterations
+
+            if (local_iterations != -1 && local_iterations-- <= 0) {
+                should_stop.test_and_set();
+                break;
+            }
             
             long local_step = step.fetch_add(1);
             //std::cout << "thread " << id << " step " << local_step << std::endl;
@@ -240,6 +247,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             m_times.push_back((double)(probe_start.tv_sec - start_time.tv_sec) + (double)(probe_start.tv_usec - start_time.tv_usec)/1000000); 
             std::cout << "current_parallelism == " << current_parallelism << std::endl;
 
+            should_stop.clear();
             workers.start_all();
             workers.wait_for_all();
 
@@ -274,6 +282,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         m_times.push_back((double)(now.tv_sec - start_time.tv_sec) + (double)(now.tv_usec - start_time.tv_usec)/1000000); 
 
         num_iterations = probing_interval;
+        should_stop.clear();
         workers.start_all();
         workers.wait_for_all();
 
