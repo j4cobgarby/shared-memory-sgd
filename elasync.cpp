@@ -205,30 +205,41 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             std::cout << "Skewing window by " << window_skew << std::endl;
         }
 
+#define EXTEND_WINDOW
+
+#ifdef SHIFT_WINDOW
         // Contruct top and bottom of window. If the window would ordinarily go off the "screen",
         // then shift it down so that it touches the top.
-        // int window_top = m_last + scaled_window/2 + window_skew;
-        // if (window_top >= num_threads) window_top = num_threads - 1;
-        // int window_btm = window_top - scaled_window;
-        // if (window_btm < 1) {
-        //     window_btm = 1;
-        //     window_top = window_btm + scaled_window;
-        // }
+        int window_top = m_last + scaled_window/2 + window_skew;
+        if (window_top >= num_threads) window_top = num_threads - 1;
+        int window_btm = window_top - scaled_window;
+        if (window_btm < 1) {
+            window_btm = 1;
+            window_top = window_btm + scaled_window;
+        }
+        int window_step = 1;
+#endif
         
-        /* int window_top = m_last + scaled_window/2; */
-        /* int window_btm = window_top - (scaled_window - 1); */
+#ifdef PROBE_ENTIRE_SPACE
         int window_step = 8;
         int window_btm = 1;
         int window_top = num_threads - 1;
+#endif
 
-        /* if (window_skew < 0) { */
-        /*     window_btm -= window_skew; */
-        /* } else { */
-        /*     window_top += window_skew; */
-        /* } */
-        /**/
-        /* window_btm = window_btm < 1 ? 1 : window_btm; */
-        /* window_top = window_top >= num_threads ? num_threads-1 : window_top; */
+#ifdef EXTEND_WINDOW
+        int window_top = m_last + scaled_window/2;
+        int window_btm = window_top - (scaled_window - 1);
+
+        if (window_skew < 0) {
+            window_btm -= window_skew;
+        } else {
+            window_top += window_skew;
+        }
+
+        window_btm = window_btm < 1 ? 1 : window_btm;
+        window_top = window_top >= num_threads ? num_threads-1 : window_top;
+        int window_step = 1;
+#endif
 
         std::cout << "m_last = " << m_last << "\n";
         std::cout << "Window = ["<<window_btm << ", " << window_top << "]\n";
