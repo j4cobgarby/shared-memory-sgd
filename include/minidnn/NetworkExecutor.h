@@ -92,6 +92,7 @@ namespace MiniDNN {
         void run_parallel_leashed(int, int, int, int, bool, int seed = -1);
         void run_elastic_async(int, int, int, int, int, int, int, struct timeval, int seed = -1, bool use_lock=true);
         void run_semisync(int batch_size, int num_epochs, int rounds_per_epoch, struct timeval start_time, int sync_interval, int seed = -1);
+        void run_heuristic_async(int batch_size, int num_epochs, int rounds_per_epoch, struct timeval start_time, int seed);
 
         Scalar get_loss() {
             return loss;

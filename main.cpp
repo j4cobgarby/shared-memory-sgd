@@ -36,7 +36,7 @@ int probing_window = 1;
 int initial_parallelism = -1;
 
 enum class ALGORITHM {
-    ASYNC, HOG, LSH, SEQ, SYNC, ELASYNC, SEMISYNC,
+    ASYNC, HOG, LSH, SEQ, SYNC, ELASYNC, SEMISYNC, HEURISTIC,
 };
 std::vector<std::string> AlgoTypes = {
         "ASYNC",
@@ -46,6 +46,7 @@ std::vector<std::string> AlgoTypes = {
         "SYNC",
         "ELASYNC",
         "SEMISYNC",
+        "HEURISTIC",
 };
 ALGORITHM run_algo = ALGORITHM::SEQ;
 
@@ -460,6 +461,10 @@ int main(int argc, char *argv[]) {
         case ALGORITHM::SEMISYNC:
             std::cout << "Running semisync training\n";
             executor.run_semisync(batch_size, num_epochs, rounds_per_epoch, start, probing_interval, rand_seed);
+            break;
+        case ALGORITHM::HEURISTIC:
+            std::cout << "Running heuristic based training\n";
+            executor.run_heuristic_async(batch_size, num_epochs, rounds_per_epoch, start, rand_seed);
             break;
         default:
             printf("Use -h or --help for help\n");
