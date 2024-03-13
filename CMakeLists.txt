@@ -22,7 +22,7 @@ set(APP_INCLUDES
 #Include the directories and now your cpp files will recognize your headers
 include_directories(${APP_INCLUDES})
 
-add_executable(mininn main.cpp elasync.cpp single_thread.cpp sync.cpp async.cpp leashed.cpp semisync.cpp)
+add_executable(mininn main.cpp elasync.cpp single_thread.cpp sync.cpp async.cpp leashed.cpp semisync.cpp heuristic.cpp)
 target_sources(mininn PUBLIC mnist.cc)
 TARGET_LINK_LIBRARIES(mininn
         pthread

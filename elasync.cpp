@@ -2,9 +2,11 @@
 
 
 #define EXTEND_WINDOW
-#define ALL_THREADS_MUST_FINISH
+// #define ALL_THREADS_MUST_FINISH
 
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
+    use_lock = false;
+
     const unsigned recent_loss_window = 20;
     opt->reset();
 
