@@ -4,7 +4,7 @@
 #include <algorithm> // std::max
 #include <sys/select.h>
 
-void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epochs, int rounds_per_epoch, struct timeval start_time, int seed) {
+void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epochs, int rounds_per_epoch, double grad, struct timeval start_time, int seed) {
     opt->reset();
 
     if (seed > 0) m_rng.seed(seed);
@@ -115,7 +115,7 @@ void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epoch
 
     long curr_step;
     
-    double m_gradient = 0.0002;
+    double m_gradient = grad;
     double analogue_m = current_parallelism;
     int last_step = 0;
 
@@ -127,10 +127,10 @@ void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epoch
         /* } */
         /* current_parallelism = std::max(10.0, num_threads - (curr_step * m_gradient)); */
 
-        if (m_gradient == 0.0002 && current_parallelism == 30) {
-            std::cout << "Switching gradient" << std::endl;
-            m_gradient = 0.0001;
-        }
+        /* if (m_gradient == 0.0002 && current_parallelism == 30) { */
+        /*     std::cout << "Switching gradient" << std::endl; */
+        /*     m_gradient = 0.0001; */
+        /* } */
 
         current_parallelism = std::max(10, (int)analogue_m);
         analogue_m -= m_gradient * (curr_step - last_step);

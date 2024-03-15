@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <filesystem>
 #include <sstream>
 #include <unistd.h>
@@ -34,6 +35,7 @@ int probing_duration = -1;
 int probing_interval = -1;
 int probing_window = 1;
 int initial_parallelism = -1;
+double heuristic_gradient = 0;
 
 enum class ALGORITHM {
     ASYNC, HOG, LSH, SEQ, SYNC, ELASYNC, SEMISYNC, HEURISTIC,
@@ -95,7 +97,7 @@ int main(int argc, char *argv[]) {
 
     while (1) {
         i = 0;
-        c = getopt_long(argc, argv, "a:b:e:n:r:l:m:B:R:C:A:N:L:U:t:D:w:i:d:s:", long_options, &i);
+        c = getopt_long(argc, argv, "a:b:e:n:r:l:m:B:R:C:A:N:L:U:t:D:w:i:d:s:G:", long_options, &i);
 
         if (c == -1) {
             //printf("Use -h or --help for help\n");
@@ -233,6 +235,10 @@ int main(int argc, char *argv[]) {
                 initial_parallelism = atoi(optarg);
                 if (probing_interval == -1) probing_interval = 100 * initial_parallelism;
                 if (probing_duration == -1) probing_duration = 10 * initial_parallelism;
+                break;
+            case 'G':
+                heuristic_gradient = atof(optarg);
+                std::cout << "Heuristic gradient (G) set to " << heuristic_gradient << std::endl; 
                 break;
             case '?':
             default:
@@ -464,7 +470,7 @@ int main(int argc, char *argv[]) {
             break;
         case ALGORITHM::HEURISTIC:
             std::cout << "Running heuristic based training\n";
-            executor.run_heuristic_async(batch_size, num_epochs, rounds_per_epoch, start, rand_seed);
+            executor.run_heuristic_async(batch_size, num_epochs, rounds_per_epoch, heuristic_gradient, start, rand_seed);
             break;
         default:
             printf("Use -h or --help for help\n");
