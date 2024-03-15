@@ -116,15 +116,24 @@ void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epoch
     long curr_step;
     
     double m_gradient = 0.0002;
+    double analogue_m = current_parallelism;
 
     std::cout << "Total steps = " << num_epochs << "×" << rounds_per_epoch << " = " << num_epochs * rounds_per_epoch << std::endl;
     while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
-        if (current_parallelism == 30) {
+        /* if (current_parallelism == 30) { */
+        /*     std::cout << "Switching gradient" << std::endl; */
+        /*     m_gradient = 0.0001; */
+        /* } */
+        /* current_parallelism = std::max(10.0, num_threads - (curr_step * m_gradient)); */
+        /* std::cout << "Parallelism = " << current_parallelism << std::endl; */
+
+        if (m_gradient == 0.0002 && current_parallelism == 30) {
             std::cout << "Switching gradient" << std::endl;
             m_gradient = 0.0001;
         }
-        current_parallelism = std::max(10.0, num_threads - (curr_step * m_gradient));
-        std::cout << "Parallelism = " << current_parallelism << std::endl;
+
+        current_parallelism = (int)analogue_m;
+        analogue_m -= m_gradient;
 
         struct timeval now;
         gettimeofday(&now, NULL);
