@@ -38,3 +38,5 @@ cmake-build-debug
 cmake-build
 .cache
 meeting-8mar
+
+.venv

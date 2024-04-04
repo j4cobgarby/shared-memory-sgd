@@ -1,7 +1,9 @@
 #include "NetworkExecutor.h"
 
 
-#define EXTEND_WINDOW
+#define STANDARD_WINDOW
+//#define EXTEND_WINDOW
+// #define SHIFT_WINDOW
 // #define ALL_THREADS_MUST_FINISH
 
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
@@ -212,6 +214,11 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             std::cout << "Skewing window by " << window_skew << std::endl;
         }
 
+#ifdef STANDARD_WINDOW
+        int window_top = m_last + scaled_window/2;
+        int window_btm = window_top - scaled_window + 1;
+        int window_step = 1;
+#endif
 
 #ifdef SHIFT_WINDOW
         // Contruct top and bottom of window. If the window would ordinarily go off the "screen",
@@ -250,6 +257,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         std::cout << "m_last = " << m_last << "\n";
         std::cout << "Window = ["<<window_btm << ", " << window_top << "]\n";
 
+        m_probe_starts.push_back(m_values.size());
+
         // Run a probing phase for each m in the m-window
         for (int m = window_btm; m <= window_top; m += window_step) {
             current_parallelism = m;
@@ -287,6 +296,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 best_m = current_parallelism;
             }
         }
+
+        m_probe_ends.push_back(m_values.size());
 
         // After probing, run normal async execution for a while
         current_parallelism = best_m;

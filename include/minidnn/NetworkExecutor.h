@@ -62,6 +62,8 @@ namespace MiniDNN {
         std::vector<double> loss_grad_times;
         std::vector<double> m_times;
         std::vector<int> m_values;
+        std::vector<size_t> m_probe_starts;
+        std::vector<size_t> m_probe_ends;
 
     public:
 
