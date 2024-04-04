@@ -136,6 +136,14 @@ namespace MiniDNN {
             return m_values;
         }
 
+        std::vector<size_t> &get_probe_starts() {
+            return m_probe_starts;
+        }
+
+        std::vector<size_t> &get_probe_ends() {
+            return m_probe_ends;
+        }
+
         void compute_tail_dist() {
             long cum_tau = 0;
             int num_steps_used = num_threads * (tau_sample_stop - tau_sample_start);

@@ -494,6 +494,8 @@ int main(int argc, char *argv[]) {
     jsoncons::json mlist;
     mlist["m"] = executor.get_m_values();
     mlist["time"] = executor.get_m_times();
+    mlist["probe_starts"] = executor.get_probe_starts(); // Which parallelism values correspond with the first probing step
+    mlist["probe_ends"] = executor.get_probe_ends();
 
     jsoncons::json lossgrad;
     lossgrad["grad"] = executor.get_loss_grads();
