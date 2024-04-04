@@ -33,7 +33,7 @@ namespace MiniDNN {
         Scalar loss = 0;
         Scalar prev_loss = NAN;
         std::vector<Scalar> loss_per_epoch;
-        std::vector<long> time_per_epoch;
+        std::vector<double> time_per_epoch;
 
         int tau_threshold = 200;
         std::vector<double> tau_dist;
@@ -116,7 +116,7 @@ namespace MiniDNN {
             return loss_per_epoch.back();
         }
 
-        std::vector<long> &get_times_per_epoch() {
+        std::vector<double> &get_times_per_epoch() {
             return time_per_epoch;
         }
 
