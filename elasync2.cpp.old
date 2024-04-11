@@ -1,0 +1,133 @@
+#include "NetworkExecutor.h"
+#include "ParameterContainer.h"
+#include "ThreadPool.h"
+#include <array>
+#include <atomic>
+#include <sys/select.h>
+
+namespace MiniDNN {
+
+void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval,
+                                         int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
+    use_lock = false;
+    opt->reset();
+
+    if (seed > 0) m_rng.seed(seed);
+
+    std::vector<XType> x_batches;
+    std::vector<YType> y_batches;
+
+    const int nbatch = internal::create_shuffled_batches(x, y, batch_size, m_rng, x_batches, y_batches);
+
+    std::vector<NetworkTopology *> thread_local_networks(num_threads);
+    std::vector<MultiClassEntropy *> thread_local_outputs(num_threads);
+
+    int current_parallelism = m_0 < 0 ? num_threads / 2 : m_0;
+
+    ParameterContainer *global_param = net->current_param_container_ptr;
+
+    for (size_t i = 0; i < num_threads; ++i) {
+        thread_local_networks[i] = new NetworkTopology(*net);
+        thread_local_networks[i]->set_output(
+                new MultiClassEntropy(*dynamic_cast<MultiClassEntropy *>(net->get_output())));
+    }
+
+    if (rounds_per_epoch < 0) {
+        rounds_per_epoch = nbatch;
+        std::cout << "Rounds per epoch set to " << rounds_per_epoch << std::endl;
+    }
+
+    std::mutex mtx; // for accessing the shared network object
+    std::mutex epoch_time_vector_lock; // for shared times measurements
+
+    // create num_threads x num_epochs matrix for storing thread-local loss sum per epoch
+    std::vector<std::vector<Scalar>> local_losses_per_epoch(num_threads);
+    std::vector<std::vector<long>> local_tau_dist(num_threads);
+    for (int i = 0; i < num_threads; ++i) {
+        for (int j = 0; j < num_epochs; ++j) {
+            local_losses_per_epoch[i].push_back(0);
+        }
+        for (int j = 0; j < tau_threshold; ++j) {
+            local_tau_dist[i].push_back(0);
+        }
+    }
+
+    for (int j = 0; j < tau_threshold; ++j) {
+        tau_dist_sample.push_back(0);
+    }
+
+    std::atomic<int> next_batch(0);
+    std::atomic<long> step(0);
+
+    std::atomic_flag should_stop = ATOMIC_FLAG_INIT;
+
+    std::atomic_flag thread_should_run[num_threads];
+    for (int i = 0; i < num_threads; i++) {
+        if (i <= current_parallelism) {
+            thread_should_run[i].test_and_set();
+        } else {
+            thread_should_run[i].clear();
+        }
+    }
+
+    auto f = [&](int id) {
+        while (true) {
+            if (should_stop.test()) break;
+
+            if (thread_should_run[id].test()) {
+                for (int i = 0; i < 32; i++) {
+                    long local_step = step.fetch_add(1);
+                    int batch_index = next_batch.fetch_add(1) % nbatch;
+                    long epoch = local_step / rounds_per_epoch;
+                    long epoch_step = local_step % rounds_per_epoch;
+
+                    if (local_step >= num_epochs * rounds_per_epoch) {
+                        should_stop.test_and_set();
+                        break;
+                    }
+
+                    mtx.lock();
+                    auto *local_param = new ParameterContainer(*global_param);
+                    mtx.unlock();
+
+                    thread_local_networks[id]->set_pointer(local_param);
+                    thread_local_networks[id]->forward(x_batches[batch_index]);
+                    thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
+
+                    const Scalar loss = thread_local_networks[id]->get_loss();
+                    local_losses_per_epoch[id][epoch] += loss;
+                    thread_local_networks[id]->set_pointer(global_param);
+
+                    delete local_param;
+
+                    /* Integrate gradient into global model */
+                    mtx.lock();
+                    thread_local_opts[id]->step_scale_factor = 1.0;
+                    thread_local_networks[id]->update_cw(thread_local_opts[id]);
+                    mtx.unlock();
+
+                    if (epoch_step == rounds_per_epoch - 1) {
+                        struct timeval now;
+                        gettimeofday(&now, NULL);
+
+                        time_per_epoch.push_back(now.tv_sec - start_time.tv_sec + (double)(now.tv_usec - start_time.tv_usec) / 1000000);
+                    }
+                }
+            } else {
+                /* If we can't run right now, then wait until we can */
+                thread_should_run[id].wait(false);
+            }
+        }
+    };
+
+    std::vector<std::function<void (int id)>> jobs;
+    for (int i = 0; i < num_threads; i++) {
+        jobs.push_back(f);
+    }
+    ThreadPool workers(num_threads, jobs);
+
+    workers.wait_for_all();
+    workers.start_all();
+}
+
+}

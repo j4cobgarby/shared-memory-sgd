@@ -461,8 +461,8 @@ int main(int argc, char *argv[]) {
             executor.run_parallel_leashed(batch_size, num_epochs, rounds_per_epoch, cas_backoff, check_concurrent_updates, rand_seed);
             break;
         case ALGORITHM::ELASYNC:
-            std::cout << "elasyncsgd with window = " << probing_window << ", interval = " << probing_interval << ", duration = " << probing_duration << ", m_0 = " << initial_parallelism << " rounds_per_epoch = " << rounds_per_epoch << std::endl;
-            executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed);
+            std::cout << "elasyncsgd2 with window = " << probing_window << ", interval = " << probing_interval << ", duration = " << probing_duration << ", m_0 = " << initial_parallelism << " rounds_per_epoch = " << rounds_per_epoch << std::endl;
+            executor.run_elastic_async2(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed, false);
             break;
         case ALGORITHM::SEMISYNC:
             std::cout << "Running semisync training\n";
