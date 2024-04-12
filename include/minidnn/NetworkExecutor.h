@@ -65,6 +65,8 @@ namespace MiniDNN {
         std::vector<size_t> m_probe_starts;
         std::vector<size_t> m_probe_ends;
 
+        struct timeval exe_start;
+
     public:
 
         long failed_cas = 0;
@@ -95,7 +97,9 @@ namespace MiniDNN {
         void run_elastic_async(int, int, int, int, int, int, int, struct timeval, int seed = -1, bool use_lock=true);
         void run_semisync(int batch_size, int num_epochs, int rounds_per_epoch, struct timeval start_time, int sync_interval, int seed = -1);
         void run_heuristic_async(int batch_size, int num_epochs, int rounds_per_epoch, double grad, struct timeval start_time, int seed);
-        void run_elastic_async2(int, int, int, int, int, int, int, struct timeval, int, bool);
+        void run_elastic_async2(int, int, int, int, int, int, int, int, bool);
+
+        void set_threads_running(std::atomic_flag arr[], int n, int num_threads);
 
         Scalar get_loss() {
             return loss;

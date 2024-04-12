@@ -7,11 +7,26 @@
 #include <limits>
 #include <mutex>
 #include <sys/select.h>
+#include <chrono>
 
 namespace MiniDNN {
 
+void NetworkExecutor::set_threads_running(std::atomic_flag arr[], int n, int num_threads) {
+    for (int i = 0; i < num_threads; i++) {
+        if (i <= n) {
+            arr[i].test_and_set();
+        } else {
+            arr[i].clear();
+        }
+    }
+    m_values.push_back(n);
+    struct timeval t_now;
+    gettimeofday(&t_now, NULL);
+    m_times.push_back((double)(t_now.tv_sec - exe_start.tv_sec) + (double)(t_now.tv_usec - exe_start.tv_usec)/1000000);
+}
+
 void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval,
-                                         int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
+                                         int probing_duration, int m_0, int seed, bool use_lock) {
     use_lock = false;
     opt->reset();
 
@@ -74,10 +89,12 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
             thread_should_run[i].clear();
         }
     }
+    set_threads_running(thread_should_run, current_parallelism, num_threads);
 
     int  phase_firststep = 0;
     bool in_probing = false;
     int probing_start, probing_end, probing_step, probing_current;
+    std::chrono::time_point<std::chrono::steady_clock> probe_step_starttime;
     double best_loss = std::numeric_limits<double>::infinity();
     int best_parallelism;
 
@@ -108,6 +125,7 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
                             /* At this point in time, thread_local_networks[i] has the global model as its model,
                              * so this will be the current global model */
                             double this_loss = thread_local_networks[i]->get_loss();
+                            std::cout << "Parallelism of " << current_parallelism << " yielded loss of " << this_loss << std::endl;
                             if (this_loss < best_loss) {
                                 best_loss = this_loss;
                                 best_parallelism = current_parallelism;
@@ -117,25 +135,15 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
                                 current_parallelism += probing_step;
 
                                 std::cout << "Setting thread statuses <= " << current_parallelism << std::endl;
-                                for (int i = 0; i < num_threads; i++) {
-                                    if (i <= current_parallelism) {
-                                        thread_should_run[i].test_and_set();
-                                    } else {
-                                        thread_should_run[i].clear();
-                                    }
-                                }
+                                set_threads_running(thread_should_run, current_parallelism, num_threads);
+
+                                probe_step_starttime = std::chrono::steady_clock::now();
                             } else {
                                 /* Finished probing */
                                 std::cout << "Finished probing, found best parallelism = " << best_parallelism << std::endl;
                                 current_parallelism = best_parallelism;
                                 std::cout << "(Starting execution phase) Setting thread statuses <= " << current_parallelism << std::endl;
-                                for (int i = 0; i < num_threads; i++) {
-                                    if (i <= current_parallelism) {
-                                        thread_should_run[i].test_and_set();
-                                    } else {
-                                        thread_should_run[i].clear();
-                                    }
-                                }
+                                set_threads_running(thread_should_run, current_parallelism, num_threads);
                                 in_probing = false;
                             }
                         }
@@ -143,8 +151,8 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
                         if ((local_step - phase_firststep) % probing_interval == 0) {
                             in_probing = true;
                             probing_step = 1;
-                            probing_start = current_parallelism - 8;
-                            probing_end = current_parallelism + 7;
+                            probing_start = current_parallelism - window/2;
+                            probing_end = probing_start + window - 1;
 
                             if (probing_start < 1) probing_start = 1;
                             if (probing_end > num_threads) probing_end = num_threads;
@@ -156,13 +164,9 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
                             current_parallelism = probing_start;
 
                             std::cout << "(Starting new probing phase) Setting thread statuses <= " << current_parallelism << std::endl;
-                            for (int i = 0; i < num_threads; i++) {
-                                if (i <= current_parallelism) {
-                                    thread_should_run[i].test_and_set();
-                                } else {
-                                    thread_should_run[i].clear();
-                                }
-                            }
+                            set_threads_running(thread_should_run, current_parallelism, num_threads);
+
+                            probe_step_starttime = std::chrono::steady_clock::now();
                         }
                     }
 
@@ -191,7 +195,7 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
                         struct timeval now;
                         gettimeofday(&now, NULL);
 
-                        time_per_epoch.push_back(now.tv_sec - start_time.tv_sec + (double)(now.tv_usec - start_time.tv_usec) / 1000000);
+                        time_per_epoch.push_back(now.tv_sec - exe_start.tv_sec + (double)(now.tv_usec - exe_start.tv_usec) / 1000000);
                     }
                 }
             } else {
@@ -207,6 +211,8 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
     }
     ThreadPool workers(num_threads, jobs);
     std::cout << "Made pool of " << num_threads << " workers\n";
+
+    gettimeofday(&this->exe_start, NULL);
 
     workers.wait_for_all();
     workers.start_all();
