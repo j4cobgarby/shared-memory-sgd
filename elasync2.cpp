@@ -181,6 +181,7 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
 
                     const Scalar loss = thread_local_networks[id]->get_loss();
                     local_losses_per_epoch[id][epoch] += loss;
+                    std::cout << "EPOCH LOSS " << epoch << " += " << loss << std::endl;
                     thread_local_networks[id]->set_pointer(global_param);
 
                     delete local_param;
@@ -188,6 +189,7 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
                     /* Integrate gradient into global model */
                     mtx.lock();
                     thread_local_opts[id]->step_scale_factor = 1.0;
+                    std::cout << "Updating weights (id = " << id << ")\n";
                     thread_local_networks[id]->update_cw(thread_local_opts[id]);
                     mtx.unlock();
 
