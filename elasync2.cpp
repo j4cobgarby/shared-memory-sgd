@@ -82,13 +82,7 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
     int thread_model_ids[num_threads];
 
     std::cout << "Initial setting of threads <= " << current_parallelism << std::endl;
-    for (int i = 0; i < num_threads; i++) {
-        if (i <= current_parallelism) {
-            thread_should_run[i].test_and_set();
-        } else {
-            thread_should_run[i].clear();
-        }
-    }
+    gettimeofday(&this->exe_start, NULL);
     set_threads_running(thread_should_run, current_parallelism, num_threads);
 
     int  phase_firststep = 0;
@@ -189,7 +183,6 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
                     /* Integrate gradient into global model */
                     mtx.lock();
                     thread_local_opts[id]->step_scale_factor = 1.0;
-                    std::cout << "Updating weights (id = " << id << ")\n";
                     thread_local_networks[id]->update_cw(thread_local_opts[id]);
                     mtx.unlock();
 
@@ -197,6 +190,7 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
                         struct timeval now;
                         gettimeofday(&now, NULL);
 
+                        loss_per_epoch.push_back(loss);
                         time_per_epoch.push_back(now.tv_sec - exe_start.tv_sec + (double)(now.tv_usec - exe_start.tv_usec) / 1000000);
                     }
                 }
@@ -214,7 +208,6 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
     ThreadPool workers(num_threads, jobs);
     std::cout << "Made pool of " << num_threads << " workers\n";
 
-    gettimeofday(&this->exe_start, NULL);
 
     workers.wait_for_all();
     workers.start_all();
