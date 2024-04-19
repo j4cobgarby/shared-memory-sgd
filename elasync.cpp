@@ -1,9 +1,9 @@
 #include "NetworkExecutor.h"
+#include <cmath>
 
-
-#define STANDARD_WINDOW
-//#define EXTEND_WINDOW
-// #define SHIFT_WINDOW
+// #define STANDARD_WINDOW
+// #define EXTEND_WINDOW
+#define SHIFT_WINDOW
 // #define ALL_THREADS_MUST_FINISH
 
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
@@ -44,10 +44,12 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
     // create num_threads x num_epochs matrix for storing thread-local loss sum per epoch
     std::vector<std::vector<Scalar>> local_losses_per_epoch(num_threads);
+    std::vector<std::vector<int>> local_rounds_per_epoch(num_threads);
     std::vector<std::vector<long>> local_tau_dist(num_threads);
     for (int i = 0; i < num_threads; ++i) {
         for (int j = 0; j < num_epochs; ++j) {
             local_losses_per_epoch[i].push_back(0);
+            local_rounds_per_epoch[i].push_back(0);
         }
         for (int j = 0; j < tau_threshold; ++j) {
             local_tau_dist[i].push_back(0);
@@ -133,10 +135,11 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             const Scalar loss = thread_local_networks[id]->get_loss();
 
 
-            std::cerr << id << ": [Epoch " << epoch << "] Loss = " << loss << std::endl;
+            /* std::cerr << id << ": [Epoch " << epoch << "] Loss = " << loss << std::endl; */
 
             // add loss to thread local epoch loss sum
             local_losses_per_epoch[id][epoch] += loss;
+            local_rounds_per_epoch[id][epoch] ++;
 
             thread_local_networks[id]->set_pointer(global_param);
             
@@ -187,6 +190,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
     long curr_step;
     double avg_loss = 1.0;
+    double loss_jitter = 0.0;
 
     while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
         /* Here, all threads are not running.
@@ -208,9 +212,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         } else {
             // If our loss is getting better, then we can try pushing the window
             // up, to try some more aggressive parallelism.
-            // If it's getting worse, then maybe the async induced noise is getting
+            // If it's getting worse, then maybe the async induced noise due to staleness is getting
             // too much, so try skewing the window down.
-            window_skew = loss_grads.back() * -20;
+            window_skew = loss_grads.back() * scalar_loss_grad;
             std::cout << "Skewing window by " << window_skew << std::endl;
         }
 
@@ -224,7 +228,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         // Contruct top and bottom of window. If the window would ordinarily go off the "screen",
         // then shift it down so that it touches the top.
         int window_top = m_last + scaled_window/2 + window_skew;
-        if (window_top >= num_threads) window_top = num_threads - 1;
+        if (window_top >= num_threads) 
+            window_top = num_threads - 1;
         int window_btm = window_top - scaled_window;
         if (window_btm < 1) {
             window_btm = 1;
@@ -254,9 +259,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         int window_step = 1;
 #endif
 
-        std::cout << "m_last = " << m_last << "\n";
-        std::cout << "Window = ["<<window_btm << ", " << window_top << "]\n";
-
         m_probe_starts.push_back(m_values.size());
 
         // Run a probing phase for each m in the m-window
@@ -271,7 +273,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
             m_values.push_back(current_parallelism);
             m_times.push_back((double)(probe_start.tv_sec - start_time.tv_sec) + (double)(probe_start.tv_usec - start_time.tv_usec)/1000000); 
-            std::cout << "current_parallelism == " << current_parallelism << std::endl;
 
 #ifndef ALL_THREADS_MUST_FINISH
             should_stop.clear();
@@ -287,7 +288,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 loss += thread_local_networks[i]->get_loss();
             }
             loss /= current_parallelism; // average los of each model
-            // loss *= probe_elapsed; // shorter elapsed time -> lower `loss` -> better "score"
+
+            std::cout << "Probing @ " << current_parallelism << " yields loss = " << loss << std::endl;
             
             /* update_loss_grad(loss, start_time); */
 
@@ -317,11 +319,67 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         workers.start_all();
         workers.wait_for_all();
 
-        avg_loss = 0;
-        for (int th = 0; th < current_parallelism; th++) {
-            avg_loss += thread_local_networks.at(th)->get_loss();
+        std::vector<double> all_epoch_avgs(num_epochs);
+        std::vector<int> all_epoch_contributors(num_epochs);
+
+        int latest_epoch = -1;
+        for (int i = 0; i < num_threads; i++) {
+            std::cout << i << ": ";
+
+            for (int j = 0; j < local_losses_per_epoch.size(); j++) {
+                double l = local_losses_per_epoch[i][j];
+                int rounds_done = local_rounds_per_epoch[i][j];
+                if (l == 0) continue;
+                latest_epoch = j; /* epoch j has at least some data */
+
+                all_epoch_avgs[j] += l / rounds_done;
+                all_epoch_contributors[j] ++;
+
+                std::cout << rounds_done << " (" << l / rounds_done << ")  \t";
+            }
+            std::cout << std::endl;
         }
-        avg_loss /= num_threads;
+
+        int epoch_win_first = latest_epoch - 8;
+        if (epoch_win_first < 0) epoch_win_first = 0;
+        std::cout << "Epoch window = " << epoch_win_first << " -> " << latest_epoch << std::endl;
+
+        /* We want to calculate the standard deviation of pairwise differences for average losses for the epochs in the window */
+        double sd;
+
+        { /* Calculate sd of diffs */
+            double prev_avg = -1.0;
+            std::vector<double> window_diffs;
+            double mean_of_diffs;
+
+            /* First we make a new vector based on the differences between each two adjacent elements in the previously
+            * calculated vector of all (up until latest) epoch losses */
+            for (int e = epoch_win_first; e <= latest_epoch; e++) {
+                double this_avg = all_epoch_avgs[e] / all_epoch_contributors[e];
+                if (prev_avg >= 0.0) {
+                    double diff = this_avg - prev_avg;
+                    window_diffs.push_back(diff);
+                    mean_of_diffs += diff;
+                }
+                prev_avg = this_avg;
+            }
+            mean_of_diffs /= window_diffs.size();
+            sd = 0.0;
+            for (double diff : window_diffs) {
+                double x = std::abs(diff - mean_of_diffs);
+                sd += x * x;
+            }
+            sd = std::sqrt(sd / window_diffs.size());
+        }
+
+        std::cout << "SD calculated as " << sd << std::endl;
+
+        double avg_loss = 0;
+        for (int th = 0; th < current_parallelism; th++) {
+            double l = thread_local_networks[th]->get_loss();
+            avg_loss += l;
+        }
+        avg_loss /= current_parallelism;
 
         update_loss_grad(avg_loss, start_time);
     }
@@ -333,8 +391,10 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
     for (int k = 0; k < num_epochs; k++) {
         loss = 0;
+        std::cout << "Adding up loss for epoch " << k << std::endl;
         for (int i = 0; i < num_threads; i++) {
             loss += local_losses_per_epoch[i][k];
+            std::cout << "\t+" << loss << std::endl;
         }
         loss /= rounds_per_epoch;
         loss_per_epoch.push_back(loss);

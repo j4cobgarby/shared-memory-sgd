@@ -102,6 +102,7 @@ def plot_files(files):
                     )
                 )
             else:
+                print(dat["epoch_loss"])
                 plots.append(
                     ax2.plot(
                         dat["epoch_time"],

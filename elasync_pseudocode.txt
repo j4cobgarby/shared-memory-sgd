@@ -1,0 +1,62 @@
+constant base_window = ...
+
+let should_stop = atomic flag (false)
+
+function f(id):
+    if id >= current_parallelism:
+        return
+
+    let local_iterations = num_iterations
+
+    repeat:
+        if should_stop is set:
+            break
+
+        if local_iterations <= 0:
+            should_stop <- true
+            break
+
+        local_iterations <- local_iterations - 1
+        let local_step = FAA(global_step)
+        let batch_index = FAA(global_batch) (mod num of batches)
+
+        if local_step >= num_epochs × steps_per_epoch:
+            break
+
+        critical region:
+            let local_model = copy of global_param
+        end critical region
+
+        do forwards and backwards training pass on local_model, with batch[batch_index]
+        let local_gradient <- gradient from backpropagation
+        
+        let loss = loss of local_model
+        
+        update global_model weights by local_gradient
+
+let workers = thread pool[num_threads]
+
+while global_step < num_epochs * steps_per_epoch:
+    let num_iterations = probing_duration
+    let best_loss = infinity
+    let m_last = current_parallelism
+
+    let window_skew = L × previous loss + G × loss gradient + V × loss variance + M × gradient of parallelism
+    let window_size = base_window × ...
+
+    let window_top, window_btm = m_last +/- (window_size / 2)
+
+    for m in window_btm ... window_top:
+        current_parallelism <- m
+
+        should_stop <- false
+        workers.start()
+        workers.wait()
+
+        if new loss < best_loss:
+            best_loss = loss
+            best_m = current_parallelism
+
+    num_iterations <- execution_duration
+    should_stop <- false
+    workers.start()

@@ -36,6 +36,7 @@ int probing_interval = -1;
 int probing_window = 1;
 int initial_parallelism = -1;
 double heuristic_gradient = 0;
+double scalar_loss_grad = 0;
 
 enum class ALGORITHM {
     ASYNC, HOG, LSH, SEQ, SYNC, ELASYNC, SEMISYNC, HEURISTIC,
@@ -237,8 +238,10 @@ int main(int argc, char *argv[]) {
                 if (probing_duration == -1) probing_duration = 10 * initial_parallelism;
                 break;
             case 'G':
-                heuristic_gradient = atof(optarg);
-                std::cout << "Heuristic gradient (G) set to " << heuristic_gradient << std::endl; 
+                scalar_loss_grad = atof(optarg);
+                std::cout << "Scalar loss grad = " << scalar_loss_grad << std::endl;
+                /* heuristic_gradient = atof(optarg); */
+                /* std::cout << "Heuristic gradient (G) set to " << heuristic_gradient << std::endl;  */
                 break;
             case '?':
             default:
@@ -438,7 +441,6 @@ int main(int argc, char *argv[]) {
     int architecture_id = static_cast<int>(use_arch);
     NetworkExecutor executor(&network, opt, thread_local_opts, x, y, tauadaptstrat, num_threads, learning_rate, algorithm_id, architecture_id);
 
-
     struct timeval start, end;
     gettimeofday(&start, nullptr);
 
@@ -461,9 +463,11 @@ int main(int argc, char *argv[]) {
             executor.run_parallel_leashed(batch_size, num_epochs, rounds_per_epoch, cas_backoff, check_concurrent_updates, rand_seed);
             break;
         case ALGORITHM::ELASYNC:
+            executor.scalar_loss_grad = scalar_loss_grad;
+
             /* std::cout << "elasyncsgd2 with window = " << probing_window << ", interval = " << probing_interval << ", duration = " << probing_duration << ", m_0 = " << initial_parallelism << " rounds_per_epoch = " << rounds_per_epoch << std::endl; */
-            executor.run_elastic_async2(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, rand_seed, false);
-            /* executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed, false); */
+            /* executor.run_elastic_async2(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, rand_seed, false); */
+            executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed, false);
             break;
         case ALGORITHM::SEMISYNC:
             std::cout << "Running semisync training\n";

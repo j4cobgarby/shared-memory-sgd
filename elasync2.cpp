@@ -12,17 +12,23 @@
 namespace MiniDNN {
 
 void NetworkExecutor::set_threads_running(std::atomic_flag arr[], int n, int num_threads) {
-    for (int i = 0; i < num_threads; i++) {
-        if (i <= n) {
-            arr[i].test_and_set();
-        } else {
-            arr[i].clear();
+    static std::mutex mtx;
+
+    mtx.lock();
+    {
+        for (int i = 0; i < num_threads; i++) {
+            if (i <= n) {
+                arr[i].test_and_set();
+            } else {
+                arr[i].clear();
+            }
         }
+        /* m_values.push_back(n); */
+        /* struct timeval t_now; */
+        /* gettimeofday(&t_now, NULL); */
+        /* m_times.push_back((double)(t_now.tv_sec - exe_start.tv_sec) + (double)(t_now.tv_usec - exe_start.tv_usec)/1000000); */
     }
-    m_values.push_back(n);
-    struct timeval t_now;
-    gettimeofday(&t_now, NULL);
-    m_times.push_back((double)(t_now.tv_sec - exe_start.tv_sec) + (double)(t_now.tv_usec - exe_start.tv_usec)/1000000);
+    mtx.unlock();
 }
 
 void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval,
