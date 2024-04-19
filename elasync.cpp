@@ -1,5 +1,6 @@
 #include "NetworkExecutor.h"
 #include <cmath>
+#include <limits>
 
 // #define STANDARD_WINDOW
 // #define EXTEND_WINDOW
@@ -199,7 +200,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             */
 
         num_iterations = probing_duration;
-        double best_loss = std::numeric_limits<double>::infinity();
 
         // int scaled_window = window * std::min(avg_loss, 2.0); // Don't scale the window to any more than 2x original
         int scaled_window = window; // Don't scale the window at all
@@ -261,6 +261,19 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
         m_probe_starts.push_back(m_values.size());
 
+        double best_probe_delta_loss = std::numeric_limits<double>::infinity();
+        double probe_comp_loss = 0; // The previous loss value, before probing
+
+        /* If the networks have previous loss values then use them, otherwise this is the first iteration */
+        if (thread_local_networks[0]->get_loss() >= 0.0) {
+            for (int i = 0; i < current_parallelism; i++) {
+                probe_comp_loss += thread_local_networks[i]->get_loss();
+            }
+            probe_comp_loss /= current_parallelism;
+        } else {
+            probe_comp_loss = -1; // Flag saying that it's unset
+        }
+
         // Run a probing phase for each m in the m-window
         for (int m = window_btm; m <= window_top; m += window_step) {
             current_parallelism = m;
@@ -288,13 +301,17 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 loss += thread_local_networks[i]->get_loss();
             }
             loss /= current_parallelism; // average los of each model
+            
+            if (probe_comp_loss < 0) probe_comp_loss = loss;
+            double loss_diff = loss - probe_comp_loss;
 
-            std::cout << "Probing @ " << current_parallelism << " yields loss = " << loss << std::endl;
+            std::cout << "Probing @ " << current_parallelism << " yields loss = " << loss << " (delta " << loss_diff << ")" << std::endl;
             
             /* update_loss_grad(loss, start_time); */
 
-            if (loss < best_loss) {
-                best_loss = loss;
+            if (loss_diff < best_probe_delta_loss) {
+                std::cout << "Setting new best delta to " << probe_comp_loss << std::endl;
+                best_probe_delta_loss = probe_comp_loss;
                 best_m = current_parallelism;
             }
         }
@@ -391,10 +408,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
     for (int k = 0; k < num_epochs; k++) {
         loss = 0;
-        std::cout << "Adding up loss for epoch " << k << std::endl;
         for (int i = 0; i < num_threads; i++) {
             loss += local_losses_per_epoch[i][k];
-            std::cout << "\t+" << loss << std::endl;
         }
         loss /= rounds_per_epoch;
         loss_per_epoch.push_back(loss);
