@@ -311,7 +311,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
             if (loss_diff < best_probe_delta_loss) {
                 std::cout << "Setting new best delta to " << probe_comp_loss << std::endl;
-                best_probe_delta_loss = probe_comp_loss;
+                best_probe_delta_loss = loss_diff;
                 best_m = current_parallelism;
             }
         }
