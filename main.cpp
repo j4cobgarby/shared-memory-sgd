@@ -36,7 +36,9 @@ int probing_interval = -1;
 int probing_window = 1;
 int initial_parallelism = -1;
 double heuristic_gradient = 0;
-double scalar_loss_grad = 0;
+double scalar_loss_grad = 0,
+       scalar_loss_jitter = 0,
+       scalar_m_trend = 0;
 
 enum class ALGORITHM {
     ASYNC, HOG, LSH, SEQ, SYNC, ELASYNC, SEMISYNC, HEURISTIC,
@@ -98,7 +100,7 @@ int main(int argc, char *argv[]) {
 
     while (1) {
         i = 0;
-        c = getopt_long(argc, argv, "a:b:e:n:r:l:m:B:R:C:A:N:L:U:t:D:w:i:d:s:G:", long_options, &i);
+        c = getopt_long(argc, argv, "a:b:e:n:r:l:m:B:R:C:A:N:L:U:t:D:w:i:d:s:G:J:M:", long_options, &i);
 
         if (c == -1) {
             //printf("Use -h or --help for help\n");
@@ -242,6 +244,12 @@ int main(int argc, char *argv[]) {
                 std::cout << "Scalar loss grad = " << scalar_loss_grad << std::endl;
                 /* heuristic_gradient = atof(optarg); */
                 /* std::cout << "Heuristic gradient (G) set to " << heuristic_gradient << std::endl;  */
+                break;
+            case 'J':
+                scalar_loss_jitter = atof(optarg);
+                break;
+            case 'M':
+                scalar_m_trend = atof(optarg);
                 break;
             case '?':
             default:
@@ -464,6 +472,8 @@ int main(int argc, char *argv[]) {
             break;
         case ALGORITHM::ELASYNC:
             executor.scalar_loss_grad = scalar_loss_grad;
+            executor.scalar_loss_jitter = scalar_loss_jitter;
+            executor.scalar_m_trend = scalar_m_trend;
 
             /* std::cout << "elasyncsgd2 with window = " << probing_window << ", interval = " << probing_interval << ", duration = " << probing_duration << ", m_0 = " << initial_parallelism << " rounds_per_epoch = " << rounds_per_epoch << std::endl; */
             /* executor.run_elastic_async2(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, rand_seed, false); */

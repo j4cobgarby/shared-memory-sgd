@@ -64,12 +64,13 @@ namespace MiniDNN {
         std::vector<int> m_values;
         std::vector<size_t> m_probe_starts;
         std::vector<size_t> m_probe_ends;
+        std::vector<size_t> m_exec_values;
 
 
         struct timeval exe_start;
 
     public:
-        double scalar_loss_grad;
+        double scalar_loss_grad, scalar_loss_jitter, scalar_m_trend;
 
         long failed_cas = 0;
 

@@ -214,7 +214,25 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             // up, to try some more aggressive parallelism.
             // If it's getting worse, then maybe the async induced noise due to staleness is getting
             // too much, so try skewing the window down.
-            window_skew = loss_grads.back() * scalar_loss_grad;
+            
+            /* Take last n values from m_values and get trend */
+            double m_trend = 0.0;
+            if (m_exec_values.size() >= 2) { /* We need at least two values to get differences */
+                std::cout << "Doing trend calculation\n";
+                int last = m_exec_values.size() - 1;
+                int first = last - 3;
+                std::cout << "\tm_trend window: " << first << " -> " << last << std::endl;
+                if (first < 0) first = 0;
+
+                for (size_t i = first; i < last; i++) {
+                    std::cout << "\tAdding diff to m_trend: " << m_exec_values[i + 1] << " + " << m_exec_values[i] << std::endl;
+                    m_trend += m_exec_values[i + 1] - m_exec_values[i];
+                }
+                m_trend /= (last - first) + 1;
+            }
+
+            window_skew = loss_grads.back() * scalar_loss_grad + loss_jitter * scalar_loss_jitter + m_trend * scalar_m_trend;
+            std::cout << "Loss grad = " << loss_grads.back() << ", Loss jitter = " << loss_jitter << ", M trend = " << m_trend << std::endl;
             std::cout << "Skewing window by " << window_skew << std::endl;
         }
 
@@ -322,6 +340,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         current_parallelism = best_m;
 
         std::cout << "<execution> current_parallelism == " << current_parallelism << std::endl;
+        m_exec_values.push_back(current_parallelism);
 
         struct timeval now;
         gettimeofday(&now, NULL);
@@ -341,7 +360,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
         int latest_epoch = -1;
         for (int i = 0; i < num_threads; i++) {
-            std::cout << i << ": ";
+            /* std::cout << i << ": "; */
 
             for (int j = 0; j < local_losses_per_epoch.size(); j++) {
                 double l = local_losses_per_epoch[i][j];
@@ -349,12 +368,14 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 if (l == 0) continue;
                 latest_epoch = j; /* epoch j has at least some data */
 
+                /* TODO: If performance of this loop becomes an issue, it might be better to first loop to calculate
+                 * latest_epoch, and then process epoch data only for that minus epoch window size */
                 all_epoch_avgs[j] += l / rounds_done;
                 all_epoch_contributors[j] ++;
 
-                std::cout << rounds_done << " (" << l / rounds_done << ")  \t";
+                /* std::cout << rounds_done << " (" << l / rounds_done << ")  \t"; */
             }
-            std::cout << std::endl;
+            /* std::cout << std::endl; */
         }
 
         int epoch_win_first = latest_epoch - 8;
