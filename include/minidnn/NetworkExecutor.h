@@ -62,9 +62,9 @@ namespace MiniDNN {
         std::vector<double> loss_grad_times;
         std::vector<double> m_times;
         std::vector<int> m_values;
-        std::vector<size_t> m_probe_starts;
-        std::vector<size_t> m_probe_ends;
-        std::vector<size_t> m_exec_values;
+        std::vector<int> m_probe_starts;
+        std::vector<int> m_probe_ends;
+        std::vector<int> m_exec_values;
 
 
         struct timeval exe_start;
@@ -144,11 +144,11 @@ namespace MiniDNN {
             return m_values;
         }
 
-        std::vector<size_t> &get_probe_starts() {
+        std::vector<int> &get_probe_starts() {
             return m_probe_starts;
         }
 
-        std::vector<size_t> &get_probe_ends() {
+        std::vector<int> &get_probe_ends() {
             return m_probe_ends;
         }
 

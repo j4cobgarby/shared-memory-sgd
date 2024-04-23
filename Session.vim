@@ -13,13 +13,13 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +217 elasync.cpp
-badd +72 ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/NetworkExecutor.h
-badd +249 ~/Documents/code/cpp/shared-memory-sgd/main.cpp
+badd +228 elasync.cpp
+badd +148 ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/NetworkExecutor.h
+badd +476 ~/Documents/code/cpp/shared-memory-sgd/main.cpp
 argglobal
 %argdel
 $argadd elasync.cpp
-edit elasync.cpp
+edit ~/Documents/code/cpp/shared-memory-sgd/main.cpp
 wincmd t
 let s:save_winminheight = &winminheight
 let s:save_winminwidth = &winminwidth
@@ -28,7 +28,7 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 argglobal
-balt ~/Documents/code/cpp/shared-memory-sgd/main.cpp
+balt ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/NetworkExecutor.h
 setlocal fdm=indent
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -37,16 +37,20 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-11
+81
 normal! zo
-197
+102
 normal! zo
-let s:l = 217 - ((39 * winheight(0) + 39) / 79)
+118
+normal! zo
+456
+normal! zo
+let s:l = 476 - ((25 * winheight(0) + 27) / 55)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 217
-normal! 097|
+keepjumps 476
+normal! 053|
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

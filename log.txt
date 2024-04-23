@@ -2,995 +2,109 @@ Experiment name: testing
 Loaded CIFAR10 dset
 We're using CIFAR10 with LENET arch
 Set up worker pool
-Probing @ 3 yields loss = 2.30221 (delta 0)
-Setting new best delta to 2.30221
-Probing @ 4 yields loss = 2.30343 (delta 0.00122141)
-Probing @ 5 yields loss = 2.30361 (delta 0.00140346)
-Probing @ 6 yields loss = 2.30249 (delta 0.000278282)
-Probing @ 7 yields loss = 2.30215 (delta -5.9012e-05)
-Setting new best delta to 2.30221
-<execution> current_parallelism == 7
-Epoch window = 0 -> 6
-SD calculated as 8.36437e-05
+Probing @ 3 yields loss = 2.30197 (delta 0)
+Setting new best delta to 2.30197
+Probing @ 4 yields loss = 2.30335 (delta 0.00137825)
+Probing @ 5 yields loss = 2.30197 (delta 5.42855e-07)
+Probing @ 6 yields loss = 2.30304 (delta 0.00106938)
+Probing @ 7 yields loss = 2.30419 (delta 0.00222272)
+<execution> current_parallelism == 3
+Epoch window = 0 -> 1
+SD calculated as 0
 Loss grad = 0, Loss jitter = 0, M trend = 0
 Skewing window by 0
-Probing @ 5 yields loss = 2.30149 (delta -0.000795063)
-Setting new best delta to 2.30229
-Probing @ 6 yields loss = 2.30174 (delta -0.000552487)
-Probing @ 7 yields loss = 2.3021 (delta -0.0001902)
-Probing @ 8 yields loss = 2.30295 (delta 0.000665709)
-Probing @ 9 yields loss = 2.30376 (delta 0.00147187)
+Probing @ 1 yields loss = 2.30398 (delta -0.000510154)
+Setting new best delta to 2.30449
+Probing @ 2 yields loss = 2.30135 (delta -0.00313495)
+Setting new best delta to 2.30449
+Probing @ 3 yields loss = 2.30199 (delta -0.00249916)
+Probing @ 4 yields loss = 2.30253 (delta -0.0019556)
+Probing @ 5 yields loss = 2.30298 (delta -0.00151099)
+<execution> current_parallelism == 2
+Epoch window = 0 -> 1
+SD calculated as 0.000104375
+Doing trend calculation
+	m_trend window: 0 -> 1
+	Adding diff to m_trend: 2 - 3 = -1
+m_trend = -1 / 2
+Loss grad = -0.000396367, Loss jitter = 0, M trend = -0.5
+Skewing window by 0
+Probing @ 1 yields loss = 2.30275 (delta -0.00134398)
+Setting new best delta to 2.30409
+Probing @ 2 yields loss = 2.30461 (delta 0.00052168)
+Probing @ 3 yields loss = 2.30345 (delta -0.0006439)
+Probing @ 4 yields loss = 2.30321 (delta -0.000879988)
+Probing @ 5 yields loss = 2.30136 (delta -0.00272612)
+Setting new best delta to 2.30409
 <execution> current_parallelism == 5
-Epoch window = 1 -> 9
-SD calculated as 0.000105326
+Epoch window = 0 -> 1
+SD calculated as 0.000208751
 Doing trend calculation
-	m_trend window: -2 -> 1
-	Adding diff to m_trend: 5 + 7
-Loss grad = -0.000321097, Loss jitter = 0, M trend = 9.22337e+18
+	m_trend window: 0 -> 2
+	Adding diff to m_trend: 2 - 3 = -1
+	Adding diff to m_trend: 5 - 2 = 3
+m_trend = 2 / 3
+Loss grad = -0.00095127, Loss jitter = 0, M trend = 0.666667
 Skewing window by 0
-Probing @ 3 yields loss = 2.30242 (delta 0.000450602)
-Setting new best delta to 2.30197
-Probing @ 4 yields loss = 2.29988 (delta -0.00208986)
-Setting new best delta to 2.30197
-Probing @ 5 yields loss = 2.30211 (delta 0.00014043)
-Probing @ 6 yields loss = 2.30195 (delta -1.76892e-05)
-Probing @ 7 yields loss = 2.30315 (delta 0.00118669)
+Probing @ 3 yields loss = 2.30174 (delta -0.00139781)
+Setting new best delta to 2.30314
+Probing @ 4 yields loss = 2.30091 (delta -0.00222962)
+Setting new best delta to 2.30314
+Probing @ 5 yields loss = 2.30148 (delta -0.00166247)
+Probing @ 6 yields loss = 2.30355 (delta 0.000410719)
+Probing @ 7 yields loss = 2.30363 (delta 0.000495625)
 <execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105197
-Doing trend calculation
-	m_trend window: -1 -> 2
-	Adding diff to m_trend: 5 + 7
-	Adding diff to m_trend: 4 + 5
-Loss grad = 0.000579302, Loss jitter = 0, M trend = 1.22978e+19
-Skewing window by 0
-Probing @ 2 yields loss = 2.30252 (delta -2.82509e-05)
-Setting new best delta to 2.30255
-Probing @ 3 yields loss = 2.3033 (delta 0.000756774)
-Probing @ 4 yields loss = 2.30037 (delta -0.00217655)
-Setting new best delta to 2.30255
-Probing @ 5 yields loss = 2.30369 (delta 0.00114632)
-Probing @ 6 yields loss = 2.30201 (delta -0.000532958)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
+Epoch window = 0 -> 1
+SD calculated as 0.000313126
 Doing trend calculation
 	m_trend window: 0 -> 3
-	Adding diff to m_trend: 5 + 7
-	Adding diff to m_trend: 4 + 5
-	Adding diff to m_trend: 4 + 4
-Loss grad = 0.000239324, Loss jitter = 0, M trend = 9.22337e+18
+	Adding diff to m_trend: 2 - 3 = -1
+	Adding diff to m_trend: 5 - 2 = 3
+	Adding diff to m_trend: 4 - 5 = -1
+m_trend = 1 / 4
+Loss grad = -0.00181473, Loss jitter = 0, M trend = 0.25
 Skewing window by 0
-Probing @ 2 yields loss = 2.30056 (delta -0.00223077)
-Setting new best delta to 2.30279
-Probing @ 3 yields loss = 2.30184 (delta -0.000950104)
-Probing @ 4 yields loss = 2.30365 (delta 0.000861289)
-Probing @ 5 yields loss = 2.30371 (delta 0.00092211)
-Probing @ 6 yields loss = 2.30226 (delta -0.000530475)
+Probing @ 2 yields loss = 2.30107 (delta -0.000255058)
+Setting new best delta to 2.30132
+Probing @ 3 yields loss = 2.30356 (delta 0.00224101)
+Probing @ 4 yields loss = 2.30294 (delta 0.00161736)
+Probing @ 5 yields loss = 2.30278 (delta 0.00145643)
+Probing @ 6 yields loss = 2.30205 (delta 0.000729059)
 <execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
+Epoch window = 0 -> 1
+SD calculated as 0.000417502
 Doing trend calculation
 	m_trend window: 1 -> 4
-	Adding diff to m_trend: 4 + 5
-	Adding diff to m_trend: 4 + 4
-	Adding diff to m_trend: 2 + 4
-Loss grad = 0.00211919, Loss jitter = 0, M trend = 9.22337e+18
+	Adding diff to m_trend: 5 - 2 = 3
+	Adding diff to m_trend: 4 - 5 = -1
+	Adding diff to m_trend: 2 - 4 = -2
+m_trend = 0 / 4
+Loss grad = 0.00158008, Loss jitter = 0, M trend = 0
 Skewing window by 0
-Probing @ 1 yields loss = 2.3033 (delta -0.00160132)
-Setting new best delta to 2.30491
-Probing @ 2 yields loss = 2.30378 (delta -0.00112927)
-Probing @ 3 yields loss = 2.30321 (delta -0.00169669)
-Setting new best delta to 2.30491
-Probing @ 4 yields loss = 2.30342 (delta -0.0014884)
-Probing @ 5 yields loss = 2.30345 (delta -0.00145757)
-<execution> current_parallelism == 3
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
+Probing @ 1 yields loss = 2.30131 (delta -0.00159708)
+Setting new best delta to 2.3029
+Probing @ 2 yields loss = 2.30349 (delta 0.000585213)
+Probing @ 3 yields loss = 2.30218 (delta -0.000724559)
+Probing @ 4 yields loss = 2.29988 (delta -0.0030256)
+Setting new best delta to 2.3029
+Probing @ 5 yields loss = 2.30185 (delta -0.00105597)
+<execution> current_parallelism == 4
+Epoch window = 0 -> 1
+SD calculated as 0.000521877
 Doing trend calculation
 	m_trend window: 2 -> 5
-	Adding diff to m_trend: 4 + 4
-	Adding diff to m_trend: 2 + 4
-	Adding diff to m_trend: 3 + 2
-Loss grad = -0.00256292, Loss jitter = 0, M trend = 4.61169e+18
+	Adding diff to m_trend: 4 - 5 = -1
+	Adding diff to m_trend: 2 - 4 = -2
+	Adding diff to m_trend: 4 - 2 = 2
+m_trend = -1 / 4
+Loss grad = -0.000185903, Loss jitter = 0, M trend = -0.25
 Skewing window by 0
-Probing @ 1 yields loss = 2.30544 (delta 0.00309991)
-Setting new best delta to 2.30234
-Probing @ 2 yields loss = 2.30117 (delta -0.0011736)
-Setting new best delta to 2.30234
-Probing @ 3 yields loss = 2.30145 (delta -0.000895474)
-Probing @ 4 yields loss = 2.30291 (delta 0.000570348)
-Probing @ 5 yields loss = 2.30272 (delta 0.000377701)
-<execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 3 -> 6
-	Adding diff to m_trend: 2 + 4
-	Adding diff to m_trend: 3 + 2
-	Adding diff to m_trend: 2 + 3
-Loss grad = -0.0022749, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30436 (delta 0.00429728)
-Setting new best delta to 2.30007
-Probing @ 2 yields loss = 2.30473 (delta 0.00466542)
-Probing @ 3 yields loss = 2.30369 (delta 0.00362331)
-Setting new best delta to 2.30007
-Probing @ 4 yields loss = 2.3025 (delta 0.00243485)
-Setting new best delta to 2.30007
-Probing @ 5 yields loss = 2.30236 (delta 0.00229033)
-Setting new best delta to 2.30007
+Probing @ 2 yields loss = 2.30495 (delta 0.00223188)
+Setting new best delta to 2.30272
+Probing @ 3 yields loss = 2.30353 (delta 0.000814986)
+Setting new best delta to 2.30272
+Probing @ 4 yields loss = 2.30439 (delta 0.00166992)
+Probing @ 5 yields loss = 2.30188 (delta -0.000842804)
+Setting new best delta to 2.30272
+Probing @ 6 yields loss = 2.30212 (delta -0.000596321)
 <execution> current_parallelism == 5
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 4 -> 7
-	Adding diff to m_trend: 3 + 2
-	Adding diff to m_trend: 2 + 3
-	Adding diff to m_trend: 5 + 2
-Loss grad = 0.00219233, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 3 yields loss = 2.301 (delta -0.00125963)
-Setting new best delta to 2.30226
-Probing @ 4 yields loss = 2.30098 (delta -0.0012786)
-Setting new best delta to 2.30226
-Probing @ 5 yields loss = 2.30347 (delta 0.00121362)
-Probing @ 6 yields loss = 2.30502 (delta 0.00276167)
-Probing @ 7 yields loss = 2.30248 (delta 0.000217365)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 5 -> 8
-	Adding diff to m_trend: 2 + 3
-	Adding diff to m_trend: 5 + 2
-	Adding diff to m_trend: 4 + 5
-Loss grad = -0.000960435, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.30221 (delta 0.000909341)
-Setting new best delta to 2.3013
-Probing @ 3 yields loss = 2.30366 (delta 0.00235611)
-Probing @ 4 yields loss = 2.30304 (delta 0.00173707)
-Probing @ 5 yields loss = 2.30239 (delta 0.00109539)
-Probing @ 6 yields loss = 2.30332 (delta 0.00202378)
-<execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 6 -> 9
-	Adding diff to m_trend: 5 + 2
-	Adding diff to m_trend: 4 + 5
-	Adding diff to m_trend: 2 + 4
-Loss grad = -0.000245195, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30388 (delta 0.00282889)
-Setting new best delta to 2.30105
-Probing @ 2 yields loss = 2.30331 (delta 0.00225282)
-Setting new best delta to 2.30105
-Probing @ 3 yields loss = 2.30335 (delta 0.00229515)
-Probing @ 4 yields loss = 2.30221 (delta 0.00115183)
-Setting new best delta to 2.30105
-Probing @ 5 yields loss = 2.3025 (delta 0.00144775)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 7 -> 10
-	Adding diff to m_trend: 4 + 5
-	Adding diff to m_trend: 2 + 4
-	Adding diff to m_trend: 4 + 2
-Loss grad = -0.000163395, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.29982 (delta -0.00106812)
-Setting new best delta to 2.30089
-Probing @ 3 yields loss = 2.3037 (delta 0.00280704)
-Probing @ 4 yields loss = 2.30183 (delta 0.000940966)
-Probing @ 5 yields loss = 2.3018 (delta 0.000910014)
-Probing @ 6 yields loss = 2.30327 (delta 0.00237549)
-<execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 8 -> 11
-	Adding diff to m_trend: 2 + 4
-	Adding diff to m_trend: 4 + 2
-	Adding diff to m_trend: 2 + 4
-Loss grad = 0.0040424, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.29935 (delta -0.00558459)
-Setting new best delta to 2.30493
-Probing @ 2 yields loss = 2.30098 (delta -0.00395429)
-Probing @ 3 yields loss = 2.30414 (delta -0.000792561)
-Probing @ 4 yields loss = 2.30343 (delta -0.0015014)
-Probing @ 5 yields loss = 2.30327 (delta -0.00166095)
-<execution> current_parallelism == 1
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 9 -> 12
-	Adding diff to m_trend: 4 + 2
-	Adding diff to m_trend: 2 + 4
-	Adding diff to m_trend: 1 + 2
-Loss grad = -0.00140986, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30638 (delta 0.00285994)
-Setting new best delta to 2.30352
-Probing @ 2 yields loss = 2.30247 (delta -0.00104933)
-Setting new best delta to 2.30352
-Probing @ 3 yields loss = 2.30204 (delta -0.00147896)
-Setting new best delta to 2.30352
-Probing @ 4 yields loss = 2.30228 (delta -0.00124771)
-Probing @ 5 yields loss = 2.30219 (delta -0.00133797)
-<execution> current_parallelism == 3
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 10 -> 13
-	Adding diff to m_trend: 2 + 4
-	Adding diff to m_trend: 1 + 2
-	Adding diff to m_trend: 3 + 1
-Loss grad = -0.00157907, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30608 (delta 0.00413307)
-Setting new best delta to 2.30194
-Probing @ 2 yields loss = 2.30129 (delta -0.000658766)
-Setting new best delta to 2.30194
-Probing @ 3 yields loss = 2.30305 (delta 0.00110101)
-Probing @ 4 yields loss = 2.30205 (delta 0.000110512)
-Probing @ 5 yields loss = 2.30439 (delta 0.00244118)
-<execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 11 -> 14
-	Adding diff to m_trend: 1 + 2
-	Adding diff to m_trend: 3 + 1
-	Adding diff to m_trend: 2 + 3
-Loss grad = 2.33537e-06, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30314 (delta 0.00119067)
-Setting new best delta to 2.30195
-Probing @ 2 yields loss = 2.30423 (delta 0.00228696)
-Probing @ 3 yields loss = 2.30026 (delta -0.001686)
-Setting new best delta to 2.30195
-Probing @ 4 yields loss = 2.29987 (delta -0.0020759)
-Setting new best delta to 2.30195
-Probing @ 5 yields loss = 2.30275 (delta 0.000804112)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 12 -> 15
-	Adding diff to m_trend: 3 + 1
-	Adding diff to m_trend: 2 + 3
-	Adding diff to m_trend: 4 + 2
-Loss grad = 0.00232401, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.30377 (delta -0.000502436)
-Setting new best delta to 2.30427
-Probing @ 3 yields loss = 2.30476 (delta 0.000491438)
-Probing @ 4 yields loss = 2.30386 (delta -0.000413341)
-Probing @ 5 yields loss = 2.30218 (delta -0.00208844)
-Setting new best delta to 2.30427
-Probing @ 6 yields loss = 2.30143 (delta -0.00284045)
-Setting new best delta to 2.30427
-<execution> current_parallelism == 6
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 13 -> 16
-	Adding diff to m_trend: 2 + 3
-	Adding diff to m_trend: 4 + 2
-	Adding diff to m_trend: 6 + 4
-Loss grad = -0.000522796, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 4 yields loss = 2.3037 (delta -4.57622e-05)
-Setting new best delta to 2.30375
-Probing @ 5 yields loss = 2.30183 (delta -0.00191375)
-Setting new best delta to 2.30375
-Probing @ 6 yields loss = 2.30358 (delta -0.000164075)
-Probing @ 7 yields loss = 2.30193 (delta -0.00182229)
-Probing @ 8 yields loss = 2.30192 (delta -0.00182577)
-<execution> current_parallelism == 5
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 14 -> 17
-	Adding diff to m_trend: 4 + 2
-	Adding diff to m_trend: 6 + 4
-	Adding diff to m_trend: 5 + 6
-Loss grad = -0.000299912, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 3 yields loss = 2.30225 (delta -0.00120079)
-Setting new best delta to 2.30345
-Probing @ 4 yields loss = 2.30308 (delta -0.000365451)
-Probing @ 5 yields loss = 2.30292 (delta -0.000529364)
-Probing @ 6 yields loss = 2.30312 (delta -0.000328909)
-Probing @ 7 yields loss = 2.30367 (delta 0.000217219)
-<execution> current_parallelism == 3
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 15 -> 18
-	Adding diff to m_trend: 6 + 4
-	Adding diff to m_trend: 5 + 6
-	Adding diff to m_trend: 3 + 5
-Loss grad = -0.00249426, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.29847 (delta -0.00248467)
-Setting new best delta to 2.30095
-Probing @ 2 yields loss = 2.30243 (delta 0.00147665)
-Probing @ 3 yields loss = 2.30285 (delta 0.00189788)
-Probing @ 4 yields loss = 2.30426 (delta 0.00330621)
-Probing @ 5 yields loss = 2.30342 (delta 0.00246158)
-<execution> current_parallelism == 1
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 16 -> 19
-	Adding diff to m_trend: 5 + 6
-	Adding diff to m_trend: 3 + 5
-	Adding diff to m_trend: 1 + 3
-Loss grad = -0.00226217, Loss jitter = 0, M trend = 1.38351e+19
-Skewing window by 0
-Probing @ 1 yields loss = 2.30282 (delta 0.00412923)
-Setting new best delta to 2.29869
-Probing @ 2 yields loss = 2.30191 (delta 0.00321571)
-Setting new best delta to 2.29869
-Probing @ 3 yields loss = 2.30365 (delta 0.00495856)
-Probing @ 4 yields loss = 2.30155 (delta 0.00285546)
-Setting new best delta to 2.29869
-Probing @ 5 yields loss = 2.30454 (delta 0.00584951)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 17 -> 20
-	Adding diff to m_trend: 3 + 5
-	Adding diff to m_trend: 1 + 3
-	Adding diff to m_trend: 4 + 1
-Loss grad = 0.00372316, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.30142 (delta -0.000996598)
-Setting new best delta to 2.30241
-Probing @ 3 yields loss = 2.3036 (delta 0.00118863)
-Probing @ 4 yields loss = 2.3014 (delta -0.00101016)
-Setting new best delta to 2.30241
-Probing @ 5 yields loss = 2.30356 (delta 0.00114662)
-Probing @ 6 yields loss = 2.30151 (delta -0.00090248)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 18 -> 21
-	Adding diff to m_trend: 1 + 3
-	Adding diff to m_trend: 4 + 1
-	Adding diff to m_trend: 4 + 4
-Loss grad = 0.0016078, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.30352 (delta -0.000504988)
-Setting new best delta to 2.30402
-Probing @ 3 yields loss = 2.30111 (delta -0.00290942)
-Setting new best delta to 2.30402
-Probing @ 4 yields loss = 2.30256 (delta -0.00146205)
-Probing @ 5 yields loss = 2.30486 (delta 0.000836758)
-Probing @ 6 yields loss = 2.30394 (delta -7.88143e-05)
-<execution> current_parallelism == 3
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 19 -> 22
-	Adding diff to m_trend: 4 + 1
-	Adding diff to m_trend: 4 + 4
-	Adding diff to m_trend: 3 + 4
-Loss grad = -0.00103273, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.29936 (delta -0.00363005)
-Setting new best delta to 2.30299
-Probing @ 2 yields loss = 2.30326 (delta 0.000274852)
-Probing @ 3 yields loss = 2.30279 (delta -0.000203199)
-Probing @ 4 yields loss = 2.30407 (delta 0.00107545)
-Probing @ 5 yields loss = 2.30125 (delta -0.00174121)
-<execution> current_parallelism == 1
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 20 -> 23
-	Adding diff to m_trend: 4 + 4
-	Adding diff to m_trend: 3 + 4
-	Adding diff to m_trend: 1 + 3
-Loss grad = 0.000372621, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30483 (delta 0.00147026)
-Setting new best delta to 2.30336
-Probing @ 2 yields loss = 2.30245 (delta -0.000916212)
-Setting new best delta to 2.30336
-Probing @ 3 yields loss = 2.30222 (delta -0.00114672)
-Setting new best delta to 2.30336
-Probing @ 4 yields loss = 2.302 (delta -0.00136628)
-Setting new best delta to 2.30336
-Probing @ 5 yields loss = 2.30194 (delta -0.00142034)
-Setting new best delta to 2.30336
-<execution> current_parallelism == 5
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 21 -> 24
-	Adding diff to m_trend: 3 + 4
-	Adding diff to m_trend: 1 + 3
-	Adding diff to m_trend: 5 + 1
-Loss grad = -0.000297503, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 3 yields loss = 2.30395 (delta 0.000885041)
-Setting new best delta to 2.30306
-Probing @ 4 yields loss = 2.30194 (delta -0.00112533)
-Setting new best delta to 2.30306
-Probing @ 5 yields loss = 2.30407 (delta 0.0010062)
-Probing @ 6 yields loss = 2.30164 (delta -0.00142951)
-Setting new best delta to 2.30306
-Probing @ 7 yields loss = 2.30346 (delta 0.000390998)
-<execution> current_parallelism == 6
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 22 -> 25
-	Adding diff to m_trend: 1 + 3
-	Adding diff to m_trend: 5 + 1
-	Adding diff to m_trend: 6 + 5
-Loss grad = -0.000654469, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 4 yields loss = 2.30455 (delta 0.00214315)
-Setting new best delta to 2.30241
-Probing @ 5 yields loss = 2.30313 (delta 0.00071601)
-Setting new best delta to 2.30241
-Probing @ 6 yields loss = 2.30018 (delta -0.00222883)
-Setting new best delta to 2.30241
-Probing @ 7 yields loss = 2.30485 (delta 0.00243765)
-Probing @ 8 yields loss = 2.30127 (delta -0.00113735)
-<execution> current_parallelism == 6
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 23 -> 26
-	Adding diff to m_trend: 5 + 1
-	Adding diff to m_trend: 6 + 5
-	Adding diff to m_trend: 6 + 6
-Loss grad = 0.00137361, Loss jitter = 0, M trend = 1.25
-Skewing window by 0
-Probing @ 4 yields loss = 2.30157 (delta -0.00221781)
-Setting new best delta to 2.30378
-Probing @ 5 yields loss = 2.30105 (delta -0.00273727)
-Setting new best delta to 2.30378
-Probing @ 6 yields loss = 2.30205 (delta -0.00173708)
-Probing @ 7 yields loss = 2.30304 (delta -0.000742893)
-Probing @ 8 yields loss = 2.30227 (delta -0.00151015)
-<execution> current_parallelism == 5
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 24 -> 27
-	Adding diff to m_trend: 6 + 5
-	Adding diff to m_trend: 6 + 6
-	Adding diff to m_trend: 5 + 6
-Loss grad = -0.00124803, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 3 yields loss = 2.30282 (delta 0.000285153)
-Setting new best delta to 2.30254
-Probing @ 4 yields loss = 2.30143 (delta -0.00110981)
-Setting new best delta to 2.30254
-Probing @ 5 yields loss = 2.30393 (delta 0.00139234)
-Probing @ 6 yields loss = 2.30354 (delta 0.00100371)
-Probing @ 7 yields loss = 2.30333 (delta 0.000791498)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 25 -> 28
-	Adding diff to m_trend: 6 + 6
-	Adding diff to m_trend: 5 + 6
-	Adding diff to m_trend: 4 + 5
-Loss grad = -0.0014072, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.30365 (delta 0.00251946)
-Setting new best delta to 2.30113
-Probing @ 3 yields loss = 2.30354 (delta 0.00241491)
-Setting new best delta to 2.30113
-Probing @ 4 yields loss = 2.30133 (delta 0.000203493)
-Setting new best delta to 2.30113
-Probing @ 5 yields loss = 2.30119 (delta 5.74088e-05)
-Setting new best delta to 2.30113
-Probing @ 6 yields loss = 2.30144 (delta 0.000313825)
-<execution> current_parallelism == 5
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 26 -> 29
-	Adding diff to m_trend: 5 + 6
-	Adding diff to m_trend: 4 + 5
-	Adding diff to m_trend: 5 + 4
-Loss grad = 0.000415279, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 3 yields loss = 2.30132 (delta -0.00022795)
-Setting new best delta to 2.30154
-Probing @ 4 yields loss = 2.30132 (delta -0.000223726)
-Probing @ 5 yields loss = 2.30352 (delta 0.00197299)
-Probing @ 6 yields loss = 2.30176 (delta 0.000218409)
-Probing @ 7 yields loss = 2.30169 (delta 0.000143891)
-<execution> current_parallelism == 3
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 27 -> 30
-	Adding diff to m_trend: 4 + 5
-	Adding diff to m_trend: 5 + 4
-	Adding diff to m_trend: 3 + 5
-Loss grad = -0.00144069, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30454 (delta 0.00443759)
-Setting new best delta to 2.3001
-Probing @ 2 yields loss = 2.30097 (delta 0.000870281)
-Setting new best delta to 2.3001
-Probing @ 3 yields loss = 2.30319 (delta 0.00308802)
-Probing @ 4 yields loss = 2.30428 (delta 0.00417362)
-Probing @ 5 yields loss = 2.30298 (delta 0.00287247)
-<execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 28 -> 31
-	Adding diff to m_trend: 5 + 4
-	Adding diff to m_trend: 3 + 5
-	Adding diff to m_trend: 2 + 3
-Loss grad = 0.000316102, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30345 (delta 0.00303037)
-Setting new best delta to 2.30042
-Probing @ 2 yields loss = 2.30297 (delta 0.0025481)
-Setting new best delta to 2.30042
-Probing @ 3 yields loss = 2.30361 (delta 0.00318985)
-Probing @ 4 yields loss = 2.30159 (delta 0.00116842)
-Setting new best delta to 2.30042
-Probing @ 5 yields loss = 2.3028 (delta 0.00238331)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 29 -> 32
-	Adding diff to m_trend: 3 + 5
-	Adding diff to m_trend: 2 + 3
-	Adding diff to m_trend: 4 + 2
-Loss grad = 0.00245649, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.30316 (delta 0.000280305)
-Setting new best delta to 2.30288
-Probing @ 3 yields loss = 2.30388 (delta 0.001001)
-Probing @ 4 yields loss = 2.30467 (delta 0.00179575)
-Probing @ 5 yields loss = 2.30339 (delta 0.000510223)
-Probing @ 6 yields loss = 2.30272 (delta -0.00015796)
-Setting new best delta to 2.30288
-<execution> current_parallelism == 6
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 30 -> 33
-	Adding diff to m_trend: 2 + 3
-	Adding diff to m_trend: 4 + 2
-	Adding diff to m_trend: 6 + 4
-Loss grad = -0.000331823, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 4 yields loss = 2.30042 (delta -0.00212819)
-Setting new best delta to 2.30254
-Probing @ 5 yields loss = 2.30114 (delta -0.00140601)
-Probing @ 6 yields loss = 2.30246 (delta -8.56297e-05)
-Probing @ 7 yields loss = 2.30302 (delta 0.000480529)
-Probing @ 8 yields loss = 2.30128 (delta -0.00126828)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 31 -> 34
-	Adding diff to m_trend: 4 + 2
-	Adding diff to m_trend: 6 + 4
-	Adding diff to m_trend: 4 + 6
-Loss grad = 6.91101e-05, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.30272 (delta 0.000107922)
-Setting new best delta to 2.30261
-Probing @ 3 yields loss = 2.30299 (delta 0.000372963)
-Probing @ 4 yields loss = 2.30222 (delta -0.000392796)
-Setting new best delta to 2.30261
-Probing @ 5 yields loss = 2.30314 (delta 0.000527213)
-Probing @ 6 yields loss = 2.30281 (delta 0.000198835)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 32 -> 35
-	Adding diff to m_trend: 6 + 4
-	Adding diff to m_trend: 4 + 6
-	Adding diff to m_trend: 4 + 4
-Loss grad = 0.000329983, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.30315 (delta 0.000210868)
-Setting new best delta to 2.30294
-Probing @ 3 yields loss = 2.3018 (delta -0.00114144)
-Setting new best delta to 2.30294
-Probing @ 4 yields loss = 2.30253 (delta -0.000412518)
-Probing @ 5 yields loss = 2.30384 (delta 0.000901056)
-Probing @ 6 yields loss = 2.30264 (delta -0.000301002)
-<execution> current_parallelism == 3
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 33 -> 36
-	Adding diff to m_trend: 4 + 6
-	Adding diff to m_trend: 4 + 4
-	Adding diff to m_trend: 3 + 4
-Loss grad = -0.000122091, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30399 (delta 0.00116658)
-Setting new best delta to 2.30282
-Probing @ 2 yields loss = 2.30364 (delta 0.000822848)
-Setting new best delta to 2.30282
-Probing @ 3 yields loss = 2.30404 (delta 0.00121809)
-Probing @ 4 yields loss = 2.30262 (delta -0.000197297)
-Setting new best delta to 2.30282
-Probing @ 5 yields loss = 2.30266 (delta -0.000164672)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 34 -> 37
-	Adding diff to m_trend: 4 + 4
-	Adding diff to m_trend: 3 + 4
-	Adding diff to m_trend: 4 + 3
-Loss grad = 0.000156911, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.30181 (delta -0.00116396)
-Setting new best delta to 2.30298
-Probing @ 3 yields loss = 2.30433 (delta 0.00134757)
-Probing @ 4 yields loss = 2.30283 (delta -0.000145141)
-Probing @ 5 yields loss = 2.30089 (delta -0.00209125)
-Setting new best delta to 2.30298
-Probing @ 6 yields loss = 2.30233 (delta -0.000648434)
-<execution> current_parallelism == 5
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 35 -> 38
-	Adding diff to m_trend: 3 + 4
-	Adding diff to m_trend: 4 + 3
-	Adding diff to m_trend: 5 + 4
-Loss grad = -0.000311748, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 3 yields loss = 2.30101 (delta -0.00165601)
-Setting new best delta to 2.30267
-Probing @ 4 yields loss = 2.30383 (delta 0.00116851)
-Probing @ 5 yields loss = 2.3015 (delta -0.0011677)
-Probing @ 6 yields loss = 2.30418 (delta 0.00150917)
-Probing @ 7 yields loss = 2.30201 (delta -0.000653878)
-<execution> current_parallelism == 3
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 36 -> 39
-	Adding diff to m_trend: 4 + 3
-	Adding diff to m_trend: 5 + 4
-	Adding diff to m_trend: 3 + 5
-Loss grad = 0.000326768, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30207 (delta -0.000927235)
-Setting new best delta to 2.30299
-Probing @ 2 yields loss = 2.30362 (delta 0.000629345)
-Probing @ 3 yields loss = 2.30247 (delta -0.000520246)
-Probing @ 4 yields loss = 2.30215 (delta -0.000840306)
-Probing @ 5 yields loss = 2.30393 (delta 0.00094089)
-<execution> current_parallelism == 1
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 37 -> 40
-	Adding diff to m_trend: 5 + 4
-	Adding diff to m_trend: 3 + 5
-	Adding diff to m_trend: 1 + 3
-Loss grad = 0.00130308, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.302 (delta -0.00229965)
-Setting new best delta to 2.3043
-Probing @ 2 yields loss = 2.29927 (delta -0.00502625)
-Setting new best delta to 2.3043
-Probing @ 3 yields loss = 2.30207 (delta -0.00222644)
-Probing @ 4 yields loss = 2.30577 (delta 0.00147685)
-Probing @ 5 yields loss = 2.30395 (delta -0.00034674)
-<execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 38 -> 41
-	Adding diff to m_trend: 3 + 5
-	Adding diff to m_trend: 1 + 3
-	Adding diff to m_trend: 2 + 1
-Loss grad = -0.00132231, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30415 (delta 0.00117435)
-Setting new best delta to 2.30297
-Probing @ 2 yields loss = 2.30095 (delta -0.00202872)
-Setting new best delta to 2.30297
-Probing @ 3 yields loss = 2.30219 (delta -0.000786054)
-Probing @ 4 yields loss = 2.30286 (delta -0.000111802)
-Probing @ 5 yields loss = 2.30433 (delta 0.00135265)
-<execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 39 -> 42
-	Adding diff to m_trend: 1 + 3
-	Adding diff to m_trend: 2 + 1
-	Adding diff to m_trend: 2 + 2
-Loss grad = -0.00202909, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.3014 (delta 0.000457036)
-Setting new best delta to 2.30094
-Probing @ 2 yields loss = 2.3039 (delta 0.00295066)
-Probing @ 3 yields loss = 2.30492 (delta 0.0039711)
-Probing @ 4 yields loss = 2.30307 (delta 0.00212094)
-Probing @ 5 yields loss = 2.30261 (delta 0.00166634)
-<execution> current_parallelism == 1
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 40 -> 43
-	Adding diff to m_trend: 2 + 1
-	Adding diff to m_trend: 2 + 2
-	Adding diff to m_trend: 1 + 2
-Loss grad = 0.000413332, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30057 (delta -0.000791881)
-Setting new best delta to 2.30136
-Probing @ 2 yields loss = 2.30182 (delta 0.000457628)
-Probing @ 3 yields loss = 2.30117 (delta -0.0001883)
-Probing @ 4 yields loss = 2.30312 (delta 0.00176291)
-Probing @ 5 yields loss = 2.30161 (delta 0.000254048)
-<execution> current_parallelism == 1
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 41 -> 44
-	Adding diff to m_trend: 2 + 2
-	Adding diff to m_trend: 1 + 2
-	Adding diff to m_trend: 1 + 1
-Loss grad = -0.00285943, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.29845 (delta -5.04675e-05)
-Setting new best delta to 2.2985
-Probing @ 2 yields loss = 2.30618 (delta 0.00767684)
-Probing @ 3 yields loss = 2.30515 (delta 0.00664771)
-Probing @ 4 yields loss = 2.30289 (delta 0.00439624)
-Probing @ 5 yields loss = 2.30308 (delta 0.00457821)
-<execution> current_parallelism == 1
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 42 -> 45
-	Adding diff to m_trend: 1 + 2
-	Adding diff to m_trend: 1 + 1
-	Adding diff to m_trend: 1 + 1
-Loss grad = -0.00241113, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30418 (delta 0.0080883)
-Setting new best delta to 2.29609
-Probing @ 2 yields loss = 2.30566 (delta 0.00957566)
-Probing @ 3 yields loss = 2.30136 (delta 0.00527435)
-Setting new best delta to 2.29609
-Probing @ 4 yields loss = 2.30201 (delta 0.00592137)
-Probing @ 5 yields loss = 2.30208 (delta 0.00598767)
-<execution> current_parallelism == 3
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 43 -> 46
-	Adding diff to m_trend: 1 + 1
-	Adding diff to m_trend: 1 + 1
-	Adding diff to m_trend: 3 + 1
-Loss grad = 0.00713898, Loss jitter = 0, M trend = 0.5
-Skewing window by 0
-Probing @ 1 yields loss = 2.30179 (delta -0.001434)
-Setting new best delta to 2.30323
-Probing @ 2 yields loss = 2.29961 (delta -0.00361696)
-Setting new best delta to 2.30323
-Probing @ 3 yields loss = 2.30465 (delta 0.00142201)
-Probing @ 4 yields loss = 2.30385 (delta 0.000618932)
-Probing @ 5 yields loss = 2.30204 (delta -0.0011844)
-<execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 44 -> 47
-	Adding diff to m_trend: 1 + 1
-	Adding diff to m_trend: 3 + 1
-	Adding diff to m_trend: 2 + 3
-Loss grad = 0.000297874, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.29881 (delta -0.00471912)
-Setting new best delta to 2.30352
-Probing @ 2 yields loss = 2.30464 (delta 0.00111566)
-Probing @ 3 yields loss = 2.29992 (delta -0.0036005)
-Probing @ 4 yields loss = 2.30113 (delta -0.00239561)
-Probing @ 5 yields loss = 2.30334 (delta -0.000181037)
-<execution> current_parallelism == 1
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 45 -> 48
-	Adding diff to m_trend: 3 + 1
-	Adding diff to m_trend: 2 + 3
-	Adding diff to m_trend: 1 + 2
-Loss grad = -0.000263571, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30484 (delta 0.00157954)
-Setting new best delta to 2.30326
-Probing @ 2 yields loss = 2.30302 (delta -0.000240191)
-Setting new best delta to 2.30326
-Probing @ 3 yields loss = 2.30118 (delta -0.00208327)
-Setting new best delta to 2.30326
-Probing @ 4 yields loss = 2.30212 (delta -0.00113982)
-Probing @ 5 yields loss = 2.30346 (delta 0.00019823)
-<execution> current_parallelism == 3
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 46 -> 49
-	Adding diff to m_trend: 2 + 3
-	Adding diff to m_trend: 1 + 2
-	Adding diff to m_trend: 3 + 1
-Loss grad = -0.00262057, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.29785 (delta -0.00279318)
-Setting new best delta to 2.30064
-Probing @ 2 yields loss = 2.30421 (delta 0.00357129)
-Probing @ 3 yields loss = 2.3004 (delta -0.000238449)
-Probing @ 4 yields loss = 2.30082 (delta 0.000176333)
-Probing @ 5 yields loss = 2.30144 (delta 0.00079713)
-<execution> current_parallelism == 1
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 47 -> 50
-	Adding diff to m_trend: 1 + 2
-	Adding diff to m_trend: 3 + 1
-	Adding diff to m_trend: 1 + 3
-Loss grad = 0.00232549, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30427 (delta 0.00130819)
-Setting new best delta to 2.30297
-Probing @ 2 yields loss = 2.30034 (delta -0.00262709)
-Setting new best delta to 2.30297
-Probing @ 3 yields loss = 2.30081 (delta -0.00216008)
-Probing @ 4 yields loss = 2.30449 (delta 0.00152505)
-Probing @ 5 yields loss = 2.30228 (delta -0.000686854)
-<execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 48 -> 51
-	Adding diff to m_trend: 3 + 1
-	Adding diff to m_trend: 1 + 3
-	Adding diff to m_trend: 2 + 1
-Loss grad = 0.000638433, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30353 (delta -7.14352e-05)
-Setting new best delta to 2.3036
-Probing @ 2 yields loss = 2.30321 (delta -0.000390789)
-Setting new best delta to 2.3036
-Probing @ 3 yields loss = 2.30433 (delta 0.000725879)
-Probing @ 4 yields loss = 2.30254 (delta -0.00106502)
-Setting new best delta to 2.3036
-Probing @ 5 yields loss = 2.30268 (delta -0.00092185)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 49 -> 52
-	Adding diff to m_trend: 1 + 3
-	Adding diff to m_trend: 2 + 1
-	Adding diff to m_trend: 4 + 2
-Loss grad = -0.000356491, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.30126 (delta -0.00198514)
-Setting new best delta to 2.30325
-Probing @ 3 yields loss = 2.30183 (delta -0.00141504)
-Probing @ 4 yields loss = 2.30223 (delta -0.00102171)
-Probing @ 5 yields loss = 2.30146 (delta -0.00178889)
-Probing @ 6 yields loss = 2.30235 (delta -0.000897313)
-<execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 50 -> 53
-	Adding diff to m_trend: 2 + 1
-	Adding diff to m_trend: 4 + 2
-	Adding diff to m_trend: 2 + 4
-Loss grad = -0.00024002, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30495 (delta 0.00194505)
-Setting new best delta to 2.30301
-Probing @ 2 yields loss = 2.3058 (delta 0.00279153)
-Probing @ 3 yields loss = 2.30216 (delta -0.000849111)
-Setting new best delta to 2.30301
-Probing @ 4 yields loss = 2.30353 (delta 0.000518897)
-Probing @ 5 yields loss = 2.30174 (delta -0.0012669)
-Setting new best delta to 2.30301
-<execution> current_parallelism == 5
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 51 -> 54
-	Adding diff to m_trend: 4 + 2
-	Adding diff to m_trend: 2 + 4
-	Adding diff to m_trend: 5 + 2
-Loss grad = 0.000224593, Loss jitter = 0, M trend = 4.61169e+18
-Skewing window by 0
-Probing @ 3 yields loss = 2.30193 (delta -0.00130622)
-Setting new best delta to 2.30323
-Probing @ 4 yields loss = 2.30167 (delta -0.00155761)
-Setting new best delta to 2.30323
-Probing @ 5 yields loss = 2.30184 (delta -0.00138985)
-Probing @ 6 yields loss = 2.30362 (delta 0.000383034)
-Probing @ 7 yields loss = 2.30276 (delta -0.000472793)
-<execution> current_parallelism == 4
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 52 -> 55
-	Adding diff to m_trend: 2 + 4
-	Adding diff to m_trend: 5 + 2
-	Adding diff to m_trend: 4 + 5
-Loss grad = -0.00301805, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 2 yields loss = 2.30117 (delta 0.000954635)
-Setting new best delta to 2.30021
-Probing @ 3 yields loss = 2.30208 (delta 0.00186198)
-Probing @ 4 yields loss = 2.3013 (delta 0.00108522)
-Probing @ 5 yields loss = 2.30125 (delta 0.00103517)
-Probing @ 6 yields loss = 2.30262 (delta 0.00241053)
-<execution> current_parallelism == 2
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 53 -> 56
-	Adding diff to m_trend: 5 + 2
-	Adding diff to m_trend: 4 + 5
-	Adding diff to m_trend: 2 + 4
-Loss grad = 0.00207388, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 1 yields loss = 2.30211 (delta -0.000181628)
-Setting new best delta to 2.30229
-Probing @ 2 yields loss = 2.30194 (delta -0.000351248)
-Setting new best delta to 2.30229
-Probing @ 3 yields loss = 2.30404 (delta 0.00175608)
-Probing @ 4 yields loss = 2.30304 (delta 0.000752856)
-Probing @ 5 yields loss = 2.30096 (delta -0.00133185)
-Setting new best delta to 2.30229
-<execution> current_parallelism == 5
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Doing trend calculation
-	m_trend window: 54 -> 57
-	Adding diff to m_trend: 4 + 5
-	Adding diff to m_trend: 2 + 4
-	Adding diff to m_trend: 5 + 2
-Loss grad = 0.00068977, Loss jitter = 0, M trend = 9.22337e+18
-Skewing window by 0
-Probing @ 3 yields loss = 2.3033 (delta 0.000317579)
-Setting new best delta to 2.30298
-Probing @ 4 yields loss = 2.30351 (delta 0.000534285)
-Probing @ 5 yields loss = 2.3024 (delta -0.000579973)
-Setting new best delta to 2.30298
-Probing @ 6 yields loss = 2.3029 (delta -8.02268e-05)
-Probing @ 7 yields loss = 2.30276 (delta -0.000219647)
-<execution> current_parallelism == 5
-Epoch window = 1 -> 9
-SD calculated as 0.000105194
-Training finished.
-Returning
-Saved as 22-04-2024_14-24-56_LENET_ELASYNC_CIFAR10_testing.json

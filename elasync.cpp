@@ -221,16 +221,31 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 std::cout << "Doing trend calculation\n";
                 int last = m_exec_values.size() - 1;
                 int first = last - 3;
-                std::cout << "\tm_trend window: " << first << " -> " << last << std::endl;
                 if (first < 0) first = 0;
+                std::cout << "\tm_trend window: " << first << " -> " << last << std::endl;
 
                 for (size_t i = first; i < last; i++) {
-                    std::cout << "\tAdding diff to m_trend: " << m_exec_values[i + 1] << " + " << m_exec_values[i] << std::endl;
-                    m_trend += m_exec_values[i + 1] - m_exec_values[i];
+                    std::cout << "\tAdding diff to m_trend: " << m_exec_values[i + 1] << " - " << m_exec_values[i] << " = " << m_exec_values[i+1] - m_exec_values[i] << std::endl;
+                    m_trend += (double)(m_exec_values[i + 1] - m_exec_values[i]);
                 }
+                std::cout << "m_trend = " << m_trend << " / " << (last-first) + 1 << std::endl;
                 m_trend /= (last - first) + 1;
             }
 
+            /* 
+             * Intuitively, it makes sense that if the parallelism trend is heading downwards, we would like to
+             * carry on in that direction, to account for any small spikes that might otherwise change our mind.
+             * This is kind of like momentum.
+             *
+             * If the recent model performance has been varying a lot (i.e. has high jitter), then we may want to
+             * nudge the window down to try and aim towards lower parallelisms, while spending less time probing
+             * in higher than desired levels.
+             *
+             * If the loss has been consistently decreasing over the previous window, then even if there's a short
+             * moment of increasing loss, it may still make sense to raise the window up. If the loss has been
+             * consistently increasing, then clearly our current strategy is failing, probably too agressive, so
+             * we can try to reduce the parallelism.
+             */
             window_skew = loss_grads.back() * scalar_loss_grad + loss_jitter * scalar_loss_jitter + m_trend * scalar_m_trend;
             std::cout << "Loss grad = " << loss_grads.back() << ", Loss jitter = " << loss_jitter << ", M trend = " << m_trend << std::endl;
             std::cout << "Skewing window by " << window_skew << std::endl;
