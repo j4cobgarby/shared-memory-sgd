@@ -426,6 +426,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         }
 
         std::cout << "SD calculated as " << sd << std::endl;
+        
+        loss_jitter = sd;
 
         double avg_loss = 0;
         for (int th = 0; th < current_parallelism; th++) {
