@@ -397,9 +397,20 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         }
 #endif
 
+
         int epoch_win_first = latest_epoch - 8;
         if (epoch_win_first < 0) epoch_win_first = 0;
         std::cout << "Epoch window = " << epoch_win_first << " -> " << latest_epoch << std::endl;
+
+        for (int i = 0; i < num_threads; i++) {
+            for (int j = epoch_win_first; j <= latest_epoch; j++) {
+                double l = local_losses_per_epoch[i][j];
+                int rounds_done = local_rounds_per_epoch[i][j];
+                if (l == 0) continue;
+                all_epoch_avgs[j] += l / rounds_done;
+                all_epoch_contributors[j]++;
+            }
+        }
 
         /* We want to calculate the standard deviation of pairwise differences for average losses for the epochs in the window */
         double sd;
