@@ -26,6 +26,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     std::vector<MultiClassEntropy *> thread_local_outputs(num_threads);
 
     int current_parallelism = m_0 < 0 ? num_threads / 2 : m_0;
+    int latest_epoch = -1;
 
     ParameterContainer *global_param = net->current_param_container_ptr;
 
@@ -141,6 +142,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             // add loss to thread local epoch loss sum
             local_losses_per_epoch[id][epoch] += loss;
             local_rounds_per_epoch[id][epoch] ++;
+            latest_epoch = epoch;
 
             thread_local_networks[id]->set_pointer(global_param);
             
@@ -373,6 +375,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         std::vector<double> all_epoch_avgs(num_epochs);
         std::vector<int> all_epoch_contributors(num_epochs);
 
+#if 0
         int latest_epoch = -1;
         for (int i = 0; i < num_threads; i++) {
             /* std::cout << i << ": "; */
@@ -392,6 +395,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             }
             /* std::cout << std::endl; */
         }
+#endif
 
         int epoch_win_first = latest_epoch - 8;
         if (epoch_win_first < 0) epoch_win_first = 0;
