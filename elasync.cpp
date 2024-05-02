@@ -78,105 +78,105 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         
         if (id >= current_parallelism) {
             return;
-        }
-
-        int iters = 0;
-        
-        while (true) {
-            iters++;
-            // std::cout << id << ") iteration counter = " << local_iterations << std::endl;
+        } else {
+            int iters = 0;
+            
+            while (true) {
+                iters++;
+                // std::cout << id << ") iteration counter = " << local_iterations << std::endl;
 
 #ifndef ALL_THREADS_MUST_FINISH
-            if (should_stop.test()) break; // Stop execution once at least one worker has reached num_iterations
+                if (should_stop.test()) break; // Stop execution once at least one worker has reached num_iterations
 #endif
 
-            if (local_iterations != -1 && local_iterations-- <= 0) {
+                if (local_iterations != -1 && local_iterations-- <= 0) {
 #ifndef ALL_THREADS_MUST_FINISH
-                should_stop.test_and_set();
+                    should_stop.test_and_set();
 #endif
-                break;
-            }
-            
-            long local_step = step.fetch_add(1);
-            //std::cout << "thread " << id << " step " << local_step << std::endl;
-
-            if (tauadaptstrat != "NONE" && local_step == tau_sample_stop * num_threads) {
-                // this thread computes the tail distribution
-                compute_tail_dist();
-            }
-
-            // reserve next unique batch
-            int batch_index = next_batch.fetch_add(1) % nbatch;
-
-            // termination criterion
-            if (local_step >= num_epochs * rounds_per_epoch) {
-                break;
-            }
-
-            // calculate current epoch
-            long epoch = local_step / rounds_per_epoch;
-            long epoch_step = local_step % rounds_per_epoch;
-
-            if (use_lock)
-                mtx.lock();
-
-            // copy global to local parameters
-            auto *local_param = new ParameterContainer(*global_param);
-
-            if (use_lock)
-                mtx.unlock();
-
-            long t0 = local_param->timestamp;
-
-            // apply new local params to thread
-            thread_local_networks[id]->set_pointer(local_param);
-
-            // compute gradient, store in Network object
-            thread_local_networks[id]->forward(x_batches[batch_index]);
-            thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
-            const Scalar loss = thread_local_networks[id]->get_loss();
-
-
-            /* std::cerr << id << ": [Epoch " << epoch << "] Loss = " << loss << std::endl; */
-
-            // add loss to thread local epoch loss sum
-            local_losses_per_epoch[id][epoch] += loss;
-            local_rounds_per_epoch[id][epoch] ++;
-            latest_epoch = epoch;
-
-            thread_local_networks[id]->set_pointer(global_param);
-            
-            delete local_param;
-
-            if (use_lock)
-                mtx.lock();
-
-            long t1 = global_param->timestamp;
-
-            int tau = t1 - t0;
-
-            thread_local_opts[id]->step_scale_factor = get_stepsize_scaling_factor(tau, tauadaptstrat);
-
-            //thread_local_networks[id]->update(opt); // AlignedMapVec update
-            thread_local_networks[id]->update_cw(thread_local_opts[id]); // component-wise update
-
-            if (use_lock)
-                mtx.unlock();
-
-            if (tau < tau_threshold) {
-                local_tau_dist[id][tau] += 1;
-                if (tauadaptstrat != "NONE" && local_step > tau_sample_start * num_threads && local_step < tau_sample_stop * num_threads) {
-                    tau_dist_sample[tau] += 1;
+                    break;
                 }
-            }
+                
+                long local_step = step.fetch_add(1);
+                //std::cout << "thread " << id << " step " << local_step << std::endl;
 
-            if (epoch_step == rounds_per_epoch - 1) {
-                struct timeval now;
-                gettimeofday(&now, NULL);
+                if (tauadaptstrat != "NONE" && local_step == tau_sample_stop * num_threads) {
+                    // this thread computes the tail distribution
+                    compute_tail_dist();
+                }
 
-                epoch_time_vector_lock.lock();
-                time_per_epoch.push_back(now.tv_sec - start_time.tv_sec + (double)(now.tv_usec - start_time.tv_usec)/1000000);
-                epoch_time_vector_lock.unlock();
+                // reserve next unique batch
+                int batch_index = next_batch.fetch_add(1) % nbatch;
+
+                // termination criterion
+                if (local_step >= num_epochs * rounds_per_epoch) {
+                    break;
+                }
+
+                // calculate current epoch
+                long epoch = local_step / rounds_per_epoch;
+                long epoch_step = local_step % rounds_per_epoch;
+
+                if (use_lock)
+                    mtx.lock();
+
+                // copy global to local parameters
+                auto *local_param = new ParameterContainer(*global_param);
+
+                if (use_lock)
+                    mtx.unlock();
+
+                long t0 = local_param->timestamp;
+
+                // apply new local params to thread
+                thread_local_networks[id]->set_pointer(local_param);
+
+                // compute gradient, store in Network object
+                thread_local_networks[id]->forward(x_batches[batch_index]);
+                thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
+                const Scalar loss = thread_local_networks[id]->get_loss();
+
+
+                /* std::cerr << id << ": [Epoch " << epoch << "] Loss = " << loss << std::endl; */
+
+                // add loss to thread local epoch loss sum
+                local_losses_per_epoch[id][epoch] += loss;
+                local_rounds_per_epoch[id][epoch] ++;
+                latest_epoch = epoch;
+
+                thread_local_networks[id]->set_pointer(global_param);
+                
+                delete local_param;
+
+                if (use_lock)
+                    mtx.lock();
+
+                long t1 = global_param->timestamp;
+
+                int tau = t1 - t0;
+
+                thread_local_opts[id]->step_scale_factor = get_stepsize_scaling_factor(tau, tauadaptstrat);
+
+                //thread_local_networks[id]->update(opt); // AlignedMapVec update
+                thread_local_networks[id]->update_cw(thread_local_opts[id]); // component-wise update
+
+                if (use_lock)
+                    mtx.unlock();
+
+                if (tau < tau_threshold) {
+                    local_tau_dist[id][tau] += 1;
+                    if (tauadaptstrat != "NONE" && local_step > tau_sample_start * num_threads && local_step < tau_sample_stop * num_threads) {
+                        tau_dist_sample[tau] += 1;
+                    }
+                }
+
+                if (epoch_step == rounds_per_epoch - 1) {
+                    struct timeval now;
+                    gettimeofday(&now, NULL);
+
+                    epoch_time_vector_lock.lock();
+                    time_per_epoch.push_back(now.tv_sec - start_time.tv_sec + (double)(now.tv_usec - start_time.tv_usec)/1000000);
+                    epoch_time_vector_lock.unlock();
+                }
             }
         }
     };
