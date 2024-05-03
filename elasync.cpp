@@ -1,6 +1,8 @@
 #include "NetworkExecutor.h"
+#include "ParameterContainer.h"
 #include <cmath>
 #include <limits>
+#include <barrier>
 
 // #define STANDARD_WINDOW
 // #define EXTEND_WINDOW
@@ -29,6 +31,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     int latest_epoch = -1;
 
     ParameterContainer *global_param = net->current_param_container_ptr;
+    ParameterContainer *synchronous_param = NULL;
 
     for (size_t i = 0; i < num_threads; ++i) {
         thread_local_networks[i] = new NetworkTopology(*net);
@@ -72,12 +75,66 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     std::atomic_flag should_stop = ATOMIC_FLAG_INIT;
 #endif
 
+
+    auto sync_point_cbk = []() noexcept {
+
+    };
+    std::barrier<typeof(sync_point_cbk)> *sync_point = nullptr;
+
     auto f = [&](int id) {
-        // std::cout << "Starting learning thread function proper" << std::endl;
         int local_iterations = num_iterations;
         
         if (id >= current_parallelism) {
-            return;
+            if (id == current_parallelism) {
+                sync_point = new std::barrier(num_threads - current_parallelism, sync_point_cbk);
+            }
+
+            /* If we're not within the asynchronous zone, then we are one of the threads that run SGD
+             * synchronously. Until the `should_stop` flag is set from one of the async threads, we will
+             * try and just do as many synchronous steps as possible, synchronoising with all the other
+             * alike threads.
+             * Obviously, these sync threads all share the same model, which has to be separate from the
+             * model which the async threads use. So, before the threads are all started, a copy of the
+             * current global model is made.
+             * Since we aren't returning to the main (controlling) thread after each step, one of the
+             * sync threads needs to have responsibility for updating the sync model. This will be the
+             * thread whose ID == current_parallelism, arbitrarily.
+             */
+            thread_local_networks[id]->set_pointer(synchronous_param);
+
+            while (!should_stop.test()) {
+                long local_step = step.fetch_add(1);
+                long batch_index = next_batch.fetch_add(1) % nbatch;
+
+                thread_local_networks[id]->forward(x_batches[batch_index]);
+                thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
+
+                sync_point->arrive_and_wait();
+
+                if (id == current_parallelism) {
+                    auto net = thread_local_networks[current_parallelism];
+                    double loss = 0.0;
+
+                    loss += net->get_loss();
+
+                    net->update_cw(thread_local_opts[current_parallelism]); 
+                    std::cout << "[sync] aggregating results from threads " << current_parallelism << " -> " << num_threads - 1 << std::endl;
+
+                    for (int i = current_parallelism + 1; i < num_threads; i++) {
+                        auto subnet = thread_local_networks[i];
+
+                        loss += subnet->get_loss();
+
+                        net->reset();
+                        net->aggregate(*subnet);
+                        net->normalize_derivatives(num_threads - current_parallelism);
+                        net->update_cw(thread_local_opts[current_parallelism]);
+                    }
+
+                    std::cout << "[sync] \tgot loss = " << loss / (num_threads - current_parallelism) << std::endl;
+                }
+
+            }
         } else {
             int iters = 0;
             
@@ -325,6 +382,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 #ifndef ALL_THREADS_MUST_FINISH
             should_stop.clear();
 #endif
+
+            synchronous_param = new ParameterContainer(*global_param);
+
             workers.start_all();
             workers.wait_for_all();
 
@@ -355,6 +415,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
         // After probing, run normal async execution for a while
         current_parallelism = best_m;
+
+        synchronous_param = new ParameterContainer(*global_param);
 
         std::cout << "<execution> current_parallelism == " << current_parallelism << std::endl;
         m_exec_values.push_back(current_parallelism);
