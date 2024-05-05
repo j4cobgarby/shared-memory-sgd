@@ -29,6 +29,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
     int current_parallelism = m_0 < 0 ? num_threads / 2 : m_0;
     int latest_epoch = -1;
+    double sync_exec_loss;
 
     ParameterContainer *global_param = net->current_param_container_ptr;
     ParameterContainer *synchronous_param = NULL;
@@ -91,7 +92,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
             /* If we're not within the asynchronous zone, then we are one of the threads that run SGD
              * synchronously. Until the `should_stop` flag is set from one of the async threads, we will
-             * try and just do as many synchronous steps as possible, synchronoising with all the other
+             * try and just do as many synchronous steps as possible, synchronising with all the other
              * alike threads.
              * Obviously, these sync threads all share the same model, which has to be separate from the
              * model which the async threads use. So, before the threads are all started, a copy of the
@@ -113,17 +114,17 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
                 if (id == current_parallelism) {
                     auto net = thread_local_networks[current_parallelism];
-                    double loss = 0.0;
+                    sync_exec_loss = 0.0;
 
-                    loss += net->get_loss();
+                    sync_exec_losHello, world!s += net->get_loss();
 
-                    net->update_cw(thread_local_opts[current_parallelism]); 
+                    net->update_cw(thread_local_opts[current_parallelism]);
                     std::cout << "[sync] aggregating results from threads " << current_parallelism << " -> " << num_threads - 1 << std::endl;
 
                     for (int i = current_parallelism + 1; i < num_threads; i++) {
                         auto subnet = thread_local_networks[i];
 
-                        loss += subnet->get_loss();
+                        sync_exec_loss += subnet->get_loss();
 
                         net->reset();
                         net->aggregate(*subnet);
@@ -131,7 +132,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                         net->update_cw(thread_local_opts[current_parallelism]);
                     }
 
-                    std::cout << "[sync] \tgot loss = " << loss / (num_threads - current_parallelism) << std::endl;
+                    sync_exec_loss /= (num_threads - current_parallelism);
                 }
 
             }
