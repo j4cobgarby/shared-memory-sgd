@@ -116,7 +116,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                     auto net = thread_local_networks[current_parallelism];
                     sync_exec_loss = 0.0;
 
-                    sync_exec_losHello, world!s += net->get_loss();
+                    sync_exec_loss += net->get_loss();
 
                     net->update_cw(thread_local_opts[current_parallelism]);
                     std::cout << "[sync] aggregating results from threads " << current_parallelism << " -> " << num_threads - 1 << std::endl;
@@ -133,9 +133,11 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                     }
 
                     sync_exec_loss /= (num_threads - current_parallelism);
+                    std::cout << "-\tgot loss:" << sync_exec_loss << std::endl;
                 }
-
             }
+
+            auto _ = sync_point->arrive();
         } else {
             int iters = 0;
             
@@ -150,6 +152,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 if (local_iterations != -1 && local_iterations-- <= 0) {
 #ifndef ALL_THREADS_MUST_FINISH
                     should_stop.test_and_set();
+                    std::cout << "[async] should stop!\n";
 #endif
                     break;
                 }
