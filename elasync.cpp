@@ -119,7 +119,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                     sync_exec_loss += net->get_loss();
 
                     net->update_cw(thread_local_opts[current_parallelism]);
-                    std::cout << "[sync] aggregating results from threads " << current_parallelism << " -> " << num_threads - 1 << std::endl;
+                    /* std::cout << "[sync] aggregating results from threads " << current_parallelism << " -> " << num_threads - 1 << std::endl; */
 
                     for (int i = current_parallelism + 1; i < num_threads; i++) {
                         auto subnet = thread_local_networks[i];
@@ -133,10 +133,11 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                     }
 
                     sync_exec_loss /= (num_threads - current_parallelism);
-                    std::cout << "-\tgot loss:" << sync_exec_loss << std::endl;
                 }
             }
 
+            /* Here we prevent the deadlock that used to occur when should_stop is set
+             * but not all sync threads have arrive_and_wait'ed yet. */
             auto _ = sync_point->arrive();
         } else {
             int iters = 0;
@@ -438,31 +439,31 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         workers.start_all();
         workers.wait_for_all();
 
+        double avg_loss = 0;
+        for (int th = 0; th < current_parallelism; th++) {
+            double l = thread_local_networks[th]->get_loss();
+            avg_loss += l;
+        }
+        avg_loss /= current_parallelism;
+
+        update_loss_grad(avg_loss, start_time);
+
+        /* First check if we want to base the next execution phase on the current
+         * sync or async mode status */
+
+        if (sync_exec_loss < avg_loss) {
+            std::cout << "Got better loss in synchronous execution, so replacing global model with it!\n";
+            std::cout << " - " << sync_exec_loss << " < " << avg_loss << std::endl;
+            global_param = new ParameterContainer(*synchronous_param);
+        }
+
+        /* Now we analyse the performance of recent async mode to calculate:
+         *  - Jitter of previous window
+         *  - Average trend of parallelism in previous window
+         */
+
         std::vector<double> all_epoch_avgs(num_epochs);
         std::vector<int> all_epoch_contributors(num_epochs);
-
-#if 0
-        int latest_epoch = -1;
-        for (int i = 0; i < num_threads; i++) {
-            /* std::cout << i << ": "; */
-
-            for (int j = 0; j < local_losses_per_epoch.size(); j++) {
-                double l = local_losses_per_epoch[i][j];
-                int rounds_done = local_rounds_per_epoch[i][j];
-                if (l == 0) continue;
-                latest_epoch = j; /* epoch j has at least some data */
-
-                /* TODO: If performance of this loop becomes an issue, it might be better to first loop to calculate
-                 * latest_epoch, and then process epoch data only for that minus epoch window size */
-                all_epoch_avgs[j] += l / rounds_done;
-                all_epoch_contributors[j] ++;
-
-                /* std::cout << rounds_done << " (" << l / rounds_done << ")  \t"; */
-            }
-            /* std::cout << std::endl; */
-        }
-#endif
-
 
         int epoch_win_first = latest_epoch - 8;
         if (epoch_win_first < 0) epoch_win_first = 0;
@@ -510,14 +511,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         
         loss_jitter = sd;
 
-        double avg_loss = 0;
-        for (int th = 0; th < current_parallelism; th++) {
-            double l = thread_local_networks[th]->get_loss();
-            avg_loss += l;
-        }
-        avg_loss /= current_parallelism;
-
-        update_loss_grad(avg_loss, start_time);
     }
 
 
