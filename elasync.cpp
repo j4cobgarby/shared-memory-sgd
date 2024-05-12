@@ -6,7 +6,8 @@
 
 // #define STANDARD_WINDOW
 // #define EXTEND_WINDOW
-#define SHIFT_WINDOW
+// #define SHIFT_WINDOW
+#define PROBE_WHOLE
 // #define ALL_THREADS_MUST_FINISH
 
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
@@ -86,6 +87,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         int local_iterations = num_iterations;
         
         if (id >= current_parallelism) {
+#ifdef SYNC_THREADS
             if (id == current_parallelism) {
                 sync_point = new std::barrier(num_threads - current_parallelism, sync_point_cbk);
             }
@@ -106,11 +108,25 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             while (!should_stop.test()) {
                 long local_step = step.fetch_add(1);
                 long batch_index = next_batch.fetch_add(1) % nbatch;
+                long epoch_step = local_step % rounds_per_epoch;
+
+                if (local_step >= num_epochs * rounds_per_epoch) {
+                    break;
+                }
 
                 thread_local_networks[id]->forward(x_batches[batch_index]);
                 thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
 
                 sync_point->arrive_and_wait();
+                
+                if (epoch_step == rounds_per_epoch - 1) {
+                    struct timeval now;
+                    gettimeofday(&now, NULL);
+
+                    epoch_time_vector_lock.lock();
+                    time_per_epoch.push_back(now.tv_sec - start_time.tv_sec + (double)(now.tv_usec - start_time.tv_usec)/1000000);
+                    epoch_time_vector_lock.unlock();
+                }
 
                 if (id == current_parallelism) {
                     auto net = thread_local_networks[current_parallelism];
@@ -139,6 +155,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             /* Here we prevent the deadlock that used to occur when should_stop is set
              * but not all sync threads have arrive_and_wait'ed yet. */
             auto _ = sync_point->arrive();
+#endif
         } else {
             int iters = 0;
             
@@ -171,6 +188,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
                 // termination criterion
                 if (local_step >= num_epochs * rounds_per_epoch) {
+                    std::cout << "[async] !! Thread has realised it's finished for good!\n";
+                    should_stop.test_and_set();
                     break;
                 }
 
@@ -258,6 +277,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     double loss_jitter = 0.0;
 
     while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
+        std::cout << "Main loop\n";
         /* Here, all threads are not running.
             * We want to get the loss trend over the previous execution phase.
             * In the previous iteration, there should be `probing_interval` training steps.
@@ -356,6 +376,12 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         int window_step = 1;
 #endif
 
+#ifdef PROBE_WHOLE
+        int window_top = num_threads - 1;
+        int window_btm = 1;
+        int window_step = num_threads / 32; /* could vary this */
+#endif
+
         m_probe_starts.push_back(m_values.size());
 
         double best_probe_delta_loss = std::numeric_limits<double>::infinity();
@@ -388,8 +414,12 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             should_stop.clear();
 #endif
 
+#ifdef SYNC_THREADS
             synchronous_param = new ParameterContainer(*global_param);
 
+#endif
+
+            std::cout << "(Starting work)\n";
             workers.start_all();
             workers.wait_for_all();
 
@@ -404,13 +434,15 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             
             if (probe_comp_loss < 0) probe_comp_loss = loss;
             double loss_diff = loss - probe_comp_loss;
+            std::cout << "Probing " << current_parallelism << " --> " << loss << " - " << probe_comp_loss << " = " << loss_diff << std::endl;
+            probe_comp_loss = loss;
 
-            std::cout << "Probing @ " << current_parallelism << " yields loss = " << loss << " (delta " << loss_diff << ")" << std::endl;
+            // std::cout << "Probing @ " << current_parallelism << " yields loss = " << loss << " (delta " << loss_diff << ")" << std::endl;
             
             /* update_loss_grad(loss, start_time); */
 
             if (loss_diff < best_probe_delta_loss) {
-                std::cout << "Setting new best delta to " << probe_comp_loss << std::endl;
+                std::cout << "Setting new best delta to " << loss_diff << std::endl;
                 best_probe_delta_loss = loss_diff;
                 best_m = current_parallelism;
             }
@@ -451,11 +483,14 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         /* First check if we want to base the next execution phase on the current
          * sync or async mode status */
 
+#ifdef SYNC_THREADS
+        std::cout << "sync loss = " << sync_exec_loss << std::endl;
         if (sync_exec_loss < avg_loss) {
             std::cout << "Got better loss in synchronous execution, so replacing global model with it!\n";
             std::cout << " - " << sync_exec_loss << " < " << avg_loss << std::endl;
             global_param = new ParameterContainer(*synchronous_param);
         }
+#endif
 
         /* Now we analyse the performance of recent async mode to calculate:
          *  - Jitter of previous window

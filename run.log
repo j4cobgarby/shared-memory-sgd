@@ -1,0 +1,575 @@
+Scalar loss grad = 0
+Experiment name: skewing_test_0_0_0
+Loaded CIFAR10 dset
+We're using CIFAR10 with LENET arch
+Rounds per epoch set to 3125
+Set up worker pool
+Main loop
+(Starting work)
+[async] should stop!
+Probing 120 --> 2.30268 - 2.30268 = 0
+Setting new best delta to 0
+(Starting work)
+[async] should stop!
+Probing 121 --> 2.30261 - 2.30268 = -6.53008e-05
+Setting new best delta to -6.53008e-05
+(Starting work)
+[async] should stop!
+Probing 122 --> 2.30293 - 2.30261 = 0.000322948
+(Starting work)
+[async] should stop!
+Probing 123 --> 2.30271 - 2.30293 = -0.000220521
+Setting new best delta to -0.000220521
+(Starting work)
+[async] should stop!
+Probing 124 --> 2.30284 - 2.30271 = 0.000128046
+(Starting work)
+[async] should stop!
+Probing 125 --> 2.30282 - 2.30284 = -2.35118e-05
+(Starting work)
+[async] should stop!
+Probing 126 --> 2.3026 - 2.30282 = -0.000215645
+(Starting work)
+[async] should stop!
+Probing 127 --> 2.30274 - 2.3026 = 0.000134562
+(Starting work)
+[async] should stop!
+Probing 128 --> 2.30272 - 2.30274 = -1.94967e-05
+(Starting work)
+[async] should stop!
+Probing 129 --> 2.30226 - 2.30272 = -0.000455247
+Setting new best delta to -0.000455247
+(Starting work)
+[async] should stop!
+Probing 130 --> 2.30258 - 2.30226 = 0.00031686
+(Starting work)
+[async] should stop!
+Probing 131 --> 2.30216 - 2.30258 = -0.000423292
+(Starting work)
+[async] should stop!
+Probing 132 --> 2.30046 - 2.30216 = -0.00169358
+Setting new best delta to -0.00169358
+(Starting work)
+[async] should stop!
+Probing 133 --> 2.21899 - 2.30046 = -0.0814744
+Setting new best delta to -0.0814744
+(Starting work)
+[async] should stop!
+Probing 134 --> 2.23123 - 2.21899 = 0.0122453
+(Starting work)
+[async] should stop!
+Probing 135 --> 2.13511 - 2.23123 = -0.0961242
+Setting new best delta to -0.0961242
+(Starting work)
+[async] should stop!
+[async] should stop!
+Probing 136 --> 2.07335 - 2.13511 = -0.0617606
+<execution> current_parallelism == 135
+[async] should stop!
+sync loss = 2.10951
+Epoch window = 24 -> 32
+SD calculated as 0.011875
+Main loop
+Loss grad = 0, Loss jitter = 0.011875, M trend = 0
+Skewing window by 0
+(Starting work)
+[async] should stop!
+Probing 127 --> 1.94071 - 1.91076 = 0.0299493
+Setting new best delta to 0.0299493
+(Starting work)
+[async] should stop!
+Probing 128 --> 1.88746 - 1.94071 = -0.0532512
+Setting new best delta to -0.0532512
+(Starting work)
+[async] should stop!
+Probing 129 --> 1.85709 - 1.88746 = -0.0303713
+(Starting work)
+[async] should stop!
+Probing 130 --> 1.84966 - 1.85709 = -0.00743409
+(Starting work)
+[async] should stop!
+Probing 131 --> 1.82656 - 1.84966 = -0.0230969
+(Starting work)
+[async] should stop!
+Probing 132 --> 1.73479 - 1.82656 = -0.0917665
+Setting new best delta to -0.0917665
+(Starting work)
+[async] should stop!
+Probing 133 --> 1.83105 - 1.73479 = 0.0962554
+(Starting work)
+[async] should stop!
+Probing 134 --> 1.7748 - 1.83105 = -0.0562453
+(Starting work)
+[async] should stop!
+Probing 135 --> 1.80825 - 1.7748 = 0.033444
+(Starting work)
+[async] should stop!
+Probing 136 --> 1.9485 - 1.80825 = 0.140255
+(Starting work)
+[async] should stop!
+Probing 137 --> 1.68415 - 1.9485 = -0.264353
+Setting new best delta to -0.264353
+(Starting work)
+[async] should stop!
+Probing 138 --> 1.66215 - 1.68415 = -0.0219968
+(Starting work)
+[async] should stop!
+Probing 139 --> 1.67404 - 1.66215 = 0.0118827
+(Starting work)
+[async] should stop!
+Probing 140 --> 1.59435 - 1.67404 = -0.0796903
+(Starting work)
+[async] should stop!
+Probing 141 --> 1.61864 - 1.59435 = 0.024295
+(Starting work)
+[async] should stop!
+Probing 142 --> 1.53246 - 1.61864 = -0.0861778
+(Starting work)
+[async] should stop!
+Probing 143 --> 1.62135 - 1.53246 = 0.0888887
+<execution> current_parallelism == 137
+[async] should stop!
+sync loss = 1.49488
+Epoch window = 60 -> 68
+SD calculated as 0.0195813
+Main loop
+Doing trend calculation
+	m_trend window: 0 -> 1
+	Adding diff to m_trend: 137 - 135 = 2
+m_trend = 2 / 2
+Loss grad = -0.459583, Loss jitter = 0.0195813, M trend = 1
+Skewing window by 0
+(Starting work)
+[async] should stop!
+Probing 129 --> 1.47133 - 1.45118 = 0.0201455
+Setting new best delta to 0.0201455
+(Starting work)
+[async] should stop!
+Probing 130 --> 1.37542 - 1.47133 = -0.0959081
+Setting new best delta to -0.0959081
+(Starting work)
+[async] should stop!
+Probing 131 --> 1.45813 - 1.37542 = 0.0827101
+(Starting work)
+[async] should stop!
+Probing 132 --> 1.42906 - 1.45813 = -0.029065
+(Starting work)
+[async] should stop!
+Probing 133 --> 1.51125 - 1.42906 = 0.0821899
+(Starting work)
+[async] should stop!
+Probing 134 --> 1.33873 - 1.51125 = -0.17252
+Setting new best delta to -0.17252
+(Starting work)
+[async] should stop!
+Probing 135 --> 1.35267 - 1.33873 = 0.0139361
+(Starting work)
+[async] should stop!
+Probing 136 --> 1.56201 - 1.35267 = 0.209342
+(Starting work)
+[async] should stop!
+Probing 137 --> 1.46763 - 1.56201 = -0.0943852
+(Starting work)
+[async] should stop!
+Probing 138 --> 1.47995 - 1.46763 = 0.0123254
+(Starting work)
+[async] should stop!
+Probing 139 --> 1.33378 - 1.47995 = -0.146169
+(Starting work)
+[async] should stop!
+Probing 140 --> 1.33326 - 1.33378 = -0.000521515
+(Starting work)
+[async] should stop!
+Probing 141 --> 1.35687 - 1.33326 = 0.023609
+(Starting work)
+[async] should stop!
+Probing 142 --> 1.31009 - 1.35687 = -0.0467813
+(Starting work)
+[async] should stop!
+Probing 143 --> 1.34803 - 1.31009 = 0.0379445
+(Starting work)
+[async] should stop!
+Probing 144 --> 1.32277 - 1.34803 = -0.025265
+(Starting work)
+[async] should stop!
+Probing 145 --> 1.27876 - 1.32277 = -0.0440132
+<execution> current_parallelism == 134
+[async] should stop!
+sync loss = 1.28198
+Epoch window = 97 -> 105
+SD calculated as 0.0343494
+Main loop
+Doing trend calculation
+	m_trend window: 0 -> 2
+	Adding diff to m_trend: 137 - 135 = 2
+	Adding diff to m_trend: 134 - 137 = -3
+m_trend = -1 / 3
+Loss grad = -0.206412, Loss jitter = 0.0343494, M trend = -0.333333
+Skewing window by 0
+(Starting work)
+[async] should stop!
+Probing 126 --> 1.20702 - 1.24477 = -0.0377461
+Setting new best delta to -0.0377461
+(Starting work)
+[async] should stop!
+Probing 127 --> 1.18542 - 1.20702 = -0.0216063
+(Starting work)
+[async] should stop!
+Probing 128 --> 1.16176 - 1.18542 = -0.023659
+(Starting work)
+[async] should stop!
+Probing 129 --> 1.22901 - 1.16176 = 0.0672565
+(Starting work)
+[async] should stop!
+[async] should stop!
+Probing 130 --> 1.19437 - 1.22901 = -0.0346429
+(Starting work)
+[async] should stop!
+Probing 131 --> 1.17879 - 1.19437 = -0.0155818
+(Starting work)
+[async] should stop!
+Probing 132 --> 1.22458 - 1.17879 = 0.045787
+(Starting work)
+[async] should stop!
+Probing 133 --> 1.23675 - 1.22458 = 0.0121752
+(Starting work)
+[async] should stop!
+Probing 134 --> 1.15503 - 1.23675 = -0.0817221
+Setting new best delta to -0.0817221
+(Starting work)
+[async] should stop!
+Probing 135 --> 1.19104 - 1.15503 = 0.0360132
+(Starting work)
+[async] should stop!
+Probing 136 --> 1.16448 - 1.19104 = -0.0265669
+(Starting work)
+[async] should stop!
+Probing 137 --> 1.28103 - 1.16448 = 0.116551
+(Starting work)
+[async] should stop!
+Probing 138 --> 1.04872 - 1.28103 = -0.232306
+Setting new best delta to -0.232306
+(Starting work)
+[async] should stop!
+Probing 139 --> 1.19721 - 1.04872 = 0.148493
+(Starting work)
+[async] should stop!
+Probing 140 --> 1.19484 - 1.19721 = -0.0023713
+(Starting work)
+[async] should stop!
+Probing 141 --> 1.17053 - 1.19484 = -0.0243082
+(Starting work)
+[async] should stop!
+Probing 142 --> 1.25707 - 1.17053 = 0.0865362
+<execution> current_parallelism == 138
+[async] should stop!
+sync loss = 1.11873
+Got better loss in synchronous execution, so replacing global model with it!
+ - 1.11873 < 1.18501
+Epoch window = 134 -> 142
+SD calculated as 0.0296605
+Main loop
+Doing trend calculation
+	m_trend window: 0 -> 3
+	Adding diff to m_trend: 137 - 135 = 2
+	Adding diff to m_trend: 134 - 137 = -3
+	Adding diff to m_trend: 138 - 134 = 4
+m_trend = 3 / 4
+Loss grad = -0.059755, Loss jitter = 0.0296605, M trend = 0.75
+Skewing window by 0
+(Starting work)
+[async] should stop!
+Probing 130 --> 1.11156 - 1.18501 = -0.0734558
+Setting new best delta to -0.0734558
+(Starting work)
+[async] should stop!
+Probing 131 --> 1.21404 - 1.11156 = 0.102478
+(Starting work)
+[async] should stop!
+Probing 132 --> 1.19067 - 1.21404 = -0.0233687
+(Starting work)
+[async] should stop!
+Probing 133 --> 1.0486 - 1.19067 = -0.142068
+Setting new best delta to -0.142068
+(Starting work)
+[async] should stop!
+Probing 134 --> 1.07726 - 1.0486 = 0.0286573
+(Starting work)
+[async] should stop!
+Probing 135 --> 1.07699 - 1.07726 = -0.000265692
+(Starting work)
+[async] should stop!
+Probing 136 --> 1.19105 - 1.07699 = 0.114055
+(Starting work)
+[async] should stop!
+Probing 137 --> 1.09988 - 1.19105 = -0.0911709
+(Starting work)
+[async] should stop!
+Probing 138 --> 1.1294 - 1.09988 = 0.0295286
+(Starting work)
+[async] should stop!
+Probing 139 --> 1.15827 - 1.1294 = 0.0288632
+(Starting work)
+[async] should stop!
+Probing 140 --> 1.02379 - 1.15827 = -0.13448
+(Starting work)
+[async] should stop!
+Probing 141 --> 1.01206 - 1.02379 = -0.0117255
+(Starting work)
+[async] should stop!
+Probing 142 --> 1.103 - 1.01206 = 0.0909333
+(Starting work)
+[async] should stop!
+Probing 143 --> 1.15586 - 1.103 = 0.052864
+(Starting work)
+[async] should stop!
+Probing 144 --> 1.03108 - 1.15586 = -0.124775
+(Starting work)
+[async] should stop!
+Probing 145 --> 1.14524 - 1.03108 = 0.114157
+(Starting work)
+[async] should stop!
+Probing 146 --> 1.05879 - 1.14524 = -0.0864537
+<execution> current_parallelism == 133
+[async] should stop!
+sync loss = 0.889417
+Got better loss in synchronous execution, so replacing global model with it!
+ - 0.889417 < 0.931468
+Epoch window = 171 -> 179
+SD calculated as 0.0562787
+Main loop
+Doing trend calculation
+	m_trend window: 1 -> 4
+	Adding diff to m_trend: 134 - 137 = -3
+	Adding diff to m_trend: 138 - 134 = 4
+	Adding diff to m_trend: 133 - 138 = -5
+m_trend = -4 / 4
+Loss grad = -0.253546, Loss jitter = 0.0562787, M trend = -1
+Skewing window by 0
+(Starting work)
+[async] should stop!
+Probing 125 --> 1.01755 - 0.931468 = 0.086078
+Setting new best delta to 0.086078
+(Starting work)
+[async] should stop!
+Probing 126 --> 0.91839 - 1.01755 = -0.099156
+Setting new best delta to -0.099156
+(Starting work)
+[async] should stop!
+Probing 127 --> 0.906081 - 0.91839 = -0.012309
+(Starting work)
+[async] should stop!
+Probing 128 --> 1.04955 - 0.906081 = 0.143467
+(Starting work)
+[async] should stop!
+Probing 129 --> 1.0356 - 1.04955 = -0.0139442
+(Starting work)
+[async] should stop!
+Probing 130 --> 0.933216 - 1.0356 = -0.102388
+Setting new best delta to -0.102388
+(Starting work)
+[async] should stop!
+Probing 131 --> 0.86875 - 0.933216 = -0.0644658
+(Starting work)
+[async] should stop!
+Probing 132 --> 1.03222 - 0.86875 = 0.163468
+(Starting work)
+[async] should stop!
+Probing 133 --> 0.975376 - 1.03222 = -0.0568433
+(Starting work)
+[async] should stop!
+Probing 134 --> 1.0073 - 0.975376 = 0.0319218
+(Starting work)
+[async] should stop!
+Probing 135 --> 0.918625 - 1.0073 = -0.0886718
+(Starting work)
+[async] should stop!
+Probing 136 --> 0.91673 - 0.918625 = -0.00189589
+(Starting work)
+[async] should stop!
+Probing 137 --> 1.07142 - 0.91673 = 0.154693
+(Starting work)
+[async] should stop!
+Probing 138 --> 0.930889 - 1.07142 = -0.140534
+Setting new best delta to -0.140534
+(Starting work)
+[async] should stop!
+Probing 139 --> 0.882999 - 0.930889 = -0.0478891
+(Starting work)
+[async] should stop!
+Probing 140 --> 0.960665 - 0.882999 = 0.0776659
+(Starting work)
+[async] should stop!
+Probing 141 --> 0.915482 - 0.960665 = -0.0451831
+<execution> current_parallelism == 138
+[async] should stop!
+sync loss = 0.790043
+Got better loss in synchronous execution, so replacing global model with it!
+ - 0.790043 < 0.869109
+Epoch window = 208 -> 216
+SD calculated as 0.0126445
+Main loop
+Doing trend calculation
+	m_trend window: 2 -> 5
+	Adding diff to m_trend: 138 - 134 = 4
+	Adding diff to m_trend: 133 - 138 = -5
+	Adding diff to m_trend: 138 - 133 = 5
+m_trend = 4 / 4
+Loss grad = -0.0623593, Loss jitter = 0.0126445, M trend = 1
+Skewing window by 0
+(Starting work)
+[async] should stop!
+Probing 130 --> 1.03858 - 0.869109 = 0.169471
+Setting new best delta to 0.169471
+(Starting work)
+[async] should stop!
+Probing 131 --> 0.894966 - 1.03858 = -0.143614
+Setting new best delta to -0.143614
+(Starting work)
+[async] should stop!
+Probing 132 --> 0.842168 - 0.894966 = -0.0527988
+(Starting work)
+[async] should stop!
+Probing 133 --> 0.946226 - 0.842168 = 0.104059
+(Starting work)
+[async] should stop!
+Probing 134 --> 1.01724 - 0.946226 = 0.0710167
+(Starting work)
+[async] should stop!
+Probing 135 --> 0.951159 - 1.01724 = -0.0660839
+(Starting work)
+[async] should stop!
+Probing 136 --> 1.09822 - 0.951159 = 0.147065
+(Starting work)
+[async] should stop!
+Probing 137 --> 1.14726 - 1.09822 = 0.0490339
+(Starting work)
+[async] should stop!
+Probing 138 --> 1.14878 - 1.14726 = 0.00151798
+(Starting work)
+[async] should stop!
+Probing 139 --> 0.99533 - 1.14878 = -0.153446
+Setting new best delta to -0.153446
+(Starting work)
+[async] should stop!
+Probing 140 --> 1.01651 - 0.99533 = 0.0211779
+(Starting work)
+[async] should stop!
+Probing 141 --> 0.98111 - 1.01651 = -0.035398
+(Starting work)
+[async] should stop!
+Probing 142 --> 0.999571 - 0.98111 = 0.0184616
+(Starting work)
+[async] should stop!
+Probing 143 --> 0.929648 - 0.999571 = -0.069923
+(Starting work)
+[async] should stop!
+Probing 144 --> 0.873902 - 0.929648 = -0.0557461
+(Starting work)
+[async] should stop!
+Probing 145 --> 0.785151 - 0.873902 = -0.0887516
+(Starting work)
+[async] should stop!
+Probing 146 --> 0.977547 - 0.785151 = 0.192397
+<execution> current_parallelism == 139
+[async] should stop!
+sync loss = 0.790846
+Got better loss in synchronous execution, so replacing global model with it!
+ - 0.790846 < 0.863806
+Epoch window = 246 -> 254
+SD calculated as 0.0583215
+Main loop
+Doing trend calculation
+	m_trend window: 3 -> 6
+	Adding diff to m_trend: 133 - 138 = -5
+	Adding diff to m_trend: 138 - 133 = 5
+	Adding diff to m_trend: 139 - 138 = 1
+m_trend = 1 / 4
+Loss grad = -0.00530332, Loss jitter = 0.0583215, M trend = 0.25
+Skewing window by 0
+(Starting work)
+[async] should stop!
+Probing 131 --> 0.863655 - 0.863806 = -0.000150809
+Setting new best delta to -0.000150809
+(Starting work)
+[async] should stop!
+Probing 132 --> 0.815365 - 0.863655 = -0.0482895
+Setting new best delta to -0.0482895
+(Starting work)
+[async] should stop!
+Probing 133 --> 0.849206 - 0.815365 = 0.0338412
+(Starting work)
+[async] should stop!
+Probing 134 --> 0.83077 - 0.849206 = -0.0184362
+(Starting work)
+[async] should stop!
+Probing 135 --> 0.94255 - 0.83077 = 0.111779
+(Starting work)
+[async] should stop!
+Probing 136 --> 0.929642 - 0.94255 = -0.0129074
+(Starting work)
+[async] should stop!
+Probing 137 --> 0.749826 - 0.929642 = -0.179816
+Setting new best delta to -0.179816
+(Starting work)
+[async] should stop!
+Probing 138 --> 0.846337 - 0.749826 = 0.0965107
+(Starting work)
+[async] should stop!
+Probing 139 --> 0.849796 - 0.846337 = 0.00345889
+(Starting work)
+[async] should stop!
+Probing 140 --> 0.855319 - 0.849796 = 0.00552345
+(Starting work)
+[async] should stop!
+Probing 141 --> 0.749149 - 0.855319 = -0.106171
+(Starting work)
+[async] should stop!
+Probing 142 --> 0.890677 - 0.749149 = 0.141528
+(Starting work)
+[async] should stop!
+Probing 143 --> 1.02721 - 0.890677 = 0.136536
+(Starting work)
+[async] should stop!
+Probing 144 --> 0.967055 - 1.02721 = -0.060158
+(Starting work)
+[async] should stop!
+Probing 145 --> 0.938995 - 0.967055 = -0.0280595
+(Starting work)
+[async] should stop!
+Probing 146 --> 1.02245 - 0.938995 = 0.0834522
+(Starting work)
+[async] should stop!
+Probing 147 --> 0.8746 - 1.02245 = -0.147847
+<execution> current_parallelism == 137
+[async] should stop!
+sync loss = 0.834319
+Epoch window = 283 -> 291
+SD calculated as 0.0916174
+Main loop
+Doing trend calculation
+	m_trend window: 4 -> 7
+	Adding diff to m_trend: 138 - 133 = 5
+	Adding diff to m_trend: 139 - 138 = 1
+	Adding diff to m_trend: 137 - 139 = -2
+m_trend = 4 / 4
+Loss grad = -0.050138, Loss jitter = 0.0916174, M trend = 1
+Skewing window by 0
+(Starting work)
+[async] should stop!
+Probing 129 --> 0.665813 - 0.813668 = -0.147855
+Setting new best delta to -0.147855
+(Starting work)
+[async] should stop!
+Probing 130 --> 0.868256 - 0.665813 = 0.202443
+(Starting work)
+[async] should stop!
+Probing 131 --> 0.677776 - 0.868256 = -0.19048
+Setting new best delta to -0.19048
+(Starting work)
+[async] should stop!
+Probing 132 --> 0.668794 - 0.677776 = -0.00898249
+(Starting work)
+[async] !! Thread has realised it's finished for good!
+[async] !! Thread has realised it's finished for good!
+Probing 133 --> 0.780948 - 0.668794 = 0.112154
