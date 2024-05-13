@@ -8,11 +8,11 @@ endif()
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
-SET(CMAKE_CXX_FLAGS_DEBUG "-O2 -g")
+SET(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-include_directories("/usr/local/include" "/usr/local/opt/llvm/include", "/usr/include/eigen3", "/usr/include/eigen3/unsupported")
+include_directories("/usr/local/include" "/usr/local/opt/llvm/include" "/usr/include/eigen3" "/usr/include/eigen3/unsupported")
 link_directories("/usr/local/lib" "/usr/local/opt/llvm/lib")
 
 set(APP_INCLUDES

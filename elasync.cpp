@@ -8,6 +8,7 @@
 // #define EXTEND_WINDOW
 // #define SHIFT_WINDOW
 #define PROBE_WHOLE
+#define SYNC_THREADS
 // #define ALL_THREADS_MUST_FINISH
 
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
@@ -79,17 +80,21 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
 
     auto sync_point_cbk = []() noexcept {
-
+        std::cout << "BARRIER REACHED\n";
     };
     std::barrier<typeof(sync_point_cbk)> *sync_point = nullptr;
+    std::atomic_int sync_num_finished;
 
     auto f = [&](int id) {
         int local_iterations = num_iterations;
         
         if (id >= current_parallelism) {
 #ifdef SYNC_THREADS
+            /* first thread in sync group is responsible for creating barrier */
             if (id == current_parallelism) {
-                sync_point = new std::barrier(num_threads - current_parallelism, sync_point_cbk);
+                sync_num_finished = 0;
+                // sync_point = new std::barrier(num_threads - current_parallelism, sync_point_cbk);
+                // std::cout << "BARRIER INIT\n";
             }
 
             /* If we're not within the asynchronous zone, then we are one of the threads that run SGD
@@ -117,7 +122,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 thread_local_networks[id]->forward(x_batches[batch_index]);
                 thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
 
-                sync_point->arrive_and_wait();
+                // sync_point->arrive_and_wait();
+                sync_num_finished++;
+                while (sync_num_finished < num_threads - current_parallelism) { /* busy wait */ }
                 
                 if (epoch_step == rounds_per_epoch - 1) {
                     struct timeval now;
@@ -154,7 +161,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
             /* Here we prevent the deadlock that used to occur when should_stop is set
              * but not all sync threads have arrive_and_wait'ed yet. */
-            auto _ = sync_point->arrive();
+            std::cout << "MANUALLY COMPLETING 'BARRIER'\n";
+            sync_num_finished = num_threads - current_parallelism;
+            // auto _ = sync_point->arrive();
 #endif
         } else {
             int iters = 0;
@@ -261,6 +270,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             }
         }
     };
+    std::cout << "Checkpoint A\n";
 
     std::vector<std::function<void(int id)>> jobs;
     for (int i = 0; i < num_threads; i++) {
@@ -399,6 +409,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
         // Run a probing phase for each m in the m-window
         for (int m = window_btm; m <= window_top; m += window_step) {
+            std::cout << "Starting probing loop at " << m << std::endl;
             current_parallelism = m;
             
             if (current_parallelism >= num_threads) break;
@@ -468,6 +479,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 #ifndef ALL_THREADS_MUST_FINISH
         should_stop.clear();
 #endif
+        std::cout << "Starting workers\n";
         workers.start_all();
         workers.wait_for_all();
 

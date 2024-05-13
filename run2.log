@@ -1,0 +1,1226 @@
+Scalar loss grad = 0
+Experiment name: sync_bg_test
+Loaded CIFAR10 dset
+We're using CIFAR10 with LENET arch
+Rounds per epoch set to 3125
+Checkpoint A
+Set up worker pool
+Main loop
+Starting probing loop at 1
+(Starting work)
+[async] should stop!
+Probing 1 --> 2.30351 - 2.30351 = 0
+Setting new best delta to 0
+Starting probing loop at 13
+(Starting work)
+[async] should stop!
+Probing 13 --> 2.30282 - 2.30351 = -0.000684691
+Setting new best delta to -0.000684691
+Starting probing loop at 25
+(Starting work)
+[async] should stop!
+Probing 25 --> 2.3034 - 2.30282 = 0.000575521
+Starting probing loop at 37
+(Starting work)
+[async] should stop!
+Probing 37 --> 2.30243 - 2.3034 = -0.000967538
+Setting new best delta to -0.000967538
+Starting probing loop at 49
+(Starting work)
+[async] should stop!
+Probing 49 --> 2.30272 - 2.30243 = 0.000289851
+Starting probing loop at 61
+(Starting work)
+[async] should stop!
+[async] should stop!
+[async] should stop!
+Probing 61 --> 2.30303 - 2.30272 = 0.00031249
+Starting probing loop at 73
+(Starting work)
+[async] should stop!
+Probing 73 --> 2.3028 - 2.30303 = -0.000230635
+Starting probing loop at 85
+(Starting work)
+[async] should stop!
+Probing 85 --> 2.30254 - 2.3028 = -0.000258514
+Starting probing loop at 97
+(Starting work)
+[async] should stop!
+Probing 97 --> 2.30306 - 2.30254 = 0.000513232
+Starting probing loop at 109
+(Starting work)
+[async] should stop!
+Probing 109 --> 2.30262 - 2.30306 = -0.00043367
+Starting probing loop at 121
+(Starting work)
+[async] should stop!
+Probing 121 --> 2.30299 - 2.30262 = 0.000363873
+Starting probing loop at 133
+(Starting work)
+[async] should stop!
+Probing 133 --> 2.30227 - 2.30299 = -0.000718696
+Starting probing loop at 145
+(Starting work)
+[async] should stop!
+Probing 145 --> 2.30261 - 2.30227 = 0.000340607
+Starting probing loop at 157
+(Starting work)
+[async] should stop!
+Probing 157 --> 2.30249 - 2.30261 = -0.000115413
+Starting probing loop at 169
+(Starting work)
+[async] should stop!
+Probing 169 --> 2.3027 - 2.30249 = 0.000207721
+Starting probing loop at 181
+(Starting work)
+[async] should stop!
+Probing 181 --> 2.30274 - 2.3027 = 3.76288e-05
+Starting probing loop at 193
+(Starting work)
+[async] should stop!
+Probing 193 --> 2.30285 - 2.30274 = 0.000114001
+Starting probing loop at 205
+(Starting work)
+[async] should stop!
+Probing 205 --> 2.30248 - 2.30285 = -0.000374991
+Starting probing loop at 217
+(Starting work)
+[async] should stop!
+Probing 217 --> 2.30276 - 2.30248 = 0.000283027
+Starting probing loop at 229
+(Starting work)
+[async] should stop!
+Probing 229 --> 2.30282 - 2.30276 = 5.56243e-05
+Starting probing loop at 241
+(Starting work)
+[async] should stop!
+Probing 241 --> 2.30259 - 2.30282 = -0.000225994
+Starting probing loop at 253
+(Starting work)
+[async] should stop!
+Probing 253 --> 2.30273 - 2.30259 = 0.000138022
+Starting probing loop at 265
+(Starting work)
+[async] should stop!
+Probing 265 --> 2.30266 - 2.30273 = -6.62414e-05
+Starting probing loop at 277
+(Starting work)
+[async] should stop!
+Probing 277 --> 2.30241 - 2.30266 = -0.000248994
+Starting probing loop at 289
+(Starting work)
+[async] should stop!
+Probing 289 --> 2.3023 - 2.30241 = -0.00011594
+Starting probing loop at 301
+(Starting work)
+[async] should stop!
+Probing 301 --> 2.30168 - 2.3023 = -0.000616335
+Starting probing loop at 313
+(Starting work)
+[async] should stop!
+Probing 313 --> 2.29701 - 2.30168 = -0.00466821
+Setting new best delta to -0.00466821
+Starting probing loop at 325
+(Starting work)
+[async] should stop!
+Probing 325 --> 2.19945 - 2.29701 = -0.097566
+Setting new best delta to -0.097566
+Starting probing loop at 337
+(Starting work)
+[async] should stop!
+Probing 337 --> 2.3025 - 2.19945 = 0.103058
+Starting probing loop at 349
+(Starting work)
+[async] should stop!
+Probing 349 --> 2.29464 - 2.3025 = -0.00786562
+Starting probing loop at 361
+(Starting work)
+[async] should stop!
+Probing 361 --> 2.27231 - 2.29464 = -0.0223323
+Starting probing loop at 373
+(Starting work)
+[async] should stop!
+Probing 373 --> 2.1899 - 2.27231 = -0.0824038
+Starting probing loop at 385
+(Starting work)
+[async] should stop!
+Probing 385 --> 2.29634 - 2.1899 = 0.106435
+Starting probing loop at 397
+(Starting work)
+[async] should stop!
+Probing 397 --> 2.29074 - 2.29634 = -0.00559315
+<execution> current_parallelism == 325
+Starting workers
+[async] should stop!
+Epoch window = 26 -> 34
+SD calculated as 0.0388922
+Main loop
+Loss grad = 0, Loss jitter = 0.0388922, M trend = 0
+Skewing window by 0
+Starting probing loop at 1
+(Starting work)
+[async] should stop!
+Probing 1 --> 2.1622 - 2.15059 = 0.0116111
+Setting new best delta to 0.0116111
+Starting probing loop at 13
+(Starting work)
+[async] should stop!
+Probing 13 --> 2.03784 - 2.1622 = -0.124362
+Setting new best delta to -0.124362
+Starting probing loop at 25
+(Starting work)
+[async] should stop!
+Probing 25 --> 2.02552 - 2.03784 = -0.0123176
+Starting probing loop at 37
+(Starting work)
+[async] should stop!
+Probing 37 --> 2.02337 - 2.02552 = -0.00215043
+Starting probing loop at 49
+(Starting work)
+[async] should stop!
+Probing 49 --> 1.96048 - 2.02337 = -0.0628881
+Starting probing loop at 61
+(Starting work)
+[async] should stop!
+Probing 61 --> 2.01098 - 1.96048 = 0.0505025
+Starting probing loop at 73
+(Starting work)
+[async] should stop!
+Probing 73 --> 1.97851 - 2.01098 = -0.0324764
+Starting probing loop at 85
+(Starting work)
+[async] should stop!
+Probing 85 --> 1.96684 - 1.97851 = -0.0116638
+Starting probing loop at 97
+(Starting work)
+[async] should stop!
+Probing 97 --> 2.07984 - 1.96684 = 0.113002
+Starting probing loop at 109
+(Starting work)
+[async] should stop!
+Probing 109 --> 1.9573 - 2.07984 = -0.122546
+Starting probing loop at 121
+(Starting work)
+[async] should stop!
+Probing 121 --> 1.95112 - 1.9573 = -0.00617692
+Starting probing loop at 133
+(Starting work)
+[async] should stop!
+Probing 133 --> 2.08339 - 1.95112 = 0.132271
+Starting probing loop at 145
+(Starting work)
+[async] should stop!
+Probing 145 --> 1.99133 - 2.08339 = -0.0920579
+Starting probing loop at 157
+(Starting work)
+[async] should stop!
+Probing 157 --> 2.14905 - 1.99133 = 0.157712
+Starting probing loop at 169
+(Starting work)
+[async] should stop!
+Probing 169 --> 1.95272 - 2.14905 = -0.196325
+Setting new best delta to -0.196325
+Starting probing loop at 181
+(Starting work)
+[async] should stop!
+Probing 181 --> 1.94615 - 1.95272 = -0.00657138
+Starting probing loop at 193
+(Starting work)
+[async] should stop!
+Probing 193 --> 2.09909 - 1.94615 = 0.152936
+Starting probing loop at 205
+(Starting work)
+[async] should stop!
+Probing 205 --> 2.03802 - 2.09909 = -0.0610639
+Starting probing loop at 217
+(Starting work)
+[async] should stop!
+Probing 217 --> 1.96698 - 2.03802 = -0.0710466
+Starting probing loop at 229
+(Starting work)
+[async] should stop!
+Probing 229 --> 1.9529 - 1.96698 = -0.0140777
+Starting probing loop at 241
+(Starting work)
+[async] should stop!
+Probing 241 --> 1.96442 - 1.9529 = 0.0115172
+Starting probing loop at 253
+(Starting work)
+[async] should stop!
+Probing 253 --> 1.88236 - 1.96442 = -0.0820524
+Starting probing loop at 265
+(Starting work)
+[async] should stop!
+Probing 265 --> 1.84583 - 1.88236 = -0.0365301
+Starting probing loop at 277
+(Starting work)
+[async] should stop!
+Probing 277 --> 2.01474 - 1.84583 = 0.168905
+Starting probing loop at 289
+(Starting work)
+[async] should stop!
+Probing 289 --> 1.95812 - 2.01474 = -0.0566185
+Starting probing loop at 301
+(Starting work)
+[async] should stop!
+Probing 301 --> 1.9056 - 1.95812 = -0.0525243
+Starting probing loop at 313
+(Starting work)
+[async] should stop!
+Probing 313 --> 1.94345 - 1.9056 = 0.0378497
+Starting probing loop at 325
+(Starting work)
+[async] should stop!
+Probing 325 --> 1.88585 - 1.94345 = -0.057594
+Starting probing loop at 337
+(Starting work)
+[async] should stop!
+Probing 337 --> 1.87694 - 1.88585 = -0.00891483
+Starting probing loop at 349
+(Starting work)
+[async] should stop!
+Probing 349 --> 1.78608 - 1.87694 = -0.0908574
+Starting probing loop at 361
+(Starting work)
+[async] should stop!
+Probing 361 --> 1.92759 - 1.78608 = 0.141511
+Starting probing loop at 373
+(Starting work)
+[async] should stop!
+Probing 373 --> 1.84314 - 1.92759 = -0.0844477
+Starting probing loop at 385
+(Starting work)
+[async] should stop!
+Probing 385 --> 1.88808 - 1.84314 = 0.044941
+Starting probing loop at 397
+(Starting work)
+[async] should stop!
+Probing 397 --> 1.88161 - 1.88808 = -0.00647737
+<execution> current_parallelism == 169
+Starting workers
+[async] should stop!
+Epoch window = 64 -> 72
+SD calculated as 0.0147405
+Main loop
+Doing trend calculation
+	m_trend window: 0 -> 1
+	Adding diff to m_trend: 169 - 325 = -156
+m_trend = -156 / 2
+Loss grad = -0.581452, Loss jitter = 0.0147405, M trend = -78
+Skewing window by 0
+Starting probing loop at 1
+(Starting work)
+[async] should stop!
+Probing 1 --> 1.33531 - 1.56914 = -0.23383
+Setting new best delta to -0.23383
+Starting probing loop at 13
+(Starting work)
+[async] should stop!
+Probing 13 --> 1.4879 - 1.33531 = 0.15259
+Starting probing loop at 25
+(Starting work)
+[async] should stop!
+Probing 25 --> 1.4591 - 1.4879 = -0.0287979
+Starting probing loop at 37
+(Starting work)
+[async] should stop!
+Probing 37 --> 1.44629 - 1.4591 = -0.0128117
+Starting probing loop at 49
+(Starting work)
+[async] should stop!
+Probing 49 --> 1.52911 - 1.44629 = 0.0828214
+Starting probing loop at 61
+(Starting work)
+[async] should stop!
+Probing 61 --> 1.5225 - 1.52911 = -0.00660386
+Starting probing loop at 73
+(Starting work)
+[async] should stop!
+Probing 73 --> 1.52937 - 1.5225 = 0.00687131
+Starting probing loop at 85
+(Starting work)
+[async] should stop!
+Probing 85 --> 1.51 - 1.52937 = -0.0193707
+Starting probing loop at 97
+(Starting work)
+[async] should stop!
+Probing 97 --> 1.64968 - 1.51 = 0.13968
+Starting probing loop at 109
+(Starting work)
+[async] should stop!
+Probing 109 --> 1.58568 - 1.64968 = -0.0640054
+Starting probing loop at 121
+(Starting work)
+[async] should stop!
+Probing 121 --> 1.58662 - 1.58568 = 0.000945394
+Starting probing loop at 133
+(Starting work)
+[async] should stop!
+Probing 133 --> 1.68109 - 1.58662 = 0.0944711
+Starting probing loop at 145
+(Starting work)
+[async] should stop!
+Probing 145 --> 1.81799 - 1.68109 = 0.136896
+Starting probing loop at 157
+(Starting work)
+[async] should stop!
+Probing 157 --> 1.74774 - 1.81799 = -0.0702504
+Starting probing loop at 169
+(Starting work)
+[async] should stop!
+Probing 169 --> 1.79386 - 1.74774 = 0.0461195
+Starting probing loop at 181
+(Starting work)
+[async] should stop!
+Probing 181 --> 1.5937 - 1.79386 = -0.20016
+Starting probing loop at 193
+(Starting work)
+[async] should stop!
+Probing 193 --> 1.6076 - 1.5937 = 0.0139007
+Starting probing loop at 205
+(Starting work)
+[async] should stop!
+Probing 205 --> 1.58148 - 1.6076 = -0.0261217
+Starting probing loop at 217
+(Starting work)
+[async] should stop!
+Probing 217 --> 1.69222 - 1.58148 = 0.110739
+Starting probing loop at 229
+(Starting work)
+[async] should stop!
+Probing 229 --> 1.6395 - 1.69222 = -0.0527188
+Starting probing loop at 241
+(Starting work)
+[async] should stop!
+Probing 241 --> 1.68309 - 1.6395 = 0.0435934
+Starting probing loop at 253
+(Starting work)
+[async] should stop!
+Probing 253 --> 1.66002 - 1.68309 = -0.0230725
+Starting probing loop at 265
+(Starting work)
+[async] should stop!
+Probing 265 --> 1.76052 - 1.66002 = 0.100498
+Starting probing loop at 277
+(Starting work)
+[async] should stop!
+Probing 277 --> 1.58903 - 1.76052 = -0.171489
+Starting probing loop at 289
+(Starting work)
+[async] should stop!
+Probing 289 --> 1.63433 - 1.58903 = 0.0453004
+Starting probing loop at 301
+(Starting work)
+[async] should stop!
+Probing 301 --> 1.69665 - 1.63433 = 0.0623246
+Starting probing loop at 313
+(Starting work)
+[async] should stop!
+Probing 313 --> 1.9616 - 1.69665 = 0.264945
+Starting probing loop at 325
+(Starting work)
+[async] should stop!
+Probing 325 --> 1.73326 - 1.9616 = -0.228335
+Starting probing loop at 337
+(Starting work)
+[async] should stop!
+Probing 337 --> 1.77088 - 1.73326 = 0.0376196
+Starting probing loop at 349
+(Starting work)
+[async] should stop!
+Probing 349 --> 1.68419 - 1.77088 = -0.0866948
+Starting probing loop at 361
+(Starting work)
+[async] should stop!
+Probing 361 --> 1.77322 - 1.68419 = 0.0890291
+Starting probing loop at 373
+(Starting work)
+[async] should stop!
+Probing 373 --> 1.83242 - 1.77322 = 0.0592016
+Starting probing loop at 385
+(Starting work)
+[async] should stop!
+Probing 385 --> 1.81952 - 1.83242 = -0.0128991
+Starting probing loop at 397
+(Starting work)
+[async] should stop!
+[async] should stop!
+Probing 397 --> 1.83136 - 1.81952 = 0.0118371
+<execution> current_parallelism == 1
+Starting workers
+[async] should stop!
+Epoch window = 92 -> 100
+SD calculated as 0.12764
+Main loop
+Doing trend calculation
+	m_trend window: 0 -> 2
+	Adding diff to m_trend: 169 - 325 = -156
+	Adding diff to m_trend: 1 - 169 = -168
+m_trend = -324 / 3
+Loss grad = 0.261528, Loss jitter = 0.12764, M trend = -108
+Skewing window by 0
+Starting probing loop at 1
+(Starting work)
+[async] should stop!
+Probing 1 --> 1.48478 - 1.83066 = -0.345887
+Setting new best delta to -0.345887
+Starting probing loop at 13
+(Starting work)
+[async] should stop!
+Probing 13 --> 1.69599 - 1.48478 = 0.211219
+Starting probing loop at 25
+(Starting work)
+[async] should stop!
+Probing 25 --> 1.57919 - 1.69599 = -0.116805
+Starting probing loop at 37
+(Starting work)
+[async] should stop!
+Probing 37 --> 1.48895 - 1.57919 = -0.0902354
+Starting probing loop at 49
+(Starting work)
+[async] should stop!
+Probing 49 --> 1.42821 - 1.48895 = -0.0607431
+Starting probing loop at 61
+(Starting work)
+[async] should stop!
+Probing 61 --> 1.49214 - 1.42821 = 0.0639256
+Starting probing loop at 73
+(Starting work)
+[async] should stop!
+Probing 73 --> 1.47767 - 1.49214 = -0.0144693
+Starting probing loop at 85
+(Starting work)
+[async] should stop!
+Probing 85 --> 1.45893 - 1.47767 = -0.018738
+Starting probing loop at 97
+(Starting work)
+[async] should stop!
+Probing 97 --> 1.45956 - 1.45893 = 0.00062723
+Starting probing loop at 109
+(Starting work)
+[async] should stop!
+Probing 109 --> 1.43259 - 1.45956 = -0.0269659
+Starting probing loop at 121
+(Starting work)
+[async] should stop!
+Probing 121 --> 1.46464 - 1.43259 = 0.0320463
+Starting probing loop at 133
+(Starting work)
+[async] should stop!
+Probing 133 --> 1.45392 - 1.46464 = -0.0107156
+Starting probing loop at 145
+(Starting work)
+[async] should stop!
+Probing 145 --> 1.50186 - 1.45392 = 0.0479386
+Starting probing loop at 157
+(Starting work)
+[async] should stop!
+Probing 157 --> 1.49978 - 1.50186 = -0.00207859
+Starting probing loop at 169
+(Starting work)
+[async] should stop!
+Probing 169 --> 1.55703 - 1.49978 = 0.0572467
+Starting probing loop at 181
+(Starting work)
+[async] should stop!
+Probing 181 --> 1.47674 - 1.55703 = -0.0802904
+Starting probing loop at 193
+(Starting work)
+[async] should stop!
+Probing 193 --> 1.4663 - 1.47674 = -0.0104368
+Starting probing loop at 205
+(Starting work)
+[async] should stop!
+Probing 205 --> 1.50097 - 1.4663 = 0.0346703
+Starting probing loop at 217
+(Starting work)
+[async] should stop!
+Probing 217 --> 1.52776 - 1.50097 = 0.0267844
+Starting probing loop at 229
+(Starting work)
+[async] should stop!
+Probing 229 --> 1.52813 - 1.52776 = 0.000376743
+Starting probing loop at 241
+(Starting work)
+[async] should stop!
+Probing 241 --> 1.5789 - 1.52813 = 0.0507686
+Starting probing loop at 253
+(Starting work)
+[async] should stop!
+Probing 253 --> 1.56734 - 1.5789 = -0.0115627
+Starting probing loop at 265
+(Starting work)
+[async] should stop!
+Probing 265 --> 1.50287 - 1.56734 = -0.0644695
+Starting probing loop at 277
+(Starting work)
+[async] should stop!
+Probing 277 --> 1.66629 - 1.50287 = 0.16342
+Starting probing loop at 289
+(Starting work)
+[async] should stop!
+Probing 289 --> 1.6302 - 1.66629 = -0.0360894
+Starting probing loop at 301
+(Starting work)
+[async] should stop!
+Probing 301 --> 1.59493 - 1.6302 = -0.0352651
+Starting probing loop at 313
+(Starting work)
+[async] should stop!
+Probing 313 --> 1.66634 - 1.59493 = 0.0714017
+Starting probing loop at 325
+(Starting work)
+[async] should stop!
+Probing 325 --> 1.629 - 1.66634 = -0.037337
+Starting probing loop at 337
+(Starting work)
+[async] should stop!
+Probing 337 --> 1.77331 - 1.629 = 0.144316
+Starting probing loop at 349
+(Starting work)
+[async] should stop!
+Probing 349 --> 1.59229 - 1.77331 = -0.181029
+Starting probing loop at 361
+(Starting work)
+[async] should stop!
+Probing 361 --> 1.54528 - 1.59229 = -0.0470088
+Starting probing loop at 373
+(Starting work)
+[async] should stop!
+Probing 373 --> 1.94383 - 1.54528 = 0.398554
+Starting probing loop at 385
+(Starting work)
+[async] should stop!
+Probing 385 --> 1.84384 - 1.94383 = -0.0999897
+Starting probing loop at 397
+(Starting work)
+[async] should stop!
+Probing 397 --> 1.935 - 1.84384 = 0.0911593
+<execution> current_parallelism == 1
+Starting workers
+[async] should stop!
+Epoch window = 121 -> 129
+SD calculated as 0.190696
+Main loop
+Doing trend calculation
+	m_trend window: 0 -> 3
+	Adding diff to m_trend: 169 - 325 = -156
+	Adding diff to m_trend: 1 - 169 = -168
+	Adding diff to m_trend: 1 - 1 = 0
+m_trend = -324 / 4
+Loss grad = 0.191533, Loss jitter = 0.190696, M trend = -81
+Skewing window by 0
+Starting probing loop at 1
+(Starting work)
+[async] should stop!
+Probing 1 --> 1.81506 - 2.0222 = -0.207135
+Setting new best delta to -0.207135
+Starting probing loop at 13
+(Starting work)
+[async] should stop!
+Probing 13 --> 1.88739 - 1.81506 = 0.072328
+Starting probing loop at 25
+(Starting work)
+[async] should stop!
+Probing 25 --> 1.78391 - 1.88739 = -0.10348
+Starting probing loop at 37
+(Starting work)
+[async] should stop!
+Probing 37 --> 1.65289 - 1.78391 = -0.131017
+Starting probing loop at 49
+(Starting work)
+[async] should stop!
+Probing 49 --> 1.6502 - 1.65289 = -0.00268995
+Starting probing loop at 61
+(Starting work)
+[async] should stop!
+Probing 61 --> 1.5828 - 1.6502 = -0.0674026
+Starting probing loop at 73
+(Starting work)
+[async] should stop!
+Probing 73 --> 1.51959 - 1.5828 = -0.0632078
+Starting probing loop at 85
+(Starting work)
+[async] should stop!
+Probing 85 --> 1.53027 - 1.51959 = 0.0106736
+Starting probing loop at 97
+(Starting work)
+[async] should stop!
+Probing 97 --> 1.49192 - 1.53027 = -0.0383471
+Starting probing loop at 109
+(Starting work)
+[async] should stop!
+Probing 109 --> 1.50097 - 1.49192 = 0.00904631
+Starting probing loop at 121
+(Starting work)
+[async] should stop!
+[async] should stop!
+Probing 121 --> 1.45255 - 1.50097 = -0.0484117
+Starting probing loop at 133
+(Starting work)
+[async] should stop!
+Probing 133 --> 1.46398 - 1.45255 = 0.0114305
+Starting probing loop at 145
+(Starting work)
+[async] should stop!
+Probing 145 --> 1.51187 - 1.46398 = 0.0478866
+Starting probing loop at 157
+(Starting work)
+[async] should stop!
+Probing 157 --> 1.49238 - 1.51187 = -0.0194892
+Starting probing loop at 169
+(Starting work)
+[async] should stop!
+Probing 169 --> 1.56492 - 1.49238 = 0.0725376
+Starting probing loop at 181
+(Starting work)
+[async] should stop!
+Probing 181 --> 1.49211 - 1.56492 = -0.0728076
+Starting probing loop at 193
+(Starting work)
+[async] should stop!
+Probing 193 --> 1.60755 - 1.49211 = 0.115434
+Starting probing loop at 205
+(Starting work)
+[async] should stop!
+Probing 205 --> 1.60242 - 1.60755 = -0.00512074
+Starting probing loop at 217
+(Starting work)
+[async] should stop!
+Probing 217 --> 1.54997 - 1.60242 = -0.0524584
+Starting probing loop at 229
+(Starting work)
+[async] should stop!
+Probing 229 --> 1.58769 - 1.54997 = 0.0377198
+Starting probing loop at 241
+(Starting work)
+[async] should stop!
+Probing 241 --> 1.57308 - 1.58769 = -0.0146065
+Starting probing loop at 253
+(Starting work)
+[async] should stop!
+Probing 253 --> 1.51647 - 1.57308 = -0.0566137
+Starting probing loop at 265
+(Starting work)
+[async] should stop!
+Probing 265 --> 1.49106 - 1.51647 = -0.0254008
+Starting probing loop at 277
+(Starting work)
+[async] should stop!
+Probing 277 --> 1.68741 - 1.49106 = 0.196343
+Starting probing loop at 289
+(Starting work)
+[async] should stop!
+Probing 289 --> 1.585 - 1.68741 = -0.10241
+Starting probing loop at 301
+(Starting work)
+[async] should stop!
+Probing 301 --> 1.58279 - 1.585 = -0.00220811
+Starting probing loop at 313
+(Starting work)
+[async] should stop!
+Probing 313 --> 1.69176 - 1.58279 = 0.108973
+Starting probing loop at 325
+(Starting work)
+[async] should stop!
+Probing 325 --> 1.61569 - 1.69176 = -0.0760736
+Starting probing loop at 337
+(Starting work)
+[async] should stop!
+Probing 337 --> 1.65685 - 1.61569 = 0.0411604
+Starting probing loop at 349
+(Starting work)
+[async] should stop!
+Probing 349 --> 1.72062 - 1.65685 = 0.0637687
+Starting probing loop at 361
+(Starting work)
+[async] should stop!
+Probing 361 --> 1.89509 - 1.72062 = 0.17447
+Starting probing loop at 373
+(Starting work)
+[async] should stop!
+Probing 373 --> 1.72603 - 1.89509 = -0.169062
+Starting probing loop at 385
+(Starting work)
+[async] should stop!
+Probing 385 --> 1.84807 - 1.72603 = 0.122046
+Starting probing loop at 397
+(Starting work)
+[async] should stop!
+Probing 397 --> 1.62454 - 1.84807 = -0.223529
+Setting new best delta to -0.223529
+<execution> current_parallelism == 397
+Starting workers
+[async] should stop!
+Epoch window = 172 -> 180
+SD calculated as 0.0692058
+Main loop
+Doing trend calculation
+	m_trend window: 1 -> 4
+	Adding diff to m_trend: 1 - 169 = -168
+	Adding diff to m_trend: 1 - 1 = 0
+	Adding diff to m_trend: 397 - 1 = 396
+m_trend = 228 / 4
+Loss grad = -0.463726, Loss jitter = 0.0692058, M trend = 57
+Skewing window by 0
+Starting probing loop at 1
+(Starting work)
+[async] should stop!
+Probing 1 --> 1.66434 - 1.55847 = 0.105865
+Setting new best delta to 0.105865
+Starting probing loop at 13
+(Starting work)
+[async] should stop!
+Probing 13 --> 1.47307 - 1.66434 = -0.191267
+Setting new best delta to -0.191267
+Starting probing loop at 25
+(Starting work)
+[async] should stop!
+Probing 25 --> 1.41887 - 1.47307 = -0.0541956
+Starting probing loop at 37
+(Starting work)
+[async] should stop!
+Probing 37 --> 1.24247 - 1.41887 = -0.176403
+Starting probing loop at 49
+(Starting work)
+[async] should stop!
+Probing 49 --> 1.35751 - 1.24247 = 0.115042
+Starting probing loop at 61
+(Starting work)
+[async] should stop!
+Probing 61 --> 1.29306 - 1.35751 = -0.0644471
+Starting probing loop at 73
+(Starting work)
+[async] should stop!
+Probing 73 --> 1.24901 - 1.29306 = -0.0440533
+Starting probing loop at 85
+(Starting work)
+[async] should stop!
+Probing 85 --> 1.28492 - 1.24901 = 0.0359104
+Starting probing loop at 97
+(Starting work)
+[async] should stop!
+Probing 97 --> 1.3361 - 1.28492 = 0.0511795
+Starting probing loop at 109
+(Starting work)
+[async] should stop!
+Probing 109 --> 1.25728 - 1.3361 = -0.0788173
+Starting probing loop at 121
+(Starting work)
+[async] should stop!
+Probing 121 --> 1.25941 - 1.25728 = 0.00212562
+Starting probing loop at 133
+(Starting work)
+[async] should stop!
+Probing 133 --> 1.23744 - 1.25941 = -0.0219717
+Starting probing loop at 145
+(Starting work)
+[async] should stop!
+Probing 145 --> 1.26124 - 1.23744 = 0.0237984
+Starting probing loop at 157
+(Starting work)
+[async] should stop!
+Probing 157 --> 1.28165 - 1.26124 = 0.0204136
+Starting probing loop at 169
+(Starting work)
+[async] should stop!
+Probing 169 --> 1.28995 - 1.28165 = 0.00829807
+Starting probing loop at 181
+(Starting work)
+[async] should stop!
+Probing 181 --> 1.37377 - 1.28995 = 0.0838257
+Starting probing loop at 193
+(Starting work)
+[async] should stop!
+Probing 193 --> 1.34233 - 1.37377 = -0.031439
+Starting probing loop at 205
+(Starting work)
+[async] should stop!
+Probing 205 --> 1.4466 - 1.34233 = 0.104268
+Starting probing loop at 217
+(Starting work)
+[async] should stop!
+Probing 217 --> 1.42614 - 1.4466 = -0.0204618
+Starting probing loop at 229
+(Starting work)
+[async] should stop!
+Probing 229 --> 1.39332 - 1.42614 = -0.0328224
+Starting probing loop at 241
+(Starting work)
+[async] should stop!
+Probing 241 --> 1.33209 - 1.39332 = -0.0612319
+Starting probing loop at 253
+(Starting work)
+[async] should stop!
+Probing 253 --> 1.37274 - 1.33209 = 0.0406563
+Starting probing loop at 265
+(Starting work)
+[async] should stop!
+Probing 265 --> 1.41356 - 1.37274 = 0.0408174
+Starting probing loop at 277
+(Starting work)
+[async] should stop!
+Probing 277 --> 1.36898 - 1.41356 = -0.0445797
+Starting probing loop at 289
+(Starting work)
+[async] should stop!
+Probing 289 --> 1.36544 - 1.36898 = -0.0035409
+Starting probing loop at 301
+(Starting work)
+[async] should stop!
+Probing 301 --> 1.58309 - 1.36544 = 0.217655
+Starting probing loop at 313
+(Starting work)
+[async] should stop!
+Probing 313 --> 1.50096 - 1.58309 = -0.0821356
+Starting probing loop at 325
+(Starting work)
+[async] should stop!
+Probing 325 --> 1.69497 - 1.50096 = 0.19401
+Starting probing loop at 337
+(Starting work)
+[async] should stop!
+Probing 337 --> 1.63623 - 1.69497 = -0.0587356
+Starting probing loop at 349
+(Starting work)
+[async] should stop!
+Probing 349 --> 1.44072 - 1.63623 = -0.195514
+Setting new best delta to -0.195514
+Starting probing loop at 361
+(Starting work)
+[async] should stop!
+Probing 361 --> 1.41941 - 1.44072 = -0.0213138
+Starting probing loop at 373
+(Starting work)
+[async] should stop!
+Probing 373 --> 1.51321 - 1.41941 = 0.0938048
+Starting probing loop at 385
+(Starting work)
+[async] should stop!
+Probing 385 --> 1.66125 - 1.51321 = 0.148042
+Starting probing loop at 397
+(Starting work)
+[async] should stop!
+Probing 397 --> 1.57106 - 1.66125 = -0.0901942
+<execution> current_parallelism == 349
+Starting workers
+[async] should stop!
+Epoch window = 220 -> 228
+SD calculated as 0.0501449
+Main loop
+Doing trend calculation
+	m_trend window: 2 -> 5
+	Adding diff to m_trend: 1 - 1 = 0
+	Adding diff to m_trend: 397 - 1 = 396
+	Adding diff to m_trend: 349 - 397 = -48
+m_trend = 348 / 4
+Loss grad = -0.233474, Loss jitter = 0.0501449, M trend = 87
+Skewing window by 0
+Starting probing loop at 1
+(Starting work)
+[async] should stop!
+Probing 1 --> 1.34481 - 1.325 = 0.0198179
+Setting new best delta to 0.0198179
+Starting probing loop at 13
+(Starting work)
+[async] should stop!
+Probing 13 --> 1.21725 - 1.34481 = -0.127569
+Setting new best delta to -0.127569
+Starting probing loop at 25
+(Starting work)
+[async] should stop!
+Probing 25 --> 1.16338 - 1.21725 = -0.0538617
+Starting probing loop at 37
+(Starting work)
+[async] should stop!
+Probing 37 --> 1.16853 - 1.16338 = 0.0051473
+Starting probing loop at 49
+(Starting work)
+[async] should stop!
+Probing 49 --> 1.10813 - 1.16853 = -0.0604049
+Starting probing loop at 61
+(Starting work)
+[async] should stop!
+Probing 61 --> 1.17099 - 1.10813 = 0.0628662
+Starting probing loop at 73
+(Starting work)
+[async] should stop!
+Probing 73 --> 1.13369 - 1.17099 = -0.0373032
+Starting probing loop at 85
+(Starting work)
+[async] should stop!
+Probing 85 --> 1.1379 - 1.13369 = 0.00420856
+Starting probing loop at 97
+(Starting work)
+[async] should stop!
+Probing 97 --> 1.14007 - 1.1379 = 0.00216889
+Starting probing loop at 109
+(Starting work)
+[async] should stop!
+Probing 109 --> 1.12682 - 1.14007 = -0.0132426
+Starting probing loop at 121
+(Starting work)
+[async] should stop!
+Probing 121 --> 1.11556 - 1.12682 = -0.0112636
+Starting probing loop at 133
+(Starting work)
+[async] should stop!
+Probing 133 --> 1.08707 - 1.11556 = -0.0284911
+Starting probing loop at 145
+(Starting work)
+[async] should stop!
+Probing 145 --> 1.10871 - 1.08707 = 0.0216419
+Starting probing loop at 157
+(Starting work)
+[async] should stop!
+Probing 157 --> 1.11674 - 1.10871 = 0.00803163
+Starting probing loop at 169
+(Starting work)
+[async] should stop!
+Probing 169 --> 1.16716 - 1.11674 = 0.0504132
+Starting probing loop at 181
+(Starting work)
+[async] should stop!
+Probing 181 --> 1.14004 - 1.16716 = -0.027115
+Starting probing loop at 193
+(Starting work)
+[async] should stop!
+Probing 193 --> 1.16162 - 1.14004 = 0.0215807
+Starting probing loop at 205
+(Starting work)
+[async] should stop!
+Probing 205 --> 1.26361 - 1.16162 = 0.101987
+Starting probing loop at 217
+(Starting work)
+[async] should stop!
+Probing 217 --> 1.21806 - 1.26361 = -0.0455529
+Starting probing loop at 229
+(Starting work)
+[async] should stop!
+Probing 229 --> 1.25899 - 1.21806 = 0.0409346
+Starting probing loop at 241
+(Starting work)
+[async] should stop!
+Probing 241 --> 1.30563 - 1.25899 = 0.0466354
+Starting probing loop at 253
+(Starting work)
+[async] should stop!
+Probing 253 --> 1.30084 - 1.30563 = -0.0047843
+Starting probing loop at 265
+(Starting work)
+[async] should stop!
+Probing 265 --> 1.25679 - 1.30084 = -0.0440562
+Starting probing loop at 277
+(Starting work)
+[async] should stop!
+Probing 277 --> 1.28102 - 1.25679 = 0.0242304
+Starting probing loop at 289
+(Starting work)
+[async] should stop!
+Probing 289 --> 1.3301 - 1.28102 = 0.049088
+Starting probing loop at 301
+(Starting work)
+[async] should stop!
+Probing 301 --> 1.29684 - 1.3301 = -0.0332634
+Starting probing loop at 313
+(Starting work)
+[async] should stop!
+Probing 313 --> 1.40268 - 1.29684 = 0.105842
+Starting probing loop at 325
+(Starting work)
+[async] should stop!
+Probing 325 --> 1.39488 - 1.40268 = -0.00780008
+Starting probing loop at 337
+(Starting work)
+[async] should stop!
+Probing 337 --> 1.34787 - 1.39488 = -0.0470167
+Starting probing loop at 349
+(Starting work)
+[async] should stop!
+Probing 349 --> 1.4811 - 1.34787 = 0.133237
+Starting probing loop at 361
+(Starting work)
+[async] should stop!
+Probing 361 --> 1.68876 - 1.4811 = 0.207662
+Starting probing loop at 373
+(Starting work)
+[async] should stop!
+Probing 373 --> 1.55524 - 1.68876 = -0.13352
+Setting new best delta to -0.13352
+Starting probing loop at 385
+(Starting work)
+[async] should stop!
+Probing 385 --> 1.55493 - 1.55524 = -0.000317723
+Starting probing loop at 397
+(Starting work)
+[async] should stop!
+Probing 397 --> 1.5119 - 1.55493 = -0.043023
+<execution> current_parallelism == 373
+Starting workers
+[async] should stop!
+Epoch window = 269 -> 277
+SD calculated as 0.0473116
+Main loop
+Doing trend calculation
+	m_trend window: 3 -> 6
+	Adding diff to m_trend: 397 - 1 = 396
+	Adding diff to m_trend: 349 - 397 = -48
+	Adding diff to m_trend: 373 - 349 = 24
+m_trend = 372 / 4
+Loss grad = 0.130925, Loss jitter = 0.0473116, M trend = 93
+Skewing window by 0
+Starting probing loop at 1
+(Starting work)
+[async] should stop!
+Probing 1 --> 1.42253 - 1.45592 = -0.0333947
+Setting new best delta to -0.0333947
+Starting probing loop at 13
+(Starting work)
+[async] should stop!
+Probing 13 --> 1.19824 - 1.42253 = -0.224285
+Setting new best delta to -0.224285
+Starting probing loop at 25
+(Starting work)
+[async] should stop!
+Probing 25 --> 1.0873 - 1.19824 = -0.110939
+Starting probing loop at 37
+(Starting work)
+[async] should stop!
+Probing 37 --> 1.08243 - 1.0873 = -0.00487646
+Starting probing loop at 49
+(Starting work)
+[async] should stop!
+Probing 49 --> 1.05101 - 1.08243 = -0.0314134
+Starting probing loop at 61
+(Starting work)
+[async] should stop!
+Probing 61 --> 1.07252 - 1.05101 = 0.0215107
+Starting probing loop at 73
+(Starting work)
+[async] should stop!
+Probing 73 --> 1.09165 - 1.07252 = 0.0191262
+Starting probing loop at 85
+(Starting work)
+[async] should stop!
+Probing 85 --> 1.09428 - 1.09165 = 0.00263141
+Starting probing loop at 97
+(Starting work)
+[async] should stop!
+Probing 97 --> 1.09314 - 1.09428 = -0.00114001
+Starting probing loop at 109
+(Starting work)
+[async] should stop!
+Probing 109 --> 1.05927 - 1.09314 = -0.0338706
+Starting probing loop at 121
+(Starting work)
+[async] should stop!
+Probing 121 --> 1.05832 - 1.05927 = -0.000946845
+Starting probing loop at 133
+(Starting work)
+[async] should stop!
+Probing 133 --> 1.03878 - 1.05832 = -0.0195415
+Starting probing loop at 145
+(Starting work)
+[async] should stop!
+Probing 145 --> 1.03576 - 1.03878 = -0.0030208
+Starting probing loop at 157
+(Starting work)
+[async] should stop!
+Probing 157 --> 1.06025 - 1.03576 = 0.0244871
+Starting probing loop at 169
+(Starting work)
+[async] should stop!
+Probing 169 --> 1.07387 - 1.06025 = 0.0136222
+Starting probing loop at 181
+(Starting work)
+[async] should stop!
+Probing 181 --> 1.09988 - 1.07387 = 0.0260059
+Starting probing loop at 193
+(Starting work)
+[async] should stop!
+Probing 193 --> 1.13426 - 1.09988 = 0.0343778
+Starting probing loop at 205
+(Starting work)
+[async] should stop!
+Probing 205 --> 1.14281 - 1.13426 = 0.00855242
+Starting probing loop at 217
+(Starting work)
+[async] should stop!
+Probing 217 --> 1.27981 - 1.14281 = 0.137007
+Starting probing loop at 229
+(Starting work)
+[async] should stop!
+Probing 229 --> 1.20989 - 1.27981 = -0.0699201
+Starting probing loop at 241
+(Starting work)
+[async] should stop!
+Probing 241 --> 1.16268 - 1.20989 = -0.0472155
+Starting probing loop at 253
+(Starting work)
+[async] should stop!
+Probing 253 --> 1.22242 - 1.16268 = 0.0597392
+Starting probing loop at 265
+(Starting work)
+[async] should stop!
+Probing 265 --> 1.24504 - 1.22242 = 0.0226218
+Starting probing loop at 277
+(Starting work)
+[async] should stop!
+Probing 277 --> 1.27389 - 1.24504 = 0.0288458
+Starting probing loop at 289
+(Starting work)
+[async] should stop!
+Probing 289 --> 1.25475 - 1.27389 = -0.0191364
+Starting probing loop at 301
+(Starting work)
+[async] should stop!
+Probing 301 --> 1.2716 - 1.25475 = 0.0168463
+Starting probing loop at 313
+(Starting work)
+[async] should stop!
+Probing 313 --> 1.41783 - 1.2716 = 0.146236
+Starting probing loop at 325
+(Starting work)
+[async] should stop!
+Probing 325 --> 1.4941 - 1.41783 = 0.0762649
+Starting probing loop at 337
+(Starting work)
+[async] should stop!
+Probing 337 --> 1.4984 - 1.4941 = 0.00430017
+Starting probing loop at 349
+(Starting work)
+[async] !! Thread has realised it's finished for good!
+[async] !! Thread has realised it's finished for good!
+[async] !! Thread has realised it's finished for good!
+[async] !! Thread has realised it's finished for good!
+[async] !! Thread has realised it's finished for good!
+Probing 349 --> 1.29854 - 1.4984 = -0.199852
+Starting probing loop at 361
+(Starting work)
+[async] !! Thread has realised it's finished for good!
+[async] !! Thread has realised it's finished for good!
+[async] !! Thread has realised it's finished for good!
+[async] !! Thread has realised it's finished for good!
+[async] !! Thread has realised it's finished for good!
+Probing 361 --> 1.30427 - 1.29854 = 0.00572264
+Starting probing loop at 373
+(Starting work)
+[async] !! Thread has realised it's finished for good!
+[async] !! Thread has realised it's finished for good!
+Probing 373 --> 1.30934 - 1.30427 = 0.00507152
+Starting probing loop at 385
+(Starting work)
+[async] !! Thread has realised it's finished for good!
+Probing 385 --> 1.315 - 1.30934 = 0.00566195
+Starting probing loop at 397
+(Starting work)
+[async] !! Thread has realised it's finished for good!
+Probing 397 --> 1.32066 - 1.315 = 0.00565907
+<execution> current_parallelism == 13
+Starting workers
+[async] !! Thread has realised it's finished for good!
+Epoch window = 291 -> 299
+SD calculated as 0.070277
+Training finished.
+Returning
+Saved as 13-05-2024_10-19-53_LENET_ELASYNC_CIFAR10_sync_bg_test.json
