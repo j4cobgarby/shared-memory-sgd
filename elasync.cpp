@@ -387,9 +387,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 #endif
 
 #ifdef PROBE_WHOLE
-        int window_top = num_threads - 1;
+        int window_top = num_threads;
         int window_btm = 1;
-        int window_step = num_threads / 32; /* could vary this */
+        int window_step = 1; /* could vary this */
 #endif
 
         m_probe_starts.push_back(m_values.size());
