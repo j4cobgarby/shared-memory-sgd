@@ -4,6 +4,7 @@ autotests_30apr_avgs
 plotting/.venv
 local_experiments
 data/cifar-100
+*.log
 
 # Prerequisites
 *.d

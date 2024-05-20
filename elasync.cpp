@@ -4,11 +4,11 @@
 #include <limits>
 #include <barrier>
 
-// #define STANDARD_WINDOW
+#define STANDARD_WINDOW
 // #define EXTEND_WINDOW
 // #define SHIFT_WINDOW
-#define PROBE_WHOLE
-#define SYNC_THREADS
+// #define PROBE_WHOLE
+// #define SYNC_THREADS
 // #define ALL_THREADS_MUST_FINISH
 
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
@@ -125,6 +125,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 // sync_point->arrive_and_wait();
                 sync_num_finished++;
                 while (sync_num_finished < num_threads - current_parallelism) { /* busy wait */ }
+                if (id == current_parallelism) sync_num_finished = 0;
                 
                 if (epoch_step == rounds_per_epoch - 1) {
                     struct timeval now;
@@ -161,7 +162,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
             /* Here we prevent the deadlock that used to occur when should_stop is set
              * but not all sync threads have arrive_and_wait'ed yet. */
-            std::cout << "MANUALLY COMPLETING 'BARRIER'\n";
             sync_num_finished = num_threads - current_parallelism;
             // auto _ = sync_point->arrive();
 #endif
