@@ -100,7 +100,8 @@ int main(int argc, char *argv[]) {
 
     while (1) {
         i = 0;
-        c = getopt_long(argc, argv, "a:b:e:n:r:l:m:B:R:C:A:N:L:U:t:D:w:i:d:s:G:J:M:", long_options, &i);
+        c = getopt_long(argc, argv,
+                        "a:b:e:n:r:l:m:B:R:C:A:N:L:U:t:D:w:i:d:s:G:J:M:", long_options, &i);
 
         if (c == -1) {
             //printf("Use -h or --help for help\n");
