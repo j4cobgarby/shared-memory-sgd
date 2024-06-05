@@ -69,6 +69,7 @@ void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epoch
             }
 
             long local_step = step.fetch_add(1);
+            std::cout << "[" << id << "] step = " << local_step << std::endl;
             int batch_index = next_batch.fetch_add(1) % nbatch;
 
             if (local_step >= num_epochs * rounds_per_epoch) break;
@@ -110,7 +111,7 @@ void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epoch
 
     ThreadPool workers(num_threads, jobs);
 
-    num_iterations = 100;
+    num_iterations = 32;
     workers.wait_for_all();
 
     long curr_step;

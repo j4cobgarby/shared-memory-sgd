@@ -1,3 +1,6 @@
+perf_data
+gradient_tests*
+experiments
 .idea
 gradient_par_tests
 autotests_30apr

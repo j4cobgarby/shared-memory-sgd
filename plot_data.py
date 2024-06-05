@@ -32,6 +32,9 @@ def plot_files(files):
         with open(fn, "r") as file:
             dat = json.load(file)
 
+            if "meta" in dat:
+                print(fn, json.dumps(dat["meta"], sort_keys=True, indent=2))
+
             if "mlist" in dat:
                 if "probe_starts" in dat["mlist"]:
                     plots.append(
@@ -102,7 +105,6 @@ def plot_files(files):
                     )
                 )
             else:
-                print(dat["epoch_loss"])
                 plots.append(
                     ax2.plot(
                         dat["epoch_time"],

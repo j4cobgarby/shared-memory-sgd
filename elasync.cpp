@@ -8,7 +8,7 @@
 // #define EXTEND_WINDOW
 // #define SHIFT_WINDOW
 // #define PROBE_WHOLE
-#define SYNC_THREADS
+// #define SYNC_THREADS
 // #define ALL_THREADS_MUST_FINISH
 
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
@@ -168,12 +168,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             auto _ = sync_point->arrive();
 #endif
         } else {
-            int iters = 0;
-            
             while (true) {
-                iters++;
-                // std::cout << id << ") iteration counter = " << local_iterations << std::endl;
-
 #ifndef ALL_THREADS_MUST_FINISH
                 if (should_stop.test()) break; // Stop execution once at least one worker has reached num_iterations
 #endif
@@ -181,13 +176,13 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 if (local_iterations != -1 && local_iterations-- <= 0) {
 #ifndef ALL_THREADS_MUST_FINISH
                     should_stop.test_and_set();
-                    std::cout << "[async] should stop!\n";
+                    std::cout << "[async] should stop, because local_iterations has reached " << local_iterations << "\n";
 #endif
                     break;
                 }
                 
                 long local_step = step.fetch_add(1);
-                //std::cout << "thread " << id << " step " << local_step << std::endl;
+                std::cout << "[" << id << "] step = " << local_step << std::endl;
 
                 if (tauadaptstrat != "NONE" && local_step == tau_sample_stop * num_threads) {
                     // this thread computes the tail distribution
@@ -241,16 +236,10 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
                 if (use_lock)
                     mtx.lock();
-
                 long t1 = global_param->timestamp;
-
                 int tau = t1 - t0;
-
                 thread_local_opts[id]->step_scale_factor = get_stepsize_scaling_factor(tau, tauadaptstrat);
-
-                //thread_local_networks[id]->update(opt); // AlignedMapVec update
                 thread_local_networks[id]->update_cw(thread_local_opts[id]); // component-wise update
-
                 if (use_lock)
                     mtx.unlock();
 
@@ -431,7 +420,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
 #endif
 
-            std::cout << "(Starting work)\n";
+            std::cout << "(Starting work with current_parallelism = " << current_parallelism << ")\n";
             workers.start_all();
             workers.wait_for_all();
 
