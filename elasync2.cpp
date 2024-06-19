@@ -33,7 +33,6 @@ void NetworkExecutor::set_threads_running(std::atomic_flag arr[], int n, int num
 
 void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval,
                                          int probing_duration, int m_0, int seed, bool use_lock) {
-    use_lock = false;
     opt->reset();
 
     if (seed > 0) m_rng.seed(seed);
@@ -121,9 +120,11 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
                      * where it needs to switch the global execution state, i.e. switch from probing phase
                      * to execution phase, or to change the parallelism level in the probing phase. */
                     if (in_probing) {
-                        if ((local_step - phase_firststep) % 32 == 0) {
+                        if ((local_step - phase_firststep) % probing_duration == 0) {
                             /* At this point in time, thread_local_networks[i] has the global model as its model,
                              * so this will be the current global model */
+                            // TODO: Run a forward pass on the global model on the whole(?) dataset to get a more accurate idea of accuracy.
+                            // Although, it might also be okay, or even better, to average the loss calculated by each worker.
                             double this_loss = thread_local_networks[i]->get_loss();
                             std::cout << "Parallelism of " << current_parallelism << " yielded loss of " << this_loss << std::endl;
                             if (this_loss < best_loss) {
@@ -171,9 +172,11 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
                     }
 
 
-                    mtx.lock();
+                    if (use_lock)
+                        mtx.lock();
                     auto *local_param = new ParameterContainer(*global_param);
-                    mtx.unlock();
+                    if (use_lock)
+                        mtx.unlock();
 
                     thread_local_networks[id]->set_pointer(local_param);
                     thread_local_networks[id]->forward(x_batches[batch_index]);
@@ -187,10 +190,12 @@ void NetworkExecutor::run_elastic_async2(int batch_size, int num_epochs, int rou
                     delete local_param;
 
                     /* Integrate gradient into global model */
-                    mtx.lock();
+                    if (use_lock)
+                        mtx.lock();
                     thread_local_opts[id]->step_scale_factor = 1.0;
                     thread_local_networks[id]->update_cw(thread_local_opts[id]);
-                    mtx.unlock();
+                    if (use_lock)
+                        mtx.unlock();
 
                     if (epoch_step == rounds_per_epoch - 1) {
                         struct timeval now;

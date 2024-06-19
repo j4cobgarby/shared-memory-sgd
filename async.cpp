@@ -94,9 +94,6 @@ void MiniDNN::NetworkExecutor::run_parallel_async(int batch_size, int num_epochs
             thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
             const Scalar loss = thread_local_networks[id]->get_loss();
 
-
-            //std::cerr << id << ": [Epoch " << epoch << "] Loss = " << loss << std::endl;
-
             // add loss to thread local epoch loss sum
             local_losses_per_epoch[id][epoch] += loss;
 
