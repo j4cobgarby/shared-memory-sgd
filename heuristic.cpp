@@ -4,6 +4,8 @@
 #include <algorithm> // std::max
 #include <sys/select.h>
 
+#define HEUR_DO_LOCK 0
+
 void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epochs, int rounds_per_epoch, double grad, struct timeval start_time, int seed) {
     opt->reset();
 
@@ -53,23 +55,24 @@ void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epoch
     std::atomic<int> next_batch(0);
     std::atomic<long> step(0);
 
-    int num_iterations = 100;
+    const int num_iterations = 100;
 
     std::atomic_flag should_stop = ATOMIC_FLAG_INIT;
 
     auto f = [&](int id) {
         int local_iterations = 0;
         if (id >= current_parallelism) return;
+        std::cout << "Target = " << num_iterations << std::endl;
 
-        while (true) {
-            if (should_stop.test()) break;
+        while (!should_stop.test()) {
             if (local_iterations++ >= num_iterations) {
                 should_stop.test_and_set();
+                std::cout << "Stopping!" << std::endl;
                 break;
             }
 
             long local_step = step.fetch_add(1);
-            std::cout << "[" << id << "] step = " << local_step << std::endl;
+            std::cout << local_step << std::endl;
             int batch_index = next_batch.fetch_add(1) % nbatch;
 
             if (local_step >= num_epochs * rounds_per_epoch) break;
@@ -77,9 +80,13 @@ void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epoch
             long epoch = local_step / rounds_per_epoch;
             long epoch_step = local_step % rounds_per_epoch;
 
+#if HEUR_DO_LOCK
             mtx.lock();
+#endif
             auto *local_param = new ParameterContainer(*global_param);
+#if HEUR_DO_LOCK
             mtx.unlock();
+#endif
 
             thread_local_networks[id]->set_pointer(local_param);
             thread_local_networks[id]->forward(x_batches[batch_index]);
@@ -91,10 +98,14 @@ void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epoch
 
             delete local_param;
 
+#if HEUR_DO_LOCK
             mtx.lock();
+#endif
             thread_local_opts[id]->step_scale_factor = 1.0;
             thread_local_networks[id]->update_cw(thread_local_opts[id]);
+#if HEUR_DO_LOCK
             mtx.unlock();
+#endif
 
             if (epoch_step == rounds_per_epoch - 1) {
                 struct timeval now;
@@ -111,7 +122,6 @@ void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epoch
 
     ThreadPool workers(num_threads, jobs);
 
-    num_iterations = 32;
     workers.wait_for_all();
 
     long curr_step;
@@ -136,7 +146,7 @@ void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epoch
         current_parallelism = std::max(10, (int)analogue_m);
         analogue_m -= m_gradient * (curr_step - last_step);
         last_step = curr_step;
-        std::cout << "Parallelism = " << current_parallelism << std::endl;
+        std::cout << curr_step << ": Parallelism = " << current_parallelism << std::endl;
 
         struct timeval now;
         gettimeofday(&now, NULL);

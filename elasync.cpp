@@ -12,7 +12,6 @@
 // #define ALL_THREADS_MUST_FINISH
 
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
-    use_lock = false;
 
     const unsigned recent_loss_window = 20;
     opt->reset();
@@ -182,7 +181,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 }
                 
                 long local_step = step.fetch_add(1);
-                std::cout << "[" << id << "] step = " << local_step << std::endl;
+                std::cout << local_step << std::endl;
 
                 if (tauadaptstrat != "NONE" && local_step == tau_sample_stop * num_threads) {
                     // this thread computes the tail distribution
