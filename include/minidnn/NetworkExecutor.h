@@ -101,6 +101,7 @@ namespace MiniDNN {
         void run_semisync(int batch_size, int num_epochs, int rounds_per_epoch, struct timeval start_time, int sync_interval, int seed = -1);
         void run_heuristic_async(int batch_size, int num_epochs, int rounds_per_epoch, double grad, struct timeval start_time, int seed);
         void run_elastic_async2(int, int, int, int, int, int, int, int, bool);
+        void run_search_probing(int bs, int ep, int epr, int m0, struct timeval start_time, int seed);
 
         void set_threads_running(std::atomic_flag arr[], int n, int num_threads);
 

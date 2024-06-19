@@ -8,6 +8,7 @@
 // #define EXTEND_WINDOW
 // #define SHIFT_WINDOW
 // #define PROBE_WHOLE
+// #define SEARCH_PROBING
 // #define SYNC_THREADS
 // #define ALL_THREADS_MUST_FINISH
 
