@@ -477,8 +477,8 @@ int main(int argc, char *argv[]) {
             executor.scalar_m_trend = scalar_m_trend;
 
             /* std::cout << "elasyncsgd2 with window = " << probing_window << ", interval = " << probing_interval << ", duration = " << probing_duration << ", m_0 = " << initial_parallelism << " rounds_per_epoch = " << rounds_per_epoch << std::endl; */
-            executor.run_elastic_async2(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, rand_seed, false);
-            // executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed, false);
+            // executor.run_elastic_async2(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, rand_seed, false);
+            executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed, false);
             break;
         case ALGORITHM::SEMISYNC:
             std::cout << "Running semisync training\n";

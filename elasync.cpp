@@ -4,10 +4,10 @@
 #include <limits>
 #include <barrier>
 
-#define STANDARD_WINDOW
+// #define STANDARD_WINDOW
 // #define EXTEND_WINDOW
 // #define SHIFT_WINDOW
-// #define PROBE_WHOLE
+#define PROBE_WHOLE
 // #define SEARCH_PROBING
 // #define SYNC_THREADS
 // #define ALL_THREADS_MUST_FINISH
@@ -45,7 +45,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
     if (rounds_per_epoch < 0) {
         rounds_per_epoch = nbatch;
-        std::cout << "Rounds per epoch set to " << rounds_per_epoch << std::endl;
+        // std::cout << "Rounds per epoch set to " << rounds_per_epoch << std::endl;
     }
 
     std::mutex mtx; // for accessing the shared network object
@@ -86,7 +86,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
 
     auto sync_point_cbk = []() noexcept {
-        std::cout << "BARRIER REACHED\n";
+        // std::cout << "BARRIER REACHED\n";
     };
     std::barrier<typeof(sync_point_cbk)> *sync_point = nullptr;
     std::atomic_int sync_num_finished;
@@ -177,13 +177,13 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 if (local_iterations != -1 && local_iterations-- <= 0) {
 #ifndef ALL_THREADS_MUST_FINISH
                     should_stop.test_and_set();
-                    std::cout << "[async] should stop, because local_iterations has reached " << local_iterations << "\n";
+                    // std::cout << "[async] should stop, because local_iterations has reached " << local_iterations << "\n";
 #endif
                     break;
                 }
                 
                 long local_step = step.fetch_add(1);
-                std::cout << "[" << id << "] step = " << local_step << std::endl;
+                // std::cout << "[" << id << "] step = " << local_step << std::endl;
 
                 if (tauadaptstrat != "NONE" && local_step == tau_sample_stop * num_threads) {
                     // this thread computes the tail distribution
@@ -195,7 +195,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
                 // termination criterion
                 if (local_step >= num_epochs * rounds_per_epoch) {
-                    std::cout << "[async] !! Thread has realised it's finished for good!\n";
+                    // std::cout << "[async] !! Thread has realised it's finished for good!\n";
                     should_stop.test_and_set();
                     break;
                 }
@@ -268,7 +268,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         jobs.push_back(f);
     }
     ThreadPool workers(num_threads, jobs);
-    std::cout << "Set up worker pool\n";
+    // std::cout << "Set up worker pool\n";
 
     num_iterations = probing_duration;
     workers.wait_for_all();
@@ -277,8 +277,10 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     double avg_loss = 1.0;
     double loss_jitter = 0.0;
 
+    int phase_number = 0;
+
     while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
-        std::cout << "Main loop\n";
+        // std::cout << "Main loop\n";
         /* Here, all threads are not running.
             * We want to get the loss trend over the previous execution phase.
             * In the previous iteration, there should be `probing_interval` training steps.
@@ -294,7 +296,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         int window_skew;
         if (loss_grads.empty()) {
             window_skew = 0;
-        } else {
+        } else { /* Calculate window skew */
             // If our loss is getting better, then we can try pushing the window
             // up, to try some more aggressive parallelism.
             // If it's getting worse, then maybe the async induced noise due to staleness is getting
@@ -303,17 +305,17 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             /* Take last n values from m_values and get trend */
             double m_trend = 0.0;
             if (m_exec_values.size() >= 2) { /* We need at least two values to get differences */
-                std::cout << "Doing trend calculation\n";
+                // std::cout << "Doing trend calculation\n";
                 int last = m_exec_values.size() - 1;
                 int first = last - 3;
                 if (first < 0) first = 0;
-                std::cout << "\tm_trend window: " << first << " -> " << last << std::endl;
+                // std::cout << "\tm_trend window: " << first << " -> " << last << std::endl;
 
                 for (size_t i = first; i < last; i++) {
-                    std::cout << "\tAdding diff to m_trend: " << m_exec_values[i + 1] << " - " << m_exec_values[i] << " = " << m_exec_values[i+1] - m_exec_values[i] << std::endl;
+                    // std::cout << "\tAdding diff to m_trend: " << m_exec_values[i + 1] << " - " << m_exec_values[i] << " = " << m_exec_values[i+1] - m_exec_values[i] << std::endl;
                     m_trend += (double)(m_exec_values[i + 1] - m_exec_values[i]);
                 }
-                std::cout << "m_trend = " << m_trend << " / " << (last-first) + 1 << std::endl;
+                // std::cout << "m_trend = " << m_trend << " / " << (last-first) + 1 << std::endl;
                 m_trend /= (last - first) + 1;
             }
 
@@ -332,8 +334,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
              * we can try to reduce the parallelism.
              */
             window_skew = loss_grads.back() * scalar_loss_grad + loss_jitter * scalar_loss_jitter + m_trend * scalar_m_trend;
-            std::cout << "Loss grad = " << loss_grads.back() << ", Loss jitter = " << loss_jitter << ", M trend = " << m_trend << std::endl;
-            std::cout << "Skewing window by " << window_skew << std::endl;
+            // std::cout << "Loss grad = " << loss_grads.back() << ", Loss jitter = " << loss_jitter << ", M trend = " << m_trend << std::endl;
+            // std::cout << "Skewing window by " << window_skew << std::endl;
         }
 
 #ifdef STANDARD_WINDOW
@@ -380,7 +382,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 #ifdef PROBE_WHOLE
         int window_top = num_threads;
         int window_btm = 1;
-        int window_step = 1; /* could vary this */
+        int window_step = 4; /* could vary this */
 #endif
 
         m_probe_starts.push_back(m_values.size());
@@ -398,9 +400,14 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             probe_comp_loss = -1; // Flag saying that it's unset
         }
 
+        ParameterContainer *param_save = new ParameterContainer(*global_param);
+
+        std::cout << "# starting probing\n";
         // Run a probing phase for each m in the m-window
         for (int m = window_btm; m <= window_top; m += window_step) {
-            std::cout << "Starting probing loop at " << m << std::endl;
+            global_param = new ParameterContainer(*param_save);
+
+            // std::cout << "Starting probing loop at " << m << std::endl;
             current_parallelism = m;
             
             if (current_parallelism >= num_threads) break;
@@ -418,10 +425,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
 #ifdef SYNC_THREADS
             synchronous_param = new ParameterContainer(*global_param);
-
 #endif
 
-            std::cout << "(Starting work with current_parallelism = " << current_parallelism << ")\n";
             workers.start_all();
             workers.wait_for_all();
 
@@ -436,7 +441,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             
             if (probe_comp_loss < 0) probe_comp_loss = loss;
             double loss_diff = loss - probe_comp_loss;
-            std::cout << "Probing " << current_parallelism << " --> " << loss << " - " << probe_comp_loss << " = " << loss_diff << std::endl;
+            std::cout << phase_number << ", " << current_parallelism << ", " << loss << std::endl;
+            // std::cout << "Probing " << current_parallelism << " --> " << loss << " - " << probe_comp_loss << " = " << loss_diff << std::endl;
             probe_comp_loss = loss;
 
             // std::cout << "Probing @ " << current_parallelism << " yields loss = " << loss << " (delta " << loss_diff << ")" << std::endl;
@@ -444,7 +450,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             /* update_loss_grad(loss, start_time); */
 
             if (loss_diff < best_probe_delta_loss) {
-                std::cout << "Setting new best delta to " << loss_diff << std::endl;
                 best_probe_delta_loss = loss_diff;
                 best_m = current_parallelism;
             }
@@ -457,7 +462,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
         synchronous_param = new ParameterContainer(*global_param);
 
-        std::cout << "<execution> current_parallelism == " << current_parallelism << std::endl;
+        std::cout << "# <execution> current_parallelism == " << current_parallelism << std::endl;
         m_exec_values.push_back(current_parallelism);
 
         struct timeval now;
@@ -470,7 +475,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 #ifndef ALL_THREADS_MUST_FINISH
         should_stop.clear();
 #endif
-        std::cout << "Starting workers\n";
         workers.start_all();
         workers.wait_for_all();
 
@@ -505,7 +509,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
         int epoch_win_first = latest_epoch - 8;
         if (epoch_win_first < 0) epoch_win_first = 0;
-        std::cout << "Epoch window = " << epoch_win_first << " -> " << latest_epoch << std::endl;
+        // std::cout << "Epoch window = " << epoch_win_first << " -> " << latest_epoch << std::endl;
 
         for (int i = 0; i < num_threads; i++) {
             for (int j = epoch_win_first; j <= latest_epoch; j++) {
@@ -545,16 +549,14 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             sd = std::sqrt(sd / window_diffs.size());
         }
 
-        std::cout << "SD calculated as " << sd << std::endl;
+        // std::cout << "SD calculated as " << sd << std::endl;
         
         loss_jitter = sd;
-
+        phase_number++;
     }
 
 
     workers.stop();
-
-    std::cout << "Training finished." << std::endl;
 
     for (int k = 0; k < num_epochs; k++) {
         loss = 0;
@@ -571,6 +573,4 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         }
         tau_dist.push_back(tau_count);
     }
-
-    std::cout << "Returning" << std::endl;
 }
