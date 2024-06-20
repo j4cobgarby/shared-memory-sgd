@@ -1,1 +1,1 @@
-scp athena:/home/garby/code/cpp/shared-memory-sgd/experiments/* ./local_experiments/
+scp athena:/home/garby/code/cpp/shmem-local/experiments/* ./local_experiments/
