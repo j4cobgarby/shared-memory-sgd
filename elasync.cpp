@@ -1,5 +1,8 @@
 #include "NetworkExecutor.h"
+#include "NetworkTopology.h"
 #include "ParameterContainer.h"
+#include "Optimizer.h"
+#include <cassert>
 #include <cmath>
 #include <limits>
 #include <barrier>
@@ -11,6 +14,22 @@
 // #define SEARCH_PROBING
 // #define SYNC_THREADS
 // #define ALL_THREADS_MUST_FINISH
+
+void copy_opts_vec(std::vector<MiniDNN::Optimizer *> &from, std::vector<MiniDNN::Optimizer *> &to) {
+    assert(from.size() == to.size());
+
+    for (int i = 0; i < from.size(); i++) {
+        to.at(i) = from.at(i)->clone();
+    }
+}
+
+void copy_nets_vec(std::vector<MiniDNN::NetworkTopology *> &from, std::vector<MiniDNN::NetworkTopology *> &to) {
+    assert(from.size() == to.size());
+
+    for (int i = 0; i < from.size(); i++) {
+        to.at(i) = new MiniDNN::NetworkTopology(*from.at(i));
+    }
+}
 
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs, int rounds_per_epoch, int window, int probing_interval, int probing_duration, int m_0, struct timeval start_time, int seed, bool use_lock) {
 
@@ -28,6 +47,10 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
     std::vector<NetworkTopology *> thread_local_networks(num_threads);
     std::vector<MultiClassEntropy *> thread_local_outputs(num_threads);
+
+    // Stuff for saving state, for testing
+    std::vector<Optimizer *> saved_thread_local_opts(num_threads);
+    std::vector<NetworkTopology *> saved_thread_local_networks(num_threads);
 
     int current_parallelism = m_0 < 0 ? num_threads / 2 : m_0;
     int latest_epoch = -1;
@@ -288,9 +311,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         num_iterations = probing_duration;
 
         // int scaled_window = window * std::min(avg_loss, 2.0); // Don't scale the window to any more than 2x original
-        int scaled_window = window; // Don't scale the window at all
+        const int scaled_window = window; // Don't scale the window at all
         int best_m = -1;
-        unsigned m_last = current_parallelism;
+        const unsigned m_last = current_parallelism;
 
         int window_skew;
         if (loss_grads.empty()) {
@@ -387,24 +410,30 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         m_probe_starts.push_back(m_values.size());
 
         double best_probe_delta_loss = std::numeric_limits<double>::infinity();
-        double probe_comp_loss = 0; // The previous loss value, before probing
+        double prev_loss = 0; // The previous loss value, before probing
 
         /* If the networks have previous loss values then use them, otherwise this is the first iteration */
         if (thread_local_networks[0]->get_loss() >= 0.0) {
+            // TODO: Should this be the most recent epoch loss instead?
             for (int i = 0; i < current_parallelism; i++) {
-                probe_comp_loss += thread_local_networks[i]->get_loss();
+                prev_loss += thread_local_networks[i]->get_loss();
             }
-            probe_comp_loss /= current_parallelism;
+            prev_loss /= current_parallelism;
         } else {
-            probe_comp_loss = -1; // Flag saying that it's unset
+            prev_loss = -1; // Flag saying that it's unset
         }
 
         ParameterContainer *param_save = new ParameterContainer(*global_param);
+        copy_opts_vec(thread_local_opts, saved_thread_local_opts);
+        copy_nets_vec(thread_local_networks, saved_thread_local_networks);
 
         std::cout << "# starting probing\n";
         // Run a probing phase for each m in the m-window
         for (int m = window_btm; m <= window_top; m += window_step) {
+            // Make fresh state for fair comparison
             global_param = new ParameterContainer(*param_save);
+            copy_opts_vec(saved_thread_local_opts, thread_local_opts);
+            copy_nets_vec(saved_thread_local_networks, thread_local_networks);
 
             // std::cout << "Starting probing loop at " << m << std::endl;
             current_parallelism = m;
@@ -441,12 +470,12 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             }
             loss /= current_parallelism; // average los of each model
             
-            if (probe_comp_loss < 0) probe_comp_loss = loss;
-            double loss_diff = loss - probe_comp_loss;
+            if (prev_loss < 0) prev_loss = loss;
+            double loss_diff = loss - prev_loss;
 
             std::cout << phase_number << ", " << current_parallelism << ", " << loss << std::endl;
 
-            probe_comp_loss = loss;
+            prev_loss = loss;
 
             /* update_loss_grad(loss, start_time); */
 

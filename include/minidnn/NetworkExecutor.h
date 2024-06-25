@@ -66,7 +66,6 @@ namespace MiniDNN {
         std::vector<int> m_probe_ends;
         std::vector<int> m_exec_values;
 
-
         struct timeval exe_start;
 
     public:
