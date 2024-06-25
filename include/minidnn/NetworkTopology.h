@@ -93,7 +93,8 @@ namespace MiniDNN {
                 m_rng(other.m_default_rng),
                 m_callback(other.m_callback),
                 current_param_container_ptr(other.current_param_container_ptr),
-                param_pointer(other.param_pointer) {
+                param_pointer(other.param_pointer),
+                m_output(other.m_output) {
             nlayer = other.nlayer;
             for (int i = 0; i < nlayer; ++i) {
                 m_layers.push_back(other.m_layers[i]->clone());

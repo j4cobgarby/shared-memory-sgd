@@ -298,6 +298,7 @@ int main(int argc, char *argv[]) {
         y = Matrix::Zero(10, n_train);
 
         int T;
+        std::cout << "Starting loading labels" << std::endl;
         for (int i = 0; i < n_train; i++){
             T = DATASET.training_labels[i];
             if (T < 10 && T >= 0)
@@ -305,6 +306,7 @@ int main(int argc, char *argv[]) {
             else
                 std::cout << "Label value error: " << T << std::endl;
         }
+        std::cout << "Finished loading labels" << std::endl;
     } else if (use_dataset == "CIFAR100") {
         const bool use_fine_labels = true;
         const unsigned n_labels = use_fine_labels ? 100 : 20;
@@ -367,6 +369,7 @@ int main(int argc, char *argv[]) {
 
     // Construct a network object
 
+    std::cout << "Checkpoint\n";
     auto *init_param = new ParameterContainer(); // variable parameter container pointer
 
     NetworkTopology network(init_param);
