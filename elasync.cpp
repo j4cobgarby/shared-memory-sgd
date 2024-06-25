@@ -381,7 +381,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 #ifdef PROBE_WHOLE
         int window_top = num_threads;
         int window_btm = 1;
-        int window_step = 4; /* could vary this */
+        int window_step = 8; /* could vary this */
 #endif
 
         m_probe_starts.push_back(m_values.size());
@@ -434,18 +434,20 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
             double loss = 0;
             for (int i = 0; i < current_parallelism; i++) {
+                if (std::isnan(thread_local_networks[i]->get_loss())) {
+                    std::cout << "WARNING: network " << i << " had loss of nan!\n";
+                }
                 loss += thread_local_networks[i]->get_loss();
             }
             loss /= current_parallelism; // average los of each model
             
             if (probe_comp_loss < 0) probe_comp_loss = loss;
             double loss_diff = loss - probe_comp_loss;
+
             std::cout << phase_number << ", " << current_parallelism << ", " << loss << std::endl;
-            // std::cout << "Probing " << current_parallelism << " --> " << loss << " - " << probe_comp_loss << " = " << loss_diff << std::endl;
+
             probe_comp_loss = loss;
 
-            // std::cout << "Probing @ " << current_parallelism << " yields loss = " << loss << " (delta " << loss_diff << ")" << std::endl;
-            
             /* update_loss_grad(loss, start_time); */
 
             if (loss_diff < best_probe_delta_loss) {
