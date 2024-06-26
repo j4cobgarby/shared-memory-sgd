@@ -10,10 +10,11 @@
 // #define STANDARD_WINDOW
 // #define EXTEND_WINDOW
 // #define SHIFT_WINDOW
-#define PROBE_WHOLE
+// #define PROBE_WHOLE
 // #define SEARCH_PROBING
 // #define SYNC_THREADS
 // #define ALL_THREADS_MUST_FINISH
+#define NO_PROBE
 
 void copy_opts_vec(std::vector<MiniDNN::Optimizer *> &from, std::vector<MiniDNN::Optimizer *> &to) {
     assert(from.size() == to.size());
@@ -405,6 +406,12 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         int window_top = num_threads;
         int window_btm = 1;
         int window_step = 8; /* could vary this */
+#endif
+
+#ifdef NO_PROBE
+        int window_btm = m_0;
+        int window_top = window_btm;
+        int window_step = 1;
 #endif
 
         m_probe_starts.push_back(m_values.size());
