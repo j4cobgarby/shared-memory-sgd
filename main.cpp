@@ -242,7 +242,6 @@ int main(int argc, char *argv[]) {
                 break;
             case 'G':
                 scalar_loss_grad = atof(optarg);
-                std::cout << "Scalar loss grad = " << scalar_loss_grad << std::endl;
                 /* heuristic_gradient = atof(optarg); */
                 /* std::cout << "Heuristic gradient (G) set to " << heuristic_gradient << std::endl;  */
                 break;
@@ -259,7 +258,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    std::cout << "Experiment name: " << experiment_name << std::endl;
+    std::cout << "# Experiment name: " << experiment_name << std::endl;
 
     // data
 
@@ -281,7 +280,7 @@ int main(int argc, char *argv[]) {
 
         auto DATASET = cifar::read_dataset<std::vector, std::vector, double, double>();
 
-        std::cout << "Loaded CIFAR10 dset" << std::endl;
+        std::cout << "# Loaded CIFAR10 dset" << std::endl;
         long n_train = DATASET.training_images.size(); // 50K
         long dim_in = DATASET.training_images[0].size(); // 3072
 
@@ -298,15 +297,14 @@ int main(int argc, char *argv[]) {
         y = Matrix::Zero(10, n_train);
 
         int T;
-        std::cout << "Starting loading labels" << std::endl;
         for (int i = 0; i < n_train; i++){
             T = DATASET.training_labels[i];
             if (T < 10 && T >= 0)
                 y(T, i) = 1;//Vector::Map(&DATASET.training_labels[i][0], DATASET.training_labels[i].size());
             else
-                std::cout << "Label value error: " << T << std::endl;
+                std::cerr << "# Label value error: " << T << std::endl;
         }
-        std::cout << "Finished loading labels" << std::endl;
+        std::cout << "# Finished loading labels" << std::endl;
     } else if (use_dataset == "CIFAR100") {
         const bool use_fine_labels = true;
         const unsigned n_labels = use_fine_labels ? 100 : 20;
@@ -318,7 +316,7 @@ int main(int argc, char *argv[]) {
 
         cifar::CIFAR100_dataset dset;
 
-        std::cout << "Reading cifar100 dset" << std::endl;
+        std::cout << "# Reading cifar100 dset" << std::endl;
         cifar::read_cifar100_file(dset.training_images, dset.training_labels, "data/cifar-100/train.bin", use_fine_labels);
         cifar::read_cifar100_file(dset.test_images, dset.test_labels, "data/cifar-100/test.bin", use_fine_labels);
 
@@ -342,7 +340,7 @@ int main(int argc, char *argv[]) {
         for (int i = 0; i < n_training; i++) {
             int lbl = dset.training_labels.at(i);
             if (lbl < 0 || lbl >= n_labels) {
-                std::cout << "Label error (" << lbl << ")\n";
+                std::cerr << "# Label error (" << lbl << ")\n";
             } else {
                 y(lbl, i) = 1;
             }
@@ -369,7 +367,6 @@ int main(int argc, char *argv[]) {
 
     // Construct a network object
 
-    std::cout << "Checkpoint\n";
     auto *init_param = new ParameterContainer(); // variable parameter container pointer
 
     NetworkTopology network(init_param);
@@ -394,7 +391,6 @@ int main(int argc, char *argv[]) {
     } else if (use_arch == ARCHITECTURE::LENET) {
 
         if (use_dataset == "CIFAR10") {
-            std::cout << "We're using CIFAR10 with LENET arch\n";
             network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
             network.add_layer(new MaxPooling<ReLU>(28, 28, 6, 2, 2));
 
@@ -404,7 +400,6 @@ int main(int argc, char *argv[]) {
             network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
 
         } else if (use_dataset == "CIFAR100") {
-            std::cout << "We're using CIFAR100 with LENET arch\n";
             network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
             network.add_layer(new MaxPooling<ReLU>(28, 28, 6, 2, 2));
 
@@ -484,11 +479,9 @@ int main(int argc, char *argv[]) {
             executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed, false);
             break;
         case ALGORITHM::SEMISYNC:
-            std::cout << "Running semisync training\n";
             executor.run_semisync(batch_size, num_epochs, rounds_per_epoch, start, probing_interval, rand_seed);
             break;
         case ALGORITHM::HEURISTIC:
-            std::cout << "Running heuristic based training\n";
             executor.run_heuristic_async(batch_size, num_epochs, rounds_per_epoch, heuristic_gradient, start, rand_seed);
             break;
         default:
@@ -552,7 +545,7 @@ int main(int argc, char *argv[]) {
     std::ofstream out_file(filepath);
     out_file << out_json;
 
-    std::cout << "Saved as " << ss.str();
+    std::cout << "# Saved as " << ss.str();
 
     return 0;
 }
