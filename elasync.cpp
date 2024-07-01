@@ -2,7 +2,7 @@
 #include "NetworkTopology.h"
 #include "Optimizer.h"
 #include "ParameterContainer.h"
-#include <barrier>
+
 #include <cassert>
 #include <cmath>
 #include <limits>
@@ -27,6 +27,7 @@ void copy_opts_vec(std::vector<MiniDNN::Optimizer *> &from, std::vector<MiniDNN:
     assert(from.size() == to.size());
 
     for (int i = 0; i < from.size(); i++) {
+        delete to.at(i);
         to.at(i) = from.at(i)->clone();
     }
 }
@@ -36,6 +37,7 @@ void copy_nets_vec(std::vector<MiniDNN::NetworkTopology *> &from,
     assert(from.size() == to.size());
 
     for (int i = 0; i < from.size(); i++) {
+        delete to.at(i);
         to.at(i) = new MiniDNN::NetworkTopology(*from.at(i));
     }
 }
@@ -454,6 +456,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         for (int m = window_btm; m <= window_top; m += window_step) {
 #ifdef PROBING_TEST
             // Make fresh state for fair comparison
+            delete global_param;
             global_param = new ParameterContainer(*param_save);
             copy_opts_vec(saved_thread_local_opts, thread_local_opts);
             copy_nets_vec(saved_thread_local_networks, thread_local_networks);
@@ -520,6 +523,10 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             }
         }
 #endif // SEARCH_PROBE not defined
+
+#ifdef PROBING_TEST
+        delete param_save;
+#endif
        
         m_probe_ends.push_back(m_values.size());
 
