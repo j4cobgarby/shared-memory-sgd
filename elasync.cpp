@@ -6,6 +6,7 @@
 #include <cassert>
 #include <cmath>
 #include <limits>
+#include <chrono>
 
 // #define STANDARD_WINDOW
 // #define EXTEND_WINDOW
@@ -13,7 +14,6 @@
 // #define PROBE_WHOLE
 // #define SEARCH_PROBE
 // #define SYNC_THREADS
-// #define ALL_THREADS_MUST_FINISH
 // #define NO_PROBE
 
 // For experimentation, test wide range of parallelism
@@ -110,123 +110,28 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
     std::atomic<int> next_batch(0);
     std::atomic<long> step(0);
-
-    // A separate step counter is used for getting the batch number for
-    // synchronous threads. This is so that they cannot "help" the async threads
-    // finish epochs; they should be completely independent.
-    std::atomic<long> sync_step(0);
+    long phase_firststep = 0;
 
     // std::atomic<double> phase_loss;
 
     int num_iterations = -1;
-#ifndef ALL_THREADS_MUST_FINISH
     std::atomic_flag should_stop = ATOMIC_FLAG_INIT;
-#endif
-
-    auto sync_point_cbk = []() noexcept {
-        // std::cout << "BARRIER REACHED\n";
-    };
-    std::barrier<typeof(sync_point_cbk)> *sync_point = nullptr;
-    std::atomic_int sync_num_finished;
 
     auto f = [&](int id) {
-        int local_iterations = num_iterations;
 
         if (id >= current_parallelism) {
-#ifdef SYNC_THREADS
-            /* first thread in sync group is responsible for creating barrier */
-            if (id == current_parallelism) {
-                // sync_num_finished = 0;
-                sync_point = new std::barrier(num_threads - current_parallelism, sync_point_cbk);
-                std::cout << "BARRIER INIT\n";
-            }
-
-            /* If we're not within the asynchronous zone, then we are one of the
-             * threads that run SGD synchronously. Until the `should_stop` flag is set
-             * from one of the async threads, we will try and just do as many
-             * synchronous steps as possible, synchronising with all the other alike
-             * threads. Obviously, these sync threads all share the same model, which
-             * has to be separate from the model which the async threads use. So,
-             * before the threads are all started, a copy of the current global model
-             * is made. Since we aren't returning to the main (controlling) thread
-             * after each step, one of the sync threads needs to have responsibility
-             * for updating the sync model. This will be the thread whose ID ==
-             * current_parallelism, arbitrarily.
-             */
-            thread_local_networks[id]->set_pointer(synchronous_param);
-
-            while (!should_stop.test()) {
-                long local_step = sync_step.fetch_add(1);
-                long batch_index = next_batch.fetch_add(1) % nbatch;
-                long epoch_step = local_step % rounds_per_epoch;
-
-                if (local_step >= num_epochs * rounds_per_epoch) {
-                    break;
-                }
-
-                thread_local_networks[id]->forward(x_batches[batch_index]);
-                thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
-
-                sync_point->arrive_and_wait();
-                // std::cout << "sync thread incrementing counter" << std::endl;
-                // sync_num_finished++;
-                // while (sync_num_finished.load() < num_threads - current_parallelism)
-                // { /* busy wait */ } if (id == current_parallelism) {
-                //     std::cout << "leader sync thread resetting counter" << std::endl;
-                //     sync_num_finished = 0;
-                // }
-
-                if (id == current_parallelism) {
-                    auto net = thread_local_networks[current_parallelism];
-                    sync_exec_loss = 0.0;
-
-                    sync_exec_loss += net->get_loss();
-
-                    net->update_cw(thread_local_opts[current_parallelism]);
-                    /* std::cout << "[sync] aggregating results from threads " <<
-                     * current_parallelism << " -> " << num_threads - 1 << std::endl; */
-
-                    for (int i = current_parallelism + 1; i < num_threads; i++) {
-                        auto subnet = thread_local_networks[i];
-
-                        sync_exec_loss += subnet->get_loss();
-
-                        net->reset();
-                        net->aggregate(*subnet);
-                        net->normalize_derivatives(num_threads - current_parallelism);
-                        net->update_cw(thread_local_opts[current_parallelism]);
-                    }
-
-                    sync_exec_loss /= (num_threads - current_parallelism);
-                    std::cout << "Aggregate sync loss = " << sync_exec_loss << std::endl;
-                }
-            }
-
-            /* Here we prevent the deadlock that used to occur when should_stop is set
-             * but not all sync threads have arrive_and_wait'ed yet. */
-            // std::cout << "sync thread setting counter to final" << std::endl;
-            // sync_num_finished = num_threads - current_parallelism;
-            auto _ = sync_point->arrive();
-#endif
+            return;
         } else {
             while (true) {
-#ifndef ALL_THREADS_MUST_FINISH
                 if (should_stop.test())
                     break; // Stop execution once at least one worker has reached
                            // num_iterations
-#endif
-
-                if (local_iterations != -1 && local_iterations-- <= 0) {
-#ifndef ALL_THREADS_MUST_FINISH
-                    should_stop.test_and_set();
-                    // std::cout << "[async] should stop, because local_iterations has
-                    // reached " << local_iterations << "\n";
-#endif
-                    break;
-                }
 
                 long local_step = step.fetch_add(1);
-                // std::cout << "[" << id << "] step = " << local_step << std::endl;
+
+                if (local_step - phase_firststep > num_iterations) {
+                    break;
+                }
 
                 if (tauadaptstrat != "NONE" && local_step == tau_sample_stop * num_threads) {
                     // this thread computes the tail distribution
@@ -326,6 +231,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     double loss_jitter = 0.0;
 
     int phase_number = 0;
+
+    std::cout << "Phase #, Parallelism, Loss, Time taken (s)\n";
 
     while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
         // std::cout << "Main loop\n";
@@ -536,21 +443,25 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             } else if (best_it == 3) {
                 search_floor += m_stride;
                 search_ceiling -= m_stride - 1;
-            } else {
+           } else {
                 std::cerr << "OOPS\n";
             }
         }
 #else // SEARCH_PROBE not defined
+
+        std::cout << "# probing from " << window_btm << " to max " << window_top << ", step=" << window_step << std::endl;
+
         for (int m = window_btm; m <= window_top; m += window_step) {
-            #ifdef PROBING_TEST
+#ifdef PROBING_TEST
             // Make fresh state for fair comparison
             global_param = new ParameterContainer(*param_save);
             copy_opts_vec(saved_thread_local_opts, thread_local_opts);
             copy_nets_vec(saved_thread_local_networks, thread_local_networks);
-            #endif
+#endif
 
             // std::cout << "Starting probing loop at " << m << std::endl;
             current_parallelism = m;
+            phase_firststep = step;
 
             if (current_parallelism >= num_threads)
                 break;
@@ -564,34 +475,40 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             m_times.push_back((double)(probe_start.tv_sec - start_time.tv_sec) +
                               (double)(probe_start.tv_usec - start_time.tv_usec) / 1000000);
 
-#ifndef ALL_THREADS_MUST_FINISH
             should_stop.clear();
-#endif
 
 #ifdef SYNC_THREADS
             synchronous_param = new ParameterContainer(*global_param);
 #endif
 
+            auto work_start = std::chrono::high_resolution_clock::now();
+
             workers.start_all();
             workers.wait_for_all();
 
+            auto work_end = std::chrono::high_resolution_clock::now();
+
+            std::chrono::duration<double> dur = work_end - work_start;
+            double work_dur = dur.count();
+
             gettimeofday(&probe_end, NULL);
-            double probe_elapsed = (double)(probe_end.tv_usec - probe_start.tv_usec) / 1000000;
 
             double loss = 0;
+            int loss_contributors = 0;
             for (int i = 0; i < current_parallelism; i++) {
-                if (std::isnan(thread_local_networks[i]->get_loss())) {
-                    std::cout << "# WARNING: network " << i << " had loss of nan!\n";
+                if (!std::isnan(thread_local_networks[i]->get_loss())) {
+                    loss_contributors++;
+                    // std::cout << "# WARNING: network " << i << " had loss of nan!\n";
                 }
                 loss += thread_local_networks[i]->get_loss();
             }
-            loss /= current_parallelism; // average los of each model
+            loss /= loss_contributors; // average los of each model
 
             if (prev_loss < 0)
                 prev_loss = loss;
             double loss_diff = loss - prev_loss;
 
-            std::cout << phase_number << ", " << current_parallelism << ", " << loss << std::endl;
+            std::cout << phase_number << ", " << current_parallelism << ", " << loss << ", " << work_dur << std::endl;
 
             prev_loss = loss;
 
@@ -603,7 +520,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             }
         }
 #endif // SEARCH_PROBE not defined
-
+       
         m_probe_ends.push_back(m_values.size());
 
         // After probing, run normal async execution for a while
@@ -622,9 +539,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                           (double)(now.tv_usec - start_time.tv_usec) / 1000000);
 
         num_iterations = probing_interval;
-#ifndef ALL_THREADS_MUST_FINISH
+        phase_firststep = step;
         should_stop.clear();
-#endif
         workers.start_all();
         workers.wait_for_all();
 
