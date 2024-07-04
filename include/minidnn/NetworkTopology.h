@@ -93,16 +93,30 @@ namespace MiniDNN {
                 m_rng(other.m_default_rng),
                 m_callback(other.m_callback),
                 current_param_container_ptr(other.current_param_container_ptr),
-                param_pointer(other.param_pointer),
-                m_output(other.m_output) {
+                param_pointer(other.param_pointer) {
             nlayer = other.nlayer;
             for (int i = 0; i < nlayer; ++i) {
                 m_layers.push_back(other.m_layers[i]->clone());
             }
 
+            m_output = other.m_output->clone();
         }
 
         NetworkTopology &operator=(NetworkTopology &) = delete;
+
+        ///
+        /// Destructor that frees the added hidden layers and output layer
+        ///
+        ~NetworkTopology() {
+            for (int i = 0; i < nlayer; i++) {
+                delete m_layers[i];
+                m_layers[i] = nullptr;
+            }
+
+            if (m_output) {
+                delete m_output;
+            }
+        }
 
         void set_pointer(ParameterContainer *new_param_cont_ptr) {
             current_param_container_ptr = new_param_cont_ptr;
@@ -189,19 +203,6 @@ namespace MiniDNN {
         }
 
 
-        ///
-        /// Destructor that frees the added hidden layers and output layer
-        ///
-        ~NetworkTopology() {
-            for (int i = 0; i < nlayer; i++) {
-                delete m_layers[i];
-                m_layers[i] = nullptr;
-            }
-
-            if (m_output) {
-                delete m_output;
-            }
-        }
 
 
         ///

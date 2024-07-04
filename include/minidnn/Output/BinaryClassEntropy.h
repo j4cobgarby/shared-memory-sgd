@@ -4,6 +4,7 @@
 #include <Eigen/Core>
 #include <stdexcept>
 #include "../Config.h"
+#include "Output.h"
 
 namespace MiniDNN {
 
@@ -19,7 +20,11 @@ namespace MiniDNN {
         // Note that input of this layer is also the output of previous layer
 
     public:
-        void check_target_data(const Matrix &target) {
+        BinaryClassEntropy *clone() override {
+            return new BinaryClassEntropy(*this);
+        }
+
+        void check_target_data(const Matrix &target) override {
             // Each element should be either 0 or 1
             const int nelem = target.size();
             const Scalar *target_data = target.data();
@@ -32,7 +37,7 @@ namespace MiniDNN {
             }
         }
 
-        void check_target_data(const IntegerVector &target) {
+        void check_target_data(const IntegerVector &target) override {
             // Each element should be either 0 or 1
             const int nobs = target.size();
 
@@ -44,7 +49,7 @@ namespace MiniDNN {
             }
         }
 
-        void evaluate(const Matrix &prev_layer_data, const Matrix &target) {
+        void evaluate(const Matrix &prev_layer_data, const Matrix &target) override {
             // Check dimension
             const int nobs = prev_layer_data.cols();
             const int nvar = prev_layer_data.rows();
@@ -63,7 +68,7 @@ namespace MiniDNN {
                                                                   -prev_layer_data.cwiseInverse());
         }
 
-        void evaluate(const Matrix &prev_layer_data, const IntegerVector &target) {
+        void evaluate(const Matrix &prev_layer_data, const IntegerVector &target) override {
             // Only when the last hidden layer has only one unit can we use this version
             const int nvar = prev_layer_data.rows();
 
@@ -86,11 +91,11 @@ namespace MiniDNN {
                                                          -prev_layer_data.cwiseInverse());
         }
 
-        const Matrix &backprop_data() const {
+        const Matrix &backprop_data() const override {
             return m_din;
         }
 
-        Scalar loss() const {
+        Scalar loss() const override {
             // L = -y * log(phat) - (1 - y) * log(1 - phat)
             // y = 0 => L = -log(1 - phat)
             // y = 1 => L = -log(phat)

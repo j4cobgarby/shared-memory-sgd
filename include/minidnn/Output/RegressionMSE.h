@@ -4,6 +4,7 @@
 #include <Eigen/Core>
 #include <stdexcept>
 #include "../Config.h"
+#include "Output.h"
 
 namespace MiniDNN {
 
@@ -22,7 +23,11 @@ namespace MiniDNN {
         // Note that input of this layer is also the output of previous layer
 
     public:
-        void evaluate(const Matrix &prev_layer_data, const Matrix &target) {
+        RegressionMSE *clone() override {
+            return new RegressionMSE(*this);
+        }
+
+        void evaluate(const Matrix &prev_layer_data, const Matrix &target) override {
             // Check dimension
             const int nobs = prev_layer_data.cols();
             const int nvar = prev_layer_data.rows();
@@ -39,11 +44,11 @@ namespace MiniDNN {
             m_din.noalias() = prev_layer_data - target;
         }
 
-        const Matrix &backprop_data() const {
+        const Matrix &backprop_data() const override {
             return m_din;
         }
 
-        Scalar loss() const {
+        Scalar loss() const override {
             // L = 0.5 * ||yhat - y||^2
             return m_din.squaredNorm() / m_din.cols() * Scalar(0.5);
         }

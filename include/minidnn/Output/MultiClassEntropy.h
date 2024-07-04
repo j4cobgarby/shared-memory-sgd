@@ -4,6 +4,7 @@
 #include <Eigen/Core>
 #include <stdexcept>
 #include "../Config.h"
+#include "Output.h"
 
 namespace MiniDNN {
 
@@ -23,7 +24,11 @@ namespace MiniDNN {
 
         MultiClassEntropy(MultiClassEntropy &) = default;
 
-        void check_target_data(const Matrix &target) {
+        MultiClassEntropy *clone() override {
+            return new MultiClassEntropy(*this);
+        }
+
+        void check_target_data(const Matrix &target) override {
             // Each element should be either 0 or 1
             // Each column has and only has one 1
             const int nobs = target.cols();
@@ -51,7 +56,7 @@ namespace MiniDNN {
             }
         }
 
-        void check_target_data(const IntegerVector &target) {
+        void check_target_data(const IntegerVector &target) override {
             // All elements must be non-negative
             const int nobs = target.size();
 
@@ -64,7 +69,7 @@ namespace MiniDNN {
 
         // target is a matrix with each column representing an observation
         // Each column is a vector that has a one at some location and has zeros elsewhere
-        void evaluate(const Matrix &prev_layer_data, const Matrix &target) {
+        void evaluate(const Matrix &prev_layer_data, const Matrix &target) override {
             // Check dimension
             const int nobs = prev_layer_data.cols();
             const int nclass = prev_layer_data.rows();
@@ -83,7 +88,7 @@ namespace MiniDNN {
 
         // target is a vector of class labels that take values from [0, 1, ..., nclass - 1]
         // The i-th element of target is the class label for observation i
-        void evaluate(const Matrix &prev_layer_data, const IntegerVector &target) {
+        void evaluate(const Matrix &prev_layer_data, const IntegerVector &target) override {
             // Check dimension
             const int nobs = prev_layer_data.cols();
             const int nclass = prev_layer_data.rows();
@@ -104,11 +109,11 @@ namespace MiniDNN {
             }
         }
 
-        const Matrix &backprop_data() const {
+        const Matrix &backprop_data() const override {
             return m_din;
         }
 
-        Scalar loss() const {
+        Scalar loss() const override {
             // L = -sum(log(phat) * y)
             // in = phat
             // d(L) / d(in) = -y / phat
