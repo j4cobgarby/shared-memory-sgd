@@ -8,6 +8,8 @@
 #include <limits>
 #include <chrono>
 
+using namespace std::literals;
+
 // #define STANDARD_WINDOW
 // #define EXTEND_WINDOW
 // #define SHIFT_WINDOW
@@ -113,6 +115,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     std::atomic<int> next_batch(0);
     std::atomic<long> step(0);
     long phase_firststep = 0;
+    std::chrono::time_point<std::chrono::high_resolution_clock> phase_starttime;
 
     // std::atomic<double> phase_loss;
 
@@ -120,7 +123,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     std::atomic_flag should_stop = ATOMIC_FLAG_INIT;
 
     auto f = [&](int id) {
-
         if (id >= current_parallelism) {
             return;
         } else {
@@ -131,9 +133,15 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
                 long local_step = step.fetch_add(1);
 
+                #if 0
                 if (local_step - phase_firststep > num_iterations) {
                     break;
                 }
+                #else
+                if (std::chrono::high_resolution_clock::now() - phase_starttime > 1s) {
+                    break;
+                }
+                #endif
 
                 if (tauadaptstrat != "NONE" && local_step == tau_sample_stop * num_threads) {
                     // this thread computes the tail distribution
@@ -485,6 +493,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 #endif
 
             auto work_start = std::chrono::high_resolution_clock::now();
+            phase_starttime = work_start;
 
             workers.start_all();
             workers.wait_for_all();
