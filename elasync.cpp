@@ -244,8 +244,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
     std::cout << "# Phase num, Parallelism, Loss, Time taken (s)\n";
 
-    while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
-        // std::cout << "Main loop\n";
+    // while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
+    while (phase_number <= 10) {
         /* Here, all threads are not running.
          * We want to get the loss trend over the previous execution phase.
          * In the previous iteration, there should be `probing_interval` training
