@@ -15,7 +15,6 @@ using namespace std::literals;
 // #define SHIFT_WINDOW
 // #define PROBE_WHOLE
 // #define SEARCH_PROBE
-// #define SYNC_THREADS
 // #define NO_PROBE
 
 // For experimentation, test wide range of parallelism
@@ -245,7 +244,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     std::cout << "# Phase num, Parallelism, Loss, Time taken (s)\n";
 
     // while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
-    while (phase_number <= 10) {
+    while (phase_number <= 20) {
         /* Here, all threads are not running.
          * We want to get the loss trend over the previous execution phase.
          * In the previous iteration, there should be `probing_interval` training
@@ -488,10 +487,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
             should_stop.clear();
 
-#ifdef SYNC_THREADS
-            synchronous_param = new ParameterContainer(*global_param);
-#endif
-
             auto work_start = std::chrono::high_resolution_clock::now();
             phase_starttime = work_start;
 
@@ -571,16 +566,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
         /* First check if we want to base the next execution phase on the current
          * sync or async mode status */
-
-#ifdef SYNC_THREADS
-        std::cout << "sync loss = " << sync_exec_loss << std::endl;
-        if (sync_exec_loss < avg_loss) {
-            std::cout << "Got better loss in synchronous execution, so replacing "
-                         "global model with it!\n";
-            std::cout << " - " << sync_exec_loss << " < " << avg_loss << std::endl;
-            global_param = new ParameterContainer(*synchronous_param);
-        }
-#endif
 
         /* Now we analyse the performance of recent async mode to calculate:
          *  - Jitter of previous window
