@@ -137,7 +137,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                     break;
                 }
                 #else
-                if (std::chrono::high_resolution_clock::now() - phase_starttime > 1s) {
+                if (std::chrono::high_resolution_clock::now() - phase_starttime > 2s) {
                     break;
                 }
                 #endif
