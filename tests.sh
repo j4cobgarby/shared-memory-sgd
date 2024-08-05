@@ -8,9 +8,9 @@
 # ./cmake-build/mininn -D CIFAR10 -b 16 -e 350 -n 32 -a SEMISYNC -A LENET -N "semi32" -l 0.005 -i 32
 # ./cmake-build/mininn -D CIFAR10 -b 16 -e 350 -n 32 -a SEMISYNC -A LENET -N "semi16" -l 0.005 -i 16
 #
-mkdir -p experiments/optimal_auto
-./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -e 2000 -b 16 -l 0.005 -i 256 -d 2048 -N optimal_auto5 | tee experiments/optimal_auto/run5.csv
-./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -e 2000 -b 16 -l 0.005 -i 256 -d 2048 -N optimal_auto6 | tee experiments/optimal_auto/run6.csv
-./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -e 2000 -b 16 -l 0.005 -i 256 -d 2048 -N optimal_auto7 | tee experiments/optimal_auto/run7.csv
-./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -e 2000 -b 16 -l 0.005 -i 256 -d 2048 -N optimal_auto8 | tee experiments/optimal_auto/run8.csv
-./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -e 2000 -b 16 -l 0.005 -i 256 -d 2048 -N optimal_auto9 | tee experiments/optimal_auto/run9.csv
+mkdir -p experiments/25phase_optimalprobes
+./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -e 2000 -b 16 -l 0.005 -i 256 -d 2048 -N optimal_auto10 | tee experiments/25phase_optimalprobes/run10.csv
+./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -e 2000 -b 16 -l 0.005 -i 256 -d 2048 -N optimal_auto11 | tee experiments/25phase_optimalprobes/run11.csv
+./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -e 2000 -b 16 -l 0.005 -i 256 -d 2048 -N optimal_auto12 | tee experiments/25phase_optimalprobes/run12.csv
+./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -e 2000 -b 16 -l 0.005 -i 256 -d 2048 -N optimal_auto13 | tee experiments/25phase_optimalprobes/run13.csv
+./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -e 2000 -b 16 -l 0.005 -i 256 -d 2048 -N optimal_auto14 | tee experiments/25phase_optimalprobes/run14.csv
