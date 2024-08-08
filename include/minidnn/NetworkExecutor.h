@@ -2,15 +2,65 @@
 #define NETWORKEXECUTOR_H_
 
 #include <bits/types/struct_timeval.h>
+#include <memory>
 #include <stdlib.h>     /* exit, EXIT_FAILURE */
 #include <sys/select.h>
 
+#include "Optimizer.h"
 #include "ParameterContainer.h"
 #include "ThreadPool.h"
 #include "NetworkTopology.h"
 #include "Output/MultiClassEntropy.h"
 
 namespace MiniDNN {
+
+using std::shared_ptr;
+
+class GenericExecutor {
+protected:
+    typedef Eigen::Matrix<double, -1, -1> XType;
+    typedef Eigen::Matrix<double, -1, -1> YType;
+
+    std::vector<XType> x_batches;
+    std::vector<YType> y_batches;
+
+    Optimizer *opt;
+    NetworkTopology *net;
+    std::vector<Optimizer *> thread_local_opts;
+    const Matrix &x, &y;
+
+    RNG default_rng, &rng;
+
+    std::vector<double> epoch_loss, epoch_time;
+    double stepsize;
+
+    int num_threads;
+    int batch_size, rounds_per_epoch, num_epochs;
+public:
+    GenericExecutor(NetworkTopology *net, Optimizer *opt, Matrix &x, Matrix &y, int num_threads, double stepsize)
+        : net(net)
+        , opt(opt)
+        , x(x)
+        , y(y)
+        , num_threads(num_threads)
+        , stepsize(stepsize)
+        , default_rng(1)
+        , rng(default_rng)
+    {
+        for (int i = 0; i < num_threads; i++) {
+            thread_local_opts[i] = opt->clone();
+        }
+    }
+
+    std::vector<double> &get_epoch_losses() { return epoch_loss; }
+    std::vector<double> &get_epoch_times() { return epoch_time; }
+    double get_last_epoch_loss() { return epoch_loss.back(); }
+
+    virtual void run() = 0;
+
+    ~GenericExecutor() {}
+};
+
     class NetworkExecutor {
         typedef Matrix DerivedX;
         typedef Matrix DerivedY;
@@ -21,7 +71,7 @@ namespace MiniDNN {
         typedef Eigen::Matrix<typename PlainObjectY::Scalar, PlainObjectY::RowsAtCompileTime, PlainObjectY::ColsAtCompileTime>
                 YType;
 
-    private:
+    protected:
         Optimizer *opt;
         std::vector<Optimizer *> thread_local_opts;
         const Eigen::MatrixBase<Matrix> &x;
