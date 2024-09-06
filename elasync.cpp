@@ -370,7 +370,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 #ifdef PROBE_WHOLE
         int window_top = num_threads;
         int window_btm = 1;
-        int window_step = 8; /* could vary this */
+        int window_step = 1; /* could vary this */
 #endif
 
 #ifdef NO_PROBE
@@ -520,7 +520,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             for (int i = 0; i < current_parallelism; i++) {
                 if (!std::isnan(thread_local_networks[i]->get_loss())) {
                     loss_contributors++;
-                    // std::cout << "# WARNING: network " << i << " had loss of nan!\n";
                 }
                 loss += thread_local_networks[i]->get_loss();
             }
