@@ -10,10 +10,10 @@
 
 using namespace std::literals;
 
-#define STANDARD_WINDOW
+// #define STANDARD_WINDOW
 // #define EXTEND_WINDOW
 // #define SHIFT_WINDOW
-// #define PROBE_WHOLE
+#define PROBE_WHOLE
 // #define SEARCH_PROBE
 // #define NO_PROBE
 
@@ -68,9 +68,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     #ifdef PROBING_TEST
     std::vector<Optimizer *> saved_thread_local_opts(num_threads, nullptr);
     std::vector<NetworkTopology *> saved_thread_local_networks(num_threads, nullptr);
-
-    std::vector<Optimizer *> best_saved_opts(num_threads, nullptr);
-    std::vector<NetworkTopology *> best_saved_nets(num_threads, nullptr);
     #endif
 
     int current_parallelism = m_0 < 0 ? num_threads / 2 : m_0;
@@ -134,12 +131,12 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
                 long local_step = step.fetch_add(1);
 
-                #if 1
+                #if 0
                 if (local_step - phase_firststep > num_iterations) {
                     break;
                 }
                 #else
-                if (std::chrono::high_resolution_clock::now() - phase_starttime > 2s) {
+                if (std::chrono::high_resolution_clock::now() - phase_starttime > 1s) {
                     break;
                 }
                 #endif
@@ -250,11 +247,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     int phase_number = 0;
 
     std::cout << "# Phase num, Parallelism, Loss, Time taken (s), repeat num\n";
-
-#ifdef PROBING_TEST
-    copy_opts_vec(thread_local_opts, best_saved_opts);
-    copy_nets_vec(thread_local_networks, best_saved_nets);
-#endif
 
     // while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
     while (phase_number <= 20) {
@@ -395,10 +387,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         }
 
         #ifdef PROBING_TEST
-        ParameterContainer *param_save = new ParameterContainer(*global_param);
-        ParameterContainer *best_param_save;
-        copy_opts_vec(best_saved_opts, saved_thread_local_opts);
-        copy_nets_vec(best_saved_nets, saved_thread_local_networks);
+        // ParameterContainer *param_save = new ParameterContainer(*global_param);
+        // copy_opts_vec(thread_local_opts, saved_thread_local_opts);
+        // copy_nets_vec(thread_local_networks, saved_thread_local_networks);
         #endif
 
         std::cout << "# starting probing\n";
@@ -477,14 +468,19 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
         for (int m = window_btm; m <= window_top; m += window_step) {
 #ifdef PROBING_TEST
-            for (int repeat = 0; repeat < 4; repeat++) {
+            for (int repeat = 0; repeat < 1; repeat++) {
             // Make fresh state for fair comparison
-            delete global_param;
-            global_param = new ParameterContainer(*param_save);
-            copy_opts_vec(saved_thread_local_opts, thread_local_opts);
-            copy_nets_vec(saved_thread_local_networks, thread_local_networks);
+            // delete global_param;
+            // std::cout << "constructing new global_param...\n";
+            // global_param = new ParameterContainer(*param_save);
+            // std::cout << "done! now copying saved state...\n";
+            // copy_opts_vec(saved_thread_local_opts, thread_local_opts);
+            // std::cout << "(done optimizers)\n";
+            // copy_nets_vec(saved_thread_local_networks, thread_local_networks);
+            // std::cout << "done!\n";
 #endif
 
+            // std::cout << "Starting probing loop at " << m << std::endl;
             current_parallelism = m;
             phase_firststep = step;
 
@@ -505,8 +501,10 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             auto work_start = std::chrono::high_resolution_clock::now();
             phase_starttime = work_start;
 
+            std::cout << "start_for_all...\n";
             workers.start_all();
             workers.wait_for_all();
+            std::cout << "wait_for_all done\n";
 
             auto work_end = std::chrono::high_resolution_clock::now();
 
@@ -515,6 +513,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
             gettimeofday(&probe_end, NULL);
 
+            std::cout << "calculating loss...\n";
             double loss = 0;
             int loss_contributors = 0;
             for (int i = 0; i < current_parallelism; i++) {
@@ -525,16 +524,13 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 loss += thread_local_networks[i]->get_loss();
             }
             loss /= loss_contributors; // average los of each model
+            std::cout << "calculating loss complete.\n";
 
             if (prev_loss < 0)
                 prev_loss = loss;
             double loss_diff = loss - prev_loss;
 
-#ifdef PROBING_TEST
-            std::cout << phase_number << ", " << current_parallelism << ", " << loss << ", " << work_dur << ", " << repeat << std::endl;
-#else
-            std::cout << phase_number << ", " << current_parallelism << ", " << loss << ", " << work_dur << std::endl;
-#endif
+            std::cout << phase_number << ", " << current_parallelism << ", " << loss << ", " << work_dur << ", " << std::endl;
 
             prev_loss = loss;
 
@@ -543,11 +539,6 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
             if (loss_diff < best_probe_delta_loss) {
                 best_probe_delta_loss = loss_diff;
                 best_m = current_parallelism;
-                #ifdef PROBING_TEST
-                best_param_save = new ParameterContainer(*global_param);
-                copy_opts_vec(thread_local_opts, best_saved_opts);
-                copy_nets_vec(thread_local_networks, best_saved_nets);
-                #endif
             }
 
 #ifdef PROBING_TEST
@@ -557,9 +548,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 #endif // SEARCH_PROBE not defined
 
 #ifdef PROBING_TEST
-        global_param = new ParameterContainer(*best_param_save);
-        delete best_param_save;
-        delete param_save; // segfault remained with this delete gone.
+        // delete param_save; // segfault remained with this delete gone.
 #endif
        
         m_probe_ends.push_back(m_values.size());
@@ -568,7 +557,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         current_parallelism = best_m;
 
 
-#if 0 // Execution phase
+#if 1 // Execution phase
         std::cout << "# <execution> current_parallelism == " << current_parallelism << std::endl;
         m_exec_values.push_back(current_parallelism);
 
@@ -589,7 +578,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
         double avg_loss = 0;
         for (int th = 0; th < current_parallelism; th++) {
-            double l = thread_local_networks.at(th)->get_loss();
+            double l = thread_local_networks[th]->get_loss();
             avg_loss += l;
         }
         avg_loss /= current_parallelism;
@@ -663,7 +652,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
     workers.stop();
 
-    for (int k = 0; k < latest_epoch; k++) {
+    for (int k = 0; k < num_epochs; k++) {
         loss = 0;
         for (int i = 0; i < num_threads; i++) {
             loss += local_losses_per_epoch[i][k];

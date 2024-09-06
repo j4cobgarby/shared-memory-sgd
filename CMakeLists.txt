@@ -10,8 +10,9 @@ endif()
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
-set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -O1")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+# set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -O2")
+set(CMAKE_CXX_FLAGS_DEBUG "-ggdb")
+set(CMAKE_CXX_FLAGS_RELEASE "-O2 -g")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories("/usr/local/include" "/usr/local/opt/llvm/include"
