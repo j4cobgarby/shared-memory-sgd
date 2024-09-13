@@ -15,6 +15,7 @@
 
 #include <NetworkExecutor.h>
 
+#include "Executors.hpp"
 #include "cifar10_reader.hpp"
 #include "cifar100_reader.hpp"
 
@@ -470,13 +471,11 @@ int main(int argc, char *argv[]) {
             executor.run_parallel_leashed(batch_size, num_epochs, rounds_per_epoch, cas_backoff, check_concurrent_updates, rand_seed);
             break;
         case ALGORITHM::ELASYNC:
-            executor.scalar_loss_grad = scalar_loss_grad;
-            executor.scalar_loss_jitter = scalar_loss_jitter;
-            executor.scalar_m_trend = scalar_m_trend;
-
-            /* std::cout << "elasyncsgd2 with window = " << probing_window << ", interval = " << probing_interval << ", duration = " << probing_duration << ", m_0 = " << initial_parallelism << " rounds_per_epoch = " << rounds_per_epoch << std::endl; */
-            // executor.run_elastic_async2(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, rand_seed, false);
-            executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed, false);
+            std::cout << "Doing this next, after switch...\n";
+            // executor.scalar_loss_grad = scalar_loss_grad;
+            // executor.scalar_loss_jitter = scalar_loss_jitter;
+            // executor.scalar_m_trend = scalar_m_trend;
+            // executor.run_elastic_async(batch_size, num_epochs, rounds_per_epoch, probing_window, probing_interval, probing_duration, initial_parallelism, start, rand_seed, false);
             break;
         case ALGORITHM::SEMISYNC:
             executor.run_semisync(batch_size, num_epochs, rounds_per_epoch, start, probing_interval, rand_seed);
@@ -488,6 +487,14 @@ int main(int argc, char *argv[]) {
             printf("Use -h or --help for help\n");
             exit(1);
             break;
+    }
+
+    if (run_algo == ALGORITHM::ELASYNC) {
+        SearchController elastic_controller(num_threads, 8);
+        ProbingExecutor prb_exec(&network, opt, x, y, num_threads, learning_rate, 
+            std::unique_ptr<ElasticController>(new SearchController(num_threads, 8)));
+        std::cout << "Executing ProbingExecutor!\n";
+        prb_exec.run();
     }
 
     gettimeofday(&end, nullptr);

@@ -13,17 +13,17 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +509 elasync.cpp
-badd +170 include/minidnn/NetworkExecutor.h
-badd +449 main.cpp
-badd +128 include/minidnn/Executors.hpp
+badd +261 elasync.cpp
+badd +42 include/minidnn/NetworkExecutor.h
+badd +49 include/minidnn/Executors.hpp
 badd +38 ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/NetworkTopology.h
 badd +222 ~/Documents/code/cpp/shared-memory-sgd/elasync2.cpp
-badd +22 ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/Output.h
+badd +58 ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/Output.h
+badd +24 elastic_ctrl.cpp
 argglobal
 %argdel
 $argadd elasync.cpp
-edit include/minidnn/NetworkExecutor.h
+edit include/minidnn/Executors.hpp
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -31,10 +31,7 @@ wincmd _ | wincmd |
 vsplit
 wincmd _ | wincmd |
 vsplit
-wincmd _ | wincmd |
-vsplit
-3wincmd h
-wincmd w
+2wincmd h
 wincmd w
 wincmd w
 let &splitbelow = s:save_splitbelow
@@ -46,12 +43,11 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 106 + 213) / 426)
-exe 'vert 2resize ' . ((&columns * 106 + 213) / 426)
-exe 'vert 3resize ' . ((&columns * 106 + 213) / 426)
-exe 'vert 4resize ' . ((&columns * 105 + 213) / 426)
+exe 'vert 1resize ' . ((&columns * 106 + 160) / 320)
+exe 'vert 2resize ' . ((&columns * 106 + 160) / 320)
+exe 'vert 3resize ' . ((&columns * 106 + 160) / 320)
 argglobal
-balt main.cpp
+balt ~/Documents/code/cpp/shared-memory-sgd/elasync2.cpp
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -62,37 +58,35 @@ setlocal fdn=20
 setlocal fen
 1
 normal! zo
-15
+17
 normal! zo
-19
+21
 normal! zo
-40
+55
 normal! zo
-64
+56
 normal! zo
-205
+109
 normal! zo
-215
+114
 normal! zo
-218
+157
 normal! zo
-220
+184
 normal! zo
-222
-normal! zo
-let s:l = 38 - ((37 * winheight(0) + 53) / 106)
+let s:l = 162 - ((64 * winheight(0) + 40) / 81)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 38
+keepjumps 162
 normal! 049|
 wincmd w
 argglobal
-if bufexists(fnamemodify("include/minidnn/Executors.hpp", ":p")) | buffer include/minidnn/Executors.hpp | else | edit include/minidnn/Executors.hpp | endif
+if bufexists(fnamemodify("include/minidnn/NetworkExecutor.h", ":p")) | buffer include/minidnn/NetworkExecutor.h | else | edit include/minidnn/NetworkExecutor.h | endif
 if &buftype ==# 'terminal'
-  silent file include/minidnn/Executors.hpp
+  silent file include/minidnn/NetworkExecutor.h
 endif
-balt ~/Documents/code/cpp/shared-memory-sgd/elasync2.cpp
+balt include/minidnn/Executors.hpp
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -105,31 +99,19 @@ setlocal fen
 normal! zo
 14
 normal! zo
-30
-normal! zo
-56
-normal! zo
-61
-normal! zo
-66
-normal! zo
-101
-normal! zo
-122
-normal! zo
-let s:l = 128 - ((86 * winheight(0) + 53) / 106)
+let s:l = 42 - ((41 * winheight(0) + 40) / 81)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 128
-normal! 033|
+keepjumps 42
+normal! 025|
 wincmd w
 argglobal
-if bufexists(fnamemodify("elasync.cpp", ":p")) | buffer elasync.cpp | else | edit elasync.cpp | endif
+if bufexists(fnamemodify("elastic_ctrl.cpp", ":p")) | buffer elastic_ctrl.cpp | else | edit elastic_ctrl.cpp | endif
 if &buftype ==# 'terminal'
-  silent file elasync.cpp
+  silent file elastic_ctrl.cpp
 endif
-balt include/minidnn/NetworkExecutor.h
+balt elasync.cpp
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -138,57 +120,21 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-46
+4
 normal! zo
-247
+19
 normal! zo
-394
-normal! zo
-459
-normal! zo
-463
-normal! zo
-505
-normal! zo
-let s:l = 488 - ((62 * winheight(0) + 53) / 106)
+let s:l = 22 - ((21 * winheight(0) + 40) / 81)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 488
-normal! 031|
+keepjumps 22
+normal! 012|
 wincmd w
-argglobal
-if bufexists(fnamemodify("~/Documents/code/cpp/shared-memory-sgd/include/minidnn/Output.h", ":p")) | buffer ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/Output.h | else | edit ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/Output.h | endif
-if &buftype ==# 'terminal'
-  silent file ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/Output.h
-endif
-balt ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/NetworkTopology.h
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-1
-normal! zo
-8
-normal! zo
-22
-normal! zo
-let s:l = 71 - ((70 * winheight(0) + 53) / 106)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 71
-normal! 023|
-wincmd w
-4wincmd w
-exe 'vert 1resize ' . ((&columns * 106 + 213) / 426)
-exe 'vert 2resize ' . ((&columns * 106 + 213) / 426)
-exe 'vert 3resize ' . ((&columns * 106 + 213) / 426)
-exe 'vert 4resize ' . ((&columns * 105 + 213) / 426)
+3wincmd w
+exe 'vert 1resize ' . ((&columns * 106 + 160) / 320)
+exe 'vert 2resize ' . ((&columns * 106 + 160) / 320)
+exe 'vert 3resize ' . ((&columns * 106 + 160) / 320)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

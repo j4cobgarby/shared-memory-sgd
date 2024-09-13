@@ -1,6 +1,7 @@
 #ifndef EXECUTORS_HPP
 #define EXECUTORS_HPP
 
+#include "Network.h"
 #include "NetworkExecutor.h"
 #include "NetworkTopology.h"
 #include "Optimizer.h"
@@ -50,7 +51,11 @@ protected:
 
     std::unique_ptr<ElasticController> elastic_ctrl;
 public:
-    ProbingExecutor(NetworkTopology *net, Optimizer *opt, Matrix &x, Matrix &y, int num_threads, double stepsize, std::unique_ptr<ElasticController> elastic_ctrl);
+    ProbingExecutor(NetworkTopology *net, Optimizer *opt, Matrix &x, Matrix &y, int num_threads, double stepsize, std::unique_ptr<ElasticController> elastic_ctrl)
+        : GenericExecutor(net, opt, x, y, num_threads, stepsize)
+        , elastic_ctrl(std::move(elastic_ctrl)) {
+
+    }
 
     void thread_work(int id) {
         while (true) {
@@ -111,16 +116,21 @@ public:
 
         this->n_batches = internal::create_shuffled_batches(x, y, 32, rng, x_batches, y_batches);
 
+        thread_nets.clear();
+        thread_epoch_loss.clear();
+
         for (int i = 0; i < this->num_threads; i++) {
-            this->thread_nets[i] = new NetworkTopology(*net); // Copy network
-            this->thread_nets[i]->set_output(
+            // Copy network
+            this->thread_nets.push_back(new NetworkTopology(*net));
+            this->thread_nets.at(i)->set_output(
                 new MultiClassEntropy(*dynamic_cast<MultiClassEntropy*>(net->get_output()))
             );
 
             thread_epoch_loss.push_back(std::vector<double>());
+            thread_epoch_rounds.push_back(std::vector<int>());
             for (int j = 0; j < this->num_epochs; j++) {
-                thread_epoch_loss[i].push_back(0);
-                thread_epoch_rounds[i].push_back(0);
+                thread_epoch_loss.at(i).push_back(0);
+                thread_epoch_rounds.at(i).push_back(0);
             }
         }
 
@@ -158,6 +168,7 @@ public:
             this->m = this->elastic_ctrl->get_m();
             this->phase_steps = this->elastic_ctrl->target_phase_steps();
             this->phase_maxtime = this->elastic_ctrl->target_phase_time();
+            std::cout << "Controller: m=" << this->m << ", steps=" << this->phase_steps << "\n";
 
             // Sanity check for wonky parallelism
             if (this->m > this->num_threads || this->m <= 0) {

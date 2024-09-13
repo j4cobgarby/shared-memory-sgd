@@ -20,7 +20,8 @@ include_directories("/usr/local/include" "/usr/local/opt/llvm/include"
         "include/" "include/minidnn" )
 link_directories("/usr/local/lib" "/usr/local/opt/llvm/lib")
 
-add_executable(mininn main.cpp elasync.cpp single_thread.cpp sync.cpp async.cpp leashed.cpp semisync.cpp heuristic.cpp
-        elasync2.cpp mnist.cc)
+add_executable(mininn main.cpp elasync.cpp single_thread.cpp sync.cpp async.cpp
+    leashed.cpp semisync.cpp heuristic.cpp elasync2.cpp mnist.cc 
+    elastic_ctrl.cpp)
 #target_sources(mininn PUBLIC mnist.cc)
 TARGET_LINK_LIBRARIES(mininn pthread)

@@ -17,7 +17,7 @@ using std::shared_ptr;
 
 class ElasticController {
 public:
-    ElasticController();
+    ElasticController() {}
 
     virtual int get_m() = 0;
 
@@ -25,11 +25,38 @@ public:
     virtual long target_phase_steps() = 0; // Max steps in total before threads finish phase
     virtual double target_phase_time() = 0; // Max elapsed time before threads finish phase
 
-    virtual bool is_probing() = 0;
-
     // Tell the controller that the executor finished the current phase, 
     // reporting the loss so that it can work out what to do next.
     virtual void finish_phase(double end_loss) = 0;
+};
+
+class SearchController : public ElasticController {
+private:
+    bool is_searching;
+
+    //// Searching Variables
+    // Phase within current search, set to 0 when searching starts
+    int curr_phase;
+    int search_lobound;
+    int search_hibound;
+    double lobound_loss;
+    double hibound_loss;
+    int search_stride = 5;
+    double search_best_loss = -1;
+    double search_prev_loss = -1;
+    int search_best_m; 
+
+    int exp_phases;
+    int div_phases;
+
+    int curr_m = -1;
+public:
+    SearchController(int num_threads, int search_phases);
+
+    int get_m();
+    long target_phase_steps();
+    double target_phase_time();
+    void finish_phase(double end_loss);
 };
 
 class GenericExecutor {
@@ -64,7 +91,7 @@ public:
         , rng(default_rng)
     {
         for (int i = 0; i < num_threads; i++) {
-            thread_local_opts[i] = opt->clone();
+            thread_local_opts.push_back(opt->clone());
         }
     }
 
