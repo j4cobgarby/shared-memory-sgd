@@ -494,7 +494,7 @@ int main(int argc, char *argv[]) {
         ProbingExecutor prb_exec(&network, opt, x, y, num_threads, learning_rate, 
             std::unique_ptr<ElasticController>(new SearchController(num_threads, 8)));
         std::cout << "Executing ProbingExecutor!\n";
-        prb_exec.run();
+        prb_exec.run(batch_size, num_epochs, rounds_per_epoch);
     }
 
     gettimeofday(&end, nullptr);

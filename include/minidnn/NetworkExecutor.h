@@ -99,7 +99,7 @@ public:
     std::vector<double> &get_epoch_times() { return epoch_time; }
     double get_last_epoch_loss() { return epoch_loss.back(); }
 
-    virtual void run() = 0;
+    virtual void run(int batch_size, int num_epochs, int steps_per_epoch) = 0;
 
     ~GenericExecutor() {}
 };

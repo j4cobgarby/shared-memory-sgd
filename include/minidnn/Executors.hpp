@@ -111,10 +111,14 @@ public:
         }
     }
 
-    void run() {
+    void run(int batch_size, int num_epochs, int steps_per_epoch) {
         this->opt->reset();
+        this->batch_size = batch_size;
+        this->num_epochs = num_epochs;
+        this->steps_per_epoch = steps_per_epoch;
 
-        this->n_batches = internal::create_shuffled_batches(x, y, 32, rng, x_batches, y_batches);
+        this->n_batches = internal::create_shuffled_batches(
+            x, y, this->batch_size, rng, x_batches, y_batches);
 
         thread_nets.clear();
         thread_epoch_loss.clear();
@@ -123,7 +127,8 @@ public:
             // Copy network
             this->thread_nets.push_back(new NetworkTopology(*net));
             this->thread_nets.at(i)->set_output(
-                new MultiClassEntropy(*dynamic_cast<MultiClassEntropy*>(net->get_output()))
+                new MultiClassEntropy(
+                    *dynamic_cast<MultiClassEntropy*>(net->get_output()))
             );
 
             thread_epoch_loss.push_back(std::vector<double>());
@@ -164,7 +169,10 @@ public:
 
         long curr_step;
 
+        std::cout << "num_epochs = " << this->num_epochs << ", steps_per_epoch = " << this->steps_per_epoch << "\n";
+
         while ((curr_step = this->step_counter.load()) < this->num_epochs * this->steps_per_epoch) {
+            std::cout << "curr_step = " << curr_step << "\n";
             this->m = this->elastic_ctrl->get_m();
             this->phase_steps = this->elastic_ctrl->target_phase_steps();
             this->phase_maxtime = this->elastic_ctrl->target_phase_time();
