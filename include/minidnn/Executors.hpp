@@ -19,7 +19,7 @@ namespace MiniDNN {
 
 // Provides a HOGWILD!-like non-locking executor which uses probing phases
 // to dynamically attempt to find an optimal number of active threads.
-class ProbingExecutor : public GenericExecutor {
+class ModularExecutor : public GenericExecutor {
     typedef std::chrono::high_resolution_clock Clock;
     typedef std::chrono::time_point<Clock> Timepoint;
     typedef std::chrono::duration<double> Duration;
@@ -49,9 +49,9 @@ protected:
     Timepoint phase_starttime;
     double phase_maxtime;
 
-    std::unique_ptr<ElasticController> elastic_ctrl;
+    std::unique_ptr<ParallelismController> elastic_ctrl;
 public:
-    ProbingExecutor(NetworkTopology *net, Optimizer *opt, Matrix &x, Matrix &y, int num_threads, double stepsize, std::unique_ptr<ElasticController> elastic_ctrl)
+    ModularExecutor(NetworkTopology *net, Optimizer *opt, Matrix &x, Matrix &y, int num_threads, double stepsize, std::unique_ptr<ParallelismController> elastic_ctrl)
         : GenericExecutor(net, opt, x, y, num_threads, stepsize)
         , elastic_ctrl(std::move(elastic_ctrl)) {
 
@@ -67,6 +67,7 @@ public:
 
             // Check if we've got to the end of the phase
             if (step - this->phase_firststep > this->phase_steps) {
+                std::cout << "## " << step << " - " << this->phase_firststep << " > " << this->phase_steps;
                 this->threads_stop.test_and_set();
                 break;
             }
@@ -144,8 +145,6 @@ public:
         // Default to epoch = runthrough of all batches
         if (this->steps_per_epoch < 0) this->steps_per_epoch = n_batches;
 
-        this->phase_firststep = this->step_counter;
-
         this->next_batch = 0;
         this->step_counter = 0;
         this->threads_stop.clear();
@@ -156,7 +155,7 @@ public:
         for (int i = 0; i < this->num_threads; i++) {
             jobs.push_back(
                 std::bind(
-                    &ProbingExecutor::thread_work, this, std::placeholders::_1
+                    &ModularExecutor::thread_work, this, std::placeholders::_1
                 )
             );
         }
@@ -176,6 +175,8 @@ public:
             this->m = this->elastic_ctrl->get_m();
             this->phase_steps = this->elastic_ctrl->target_phase_steps();
             this->phase_maxtime = this->elastic_ctrl->target_phase_time();
+
+            this->phase_firststep = this->step_counter.load();
             std::cout << "Controller: m=" << this->m << ", steps=" << this->phase_steps << "\n";
 
             // Sanity check for wonky parallelism

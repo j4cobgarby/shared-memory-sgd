@@ -491,8 +491,8 @@ int main(int argc, char *argv[]) {
 
     if (run_algo == ALGORITHM::ELASYNC) {
         SearchController elastic_controller(num_threads, 8);
-        ProbingExecutor prb_exec(&network, opt, x, y, num_threads, learning_rate, 
-            std::unique_ptr<ElasticController>(new SearchController(num_threads, 8)));
+        ModularExecutor prb_exec(&network, opt, x, y, num_threads, learning_rate, 
+            std::unique_ptr<ParallelismController>(new SearchController(num_threads, 8)));
         std::cout << "Executing ProbingExecutor!\n";
         prb_exec.run(batch_size, num_epochs, rounds_per_epoch);
     }

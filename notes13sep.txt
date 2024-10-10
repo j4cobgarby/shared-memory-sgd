@@ -1,0 +1,19 @@
+# Notes for Meeting 13 sep
+
+1) Progress on tests for optimal parallelism
+    - It now runs without crashing
+    - Ready to do a big overnight experiment, but I'm in the process of working out which combinations of parameters will be most useful to test
+
+2) Progress on exponential searching algorithm
+    - The code as written previously was getting messy and unmanageable, so I've redesigned how the system fits together.
+      - Several nice simple components
+      - Makes it way way easier to implement new strategies and test new things
+    - It might be that I present several feasible strategies in the paper, because I think they can each have their uses. i.e. one for low thread count system, and one for very many
+    - Since the searching algorithm is basically exponential falloff followed by a ternary-search, I think it should be possible to prove that it converges to within X of the ideal parallelism in Y amount of searching steps.
+
+3) Progress on the paper itself
+    - Still a lot to write, but still aiming for IPDPS.
+    - Need to remember to run some more tests on CIFAR100 for the paper, rather than using CIFAR10 for convenience all the time.
+
+4) Other small bits
+    - Follow-up Meeting: all scheduled now, just need to pick a room

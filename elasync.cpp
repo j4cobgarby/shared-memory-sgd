@@ -157,7 +157,7 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                 // #ifndef PROBING_TEST // For the probing test, we want to make sure we don't finish
                 //                      // until we try all probes
                 // if (local_step >= num_epochs * rounds_per_epoch) {
-                //   should_stop.test_and_set();
+                //   should_stop.test_and_set(); 
                 //   break;
                 // }
                 // #endif

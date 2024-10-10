@@ -1,6 +1,7 @@
 #ifndef OUTPUT_MULTICLASSENTROPY_H_
 #define OUTPUT_MULTICLASSENTROPY_H_
 
+#include <iostream>
 #include <Eigen/Core>
 #include <stdexcept>
 #include "../Config.h"
@@ -125,6 +126,13 @@ namespace MiniDNN {
             for (int i = 0; i < nelem; i++) {
                 if (din_data[i] < Scalar(0)) {
                     res += std::log(-din_data[i]);
+                }
+            }
+
+            if (res / m_din.cols() == 0) {
+                std::cout << "## MultiClassEntropy.h:loss() == 0\n";
+                for (int i = 0; i < nelem; i++) {
+                    std::cout << "##   " << i << ": " << din_data[i] << std::endl;
                 }
             }
 

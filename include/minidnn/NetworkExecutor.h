@@ -10,27 +10,13 @@
 #include "ThreadPool.h"
 #include "NetworkTopology.h"
 #include "Output/MultiClassEntropy.h"
+#include "modular_components.hpp"
 
 namespace MiniDNN {
 
 using std::shared_ptr;
 
-class ElasticController {
-public:
-    ElasticController() {}
-
-    virtual int get_m() = 0;
-
-    /* If either of the following two return <0, don't use them as a target */
-    virtual long target_phase_steps() = 0; // Max steps in total before threads finish phase
-    virtual double target_phase_time() = 0; // Max elapsed time before threads finish phase
-
-    // Tell the controller that the executor finished the current phase, 
-    // reporting the loss so that it can work out what to do next.
-    virtual void finish_phase(double end_loss) = 0;
-};
-
-class SearchController : public ElasticController {
+class SearchController : public ParallelismController {
 private:
     bool is_searching;
 
