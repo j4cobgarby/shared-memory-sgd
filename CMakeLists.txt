@@ -12,7 +12,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
 # set(CMAKE_CXX_FLAGS_DEBUG "-ggdb -O2")
 set(CMAKE_CXX_FLAGS_DEBUG "-ggdb")
-set(CMAKE_CXX_FLAGS_RELEASE "-O2 -g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories("/usr/local/include" "/usr/local/opt/llvm/include"
@@ -22,6 +22,6 @@ link_directories("/usr/local/lib" "/usr/local/opt/llvm/lib")
 
 add_executable(mininn main.cpp elasync.cpp single_thread.cpp sync.cpp async.cpp
     leashed.cpp semisync.cpp heuristic.cpp mnist.cc 
-    elastic_ctrl.cpp)
-#target_sources(mininn PUBLIC mnist.cc)
+    Component/search_controller.cpp)
+
 TARGET_LINK_LIBRARIES(mininn pthread)

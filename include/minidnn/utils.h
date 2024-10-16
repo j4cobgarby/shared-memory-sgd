@@ -39,7 +39,6 @@
 #include <inttypes.h>
 #include <sys/time.h>
 #include <unistd.h>
-#include <malloc/malloc.h>
 
 #ifdef __sparc__
 #  include <sys/types.h>
