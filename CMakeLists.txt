@@ -20,8 +20,19 @@ include_directories("/usr/local/include" "/usr/local/opt/llvm/include"
         "include/" "include/minidnn" )
 link_directories("/usr/local/lib" "/usr/local/opt/llvm/lib")
 
-add_executable(mininn main.cpp elasync.cpp single_thread.cpp sync.cpp async.cpp
-    leashed.cpp semisync.cpp heuristic.cpp mnist.cc 
-    Component/search_controller.cpp)
+add_executable(mininn
+
+    main.cpp
+    mnist.cc
+
+    # Component implementations
+    Component/asyncdispatcher.cpp
+    Component/model_interface.cpp
+    Component/search_controller.cpp
+    Component/sgdthread.cpp
+    Component/simplebatchcontroller.cpp
+    Component/threadworkerpool.cpp
+    Component/windowmonitor.cpp
+)
 
 TARGET_LINK_LIBRARIES(mininn pthread)

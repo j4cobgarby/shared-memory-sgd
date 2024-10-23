@@ -13,19 +13,26 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +107 include/minidnn/modular_components.hpp
-badd +19 Component/search_controller.cpp
-badd +30 include/minidnn/Component/ParaController.hpp
-badd +10 include/minidnn/Component/Worker.hpp
-badd +25 Component/sgdthread.cpp
-badd +212 elasync.cpp
-badd +31 ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/NetworkExecutor.h
-badd +21 ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/Optimizer.h
-badd +201 ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/NetworkTopology.h
+badd +40 Component/sgdthread.cpp
+badd +119 include/minidnn/modular_components.hpp
+badd +36 Component/model_interface.cpp
+badd +9 include/minidnn/Component/ModelInterfaces.hpp
+badd +16 include/minidnn/Component/ParaController.hpp
+badd +8 Component/search_controller.cpp
+badd +10 include/minidnn/Component/Dispatcher.hpp
+badd +24 Component/asyncdispatcher.cpp
+badd +21 include/minidnn/Component/Monitor.hpp
+badd +26 Component/windowmonitor.cpp
+badd +1 main.cpp
 argglobal
 %argdel
-$argadd include/minidnn/modular_components.hpp
-edit elasync.cpp
+$argadd Component/sgdthread.cpp
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabrewind
+edit Component/sgdthread.cpp
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
@@ -34,10 +41,6 @@ vsplit
 wincmd _ | wincmd |
 vsplit
 2wincmd h
-wincmd w
-wincmd _ | wincmd |
-split
-1wincmd k
 wincmd w
 wincmd w
 wincmd _ | wincmd |
@@ -54,16 +57,12 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 exe 'vert 1resize ' . ((&columns * 104 + 157) / 314)
-exe '2resize ' . ((&lines * 49 + 50) / 101)
 exe 'vert 2resize ' . ((&columns * 104 + 157) / 314)
-exe '3resize ' . ((&lines * 48 + 50) / 101)
+exe '3resize ' . ((&lines * 49 + 50) / 101)
 exe 'vert 3resize ' . ((&columns * 104 + 157) / 314)
-exe '4resize ' . ((&lines * 49 + 50) / 101)
+exe '4resize ' . ((&lines * 48 + 50) / 101)
 exe 'vert 4resize ' . ((&columns * 104 + 157) / 314)
-exe '5resize ' . ((&lines * 48 + 50) / 101)
-exe 'vert 5resize ' . ((&columns * 104 + 157) / 314)
 argglobal
-balt ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/NetworkTopology.h
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -72,101 +71,17 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-128
-normal! zo
-129
-normal! zo
-132
-normal! zo
-let s:l = 212 - ((49 * winheight(0) + 49) / 98)
+let s:l = 37 - ((36 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 212
-normal! 047|
+keepjumps 37
+normal! 0
 wincmd w
 argglobal
 if bufexists(fnamemodify("include/minidnn/modular_components.hpp", ":p")) | buffer include/minidnn/modular_components.hpp | else | edit include/minidnn/modular_components.hpp | endif
 if &buftype ==# 'terminal'
   silent file include/minidnn/modular_components.hpp
-endif
-balt elasync.cpp
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-1
-normal! zo
-4
-normal! zo
-11
-normal! zo
-15
-normal! zo
-25
-normal! zo
-35
-normal! zo
-44
-normal! zo
-55
-normal! zo
-66
-normal! zo
-73
-normal! zo
-78
-normal! zo
-85
-normal! zo
-94
-normal! zo
-96
-normal! zo
-106
-normal! zo
-110
-normal! zo
-115
-normal! zo
-let s:l = 107 - ((26 * winheight(0) + 24) / 49)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 107
-normal! 033|
-wincmd w
-argglobal
-if bufexists(fnamemodify("include/minidnn/Component/Worker.hpp", ":p")) | buffer include/minidnn/Component/Worker.hpp | else | edit include/minidnn/Component/Worker.hpp | endif
-if &buftype ==# 'terminal'
-  silent file include/minidnn/Component/Worker.hpp
-endif
-balt include/minidnn/Component/ParaController.hpp
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-6
-normal! zo
-let s:l = 23 - ((22 * winheight(0) + 24) / 48)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 23
-normal! 090|
-wincmd w
-argglobal
-if bufexists(fnamemodify("Component/search_controller.cpp", ":p")) | buffer Component/search_controller.cpp | else | edit Component/search_controller.cpp | endif
-if &buftype ==# 'terminal'
-  silent file Component/search_controller.cpp
 endif
 balt Component/sgdthread.cpp
 setlocal fdm=expr
@@ -177,19 +92,29 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 19 - ((18 * winheight(0) + 24) / 49)
+1
+normal! zo
+11
+normal! zo
+15
+normal! zo
+75
+normal! zo
+105
+normal! zo
+let s:l = 119 - ((37 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 19
+keepjumps 119
 normal! 0
 wincmd w
 argglobal
-if bufexists(fnamemodify("Component/sgdthread.cpp", ":p")) | buffer Component/sgdthread.cpp | else | edit Component/sgdthread.cpp | endif
+if bufexists(fnamemodify("include/minidnn/Component/ModelInterfaces.hpp", ":p")) | buffer include/minidnn/Component/ModelInterfaces.hpp | else | edit include/minidnn/Component/ModelInterfaces.hpp | endif
 if &buftype ==# 'terminal'
-  silent file Component/sgdthread.cpp
+  silent file include/minidnn/Component/ModelInterfaces.hpp
 endif
-balt Component/search_controller.cpp
+balt Component/sgdthread.cpp
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -198,30 +123,424 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-4
+1
 normal! zo
 6
 normal! zo
+let s:l = 10 - ((8 * winheight(0) + 24) / 49)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 10
+normal! 075|
+wincmd w
+argglobal
+if bufexists(fnamemodify("Component/model_interface.cpp", ":p")) | buffer Component/model_interface.cpp | else | edit Component/model_interface.cpp | endif
+if &buftype ==# 'terminal'
+  silent file Component/model_interface.cpp
+endif
+balt Component/sgdthread.cpp
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
 7
 normal! zo
-let s:l = 26 - ((25 * winheight(0) + 24) / 48)
+9
+normal! zo
+14
+normal! zo
+let s:l = 13 - ((12 * winheight(0) + 24) / 48)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 13
+normal! 030|
+wincmd w
+exe 'vert 1resize ' . ((&columns * 104 + 157) / 314)
+exe 'vert 2resize ' . ((&columns * 104 + 157) / 314)
+exe '3resize ' . ((&lines * 49 + 50) / 101)
+exe 'vert 3resize ' . ((&columns * 104 + 157) / 314)
+exe '4resize ' . ((&lines * 48 + 50) / 101)
+exe 'vert 4resize ' . ((&columns * 104 + 157) / 314)
+tabnext
+edit include/minidnn/Component/ParaController.hpp
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 49 + 50) / 101)
+exe 'vert 1resize ' . ((&columns * 156 + 157) / 314)
+exe '2resize ' . ((&lines * 48 + 50) / 101)
+exe 'vert 2resize ' . ((&columns * 156 + 157) / 314)
+exe 'vert 3resize ' . ((&columns * 157 + 157) / 314)
+argglobal
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+5
+normal! zo
+let s:l = 21 - ((20 * winheight(0) + 24) / 49)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 21
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("include/minidnn/modular_components.hpp", ":p")) | buffer include/minidnn/modular_components.hpp | else | edit include/minidnn/modular_components.hpp | endif
+if &buftype ==# 'terminal'
+  silent file include/minidnn/modular_components.hpp
+endif
+balt include/minidnn/Component/ParaController.hpp
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+1
+normal! zo
+11
+normal! zo
+15
+normal! zo
+75
+normal! zo
+105
+normal! zo
+let s:l = 47 - ((7 * winheight(0) + 24) / 48)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 47
+normal! 02|
+wincmd w
+argglobal
+if bufexists(fnamemodify("Component/search_controller.cpp", ":p")) | buffer Component/search_controller.cpp | else | edit Component/search_controller.cpp | endif
+if &buftype ==# 'terminal'
+  silent file Component/search_controller.cpp
+endif
+balt include/minidnn/Component/ParaController.hpp
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 8 - ((7 * winheight(0) + 49) / 98)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 8
+normal! 0
+wincmd w
+exe '1resize ' . ((&lines * 49 + 50) / 101)
+exe 'vert 1resize ' . ((&columns * 156 + 157) / 314)
+exe '2resize ' . ((&lines * 48 + 50) / 101)
+exe 'vert 2resize ' . ((&columns * 156 + 157) / 314)
+exe 'vert 3resize ' . ((&columns * 157 + 157) / 314)
+tabnext
+edit include/minidnn/modular_components.hpp
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 156 + 157) / 314)
+exe '2resize ' . ((&lines * 48 + 50) / 101)
+exe 'vert 2resize ' . ((&columns * 157 + 157) / 314)
+exe '3resize ' . ((&lines * 49 + 50) / 101)
+exe 'vert 3resize ' . ((&columns * 157 + 157) / 314)
+argglobal
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+1
+normal! zo
+11
+normal! zo
+15
+normal! zo
+75
+normal! zo
+105
+normal! zo
+let s:l = 149 - ((71 * winheight(0) + 49) / 98)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 149
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("include/minidnn/Component/Dispatcher.hpp", ":p")) | buffer include/minidnn/Component/Dispatcher.hpp | else | edit include/minidnn/Component/Dispatcher.hpp | endif
+if &buftype ==# 'terminal'
+  silent file include/minidnn/Component/Dispatcher.hpp
+endif
+balt include/minidnn/modular_components.hpp
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+1
+normal! zo
+6
+normal! zo
+let s:l = 12 - ((11 * winheight(0) + 24) / 48)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 12
+normal! 024|
+wincmd w
+argglobal
+if bufexists(fnamemodify("Component/asyncdispatcher.cpp", ":p")) | buffer Component/asyncdispatcher.cpp | else | edit Component/asyncdispatcher.cpp | endif
+if &buftype ==# 'terminal'
+  silent file Component/asyncdispatcher.cpp
+endif
+balt include/minidnn/Component/Dispatcher.hpp
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+3
+normal! zo
+5
+normal! zo
+13
+normal! zo
+let s:l = 24 - ((23 * winheight(0) + 24) / 49)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 24
+normal! 03|
+wincmd w
+exe 'vert 1resize ' . ((&columns * 156 + 157) / 314)
+exe '2resize ' . ((&lines * 48 + 50) / 101)
+exe 'vert 2resize ' . ((&columns * 157 + 157) / 314)
+exe '3resize ' . ((&lines * 49 + 50) / 101)
+exe 'vert 3resize ' . ((&columns * 157 + 157) / 314)
+tabnext
+edit include/minidnn/modular_components.hpp
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+wincmd _ | wincmd |
+vsplit
+2wincmd h
+wincmd w
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 104 + 157) / 314)
+exe 'vert 2resize ' . ((&columns * 104 + 157) / 314)
+exe 'vert 3resize ' . ((&columns * 104 + 157) / 314)
+argglobal
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+1
+normal! zo
+11
+normal! zo
+15
+normal! zo
+75
+normal! zo
+105
+normal! zo
+let s:l = 136 - ((56 * winheight(0) + 49) / 98)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 136
+normal! 010|
+wincmd w
+argglobal
+if bufexists(fnamemodify("Component/windowmonitor.cpp", ":p")) | buffer Component/windowmonitor.cpp | else | edit Component/windowmonitor.cpp | endif
+if &buftype ==# 'terminal'
+  silent file Component/windowmonitor.cpp
+endif
+balt include/minidnn/Component/Monitor.hpp
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+6
+normal! zo
+10
+normal! zo
+let s:l = 26 - ((25 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 26
-normal! 031|
+normal! 060|
 wincmd w
-5wincmd w
+argglobal
+if bufexists(fnamemodify("include/minidnn/Component/Monitor.hpp", ":p")) | buffer include/minidnn/Component/Monitor.hpp | else | edit include/minidnn/Component/Monitor.hpp | endif
+if &buftype ==# 'terminal'
+  silent file include/minidnn/Component/Monitor.hpp
+endif
+balt Component/windowmonitor.cpp
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+1
+normal! zo
+6
+normal! zo
+let s:l = 21 - ((20 * winheight(0) + 49) / 98)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 21
+normal! 014|
+wincmd w
 exe 'vert 1resize ' . ((&columns * 104 + 157) / 314)
-exe '2resize ' . ((&lines * 49 + 50) / 101)
 exe 'vert 2resize ' . ((&columns * 104 + 157) / 314)
-exe '3resize ' . ((&lines * 48 + 50) / 101)
 exe 'vert 3resize ' . ((&columns * 104 + 157) / 314)
-exe '4resize ' . ((&lines * 49 + 50) / 101)
-exe 'vert 4resize ' . ((&columns * 104 + 157) / 314)
-exe '5resize ' . ((&lines * 48 + 50) / 101)
-exe 'vert 5resize ' . ((&columns * 104 + 157) / 314)
-tabnext 1
+tabnext
+edit main.cpp
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 156 + 157) / 314)
+exe 'vert 2resize ' . ((&columns * 157 + 157) / 314)
+argglobal
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 49) / 98)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("main.cpp", ":p")) | buffer main.cpp | else | edit main.cpp | endif
+if &buftype ==# 'terminal'
+  silent file main.cpp
+endif
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 1 - ((0 * winheight(0) + 49) / 98)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 156 + 157) / 314)
+exe 'vert 2resize ' . ((&columns * 157 + 157) / 314)
+tabnext 5
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif

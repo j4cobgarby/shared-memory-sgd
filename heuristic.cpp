@@ -120,7 +120,7 @@ void MiniDNN::NetworkExecutor::run_heuristic_async(int batch_size, int num_epoch
     std::vector<std::function<void(int id)>> jobs;
     for (int i = 0; i < num_threads; i++) jobs.push_back(f);
 
-    ThreadPool workers(num_threads, jobs);
+    ThreadWorkerPool workers(num_threads, jobs);
 
     workers.wait_for_all();
 

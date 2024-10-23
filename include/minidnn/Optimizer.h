@@ -23,6 +23,7 @@ namespace MiniDNN {
         typedef Vector::AlignedMapType AlignedMapVec;
 
     public:
+        Scalar m_lrate;
 
         float step_scale_factor = 1.0;
 

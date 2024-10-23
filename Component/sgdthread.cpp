@@ -3,27 +3,46 @@
 
 namespace MiniDNN {
 
-void SGDThread::run() {
+void SGDWorker::run() {
+    std::cout << this->id << ": run() called with flag @ " << &this->flag << std::endl;
+
+    auto global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
+
+    /* Delay thread execution until flag is tripped */
+    this->flag->wait(true);
+
+    std::cout << "Starting SGD (" << this->id << ")\n";
+
+    // If this starts running before the Dispatcher is ready to actually start
+    // (which is likely since threads are created at initialisation), that's okay
+    // as long as Dispatcher.is_finished() is not true.
+    // Since try_start_step could initially block until the Dispatcher is ready,
+    // this therefore doesn't have to involve busy waiting.
     while (!exec.get_dispatcher()->is_finished()) {
-        if (!exec.get_dispatcher()->try_start_step(this->id)) {
+        if (exec.get_dispatcher()->try_start_step(this->id)) {
+            std::cout << this->id << ":: starting a step!\n";
+
             // Get batch from batch controller
             int batch_id = exec.get_batcher()->get_batch_ind(this->id);
             const Matrix &b_x = exec.get_batcher()->get_batch_data(this->id);
             const Matrix &b_y = exec.get_batcher()->get_batch_labels(this->id);
 
             // Calculate a gradient based on this batch (getting loss)
-            auto *local_param = new ParameterContainer(*exec.get_model()->get_param());
+            auto *local_param = new ParameterContainer(*global_param_ptr);
 
-            this->network.set_pointer(local_param);
-            this->network.forward(b_x);
-            this->network.backprop(b_x, b_y);
+            this->network->set_pointer(local_param);
+            this->network->forward(b_x);
+            this->network->backprop(b_x, b_y);
 
             // Give loss to monitor
-            exec.get_monitor()->update(this->network.get_loss());
+            exec.get_monitor()->update(this->network->get_loss());
 
             // Apply gradient to model interface 
-            this->network.set_pointer(exec.get_model()->get_param().get());
+            // TODO: This section should really be delegated to the ModelInterface
+            this->network->set_pointer(global_param_ptr);
             delete local_param;
+
+            this->network->update_cw(this->optim.get());
 
             exec.get_dispatcher()->finish_step(this->id);
         }
