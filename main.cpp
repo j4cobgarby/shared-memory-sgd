@@ -12,7 +12,7 @@
 using namespace MiniDNN;
 
 int main(int argc, char *argv[]) {
-    const std::string dataset_name = "CIFAR100";
+    const std::string dataset_name = "CIFAR10";
     const int seed = 1337;
     const double lrate = 0.05;
     const double momentum = 0;
@@ -45,9 +45,9 @@ int main(int argc, char *argv[]) {
     network.set_output(new MultiClassEntropy());
     network.init(0, 0.01, seed);
 
-    StandardModelInterface *model = new StandardModelInterface(exec, network, lrate, momentum, seed);;
+    StandardModelInterface *model = new StandardModelInterface(exec, network, lrate, momentum, seed);
     StaticParaController *paracontroller = new StaticParaController(exec, 8);
-    AsyncDispatcher *dispatcher = new AsyncDispatcher(exec);;
+    AsyncDispatcher *dispatcher = new AsyncDispatcher(exec);
     SlidingWindowMonitor *monitor = new SlidingWindowMonitor(exec, 16);
 
     exec.set_model(std::shared_ptr<ModelInterface>(model));
@@ -62,8 +62,8 @@ int main(int argc, char *argv[]) {
     ThreadWorkerPool<SGDWorker> *workerpool = new ThreadWorkerPool<SGDWorker>(exec, 8, false);
     exec.set_workers(std::shared_ptr<WorkerPool>(workerpool));
 
+    std::cout << "[main()] Starting workers.\n";
     exec.get_workers()->start_all();
-    std::cout << "[main()] All workers are a go.\n";
 
     exec.get_workers()->wait_for_all();
     std::cout << "[main()] All workers have finished.\n";

@@ -1,3 +1,4 @@
+#include "Utils/Random.h"
 #include "cifar100_reader.hpp"
 #include "cifar10_reader.hpp"
 #include "minidnn/Component/BatchController.hpp"
@@ -9,9 +10,11 @@ namespace MiniDNN {
 
 SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string dataset,
                                              int batch_size)
-    : BatchController(exec, batch_size) {
+    : BatchController(exec, batch_size), rng(1) {
 
     this->dataset_name = dataset;
+
+    Matrix x, y;
 
     if (dataset == "CIFAR10") {
         /* num categories */
@@ -23,8 +26,8 @@ SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string d
         /* image rows * image columns * colour channels */
         this->x_dim = dset.training_images.at(0).size();
 
-        Matrix x = Matrix::Zero(this->x_dim, n_training),
-               y = Matrix::Zero(this->y_dim, n_training);
+        x = Matrix::Zero(this->x_dim, n_training);
+        y = Matrix::Zero(this->y_dim, n_training);
 
         for (int i = 0; i < n_training; i++) {
             x.col(i) = Vector::Map(
@@ -46,6 +49,8 @@ SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string d
         x /= 255;
 
         std::cout << "[CIFAR10] Successfully loaded samples and labels.\n";
+        std::cout << "\tn_training = " << n_training << std::endl;
+        std::cout << "\tx columns = " << x.cols() << std::endl;
     } else if (dataset == "CIFAR100") {
         /* num categories */
         this->y_dim = 100;
@@ -59,8 +64,8 @@ SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string d
         /* image rows * image columns * colour channels */
         this->x_dim = dset.training_images.at(0).size();
 
-        Matrix x = Matrix::Zero(this->x_dim, n_training),
-               y = Matrix::Zero(this->y_dim, n_training);
+        x = Matrix::Zero(this->x_dim, n_training);
+        y = Matrix::Zero(this->y_dim, n_training);
 
         for (int i = 0; i < n_training; i++) {
             x.col(i) = Vector::Map(
@@ -82,7 +87,8 @@ SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string d
         x /= 255;
 
         std::cout << "[CIFAR10] Successfully loaded samples and labels.\n";
-    
+        std::cout << "\tn_training = " << n_training << std::endl;
+        std::cout << "\tx columns = " << x.cols() << std::endl;
     } else if (dataset == "MNIST") {
         std::cerr << "MNIST is not supported right now...\n";
         std::exit(-1);
@@ -93,6 +99,9 @@ SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string d
         std::cerr << "Unsupported dataset '" << dataset << "'\n";
         std::exit(-1);
     }
+
+    const int nbatch =
+        internal::create_shuffled_batches(x, y, batch_size, rng, x_batches, y_batches);
 }
 
 } // namespace MiniDNN

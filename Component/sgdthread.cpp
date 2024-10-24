@@ -4,14 +4,10 @@
 namespace MiniDNN {
 
 void SGDWorker::run() {
-    std::cout << this->id << ": run() called with flag @ " << &this->flag << std::endl;
-
     auto global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
 
     /* Delay thread execution until flag is tripped */
     this->flag->wait(true);
-
-    std::cout << "Starting SGD (" << this->id << ")\n";
 
     // If this starts running before the Dispatcher is ready to actually start
     // (which is likely since threads are created at initialisation), that's okay
@@ -20,7 +16,6 @@ void SGDWorker::run() {
     // this therefore doesn't have to involve busy waiting.
     while (!exec.get_dispatcher()->is_finished()) {
         if (exec.get_dispatcher()->try_start_step(this->id)) {
-            std::cout << this->id << ":: starting a step!\n";
 
             // Get batch from batch controller
             int batch_id = exec.get_batcher()->get_batch_ind(this->id);

@@ -17,8 +17,8 @@ void SlidingWindowMonitor::update(double loss) {
         this->window.erase(this->window.begin());
     }
 
-    if (u++ % 64) {
-        std::cout << "[monitor] Update " << u << ". Avg = " << this->get_loss() << std::endl;
+    if (u++ % 64 == 0) {
+        std::cout << "[monitor] Update " << u << ". Window avg = " << this->get_loss() << std::endl;
     }
 }
 

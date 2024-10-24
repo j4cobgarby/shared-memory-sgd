@@ -7,6 +7,8 @@ namespace MiniDNN {
 class SimpleBatchController : public BatchController {
 protected:
     int next_batch = 0;
+
+    RNG rng;
 public:
     SimpleBatchController(SystemExecutor &exec, std::string dataset, int batch_size);
 
