@@ -5,6 +5,7 @@
 #include "Optimizer.h"
 #include "ParameterContainer.h"
 #include <memory>
+#include <utility>
 #include <MiniDNN.h>
 #include <utils.h> /* Matrix typedef */
 
@@ -35,8 +36,8 @@ public:
     const Matrix &get_batch_data(int id) { return x_batches.at(id); }
     const Matrix &get_batch_labels(int id) { return y_batches.at(id); }
 
-    const int get_x_dimension() { return this->x_dim; }
-    const int get_y_dimension() { return this->y_dim; }
+    int get_x_dimension() const { return this->x_dim; }
+    int get_y_dimension() const { return this->y_dim; }
 
     const std::string &get_dataset_name() { return this->dataset_name; }
 };
@@ -110,8 +111,8 @@ protected:
 
     SystemExecutor &exec;
 public:
-    ModelInterface(SystemExecutor &exec) : exec(exec) {}
-    ModelInterface(SystemExecutor &exec, NetworkTopology network) : exec(exec), network(network) {}
+    explicit ModelInterface(SystemExecutor &exec) : exec(exec) {}
+    ModelInterface(SystemExecutor &exec, NetworkTopology network) : network(network), exec(exec) {}
     std::shared_ptr<NetworkTopology> get_network() {
         return std::make_shared<NetworkTopology>(this->network);
     }
@@ -138,12 +139,12 @@ public:
                    std::shared_ptr<ModelInterface>,
                    long epoch_target, long steps_per_epoch);
 
-    void set_batcher(std::shared_ptr<BatchController> batcher) { this->batcher = batcher; }
-    void set_parallelism(std::shared_ptr<ParaController> parallelism) { this->parallelism = parallelism; }
-    void set_dispatcher(std::shared_ptr<Dispatcher> dispatcher) { this->dispatcher = dispatcher; }
-    void set_monitor(std::shared_ptr<Monitor> monitor) { this->monitor = monitor; }
-    void set_workers(std::shared_ptr<WorkerPool> workers) { this->workers = workers; }
-    void set_model(std::shared_ptr<ModelInterface> model) { this->model = model; }
+    void set_batcher(std::shared_ptr<BatchController> batcher) { this->batcher = std::move(batcher); }
+    void set_parallelism(std::shared_ptr<ParaController> parallelism) { this->parallelism = std::move(parallelism); }
+    void set_dispatcher(std::shared_ptr<Dispatcher> dispatcher) { this->dispatcher = std::move(dispatcher); }
+    void set_monitor(std::shared_ptr<Monitor> monitor) { this->monitor = std::move(monitor); }
+    void set_workers(std::shared_ptr<WorkerPool> workers) { this->workers = std::move(workers); }
+    void set_model(std::shared_ptr<ModelInterface> model) { this->model = std::move(model); }
 
     void start();
 

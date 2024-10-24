@@ -24,7 +24,7 @@ StandardModelInterface::StandardModelInterface(SystemExecutor &exec, NetworkTopo
     //     network.add_layer(new Convolutional<ReLU>(28, 28, 1, 6, 5, 5));
     //     network.add_layer(new MaxPooling<ReLU>(24, 24, 6, 2, 2));
     //
-    //     network.add_layer(new Convolutional<ReLU>(12, 12, 6, 16, 5, 5));
+    //     network.add_layer(new Convolutional<ReLU>(12, 12, 6, 16, 5, 5<));
     //     network.add_layer(new MaxPooling<ReLU>(8, 8, 16, 2, 2));
     //
     //     network.add_layer(new FullyConnected<ReLU>(4 * 4 * 16, 120));

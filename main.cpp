@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) {
 
     NetworkTopology network(new ParameterContainer());
     SystemExecutor exec(500, 1024);
-    SimpleBatchController *batcher = new SimpleBatchController(exec, dataset_name, 32);
+    auto *batcher = new SimpleBatchController(exec, dataset_name, 32);
 
     if (dataset_name == "CIFAR10" || dataset_name == "CIFAR100") {
         network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
@@ -30,7 +30,6 @@ int main(int argc, char *argv[]) {
 
         network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
     } else if (dataset_name == "MNIST" || dataset_name == "FASHION-MNIST") {
-
         network.add_layer(new Convolutional<ReLU>(28, 28, 1, 6, 5, 5));
         network.add_layer(new MaxPooling<ReLU>(24, 24, 6, 2, 2));
 
@@ -45,10 +44,10 @@ int main(int argc, char *argv[]) {
     network.set_output(new MultiClassEntropy());
     network.init(0, 0.01, seed);
 
-    StandardModelInterface *model = new StandardModelInterface(exec, network, lrate, momentum, seed);
-    StaticParaController *paracontroller = new StaticParaController(exec, 8);
-    AsyncDispatcher *dispatcher = new AsyncDispatcher(exec);
-    SlidingWindowMonitor *monitor = new SlidingWindowMonitor(exec, 16);
+    auto *model = new StandardModelInterface(exec, network, lrate, momentum, seed);
+    auto *paracontroller = new StaticParaController(exec, 8);
+    auto *dispatcher = new AsyncDispatcher(exec);
+    auto *monitor = new SlidingWindowMonitor(exec, 16);
 
     exec.set_model(std::shared_ptr<ModelInterface>(model));
     exec.set_batcher(std::shared_ptr<BatchController>(batcher));
@@ -59,7 +58,7 @@ int main(int argc, char *argv[]) {
     /* This is created after the rest of the executor components are in place because
      * it uses the model interface when initialising the workers.
      * TODO: There must be a better way? */
-    ThreadWorkerPool<SGDWorker> *workerpool = new ThreadWorkerPool<SGDWorker>(exec, 8, false);
+    auto *workerpool = new ThreadWorkerPool<SGDWorker>(exec, 8, false);
     exec.set_workers(std::shared_ptr<WorkerPool>(workerpool));
 
     std::cout << "[main()] Starting workers.\n";
