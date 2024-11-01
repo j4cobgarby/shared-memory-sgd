@@ -50,7 +50,8 @@ int main(int argc, char *argv[]) {
     network.init(0, 0.01, seed);
 
     auto *model = new StandardModelInterface(exec, network, lrate, momentum, seed);
-    auto *paracontroller = new SearchParaController(exec, 500, 3, 128, 512);
+    // auto *paracontroller = new SearchParaController(exec, 500, 3, 128, 512);
+    auto *paracontroller = new StaticParaController(exec, 48);
     auto *dispatcher = new AsyncDispatcher(exec);
     auto *monitor = new SlidingWindowMonitor(exec, 16);
 
