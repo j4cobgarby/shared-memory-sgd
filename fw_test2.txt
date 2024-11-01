@@ -1,0 +1,597 @@
+[CIFAR10] Successfully loaded samples and labels.
+	n_training = 50000
+	x columns = 50000
+Created all workers.
+[search] At step 128 we are finshing a probe.
+New best probe in stage: m=165, ind=0, loss=2.27742
+[search] Switched to mid probe with m=250
+[search] At step 256 we are finshing a probe.
+New best probe in stage: m=250, ind=1, loss=2.27422
+[search] Switched to high probe with m=375
+[search] At step 384 we are finshing a probe.
+New best probe in stage: m=375, ind=2, loss=2.27232
+[search] Switched to low probe with m=312
+[search] At step 512 we are finshing a probe.
+New best probe in stage: m=312, ind=0, loss=2.27164
+[search] Switched to mid probe with m=375
+[monitor] Completed epoch 1. Loss = 2.27164
+[search] At step 640 we are finshing a probe.
+New best probe in stage: m=375, ind=1, loss=2.27015
+[search] Switched to high probe with m=437
+[search] At step 768 we are finshing a probe.
+[search] Switched to low probe with m=343
+[search] At step 896 we are finshing a probe.
+New best probe in stage: m=343, ind=0, loss=2.27133
+[search] Switched to mid probe with m=374
+[search] At step 1024 we are finshing a probe.
+New best probe in stage: m=374, ind=1, loss=2.27124
+[search] Switched to high probe with m=405
+[monitor] Completed epoch 2. Loss = 2.27124
+[search] At step 1152 we are finshing a probe.
+New best probe in stage: m=405, ind=2, loss=2.2622
+[search] Switched to execution with m=405
+[monitor] Completed epoch 3. Loss = 2.27128
+[search] Switched to searching from execution.
+[search] At step 1792 we are finshing a probe.
+New best probe in stage: m=405, ind=0, loss=2.27264
+[search] Switched to mid probe with m=437
+[search] At step 1920 we are finshing a probe.
+New best probe in stage: m=437, ind=1, loss=2.27149
+[search] Switched to high probe with m=468
+[search] At step 2048 we are finshing a probe.
+New best probe in stage: m=468, ind=2, loss=2.27129
+[search] Switched to low probe with m=452
+[monitor] Completed epoch 4. Loss = 2.27129
+[search] At step 2176 we are finshing a probe.
+New best probe in stage: m=452, ind=0, loss=2.26642
+[search] Switched to mid probe with m=468
+[search] At step 2304 we are finshing a probe.
+[search] Switched to high probe with m=484
+[search] At step 2432 we are finshing a probe.
+[search] Switched to low probe with m=444
+[search] At step 2560 we are finshing a probe.
+New best probe in stage: m=444, ind=0, loss=2.27126
+[search] Switched to mid probe with m=452
+[monitor] Completed epoch 5. Loss = 2.27126
+[search] At step 2688 we are finshing a probe.
+[search] Switched to high probe with m=460
+[search] At step 2816 we are finshing a probe.
+New best probe in stage: m=460, ind=2, loss=2.2684
+[search] Switched to execution with m=460
+[monitor] Completed epoch 6. Loss = 2.27052
+[search] Switched to searching from execution.
+[search] At step 3456 we are finshing a probe.
+New best probe in stage: m=463, ind=0, loss=2.27048
+[search] Switched to mid probe with m=475
+[search] At step 3584 we are finshing a probe.
+New best probe in stage: m=475, ind=1, loss=2.26949
+[search] Switched to high probe with m=487
+[monitor] Completed epoch 7. Loss = 2.26949
+[search] At step 3712 we are finshing a probe.
+New best probe in stage: m=487, ind=2, loss=2.26711
+[search] Switched to low probe with m=481
+[search] At step 3840 we are finshing a probe.
+New best probe in stage: m=481, ind=0, loss=2.15908
+[search] Switched to mid probe with m=487
+[search] At step 3968 we are finshing a probe.
+[search] Switched to high probe with m=493
+[search] At step 4096 we are finshing a probe.
+New best probe in stage: m=493, ind=2, loss=2.01855
+[search] Switched to low probe with m=490
+[monitor] Completed epoch 8. Loss = 2.01855
+[search] At step 4224 we are finshing a probe.
+New best probe in stage: m=490, ind=0, loss=2.13819
+[search] Switched to mid probe with m=493
+[search] At step 4352 we are finshing a probe.
+New best probe in stage: m=493, ind=1, loss=1.84952
+[search] Switched to high probe with m=496
+[search] At step 4480 we are finshing a probe.
+[search] Switched to execution with m=493
+[monitor] Completed epoch 9. Loss = 1.73562
+[search] Switched to searching from execution.
+[search] At step 5120 we are finshing a probe.
+New best probe in stage: m=492, ind=0, loss=0.69085
+[search] Switched to mid probe with m=495
+[monitor] Completed epoch 10. Loss = 0.69085
+[search] At step 5248 we are finshing a probe.
+New best probe in stage: m=495, ind=1, loss=0.562331
+[search] Switched to high probe with m=497
+[search] At step 5376 we are finshing a probe.
+New best probe in stage: m=497, ind=2, loss=0.181041
+[search] Switched to low probe with m=495
+[search] At step 5504 we are finshing a probe.
+New best probe in stage: m=495, ind=0, loss=0.0352763
+[search] Switched to mid probe with m=497
+[search] At step 5632 we are finshing a probe.
+New best probe in stage: m=497, ind=1, loss=0.016799
+[search] Switched to high probe with m=498
+[monitor] Completed epoch 11. Loss = 0.016799
+[search] At step 5760 we are finshing a probe.
+New best probe in stage: m=498, ind=2, loss=0.0122343
+[search] Switched to low probe with m=497
+[search] At step 5888 we are finshing a probe.
+New best probe in stage: m=497, ind=0, loss=0.00661202
+[search] Switched to mid probe with m=498
+[search] At step 6016 we are finshing a probe.
+New best probe in stage: m=498, ind=1, loss=0.00505905
+[search] Switched to high probe with m=499
+[search] At step 6144 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=0.00326055
+[search] Switched to execution with m=499
+[monitor] Completed epoch 12. Loss = 0.00326055
+[search] Switched to searching from execution.
+[monitor] Completed epoch 13. Loss = 0.00134027
+[search] At step 6784 we are finshing a probe.
+New best probe in stage: m=497, ind=0, loss=0.00118882
+[search] Switched to mid probe with m=498
+[search] At step 6912 we are finshing a probe.
+New best probe in stage: m=498, ind=1, loss=0.00104755
+[search] Switched to high probe with m=499
+[search] At step 7040 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=0.000915032
+[search] Switched to low probe with m=498
+[search] At step 7168 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.00085659
+[search] Switched to mid probe with m=499
+[monitor] Completed epoch 14. Loss = 0.00085659
+[search] At step 7296 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=0.000783485
+[search] Switched to high probe with m=499
+[search] At step 7424 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=0.000777025
+[search] Switched to low probe with m=498
+[search] At step 7552 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000718605
+[search] Switched to mid probe with m=499
+[search] At step 7680 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=0.000618961
+[search] Switched to high probe with m=499
+[monitor] Completed epoch 15. Loss = 0.000618961
+[search] At step 7808 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=0.000531715
+[search] Switched to execution with m=499
+[monitor] Completed epoch 16. Loss = 0.000480793
+[search] Switched to searching from execution.
+[search] At step 8448 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000431785
+[search] Switched to mid probe with m=499
+[search] At step 8576 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=0.000411013
+[search] Switched to high probe with m=499
+[search] At step 8704 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=0.000394579
+[search] Switched to low probe with m=498
+[monitor] Completed epoch 17. Loss = 0.000394579
+[search] At step 8832 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000374443
+[search] Switched to mid probe with m=499
+[search] At step 8960 we are finshing a probe.
+[search] Switched to high probe with m=499
+[search] At step 9088 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=0.000328444
+[search] Switched to low probe with m=498
+[search] At step 9216 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000314655
+[search] Switched to mid probe with m=499
+[monitor] Completed epoch 18. Loss = 0.000314655
+[search] At step 9344 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=0.000314222
+[search] Switched to high probe with m=499
+[search] At step 9472 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=0.000285126
+[search] Switched to execution with m=499
+[monitor] Completed epoch 19. Loss = 0.00028154
+[search] Switched to searching from execution.
+[search] At step 10112 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000249547
+[search] Switched to mid probe with m=499
+[search] At step 10240 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=0.000244717
+[search] Switched to high probe with m=499
+[monitor] Completed epoch 20. Loss = 0.000244717
+[search] At step 10368 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=0.000227902
+[search] Switched to low probe with m=498
+[search] At step 10496 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000229714
+[search] Switched to mid probe with m=499
+[search] At step 10624 we are finshing a probe.
+[search] Switched to high probe with m=499
+[search] At step 10752 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=0.000215533
+[search] Switched to low probe with m=498
+[monitor] Completed epoch 21. Loss = 0.000215533
+[search] At step 10880 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000210113
+[search] Switched to mid probe with m=499
+[search] At step 11008 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=0.000202153
+[search] Switched to high probe with m=499
+[search] At step 11136 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=0.000198627
+[search] Switched to execution with m=499
+[monitor] Completed epoch 22. Loss = 0.000180587
+[search] Switched to searching from execution.
+[search] At step 11776 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.00017304
+[search] Switched to mid probe with m=499
+[monitor] Completed epoch 23. Loss = 0.00017304
+[search] At step 11904 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=0.00016467
+[search] Switched to high probe with m=499
+[search] At step 12032 we are finshing a probe.
+[search] At step 12033 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000175272
+[search] Switched to mid probe with m=498
+[search] Switched to low probe with m=498
+[search] At step 12160 we are finshing a probe.
+New best probe in stage: m=498, ind=1, loss=0.00016296
+[search] Switched to high probe with m=498
+[search] At step 12288 we are finshing a probe.
+New best probe in stage: m=498, ind=2, loss=0.000159462
+[search] Switched to low probe with m=498
+[monitor] Completed epoch 24. Loss = 0.000159462
+[search] At step 12416 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000148219
+[search] Switched to mid probe with m=498
+[search] At step 12544 we are finshing a probe.
+[search] Switched to high probe with m=498
+[search] At step 12672 we are finshing a probe.
+[search] Switched to execution with m=498
+[monitor] Completed epoch 25. Loss = 0.000146226
+[search] Switched to searching from execution.
+[search] At step 13312 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000136079
+[search] Switched to mid probe with m=499
+[monitor] Completed epoch 26. Loss = 0.000136079
+[search] At step 13440 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=0.000132278
+[search] Switched to high probe with m=499
+[search] At step 13568 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=0.000129784
+[search] Switched to low probe with m=498
+[search] At step 13696 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000131099
+[search] Switched to mid probe with m=499
+[search] At step 13824 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=0.000120851
+[search] Switched to high probe with m=499
+[monitor] Completed epoch 27. Loss = 0.000120851
+[search] At step 13952 we are finshing a probe.
+[search] Switched to low probe with m=498
+[search] At step 14080 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000120477
+[search] Switched to mid probe with m=498
+[search] At step 14208 we are finshing a probe.
+New best probe in stage: m=498, ind=1, loss=0.000115982
+[search] Switched to high probe with m=498
+[search] At step 14336 we are finshing a probe.
+[search] Switched to execution with m=498
+[monitor] Completed epoch 28. Loss = 0.000116524
+[search] Switched to searching from execution.
+[monitor] Completed epoch 29. Loss = 0.000108668
+[search] At step 14976 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000103972
+[search] Switched to mid probe with m=499
+[search] At step 15104 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=0.000101324
+[search] Switched to high probe with m=499
+[search] At step 15232 we are finshing a probe.
+[search] Switched to low probe with m=498
+[search] At step 15360 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=0.000101119
+[search] Switched to mid probe with m=498
+[monitor] Completed epoch 30. Loss = 0.000101119
+[search] At step 15488 we are finshing a probe.
+New best probe in stage: m=498, ind=1, loss=9.51881e-05
+[search] Switched to high probe with m=498
+[search] At step 15616 we are finshing a probe.
+[search] Switched to low probe with m=498
+[search] At step 15744 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=9.4606e-05
+[search] Switched to mid probe with m=498
+[search] At step 15872 we are finshing a probe.
+[search] Switched to high probe with m=498
+[monitor] Completed epoch 31. Loss = 9.56356e-05
+[search] At step 16000 we are finshing a probe.
+New best probe in stage: m=498, ind=2, loss=[search] At step 9.36018e-05
+16001 we are finshing a probe.
+[search] Switched to execution with m=497[search] Switched to mid probe with m=
+497
+[monitor] Completed epoch 32. Loss = 9.00237e-05
+[search] Switched to searching from execution.
+[search] At step 16640 we are finshing a probe.
+New best probe in stage: m=497, ind=0, loss=8.75202e-05
+[search] Switched to mid probe with m=498
+[search] At step 16768 we are finshing a probe.
+[search] Switched to high probe with m=499
+[search] At step 16896 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=8.51168e-05
+[search] Switched to low probe with m=498
+[monitor] Completed epoch 33. Loss = 8.51168e-05
+[search] At step 17024 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=8.39598e-05
+[search] Switched to mid probe with m=499
+[search] At step 17152 we are finshing a probe.
+[search] Switched to high probe with m=499
+[search] At step 17280 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=8.17568e-05
+[search] Switched to low probe with m=498
+[search] At step 17408 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=8.31546e-05
+[search] Switched to mid probe with m=499
+[monitor] Completed epoch 34. Loss = 8.31546e-05
+[search] At step 17536 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=7.71788e-05
+[search] Switched to high probe with m=499
+[search] At step 17664 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=7.57894e-05
+[search] Switched to execution with m=499
+[monitor] Completed epoch 35. Loss = 7.15251e-05
+[search] Switched to searching from execution.
+[search] At step 18304 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=7.39424e-05
+[search] Switched to mid probe with m=499
+[search] At step 18432 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=7.30774e-05
+[search] Switched to high probe with m=499
+[monitor] Completed epoch 36. Loss = 7.30774e-05
+[search] At step 18560 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=7.2203e-05
+[search] Switched to low probe with m=498
+[search] At step 18688 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=7.01345e-05
+[search] Switched to mid probe with m=499
+[search] At step 18816 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=6.98639e-05
+[search] Switched to high probe with m=499
+[search] At step 18944 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=6.84553e-05
+[search] Switched to low probe with m=498
+[monitor] Completed epoch 37. Loss = 6.84553e-05
+[search] At step 19072 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=6.89712e-05
+[search] Switched to mid probe with m=499
+[search] At step 19200 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=6.81718e-05
+[search] Switched to high probe with m=499
+[search] At step 19328 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=6.74172e-05
+[search] Switched to execution with m=499
+[monitor] Completed epoch 38. Loss = 6.49093e-05
+[search] Switched to searching from execution.
+[search] At step 19968 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=6.1922e-05
+[search] Switched to mid probe with m=499
+[monitor] Completed epoch 39. Loss = 6.1922e-05
+[search] At step 20096 we are finshing a probe.
+[search] Switched to high probe with m=499
+[search] At step 20224 we are finshing a probe.
+[search] Switched to low probe with m=498
+[search] At step 20352 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=5.60468e-05
+[search] Switched to mid probe with m=498
+[search] At step 20480 we are finshing a probe.
+[search] Switched to high probe with m=498
+[monitor] Completed epoch 40. Loss = 6.38101e-05
+[search] At step 20608 we are finshing a probe.
+[search] Switched to low probe with m=498
+[search] At step 20736 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=5.72501e-05
+[search] Switched to mid probe with m=498
+[search] At step 20864 we are finshing a probe.
+[search] Switched to high probe with m=498
+[search] At step 20992 we are finshing a probe.
+[search] Switched to execution with m=498
+[monitor] Completed epoch 41. Loss = 5.83163e-05
+[search] Switched to searching from execution.
+[monitor] Completed epoch 42. Loss = 6.10211e-05
+[search] At step 21632 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=5.61211e-05
+[search] Switched to mid probe with m=499
+[search] At step 21760 we are finshing a probe.
+[search] Switched to high probe with m=499
+[search] At step 21888 we are finshing a probe.
+[search] Switched to low probe with m=498
+[search] At step 22016 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=5.48888e-05
+[search] Switched to mid probe with m=498
+[monitor] Completed epoch 43. Loss = 5.48888e-05
+[search] At step 22144 we are finshing a probe.
+New best probe in stage: m=498, ind=1, loss=5.37492e-05
+[search] Switched to high probe with m=498
+[search] At step 22272 we are finshing a probe.
+New best probe in stage: m=498, ind=2, loss=5.3439e-05
+[search] Switched to low probe with m=498
+[search] At step 22400 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=5.17558e-05
+[search] Switched to mid probe with m=498
+[search] At step 22528 we are finshing a probe.
+New best probe in stage: m=498, ind=1, loss=5.11746e-05
+[search] Switched to high probe with m=498
+[monitor] Completed epoch 44. Loss = 5.11746e-05
+[search] At step 22656 we are finshing a probe.
+New best probe in stage: m=498, ind=2, loss=4.98438e-05
+[search] Switched to execution with m=498
+[monitor] Completed epoch 45. Loss = 5.03012e-05
+[search] Switched to searching from execution.
+[search] At step 23296 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=4.99551e-05
+[search] Switched to mid probe with m=499
+[search] At step 23424 we are finshing a probe.
+[search] Switched to high probe with m=499
+[search] At step 23552 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=4.9114e-05
+[search] Switched to low probe with m=498
+[monitor] Completed epoch 46. Loss = 4.9114e-05
+[search] At step 23680 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=4.87133e-05
+[search] Switched to mid probe with m=499
+[search] At step 23808 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=4.83095e-05
+[search] Switched to high probe with m=499
+[search] At step 23936 we are finshing a probe.
+[search] Switched to low probe with m=498
+[search] At step 24064 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=4.80346e-05
+[search] Switched to mid probe with m=498
+[monitor] Completed epoch 47. Loss = 4.80346e-05
+[search] At step 24192 we are finshing a probe.
+[search] Switched to high probe with m=498
+[search] At step 24320 we are finshing a probe.
+New best probe in stage: m=498, ind=2, loss=4.50055e-05
+[search] Switched to execution with m=498
+[monitor] Completed epoch 48. Loss = 4.87532e-05
+[search] Switched to searching from execution.
+[search] At step 24960 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=4.63506e-05
+[search] Switched to mid probe with m=499
+[search] At step 25088 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=4.46151e-05
+[search] Switched to high probe with m=499
+[monitor] Completed epoch 49. Loss = 4.46151e-05
+[search] At step 25216 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=4.42689e-05
+[search] Switched to low probe with m=498
+[search] At step 25344 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=4.39357e-05
+[search] Switched to mid probe with m=499
+[search] At step 25472 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=4.19397e-05
+[search] Switched to high probe with m=499
+[search] At step 25600 we are finshing a probe.
+[search] Switched to low probe with m=498
+[monitor] Completed epoch 50. Loss = 4.32843e-05
+[search] At step 25728 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=4.03619e-05
+[search] Switched to mid probe with m=498
+[search] At step 25856 we are finshing a probe.
+[search] Switched to high probe with m=498
+[search] At step 25984 we are finshing a probe.
+[search] Switched to execution with m=498
+[monitor] Completed epoch 51. Loss = 4.20421e-05
+[search] Switched to searching from execution.
+[search] At step 26624 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=4.08262e-05
+[search] Switched to mid probe with m=499
+[monitor] Completed epoch 52. Loss = 4.08262e-05
+[search] At step 26752 we are finshing a probe.
+[search] Switched to high probe with m=499
+[search] At step 26880 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=3.98539e-05
+[search] Switched to low probe with m=498
+[search] At step 27008 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=4.07735e-05
+[search] Switched to mid probe with m=499
+[search] At step 27136 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=3.60139e-05
+[search] Switched to high probe with m=499
+[monitor] Completed epoch 53. Loss = 3.60139e-05
+[search] At step 27264 we are finshing a probe.
+[search] Switched to low probe with m=498
+[search] At step 27392 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=3.9056e-05
+[search] Switched to mid probe with m=498
+[search] At step 27520 we are finshing a probe.
+[search] Switched to high probe with m=498
+[search] At step 27648 we are finshing a probe.
+[search] Switched to execution with m=498
+[monitor] Completed epoch 54. Loss = 4.041e-05
+[search] Switched to searching from execution.
+[monitor] Completed epoch 55. Loss = 4.05549e-05
+[search] At step 28288 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=3.71616e-05
+[search] Switched to mid probe with m=499
+[search] At step 28416 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=3.38339e-05
+[search] Switched to high probe with m=499
+[search] At step 28544 we are finshing a probe.
+[search] Switched to low probe with m=498
+[search] At step 28672 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=3.64324e-05
+[search] Switched to mid probe with m=498
+[monitor] Completed epoch 56. Loss = 3.64324e-05
+[search] At step 28800 we are finshing a probe.
+New best probe in stage: m=498, ind=1, loss=3.61948e-05
+[search] Switched to high probe with m=498
+[search] At step 28928 we are finshing a probe.
+New best probe in stage: m=498, ind=2, loss=3.4816e-05
+[search] Switched to low probe with m=498
+[search] At step 29056 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=3.20776e-05
+[search] Switched to mid probe with m=498
+[search] At step 29184 we are finshing a probe.
+[search] Switched to high probe with m=498
+[monitor] Completed epoch 57. Loss = 3.55088e-05
+[search] At step 29312 we are finshing a probe.
+[search] Switched to execution with m=498
+[monitor] Completed epoch 58. Loss = 3.38945e-05
+[search] Switched to searching from execution.
+[search] At step 29952 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=3.42123e-05
+[search] Switched to mid probe with m=499
+[search] At step 30080 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=3.40071e-05
+[search] Switched to high probe with m=499
+[search] At step 30208 we are finshing a probe.
+[search] Switched to low probe with m=498
+[monitor] Completed epoch 59. Loss = 3.45146e-05
+[search] At step 30336 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=3.20377e-05
+[search] Switched to mid probe with m=498
+[search] At step 30464 we are finshing a probe.
+[search] Switched to high probe with m=498
+[search] At step 30592 we are finshing a probe.
+[search] Switched to low probe with m=498
+[search] At step 30720 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=3.29912e-05
+[search] Switched to mid probe with m=498
+[monitor] Completed epoch 60. Loss = 3.29912e-05
+[search] At step 30848 we are finshing a probe.
+New best probe in stage: m=498, ind=1, loss=3.12058e-05
+[search] Switched to high probe with m=498
+[search] At step 30976 we are finshing a probe.
+[search] Switched to execution with m=498
+[monitor] Completed epoch 61. Loss = 3.42218e-05
+[search] Switched to searching from execution.
+[search] At step 31616 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=3.16709e-05
+[search] Switched to mid probe with m=499
+[search] At step 31744 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=3.14992e-05
+[search] Switched to high probe with m=499
+[monitor] Completed epoch 62. Loss = 3.14992e-05
+[search] At step 31872 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=3.13177e-05
+[search] Switched to low probe with m=498
+[search] At step 32000 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=3.11439e-05
+[search] Switched to mid probe with m=499
+[search] At step 32128 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=3.09669e-05
+[search] Switched to high probe with m=499
+[search] At step 32256 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=3.02809e-05
+[search] Switched to low probe with m=498
+[monitor] Completed epoch 63. Loss = 3.02809e-05
+[search] At step 32384 we are finshing a probe.
+New best probe in stage: m=498, ind=0, loss=3.06235e-05
+[search] Switched to mid probe with m=499
+[search] At step 32512 we are finshing a probe.
+New best probe in stage: m=499, ind=1, loss=3.04558e-05
+[search] Switched to high probe with m=499
+[search] At step 32640 we are finshing a probe.
+New best probe in stage: m=499, ind=2, loss=3.02887e-05
+[search] Switched to execution with m=499
+[monitor] Completed epoch 64. Loss = 3.11559e-05
+[monitor] Completed epoch 64. Loss = 3.0345e-05
+[monitor] Completed epoch 64. Loss = 3.03441e-05
+[monitor] Completed epoch 64. Loss = 2.8948e-05
+[monitor] Completed epoch 64. Loss = 2.86472e-05
+[monitor] Completed epoch 64. Loss = 3.01156e-05
+[monitor] Completed epoch 64. Loss = 2.95121e-05
+[monitor] Completed epoch 64. Loss = 3.14084e-05
+[main()] Starting workers.
+[main()] All workers have finished.
+[main()] Saved results to "experiments/2024-11-01_14-21-05_results.json"
+Finished with exit code 0; unlocking.

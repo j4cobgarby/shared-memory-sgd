@@ -57,6 +57,7 @@ void SearchParaController::update() {
         is_searching = true;
         phase_start_step = steps_done;
         high_bound = total_threads;
+        low_bound = 1;
         probe_counter = 0;
 
         switch_to_para(low_bound + (unsigned)(0.25 * (high_bound - low_bound)));
