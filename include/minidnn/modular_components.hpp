@@ -167,10 +167,12 @@ public:
 
     long start_time_ms;
 
-    std::vector<double> epoch_losses;
+    std::mutex mtx_para_vec;
     std::vector<unsigned> para_values;
-
     std::vector<long> para_mstimes;
+
+    std::mutex mtx_epoch_vec;
+    std::vector<double> epoch_losses;
     std::vector<long> epoch_mstimes;
 
     std::shared_ptr<BatchController> get_batcher() const { return this->batcher; }
