@@ -66,6 +66,8 @@ int main(int argc, char *argv[]) {
     auto *workerpool = new ThreadWorkerPool<SGDWorker>(exec, 8, false);
     exec.set_workers(std::shared_ptr<WorkerPool>(workerpool));
 
+    exec.start();
+
     std::cout << "[main()] Starting workers.\n";
     exec.get_workers()->start_all();
 
@@ -76,6 +78,7 @@ int main(int argc, char *argv[]) {
     results["epoch_loss"] = exec.epoch_losses;
     results["para_values"] = exec.para_values;
     results["para_mstimes"] = exec.para_mstimes;
+    results["epoch_mstimes"] = exec.epoch_mstimes;
 
     const std::filesystem::path exp_dir = "experiments";
     std::filesystem::create_directory(exp_dir);

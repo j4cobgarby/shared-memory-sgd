@@ -160,9 +160,12 @@ public:
     void set_model(std::shared_ptr<ModelInterface> model) { this->model = std::move(model); }
 
     void start();
+    long elapsed_time() const;
 
     long epoch_target;
     long steps_per_epoch;
+
+    long start_time_ms;
 
     std::vector<double> epoch_losses;
     std::vector<unsigned> para_values;

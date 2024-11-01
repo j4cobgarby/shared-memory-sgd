@@ -29,12 +29,7 @@ void SlidingWindowMonitor::update(double loss) {
                   << ". Loss = " << avg_loss << std::endl;
 
         exec.epoch_losses.push_back(avg_loss);
-        exec.epoch_mstimes.push_back(
-            std::chrono::duration_cast<std::chrono::milliseconds>(
-                std::chrono::system_clock::now()
-                .time_since_epoch()
-            ).count()
-        );
+        exec.epoch_mstimes.push_back(exec.elapsed_time());
     }
 }
 

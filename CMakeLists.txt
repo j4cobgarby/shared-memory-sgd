@@ -33,6 +33,7 @@ add_executable(mininn
     Component/simplebatchcontroller.cpp
     Component/threadworkerpool.cpp
     Component/windowmonitor.cpp
+    Component/systemexecutor.cpp
 )
 
 TARGET_LINK_LIBRARIES(mininn pthread)
