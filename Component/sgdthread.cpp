@@ -19,8 +19,8 @@ void SGDWorker::run() {
 
             // Get batch from batch controller
             int batch_id = exec.get_batcher()->get_batch_ind(this->id);
-            const Matrix &b_x = exec.get_batcher()->get_batch_data(this->id);
-            const Matrix &b_y = exec.get_batcher()->get_batch_labels(this->id);
+            const Matrix &b_x = exec.get_batcher()->get_batch_data(batch_id);
+            const Matrix &b_y = exec.get_batcher()->get_batch_labels(batch_id);
 
             // Calculate a gradient based on this batch (getting loss)
             auto *local_param = new ParameterContainer(*global_param_ptr);

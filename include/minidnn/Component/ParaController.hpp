@@ -11,6 +11,7 @@ private:
 public:
     StaticParaController(SystemExecutor &exec, unsigned m) : ParaController(exec), m(m) {}
     unsigned get_parallelism() override { return m; }
+    void update() override {}
 };
 
 class SearchParaController : public ParaController {
