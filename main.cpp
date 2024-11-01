@@ -23,7 +23,7 @@ int main(int argc, char *argv[]) {
     const double momentum = 0;
 
     NetworkTopology network(new ParameterContainer());
-    SystemExecutor exec(500, 1024);
+    SystemExecutor exec(64, 512);
     auto *batcher = new SimpleBatchController(exec, dataset_name, 32);
 
     if (dataset_name == "CIFAR10" || dataset_name == "CIFAR100") {
@@ -50,7 +50,7 @@ int main(int argc, char *argv[]) {
     network.init(0, 0.01, seed);
 
     auto *model = new StandardModelInterface(exec, network, lrate, momentum, seed);
-    auto *paracontroller = new SearchParaController(exec, 48, 2, 128, 512);
+    auto *paracontroller = new SearchParaController(exec, 500, 3, 128, 512);
     auto *dispatcher = new AsyncDispatcher(exec);
     auto *monitor = new SlidingWindowMonitor(exec, 16);
 
