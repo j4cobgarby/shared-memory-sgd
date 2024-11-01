@@ -165,7 +165,7 @@ public:
     long epoch_target;
     long steps_per_epoch;
 
-    long start_time_ms;
+    long start_time_ms = -1;
 
     std::mutex mtx_para_vec;
     std::vector<unsigned> para_values;
