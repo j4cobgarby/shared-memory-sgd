@@ -52,3 +52,5 @@ meeting-8mar
 
 .venv
 __pycache__
+.ipynb_checkpoints
+data1.json

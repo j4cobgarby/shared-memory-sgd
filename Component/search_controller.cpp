@@ -44,12 +44,7 @@ void SearchParaController::shrink_bounds() {
 void SearchParaController::switch_to_para(const unsigned m) {
     this->curr_parallelism = m;
 
-    exec.para_mstimes.push_back(
-        std::chrono::duration_cast<std::chrono::milliseconds>(
-            std::chrono::system_clock::now()
-            .time_since_epoch()
-        ).count()
-    );
+    exec.para_mstimes.push_back(exec.elapsed_time());
     exec.para_values.push_back(m);
 }
 
