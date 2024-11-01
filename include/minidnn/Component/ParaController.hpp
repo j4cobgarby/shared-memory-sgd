@@ -43,6 +43,7 @@ private:
     unsigned curr_parallelism = 0;
 
     void shrink_bounds();
+    void switch_to_para(unsigned m);
 public:
     SearchParaController(SystemExecutor &exec, int num_threads, int search_degree,
         long probe_steps, long exec_steps);

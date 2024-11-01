@@ -41,6 +41,19 @@ void SearchParaController::shrink_bounds() {
     }
 }
 
+void SearchParaController::switch_to_para(const unsigned m) {
+    this->curr_parallelism = m;
+
+    exec.para_mstimes.push_back(
+        std::chrono::duration_cast<std::chrono::milliseconds>(
+            std::chrono::system_clock::now()
+            .time_since_epoch()
+        ).count()
+    );
+    exec.para_values.push_back(m);
+}
+
+
 void SearchParaController::update() {
     const long steps_done = exec.get_dispatcher()->get_steps_done();
 
@@ -50,7 +63,8 @@ void SearchParaController::update() {
         phase_start_step = steps_done;
         high_bound = total_threads;
         probe_counter = 0;
-        curr_parallelism = low_bound + (unsigned)(0.25 * (high_bound - low_bound));
+
+        switch_to_para(low_bound + (unsigned)(0.25 * (high_bound - low_bound)));
 
         std::cout << "[search] Switched to searching from execution." << std::endl;
         return;
@@ -64,7 +78,8 @@ void SearchParaController::update() {
                 best_probe = probe_counter % 3;
                 best_probe_loss = loss;
                 best_probe_m = curr_parallelism;
-                std::cout << "New best probe in stage: m=" << best_probe_m << ", ind=" << best_probe << ", loss=" << best_probe_loss << std::endl;
+                std::cout << "New best probe in stage: m=" << best_probe_m << ", ind=" << best_probe
+                    << ", loss=" << best_probe_loss << std::endl;
             }
 
             probe_counter++;
@@ -83,21 +98,22 @@ void SearchParaController::update() {
                 if (probe_counter == 3 * search_degree) {
                     is_searching = false;
                     phase_start_step = steps_done;
-                    curr_parallelism = best_probe_m;
+                    switch_to_para(best_probe_m);
+
                     std::cout << "[search] Switched to execution with m=" << curr_parallelism << std::endl;
                     return;
                 }
 
-                curr_parallelism = low_bound + (unsigned)(0.25 * (high_bound - low_bound));
+                switch_to_para(low_bound + (unsigned)(0.25 * (high_bound - low_bound)));
                 std::cout << "[search] Switched to low probe with m=" << curr_parallelism << std::endl;
             } else if (probe_counter % 3 == 1) {
                 // Second (1/2) probe in the same search level
-                curr_parallelism = low_bound + (unsigned)(0.5 * (high_bound - low_bound));
+                switch_to_para(low_bound + (unsigned)(0.5 * (high_bound - low_bound)));
 
                 std::cout << "[search] Switched to mid probe with m=" << curr_parallelism << std::endl;
             } else {
                 // Third (3/4) probe
-                curr_parallelism = low_bound + (unsigned)(0.75 * (high_bound - low_bound));
+                switch_to_para(low_bound + (unsigned)(0.75 * (high_bound - low_bound)));
                 std::cout << "[search] Switched to high probe with m=" << curr_parallelism << std::endl;
             }
 

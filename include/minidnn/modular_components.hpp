@@ -164,12 +164,18 @@ public:
     long epoch_target;
     long steps_per_epoch;
 
-    std::shared_ptr<BatchController> get_batcher() { return this->batcher; }
-    std::shared_ptr<ParaController> get_paracontr() { return this->parallelism; }
-    std::shared_ptr<Dispatcher> get_dispatcher() { return this->dispatcher; }
-    std::shared_ptr<Monitor> get_monitor() { return this->monitor; }
-    std::shared_ptr<WorkerPool> get_workers() { return this->workers; }
-    std::shared_ptr<ModelInterface> get_model() { return this->model; }
+    std::vector<double> epoch_losses;
+    std::vector<unsigned> para_values;
+
+    std::vector<long> para_mstimes;
+    std::vector<long> epoch_mstimes;
+
+    std::shared_ptr<BatchController> get_batcher() const { return this->batcher; }
+    std::shared_ptr<ParaController> get_paracontr() const { return this->parallelism; }
+    std::shared_ptr<Dispatcher> get_dispatcher() const { return this->dispatcher; }
+    std::shared_ptr<Monitor> get_monitor() const { return this->monitor; }
+    std::shared_ptr<WorkerPool> get_workers() const { return this->workers; }
+    std::shared_ptr<ModelInterface> get_model() const { return this->model; }
 };
 
 }

@@ -1,0 +1,3 @@
+/usr/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_C_COMPILER=/usr/bin/gcc -DCMAKE_CXX_COMPILER=/usr/bin/g++ -G "CodeBlocks - Unix Makefiles" -S /tmp/tmp.tFWwVgYzgU -B /tmp/tmp.tFWwVgYzgU/cmake-build-debug-athena
+CMake Error: The source directory "/tmp/tmp.tFWwVgYzgU" does not appear to contain CMakeLists.txt.
+Specify --help for usage, or press the help button on the CMake GUI.

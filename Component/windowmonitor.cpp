@@ -5,13 +5,15 @@
 
 namespace MiniDNN {
 
-SlidingWindowMonitor::SlidingWindowMonitor(SystemExecutor &exec, int window_size) : Monitor(exec), window_size(window_size) { }
+SlidingWindowMonitor::SlidingWindowMonitor(SystemExecutor &exec, int window_size) : Monitor(exec), window_size(window_size) {
+
+}
 
 void SlidingWindowMonitor::update(double loss) {
-    static long u = 0;
+    const long s = exec.get_dispatcher()->get_steps_done();
 
     this->window.push_back(loss);
-    
+
     /* Pop first element if the window is full */
     if (this->window.size() > this->window_size) {
         this->window.erase(this->window.begin());
@@ -20,9 +22,20 @@ void SlidingWindowMonitor::update(double loss) {
     /* Allow the parallelism controller to update now */
     this->exec.get_paracontr()->update();
 
-    // if (u++ % 64 == 0) {
-    //     std::cout << "[monitor] Update " << u << ". Window avg = " << this->get_loss() << std::endl;
-    // }
+    if (s % exec.steps_per_epoch == 0) {
+        const double avg_loss = this->get_loss();
+
+        std::cout << "[monitor] Completed epoch " << s / exec.steps_per_epoch
+                  << ". Loss = " << avg_loss << std::endl;
+
+        exec.epoch_losses.push_back(avg_loss);
+        exec.epoch_mstimes.push_back(
+            std::chrono::duration_cast<std::chrono::milliseconds>(
+                std::chrono::system_clock::now()
+                .time_since_epoch()
+            ).count()
+        );
+    }
 }
 
 double SlidingWindowMonitor::get_loss() {

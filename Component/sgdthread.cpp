@@ -29,6 +29,8 @@ void SGDWorker::run() {
             this->network->forward(b_x);
             this->network->backprop(b_x, b_y);
 
+            exec.get_dispatcher()->finish_step(this->id);
+
             // Give loss to monitor
             exec.get_monitor()->update(this->network->get_loss());
 
@@ -38,8 +40,6 @@ void SGDWorker::run() {
             delete local_param;
 
             this->network->update_cw(this->optim.get());
-
-            exec.get_dispatcher()->finish_step(this->id);
         }
     }
 }

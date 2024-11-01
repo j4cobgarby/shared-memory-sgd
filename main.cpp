@@ -9,7 +9,12 @@
 #include "Component/ParaController.hpp"
 #include "Component/ModelInterfaces.hpp"
 
+#include "jsoncons/json.hpp"
+
+#include <filesystem>
+
 using namespace MiniDNN;
+using namespace jsoncons;
 
 int main(int argc, char *argv[]) {
     const std::string dataset_name = "CIFAR10";
@@ -66,4 +71,23 @@ int main(int argc, char *argv[]) {
 
     exec.get_workers()->wait_for_all();
     std::cout << "[main()] All workers have finished.\n";
+
+    json results;
+    results["epoch_loss"] = exec.epoch_losses;
+    results["para_values"] = exec.para_values;
+    results["para_mstimes"] = exec.para_mstimes;
+
+    const std::filesystem::path exp_dir = "experiments";
+    std::filesystem::create_directory(exp_dir);
+
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    std::stringstream fname;
+    fname << std::put_time(&tm, "%Y-%m-%d_%H-%M-%S") << "_results.json";
+    std::filesystem::path fpath = exp_dir / fname.str();
+    std::ofstream out_file(fpath);
+    out_file << results;
+    std::cout << "[main()] Saved results to " << fpath << std::endl;
+
+    return 0;
 }
