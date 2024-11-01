@@ -24,6 +24,7 @@ protected:
 
     int x_dim, y_dim;
 public:
+    virtual ~BatchController() = default;
     /* Create controller, load training dataset */
     BatchController(SystemExecutor &exec, int batch_size) : exec(exec) {};
 
@@ -46,26 +47,35 @@ class ParaController {
 protected:
     SystemExecutor &exec;
 public:
+    virtual ~ParaController() = default;
     ParaController(SystemExecutor &exec) : exec(exec) {}
-    
     virtual unsigned get_parallelism() = 0;
+
+    /* This is called whenever the monitor gets a new update. This allows the dispatcher to update
+     * its parallelism in whatever way it wants to then. */
+    virtual void update() = 0;
 };
 
 class Dispatcher {
 protected:
     SystemExecutor &exec;
+    long steps_done = 0;
 public:
+    virtual ~Dispatcher() = default;
     Dispatcher(SystemExecutor &exec) : exec(exec) {}
 
     virtual bool try_start_step(long worker_id) = 0;
     virtual bool finish_step(long worker_id) = 0;
     virtual bool is_finished() = 0;
+
+    long get_steps_done() const { return steps_done; }
 };
 
 class Monitor {
 protected:
     SystemExecutor &exec;
 public:
+    virtual ~Monitor() = default;
     Monitor(SystemExecutor &exec) : exec(exec) {}
 
     virtual void update(double loss) = 0;
@@ -79,6 +89,7 @@ protected:
     SystemExecutor &exec;
     std::atomic_flag *flag;
 public:
+    virtual ~Worker() = default;
     Worker(SystemExecutor &exec, long id, std::atomic_flag *flag) : exec(exec), id(id), flag(flag) { }
 
     /* For a thread, this can be the actual function to run. For a distributed
@@ -97,6 +108,7 @@ class WorkerPool {
 protected:
     SystemExecutor &exec;
 public:
+    virtual ~WorkerPool() = default;
     WorkerPool(SystemExecutor &exec, int n_workers) : exec(exec) {};
 
     virtual void wait_for_all() = 0;
@@ -111,6 +123,7 @@ protected:
 
     SystemExecutor &exec;
 public:
+    virtual ~ModelInterface() = default;
     explicit ModelInterface(SystemExecutor &exec) : exec(exec) {}
     ModelInterface(SystemExecutor &exec, NetworkTopology network) : network(network), exec(exec) {}
     std::shared_ptr<NetworkTopology> get_network() {

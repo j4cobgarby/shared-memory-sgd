@@ -17,13 +17,16 @@ void SlidingWindowMonitor::update(double loss) {
         this->window.erase(this->window.begin());
     }
 
-    if (u++ % 64 == 0) {
-        std::cout << "[monitor] Update " << u << ". Window avg = " << this->get_loss() << std::endl;
-    }
+    /* Allow the parallelism controller to update now */
+    this->exec.get_paracontr()->update();
+
+    // if (u++ % 64 == 0) {
+    //     std::cout << "[monitor] Update " << u << ". Window avg = " << this->get_loss() << std::endl;
+    // }
 }
 
 double SlidingWindowMonitor::get_loss() {
-    return std::reduce(this->window.begin(), this->window.end()) / this->window.size();
+    return std::reduce(this->window.begin(), this->window.end()) / static_cast<double>(this->window.size());
 }
 
 }

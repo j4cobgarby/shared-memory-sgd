@@ -6,8 +6,6 @@
 namespace MiniDNN {
 
 class AsyncDispatcher : public Dispatcher {
-protected:
-    long steps_done = 0;
 public:
     AsyncDispatcher(SystemExecutor &exec) : Dispatcher(exec) {}
 
