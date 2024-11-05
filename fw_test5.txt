@@ -1,0 +1,77 @@
+[CIFAR10] Successfully loaded samples and labels.
+	n_training = 50000
+	x columns = 50000
+Created all workers.
+[monitor] Completed epoch 1. Loss = 2.27146
+[monitor] Completed epoch 2. Loss = 2.27241
+[monitor] Completed epoch 3. Loss = 2.27133
+[monitor] Completed epoch 4. Loss = 2.26851
+[monitor] Completed epoch 5. Loss = 2.27714
+[monitor] Completed epoch 6. Loss = 2.27612
+[monitor] Completed epoch 7. Loss = 2.26441
+[monitor] Completed epoch 8. Loss = 2.12318
+[monitor] Completed epoch 9. Loss = 1.75879
+[monitor] Completed epoch 10. Loss = 0.824844
+[monitor] Completed epoch 11. Loss = 0.0168758
+[monitor] Completed epoch 12. Loss = 0.00273335
+[monitor] Completed epoch 13. Loss = 0.00140258
+[monitor] Completed epoch 14. Loss = 0.000860109
+[monitor] Completed epoch 15. Loss = 0.000597977
+[monitor] Completed epoch 16. Loss = 0.000489161
+[monitor] Completed epoch 17. Loss = 0.000404534
+[monitor] Completed epoch 18. Loss = 0.000332476
+[monitor] Completed epoch 19. Loss = 0.00028068
+[monitor] Completed epoch 20. Loss = 0.000247015
+[monitor] Completed epoch 21. Loss = 0.000226836
+[monitor] Completed epoch 22. Loss = 0.000210049
+[monitor] Completed epoch 23. Loss = 0.000165937
+[monitor] Completed epoch 24. Loss = 0.000163229
+[monitor] Completed epoch 25. Loss = 0.000146939
+[monitor] Completed epoch 26. Loss = 0.000130853
+[monitor] Completed epoch 27. Loss = 0.000129094
+[monitor] Completed epoch 28. Loss = 0.000117035
+[monitor] Completed epoch 29. Loss = 0.000106219
+[monitor] Completed epoch 30. Loss = 0.000102815
+[monitor] Completed epoch 31. Loss = 9.79536e-05
+[monitor] Completed epoch 32. Loss = 9.14677e-05
+[monitor] Completed epoch 33. Loss = 8.66398e-05
+[monitor] Completed epoch 34. Loss = 8.22878e-05
+[monitor] Completed epoch 35. Loss = 7.55739e-05
+[monitor] Completed epoch 36. Loss = 7.46749e-05
+[monitor] Completed epoch 37. Loss = 7.18343e-05
+[monitor] Completed epoch 38. Loss = 6.56815e-05
+[monitor] Completed epoch 39. Loss = 6.50647e-05
+[monitor] Completed epoch 40. Loss = 6.14374e-05
+[monitor] Completed epoch 41. Loss = 6.03678e-05
+[monitor] Completed epoch 42. Loss = 5.81015e-05
+[monitor] Completed epoch 43. Loss = 5.60121e-05
+[monitor] Completed epoch 44. Loss = 5.40292e-05
+[monitor] Completed epoch 45. Loss = 5.21551e-05
+[monitor] Completed epoch 46. Loss = 4.83315e-05
+[monitor] Completed epoch 47. Loss = 4.6228e-05
+[monitor] Completed epoch 48. Loss = 4.67282e-05
+[monitor] Completed epoch 49. Loss = 4.78025e-05
+[monitor] Completed epoch 50. Loss = 4.67578e-05
+[monitor] Completed epoch 51. Loss = 4.20266e-05
+[monitor] Completed epoch 52. Loss = 4.08783e-05
+[monitor] Completed epoch 53. Loss = 4.07467e-05
+[monitor] Completed epoch 54. Loss = 3.85923e-05
+[monitor] Completed epoch 55. Loss = 3.85909e-05
+[monitor] Completed epoch 56. Loss = 3.75874e-05
+[monitor] Completed epoch 57. Loss = 3.85003e-05
+[monitor] Completed epoch 58. Loss = 3.57331e-05
+[monitor] Completed epoch 59. Loss = 3.54342e-05
+[monitor] Completed epoch 60. Loss = 3.4269e-05
+[monitor] Completed epoch 61. Loss = 3.21105e-05
+[monitor] Completed epoch 62. Loss = 3.48517e-05
+[monitor] Completed epoch 63. Loss = 3.21681e-05
+[monitor] Completed epoch 64. Loss = 3.25955e-05
+[monitor] Completed epoch 64. Loss = 3.10468e-05
+[monitor] Completed epoch 64. Loss = 3.10466e-05
+[monitor] Completed epoch 64. Loss = 3.1045e-05
+[monitor] Completed epoch 64. Loss = 3.10443e-05
+[monitor] Completed epoch 64. Loss = 3.09393e-05
+[main()] Starting workers.
+[main()] All workers have finished.
+[main()] Saved results to "experiments/2024-11-01_15-42-25_results.json"
+Finished with exit code 0; unlocking.
