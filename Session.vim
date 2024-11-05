@@ -13,24 +13,25 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +17 Component/sgdthread.cpp
+badd +1 Component/sgdthread.cpp
 badd +61 include/minidnn/modular_components.hpp
 badd +36 Component/model_interface.cpp
 badd +9 include/minidnn/Component/ModelInterfaces.hpp
-badd +1 include/minidnn/Component/ParaController.hpp
+badd +30 include/minidnn/Component/ParaController.hpp
 badd +8 Component/search_controller.cpp
 badd +10 include/minidnn/Component/Dispatcher.hpp
 badd +23 Component/asyncdispatcher.cpp
 badd +21 include/minidnn/Component/Monitor.hpp
 badd +21 Component/windowmonitor.cpp
-badd +65 main.cpp
-badd +0 main-old.cpp
-badd +11 include/minidnn/Component/BatchController.hpp
-badd +68 Component/simplebatchcontroller.cpp
+badd +30 main.cpp
+badd +1 main-old.cpp
+badd +1 include/minidnn/Component/BatchController.hpp
+badd +43 Component/simplebatchcontroller.cpp
 badd +62 elasync.cpp
 badd +77 ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/NetworkExecutor.h
 badd +13 ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/RNG.h
 badd +31 include/minidnn/Utils/Random.h
+badd +54 Component/window_controller.cpp
 argglobal
 %argdel
 $argadd Component/sgdthread.cpp
@@ -66,9 +67,9 @@ set winminwidth=0
 set winwidth=1
 exe 'vert 1resize ' . ((&columns * 104 + 157) / 314)
 exe 'vert 2resize ' . ((&columns * 104 + 157) / 314)
-exe '3resize ' . ((&lines * 48 + 50) / 100)
+exe '3resize ' . ((&lines * 49 + 50) / 101)
 exe 'vert 3resize ' . ((&columns * 104 + 157) / 314)
-exe '4resize ' . ((&lines * 48 + 50) / 100)
+exe '4resize ' . ((&lines * 48 + 50) / 101)
 exe 'vert 4resize ' . ((&columns * 104 + 157) / 314)
 argglobal
 setlocal fdm=expr
@@ -79,7 +80,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 17 - ((16 * winheight(0) + 48) / 97)
+let s:l = 17 - ((16 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -100,12 +101,12 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 23 - ((22 * winheight(0) + 48) / 97)
+let s:l = 23 - ((22 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 23
-normal! 023|
+normal! 036|
 wincmd w
 argglobal
 if bufexists(fnamemodify("include/minidnn/Component/ModelInterfaces.hpp", ":p")) | buffer include/minidnn/Component/ModelInterfaces.hpp | else | edit include/minidnn/Component/ModelInterfaces.hpp | endif
@@ -123,12 +124,12 @@ setlocal fdn=20
 setlocal fen
 1
 normal! zo
-let s:l = 10 - ((8 * winheight(0) + 24) / 48)
+let s:l = 10 - ((8 * winheight(0) + 24) / 49)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 10
-normal! 01|
+normal! 0
 wincmd w
 argglobal
 if bufexists(fnamemodify("Component/model_interface.cpp", ":p")) | buffer Component/model_interface.cpp | else | edit Component/model_interface.cpp | endif
@@ -153,12 +154,11 @@ normal! zt
 keepjumps 13
 normal! 030|
 wincmd w
-2wincmd w
 exe 'vert 1resize ' . ((&columns * 104 + 157) / 314)
 exe 'vert 2resize ' . ((&columns * 104 + 157) / 314)
-exe '3resize ' . ((&lines * 48 + 50) / 100)
+exe '3resize ' . ((&lines * 49 + 50) / 101)
 exe 'vert 3resize ' . ((&columns * 104 + 157) / 314)
-exe '4resize ' . ((&lines * 48 + 50) / 100)
+exe '4resize ' . ((&lines * 48 + 50) / 101)
 exe 'vert 4resize ' . ((&columns * 104 + 157) / 314)
 tabnext
 edit include/minidnn/Component/ParaController.hpp
@@ -166,11 +166,11 @@ let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
 set splitbelow splitright
 wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd _ | wincmd |
 split
 1wincmd k
+wincmd _ | wincmd |
+vsplit
+1wincmd h
 wincmd w
 wincmd w
 let &splitbelow = s:save_splitbelow
@@ -182,11 +182,11 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 1resize ' . ((&columns * 156 + 157) / 314)
-exe '2resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 2resize ' . ((&columns * 156 + 157) / 314)
-exe 'vert 3resize ' . ((&columns * 157 + 157) / 314)
+exe '1resize ' . ((&lines * 73 + 50) / 101)
+exe 'vert 1resize ' . ((&columns * 128 + 157) / 314)
+exe '2resize ' . ((&lines * 73 + 50) / 101)
+exe 'vert 2resize ' . ((&columns * 185 + 157) / 314)
+exe '3resize ' . ((&lines * 24 + 50) / 101)
 argglobal
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
@@ -198,12 +198,43 @@ setlocal fdn=20
 setlocal fen
 5
 normal! zo
-let s:l = 21 - ((20 * winheight(0) + 24) / 48)
+let s:l = 30 - ((29 * winheight(0) + 36) / 73)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 21
-normal! 0
+keepjumps 30
+normal! 028|
+wincmd w
+argglobal
+if bufexists(fnamemodify("Component/window_controller.cpp", ":p")) | buffer Component/window_controller.cpp | else | edit Component/window_controller.cpp | endif
+if &buftype ==# 'terminal'
+  silent file Component/window_controller.cpp
+endif
+balt include/minidnn/Component/ParaController.hpp
+setlocal fdm=expr
+setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=99
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+5
+normal! zo
+33
+normal! zo
+36
+normal! zo
+54
+normal! zo
+55
+normal! zo
+let s:l = 54 - ((33 * winheight(0) + 36) / 73)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 54
+normal! 027|
 wincmd w
 argglobal
 if bufexists(fnamemodify("include/minidnn/modular_components.hpp", ":p")) | buffer include/minidnn/modular_components.hpp | else | edit include/minidnn/modular_components.hpp | endif
@@ -221,45 +252,20 @@ setlocal fdn=20
 setlocal fen
 1
 normal! zo
-11
+12
 normal! zo
-15
-normal! zo
-75
-normal! zo
-let s:l = 47 - ((8 * winheight(0) + 24) / 48)
+let s:l = 47 - ((-16 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 47
 normal! 02|
 wincmd w
-argglobal
-if bufexists(fnamemodify("Component/search_controller.cpp", ":p")) | buffer Component/search_controller.cpp | else | edit Component/search_controller.cpp | endif
-if &buftype ==# 'terminal'
-  silent file Component/search_controller.cpp
-endif
-balt include/minidnn/Component/ParaController.hpp
-setlocal fdm=expr
-setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=99
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-let s:l = 8 - ((7 * winheight(0) + 48) / 97)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 8
-normal! 0
-wincmd w
-exe '1resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 1resize ' . ((&columns * 156 + 157) / 314)
-exe '2resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 2resize ' . ((&columns * 156 + 157) / 314)
-exe 'vert 3resize ' . ((&columns * 157 + 157) / 314)
+exe '1resize ' . ((&lines * 73 + 50) / 101)
+exe 'vert 1resize ' . ((&columns * 128 + 157) / 314)
+exe '2resize ' . ((&lines * 73 + 50) / 101)
+exe 'vert 2resize ' . ((&columns * 185 + 157) / 314)
+exe '3resize ' . ((&lines * 24 + 50) / 101)
 tabnext
 edit include/minidnn/modular_components.hpp
 let s:save_splitbelow = &splitbelow
@@ -283,9 +289,9 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 exe 'vert 1resize ' . ((&columns * 156 + 157) / 314)
-exe '2resize ' . ((&lines * 47 + 50) / 100)
+exe '2resize ' . ((&lines * 48 + 50) / 101)
 exe 'vert 2resize ' . ((&columns * 157 + 157) / 314)
-exe '3resize ' . ((&lines * 49 + 50) / 100)
+exe '3resize ' . ((&lines * 49 + 50) / 101)
 exe 'vert 3resize ' . ((&columns * 157 + 157) / 314)
 argglobal
 setlocal fdm=expr
@@ -298,13 +304,9 @@ setlocal fdn=20
 setlocal fen
 1
 normal! zo
-11
+12
 normal! zo
-15
-normal! zo
-75
-normal! zo
-let s:l = 149 - ((70 * winheight(0) + 48) / 97)
+let s:l = 149 - ((71 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -329,12 +331,12 @@ setlocal fen
 normal! zo
 6
 normal! zo
-let s:l = 12 - ((11 * winheight(0) + 23) / 47)
+let s:l = 19 - ((18 * winheight(0) + 24) / 48)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 12
-normal! 024|
+keepjumps 19
+normal! 037|
 wincmd w
 argglobal
 if bufexists(fnamemodify("Component/asyncdispatcher.cpp", ":p")) | buffer Component/asyncdispatcher.cpp | else | edit Component/asyncdispatcher.cpp | endif
@@ -364,9 +366,9 @@ keepjumps 24
 normal! 03|
 wincmd w
 exe 'vert 1resize ' . ((&columns * 156 + 157) / 314)
-exe '2resize ' . ((&lines * 47 + 50) / 100)
+exe '2resize ' . ((&lines * 48 + 50) / 101)
 exe 'vert 2resize ' . ((&columns * 157 + 157) / 314)
-exe '3resize ' . ((&lines * 49 + 50) / 100)
+exe '3resize ' . ((&lines * 49 + 50) / 101)
 exe 'vert 3resize ' . ((&columns * 157 + 157) / 314)
 tabnext
 edit include/minidnn/modular_components.hpp
@@ -403,18 +405,14 @@ setlocal fdn=20
 setlocal fen
 1
 normal! zo
-11
+12
 normal! zo
-15
-normal! zo
-75
-normal! zo
-let s:l = 135 - ((54 * winheight(0) + 48) / 97)
+let s:l = 135 - ((55 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 135
-normal! 010|
+normal! 0
 wincmd w
 argglobal
 if bufexists(fnamemodify("Component/windowmonitor.cpp", ":p")) | buffer Component/windowmonitor.cpp | else | edit Component/windowmonitor.cpp | endif
@@ -432,14 +430,12 @@ setlocal fdn=20
 setlocal fen
 6
 normal! zo
-10
-normal! zo
-let s:l = 21 - ((20 * winheight(0) + 48) / 97)
+let s:l = 21 - ((20 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 21
-normal! 060|
+normal! 0
 wincmd w
 argglobal
 if bufexists(fnamemodify("include/minidnn/Component/Monitor.hpp", ":p")) | buffer include/minidnn/Component/Monitor.hpp | else | edit include/minidnn/Component/Monitor.hpp | endif
@@ -459,7 +455,7 @@ setlocal fen
 normal! zo
 6
 normal! zo
-let s:l = 21 - ((20 * winheight(0) + 48) / 97)
+let s:l = 21 - ((20 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -499,7 +495,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 476 - ((49 * winheight(0) + 48) / 97)
+let s:l = 476 - ((50 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -511,6 +507,7 @@ if bufexists(fnamemodify("main.cpp", ":p")) | buffer main.cpp | else | edit main
 if &buftype ==# 'terminal'
   silent file main.cpp
 endif
+balt main-old.cpp
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -519,7 +516,7 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-let s:l = 1 - ((0 * winheight(0) + 48) / 97)
+let s:l = 1 - ((0 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -553,12 +550,12 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe '1resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 1resize ' . ((&columns * 104 + 157) / 314)
-exe '2resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 2resize ' . ((&columns * 104 + 157) / 314)
+exe '1resize ' . ((&lines * 49 + 50) / 101)
+exe 'vert 1resize ' . ((&columns * 99 + 157) / 314)
+exe '2resize ' . ((&lines * 48 + 50) / 101)
+exe 'vert 2resize ' . ((&columns * 99 + 157) / 314)
 exe 'vert 3resize ' . ((&columns * 104 + 157) / 314)
-exe 'vert 4resize ' . ((&columns * 104 + 157) / 314)
+exe 'vert 4resize ' . ((&columns * 109 + 157) / 314)
 argglobal
 balt ~/Documents/code/cpp/shared-memory-sgd/include/minidnn/RNG.h
 setlocal fdm=expr
@@ -573,7 +570,7 @@ setlocal fen
 normal! zo
 7
 normal! zo
-let s:l = 21 - ((20 * winheight(0) + 24) / 48)
+let s:l = 21 - ((20 * winheight(0) + 24) / 49)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -596,13 +593,9 @@ setlocal fdn=20
 setlocal fen
 1
 normal! zo
-11
+12
 normal! zo
-15
-normal! zo
-75
-normal! zo
-let s:l = 26 - ((25 * winheight(0) + 24) / 48)
+let s:l = 26 - ((24 * winheight(0) + 24) / 48)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -610,11 +603,11 @@ keepjumps 26
 normal! 0
 wincmd w
 argglobal
-if bufexists(fnamemodify("Component/simplebatchcontroller.cpp", ":p")) | buffer Component/simplebatchcontroller.cpp | else | edit Component/simplebatchcontroller.cpp | endif
+if bufexists(fnamemodify("include/minidnn/Component/ParaController.hpp", ":p")) | buffer include/minidnn/Component/ParaController.hpp | else | edit include/minidnn/Component/ParaController.hpp | endif
 if &buftype ==# 'terminal'
-  silent file Component/simplebatchcontroller.cpp
+  silent file include/minidnn/Component/ParaController.hpp
 endif
-balt elasync.cpp
+balt Component/simplebatchcontroller.cpp
 setlocal fdm=expr
 setlocal fde=v:lua.require'lazyvim.util'.ui.foldexpr()
 setlocal fmr={{{,}}}
@@ -623,22 +616,14 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-9
+5
 normal! zo
-11
-normal! zo
-19
-normal! zo
-54
-normal! zo
-92
-normal! zo
-let s:l = 68 - ((54 * winheight(0) + 48) / 97)
+let s:l = 30 - ((29 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 68
-normal! 050|
+keepjumps 30
+normal! 028|
 wincmd w
 argglobal
 if bufexists(fnamemodify("main.cpp", ":p")) | buffer main.cpp | else | edit main.cpp | endif
@@ -654,24 +639,31 @@ setlocal fdl=99
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-14
+21
 normal! zo
-24
+42
 normal! zo
-let s:l = 41 - ((40 * winheight(0) + 48) / 97)
+43
+normal! zo
+115
+normal! zo
+119
+normal! zo
+let s:l = 30 - ((29 * winheight(0) + 49) / 98)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 41
-normal! 05|
+keepjumps 30
+normal! 045|
 wincmd w
-exe '1resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 1resize ' . ((&columns * 104 + 157) / 314)
-exe '2resize ' . ((&lines * 48 + 50) / 100)
-exe 'vert 2resize ' . ((&columns * 104 + 157) / 314)
+4wincmd w
+exe '1resize ' . ((&lines * 49 + 50) / 101)
+exe 'vert 1resize ' . ((&columns * 99 + 157) / 314)
+exe '2resize ' . ((&lines * 48 + 50) / 101)
+exe 'vert 2resize ' . ((&columns * 99 + 157) / 314)
 exe 'vert 3resize ' . ((&columns * 104 + 157) / 314)
-exe 'vert 4resize ' . ((&columns * 104 + 157) / 314)
-tabnext 1
+exe 'vert 4resize ' . ((&columns * 109 + 157) / 314)
+tabnext 6
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif

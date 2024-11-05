@@ -12,7 +12,7 @@ SearchParaController::SearchParaController(SystemExecutor &exec, const int num_t
     high_bound(num_threads),
     probe_steps(probe_steps),
     exec_steps(exec_steps),
-    total_threads(num_threads) {
+    total_workers(num_threads) {
 
     curr_parallelism = (unsigned)(0.33 * num_threads);
     phase_start_step = 0;
@@ -58,7 +58,7 @@ void SearchParaController::update() {
     if (!is_searching && steps_done - phase_start_step >= exec_steps) {
         is_searching = true;
         phase_start_step = steps_done;
-        high_bound = total_threads;
+        high_bound = total_workers;
         low_bound = 1;
         probe_counter = 0;
 

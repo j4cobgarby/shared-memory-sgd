@@ -12,6 +12,7 @@
 #include "jsoncons/json.hpp"
 
 #include <filesystem>
+#include <memory>
 #include <string>
 
 using namespace MiniDNN;
@@ -26,15 +27,19 @@ int main(int argc, char *argv[]) {
 
     // o_ variables are option parsing related.
 
-    std::string o_para_controller;
+    std::string o_para_controller = "static";
 
     // Parameters for if we make a search controller
+    // (o_*_steps also used for window controller)
     int o_search_degree = 2, o_probe_steps = 128, o_exec_steps = 512;
+
+    // Parameters for window controller
+    int o_searchwindow_size = 8;
 
     SystemExecutor exec(500, 1024);
 
     int c;
-    while ((c = getopt(argc, argv, "n:l:u:e:s:P:p:x:d:")) != -1) {
+    while ((c = getopt(argc, argv, "n:l:u:e:s:P:p:x:d:w:")) != -1) {
         switch (c) {
         case 'n':
             parallelism_limit = std::stoi(optarg);
@@ -62,6 +67,9 @@ int main(int argc, char *argv[]) {
             break;
         case 'd':
             o_search_degree = std::stoi(optarg);
+            break;
+        case 'w':
+            o_searchwindow_size = std::stoi(optarg);
             break;
         case '?':
             std::cout << "Unknown option: " << optopt << std::endl;
@@ -106,10 +114,15 @@ int main(int argc, char *argv[]) {
 
     if (o_para_controller == "ternary") {
         exec.set_parallelism(std::make_shared<SearchParaController>
-            (exec, parallelism_limit, o_search_degree, o_probe_steps, o_exec_steps));
+                             (exec, parallelism_limit, o_search_degree,
+                              o_probe_steps, o_exec_steps));
     } else if (o_para_controller == "static") {
         exec.set_parallelism(std::make_shared<StaticParaController>
-            (exec, parallelism_limit));
+                             (exec, parallelism_limit));
+    } else if (o_para_controller == "window") {
+        exec.set_parallelism(std::make_shared<WindowParaController>
+                             (exec, parallelism_limit, o_searchwindow_size,
+                              o_probe_steps, o_exec_steps));
     } else {
         std::cerr << "parallelism controller name unrecognised.\n";
     }

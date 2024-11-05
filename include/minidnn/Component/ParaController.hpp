@@ -14,6 +14,30 @@ public:
     void update() override {}
 };
 
+class WindowParaController : public ParaController {
+private:
+    bool is_probing = true;
+    int probe_counter = 0;
+    unsigned curr_parallelism;
+
+    long phase_start_step = -1;
+    int window_btm;
+    double best_probe_loss;
+    unsigned best_probe_m;
+
+    const long probe_steps, exec_steps;
+    const int window_size;
+    const int total_workers;
+
+    void switch_to_para(unsigned m);
+    void clip_window();
+public:
+    WindowParaController(SystemExecutor &exec, int num_threads, int window_size, long probe_steps, long exec_steps);
+
+    unsigned get_parallelism() override;
+    void update() override;
+};
+
 class SearchParaController : public ParaController {
 private:
     bool is_searching;
@@ -27,7 +51,7 @@ private:
     // How "deep" is the search? i.e. how many times is the search space split?
     const int search_degree;
 
-    const int total_threads;
+    const int total_workers;
 
     int low_bound = 1;
     int high_bound;
@@ -53,5 +77,7 @@ public:
 
     void update() override;
 };
+
+
 
 }
