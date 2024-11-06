@@ -162,6 +162,7 @@ int main(int argc, char *argv[]) {
     meta["exec_steps"] = o_exec_steps;
     meta["search_degree"] = o_search_degree;
     meta["para_ctrl"] = o_para_controller;
+    meta["window_size"] = o_searchwindow_size;
 
     results["meta"] = meta;
 
