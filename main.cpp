@@ -134,7 +134,7 @@ int main(int argc, char *argv[]) {
     /* This is created after the rest of the executor components are in place because
      * it uses the model interface when initialising the workers.
      * TODO: There must be a better way? */
-    auto *workerpool = new ThreadWorkerPool<SGDWorker>(exec, 8, false);
+    auto *workerpool = new ThreadWorkerPool<SGDWorker>(exec, parallelism_limit, false);
     exec.set_workers(std::shared_ptr<WorkerPool>(workerpool));
 
     exec.start();
