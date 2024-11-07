@@ -1,5 +1,6 @@
 #include "minidnn/Component/Worker.hpp"
 #include "modular_components.hpp"
+#include <pthread.h>
 
 namespace MiniDNN {
 
@@ -14,9 +15,21 @@ ThreadWorkerPool<WorkerType>::ThreadWorkerPool(SystemExecutor &exec, int n_worke
     workers.reserve(n_workers);
     worker_threads.reserve(n_workers);
 
+    std::cout << "Creating " << n_workers << " workers.\n";
+
     for (int i = 0; i < n_workers; i++) {
         workers.push_back(WorkerType(exec, i, &workers_flag));
         worker_threads.push_back(new std::thread(&WorkerType::run, &workers.at(i)));
+
+        if (pin) {
+            cpu_set_t cpuset;
+            CPU_ZERO(&cpuset);
+            CPU_SET(i, &cpuset);
+
+            if (pthread_setaffinity_np(worker_threads.at(i)->native_handle(), sizeof(cpu_set_t), &cpuset) != 0) {
+                std::cerr << "Failed to pin thread " << i << std::endl;
+            }
+        }
     }
 
     std::cout << "Created all workers.\n";
