@@ -10,12 +10,12 @@
 
 using namespace std::literals;
 
-#define STANDARD_WINDOW
+// #define STANDARD_WINDOW
 // #define EXTEND_WINDOW
 // #define SHIFT_WINDOW
 // #define PROBE_WHOLE
 // #define SEARCH_PROBE
-// #define NO_PROBE
+#define NO_PROBE
 
 // For experimentation, test wide range of parallelism
 // It will then stop after one probing phase.
@@ -256,8 +256,8 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     copy_nets_vec(thread_local_networks, best_saved_nets);
 #endif
 
-    // while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
-    while (phase_number <= 20) {
+    while ((curr_step = step.load()) < num_epochs * rounds_per_epoch) {
+    // while (phase_number <= 20) {
         /* Here, all threads are not running.
          * We want to get the loss trend over the previous execution phase.
          * In the previous iteration, there should be `probing_interval` training
@@ -565,10 +565,12 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
         m_probe_ends.push_back(m_values.size());
 
         // After probing, run normal async execution for a while
+#ifndef NO_PROBE
         current_parallelism = best_m;
+#endif
 
 
-#if 0 // Execution phase
+#if 1 // Execution phase
         std::cout << "# <execution> current_parallelism == " << current_parallelism << std::endl;
         m_exec_values.push_back(current_parallelism);
 
