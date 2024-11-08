@@ -64,6 +64,8 @@ void WindowParaController::update() {
             std::cout << "[window_probe] PROBE_DONE @step " << steps_done 
                 << " LOSS=" << loss << std::endl;
 
+            const double convergence_rate = (double)(loss - this->prev_loss);
+
             if (loss < this->best_probe_loss) {
                 best_probe_loss = loss;
                 best_probe_m = curr_parallelism;

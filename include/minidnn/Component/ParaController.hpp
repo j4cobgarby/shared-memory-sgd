@@ -22,8 +22,13 @@ private:
 
     long phase_start_step = -1;
     int window_btm;
-    double best_probe_loss;
     unsigned best_probe_m;
+    double best_probe_loss;
+
+    /* Used for calculating delta loss */
+    double prev_loss = 0;
+    long prev_time_ms = 0;
+    bool got_prev_sample = false;
 
     const long probe_steps, exec_steps;
     const int window_size;
