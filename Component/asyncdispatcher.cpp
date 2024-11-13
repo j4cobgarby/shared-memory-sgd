@@ -11,13 +11,8 @@ bool AsyncDispatcher::try_start_step(long worker_id) {
 }
 
 bool AsyncDispatcher::finish_step(long worker_id) {
-    if (this->is_finished()) {
-        // Step finished after training was done
-        return false;
-    } else {
-        this->steps_done++;
-        return true;
-    }
+    this->steps_done++;
+    return !this->is_finished();
 }
 
 bool AsyncDispatcher::is_finished() {
