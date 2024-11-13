@@ -24,4 +24,4 @@ bool AsyncDispatcher::is_finished() {
     return this->steps_done >= exec.epoch_target * exec.steps_per_epoch;
 }
 
-};
+}

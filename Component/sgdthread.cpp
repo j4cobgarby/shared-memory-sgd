@@ -23,7 +23,9 @@ void SGDWorker::run() {
             const Matrix &b_y = exec.get_batcher()->get_batch_labels(batch_id);
 
             // Calculate a gradient based on this batch (getting loss)
+            // mtx.lock();
             auto *local_param = new ParameterContainer(*global_param_ptr);
+            // mtx.unlock();
 
             this->network->set_pointer(local_param);
             this->network->forward(b_x);
@@ -39,7 +41,9 @@ void SGDWorker::run() {
             this->network->set_pointer(global_param_ptr);
             delete local_param;
 
+            // mtx.lock();
             this->network->update_cw(this->optim.get());
+            // mtx.unlock();
         }
     }
 }

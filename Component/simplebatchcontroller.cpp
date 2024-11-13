@@ -102,6 +102,8 @@ SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string d
 
     const int nbatch =
         internal::create_shuffled_batches(x, y, batch_size, rng, x_batches, y_batches);
+
+    std::cout << "[batch] Created " << nbatch << " batches.\n";
 }
 
 } // namespace MiniDNN

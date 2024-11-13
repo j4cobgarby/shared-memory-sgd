@@ -12,6 +12,7 @@ plotting/.venv
 local_experiments
 data/cifar-100
 *.log
+perf*
 
 # Prerequisites
 *.d

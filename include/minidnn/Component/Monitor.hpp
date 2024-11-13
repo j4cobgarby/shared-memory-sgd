@@ -9,6 +9,7 @@ class SlidingWindowMonitor : public Monitor {
 private:
     int window_size;
     std::vector<double> window;
+    std::mutex mtx;
 public:
     SlidingWindowMonitor(SystemExecutor &exec, int window_size);
 

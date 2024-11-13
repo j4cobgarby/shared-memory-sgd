@@ -11,6 +11,7 @@ class SGDWorker : public Worker {
 protected:
     std::unique_ptr<NetworkTopology> network;
     std::unique_ptr<Optimizer> optim;
+    static std::mutex mtx;
 public:
     /* pin: hw thread to pin to, or -1 to not pin */
     SGDWorker(SystemExecutor &exec, long id, std::atomic_flag *flag) : Worker(exec, id, flag) {

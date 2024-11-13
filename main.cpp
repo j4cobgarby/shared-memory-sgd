@@ -19,11 +19,12 @@ using namespace MiniDNN;
 using namespace jsoncons;
 
 int main(int argc, char *argv[]) {
+    // Default parameters
     const std::string dataset_name = "CIFAR10";
     const int seed = 1337;
     double lrate = 0.005;
     double momentum = 0;
-    int parallelism_limit = -1;
+    int parallelism_limit = 10;
 
     // o_ variables are option parsing related.
 
@@ -36,7 +37,7 @@ int main(int argc, char *argv[]) {
     // Parameters for window controller
     int o_searchwindow_size = 8;
 
-    SystemExecutor exec(500, 1024);
+    SystemExecutor exec(500, 3125);
 
     int c;
     while ((c = getopt(argc, argv, "n:l:u:e:s:P:p:x:d:w:")) != -1) {
@@ -82,7 +83,7 @@ int main(int argc, char *argv[]) {
     }
 
     NetworkTopology network(new ParameterContainer());
-    auto *batcher = new SimpleBatchController(exec, dataset_name, 32);
+    auto *batcher = new SimpleBatchController(exec, dataset_name, 16);
 
     if (dataset_name == "CIFAR10" || dataset_name == "CIFAR100") {
         network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
