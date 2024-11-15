@@ -1,3 +1,5 @@
+#include <MiniDNN.h>
+
 #include "NetworkTopology.h"
 #include "ParameterContainer.h"
 #include "modular_components.hpp"
