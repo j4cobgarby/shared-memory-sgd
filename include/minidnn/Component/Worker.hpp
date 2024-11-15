@@ -3,15 +3,19 @@
 #include "NetworkTopology.h"
 #include "Optimizer.h"
 #include "modular_components.hpp"
+#include <chrono>
 #include <memory>
 
 namespace MiniDNN {
 
 class SGDWorker : public Worker {
+    typedef std::chrono::high_resolution_clock HRClock;
 protected:
     std::unique_ptr<NetworkTopology> network;
     std::unique_ptr<Optimizer> optim;
-    static std::mutex mtx;
+
+    long num_steps_done = 0;
+    HRClock::duration acc_step_time = HRClock::duration::zero();
 public:
     /* pin: hw thread to pin to, or -1 to not pin */
     SGDWorker(SystemExecutor &exec, long id, std::atomic_flag *flag) : Worker(exec, id, flag) {
