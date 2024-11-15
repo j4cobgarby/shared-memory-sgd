@@ -8,6 +8,7 @@
 #include <utility>
 #include <MiniDNN.h>
 #include <utils.h> /* Matrix typedef */
+#include <atomic>
 
 namespace MiniDNN {
 

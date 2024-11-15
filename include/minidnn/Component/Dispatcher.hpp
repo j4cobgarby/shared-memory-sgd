@@ -2,6 +2,7 @@
 #define COMPONENT_DISPATCHER_HPP
 
 #include "modular_components.hpp"
+#include <atomic>
 
 namespace MiniDNN {
 
@@ -20,10 +21,10 @@ private:
     const long async_period;
 
     /* Counts how many steps have been started in this async period */
-    long starts_counter = 0;
+    std::atomic<long> starts_counter{0};
 
     /* Counts how many steps have concluded in this period */
-    long ends_counter = 0;
+    std::atomic<long> ends_counter{0};
 public:
     SemiSyncDispatcher(SystemExecutor &exec, long P) :
         Dispatcher(exec),

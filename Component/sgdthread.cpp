@@ -44,6 +44,8 @@ void SGDWorker::run() {
             // mtx.lock();
             this->network->update_cw(this->optim.get());
             // mtx.unlock();
+        } else {
+            // std::cout << "Thread blocked.\n";
         }
     }
 }

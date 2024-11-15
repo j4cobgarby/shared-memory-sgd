@@ -27,6 +27,7 @@ add_executable(mininn
 
     # Component implementations
     Component/asyncdispatcher.cpp
+    Component/semisyncdispatcher.cpp
     Component/model_interface.cpp
     Component/search_controller.cpp
     Component/sgdthread.cpp
