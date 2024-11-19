@@ -34,6 +34,7 @@ add_executable(mininn
     Component/simplebatchcontroller.cpp
     Component/threadworkerpool.cpp
     Component/windowmonitor.cpp
+    Component/emamonitor.cpp
     Component/systemexecutor.cpp
     Component/window_controller.cpp
 )
