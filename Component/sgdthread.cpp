@@ -1,5 +1,8 @@
 #include "ParameterContainer.h"
+#include "jsoncons/basic_json.hpp"
 #include "minidnn/Component/Worker.hpp"
+#include <chrono>
+#include <thread>
 
 namespace MiniDNN {
 
@@ -45,14 +48,32 @@ void SGDWorker::run() {
 
 #if MEASURE_STEP_TIME
             auto t2 = HRClock::now();
-            num_steps_done++;
+            long x = (t2 - t1).count();
+            steptime_n++;
+
+            steptime_min = std::min(steptime_min, x);
+            steptime_max = std::max(steptime_max, x);
+
+            auto new_running_avg = steptime_running_avg + (x - steptime_running_avg) / steptime_n;
+            steptime_sum_of_squares += (x - steptime_running_avg) * (x - new_running_avg);
+
+            steptime_running_avg = new_running_avg;
+
             acc_step_time += t2 - t1;
 #endif
         }
     }
 
 #if MEASURE_STEP_TIME
-    std::cout << "Thread " << this->id << ": avg. step time = " << acc_step_time / num_steps_done;
+    std::this_thread::sleep_for(std::chrono::milliseconds(this->id * 100)); // Don't all print at once
+    jsoncons::json st_json;
+    st_json["avg"] = steptime_running_avg;
+    st_json["variance"] = steptime_sum_of_squares / steptime_n;
+    st_json["N"] = steptime_n;
+    st_json["max"] = steptime_max;
+    st_json["min"] = steptime_min;
+
+    std::cout << st_json << "," << std::endl;
 #endif
 }
 

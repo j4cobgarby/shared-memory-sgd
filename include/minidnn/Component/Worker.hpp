@@ -4,9 +4,10 @@
 #include "Optimizer.h"
 #include "modular_components.hpp"
 #include <chrono>
+#include <climits>
 #include <memory>
 
-#define MEASURE_STEP_TIME 0
+#define MEASURE_STEP_TIME 1
 
 namespace MiniDNN {
 
@@ -17,7 +18,10 @@ protected:
     std::unique_ptr<Optimizer> optim;
 
 #if MEASURE_STEP_TIME
-    long num_steps_done = 0;
+    long steptime_n = 0;
+    long steptime_running_avg = 0;
+    long steptime_sum_of_squares = 0;
+    long steptime_min = LONG_MAX, steptime_max = 0;
     HRClock::duration acc_step_time = HRClock::duration::zero();
 #endif
 public:
