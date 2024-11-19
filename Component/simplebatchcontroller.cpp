@@ -86,7 +86,7 @@ SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string d
         /* normalise pixel values to 0.0-1.0 */
         x /= 255;
 
-        std::cout << "[CIFAR10] Successfully loaded samples and labels.\n";
+        std::cout << "[CIFAR100] Successfully loaded samples and labels.\n";
         std::cout << "\tn_training = " << n_training << std::endl;
         std::cout << "\tx columns = " << x.cols() << std::endl;
     } else if (dataset == "MNIST") {
