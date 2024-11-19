@@ -4,7 +4,8 @@
 //
 // disable eigen parallelization for fair comparison
 // remove the following line for more efficient training/inference in a practical setting
-#define EIGEN_DONT_PARALLELIZE
+//#define EIGEN_DONT_PARALLELIZE
+// INFO: We have moved this definition to CMakeLists.txt, so that it can be set more consistently.
 //
 
 #include <Eigen/Core>

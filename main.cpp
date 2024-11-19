@@ -21,8 +21,10 @@ using namespace MiniDNN;
 using namespace jsoncons;
 
 int main(int argc, char *argv[]) {
+    std::string output_folder = "./experiments";
+
     // Default parameters
-    const std::string dataset_name = "CIFAR10";
+    std::string dataset_name = "CIFAR10";
     const int seed = 1337;
     double lrate = 0.005;
     double momentum = 0;
@@ -42,7 +44,7 @@ int main(int argc, char *argv[]) {
     SystemExecutor exec(500, 3125);
 
     int c;
-    while ((c = getopt(argc, argv, "n:l:u:e:s:P:p:x:d:w:")) != -1) {
+    while ((c = getopt(argc, argv, "n:l:u:e:s:P:p:x:d:w:F:")) != -1) {
         switch (c) {
         case 'n':
             parallelism_limit = std::stoi(optarg);
@@ -73,6 +75,10 @@ int main(int argc, char *argv[]) {
             break;
         case 'w':
             o_searchwindow_size = std::stoi(optarg);
+            break;
+
+        case 'F':
+            output_folder = std::string(optarg);
             break;
         case '?':
             std::cout << "Unknown option: " << optopt << std::endl;
@@ -170,7 +176,7 @@ int main(int argc, char *argv[]) {
 
     results["meta"] = meta;
 
-    const std::filesystem::path exp_dir = "experiments";
+    const std::filesystem::path exp_dir = output_folder;
     std::filesystem::create_directory(exp_dir);
 
     auto t = std::time(nullptr);
