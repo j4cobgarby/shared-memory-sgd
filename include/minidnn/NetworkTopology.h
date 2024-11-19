@@ -142,6 +142,10 @@ namespace MiniDNN {
             }
         }
 
+        Layer *get_last_layer() {
+            return m_layers[nlayer - 1];
+        }
+
         // Let each layer compute its gradients of the parameters
         // target has two versions: Matrix and RowVectorXi
         // The RowVectorXi version is used in classification problems where each
