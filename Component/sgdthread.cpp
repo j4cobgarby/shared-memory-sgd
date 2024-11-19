@@ -1,8 +1,6 @@
 #include "ParameterContainer.h"
 #include "minidnn/Component/Worker.hpp"
 
-#define MEASURE_STEP_TIME false
-
 namespace MiniDNN {
 
 void SGDWorker::run() {
@@ -18,6 +16,9 @@ void SGDWorker::run() {
     // this therefore doesn't have to involve busy waiting.
     while (!exec.get_dispatcher()->is_finished()) {
         if (exec.get_dispatcher()->try_start_step(this->id)) {
+#if MEASURE_STEP_TIME
+            auto t1 = HRClock::now();
+#endif
             // Get batch from batch controller
             int batch_id = exec.get_batcher()->get_batch_ind(this->id);
             const Matrix &b_x = exec.get_batcher()->get_batch_data(batch_id);
@@ -41,8 +42,18 @@ void SGDWorker::run() {
             delete local_param;
 
             this->network->update_cw(this->optim.get());
+
+#if MEASURE_STEP_TIME
+            auto t2 = HRClock::now();
+            num_steps_done++;
+            acc_step_time += t2 - t1;
+#endif
         }
     }
+
+#if MEASURE_STEP_TIME
+    std::cout << "Thread " << this->id << ": avg. step time = " << acc_step_time / num_steps_done;
+#endif
 }
 
 }
