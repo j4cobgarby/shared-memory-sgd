@@ -76,7 +76,6 @@ int main(int argc, char *argv[]) {
         case 'w':
             o_searchwindow_size = std::stoi(optarg);
             break;
-
         case 'F':
             output_folder = std::string(optarg);
             break;
