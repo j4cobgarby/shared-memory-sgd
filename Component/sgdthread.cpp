@@ -49,6 +49,10 @@ void SGDWorker::run() {
 #if MEASURE_STEP_TIME
             auto t2 = HRClock::now();
             long x = (t2 - t1).count();
+
+            if (steptime_samples.size() < N_STEP_TIME_SAMPLES)
+                steptime_samples.push_back(x);
+
             steptime_n++;
 
             steptime_min = std::min(steptime_min, x);
@@ -58,22 +62,23 @@ void SGDWorker::run() {
             steptime_sum_of_squares += (x - steptime_running_avg) * (x - new_running_avg);
 
             steptime_running_avg = new_running_avg;
-
-            acc_step_time += t2 - t1;
 #endif
         }
     }
 
 #if MEASURE_STEP_TIME
     std::this_thread::sleep_for(std::chrono::milliseconds(this->id * 100)); // Don't all print at once
-    jsoncons::json st_json;
-    st_json["avg"] = steptime_running_avg;
-    st_json["variance"] = steptime_sum_of_squares / steptime_n;
-    st_json["N"] = steptime_n;
-    st_json["max"] = steptime_max;
-    st_json["min"] = steptime_min;
-
-    std::cout << st_json << "," << std::endl;
+    // jsoncons::json st_json;
+    // st_json["avg"] = steptime_running_avg;
+    // st_json["variance"] = steptime_sum_of_squares / steptime_n;
+    // st_json["N"] = steptime_n;
+    // st_json["max"] = steptime_max;
+    // st_json["min"] = steptime_min;
+    //
+    // std::cout << st_json << "," << std::endl;
+    for (long x : steptime_samples) {
+        std::cout << "," << x;
+    }
 #endif
 }
 

@@ -8,6 +8,7 @@
 #include <memory>
 
 #define MEASURE_STEP_TIME 1
+#define N_STEP_TIME_SAMPLES 2000
 
 namespace MiniDNN {
 
@@ -22,13 +23,17 @@ protected:
     long steptime_running_avg = 0;
     long steptime_sum_of_squares = 0;
     long steptime_min = LONG_MAX, steptime_max = 0;
-    HRClock::duration acc_step_time = HRClock::duration::zero();
+    std::vector<long> steptime_samples;
 #endif
 public:
     /* pin: hw thread to pin to, or -1 to not pin */
     SGDWorker(SystemExecutor &exec, long id, std::atomic_flag *flag) : Worker(exec, id, flag) {
         this->network = std::make_unique<NetworkTopology>(*exec.get_model()->get_network());
         this->optim = std::unique_ptr<Optimizer>(exec.get_model()->get_optimizer()->clone());
+
+#if MEASURE_STEP_TIME
+        steptime_samples.reserve(N_STEP_TIME_SAMPLES);
+#endif
     }
 
     void run() override;
