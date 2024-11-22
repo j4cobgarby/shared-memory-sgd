@@ -162,12 +162,24 @@ public:
                    std::shared_ptr<ModelInterface>,
                    long epoch_target, long steps_per_epoch);
 
-    void set_batcher(std::shared_ptr<BatchController> batcher) { this->batcher = std::move(batcher); }
-    void set_parallelism(std::shared_ptr<ParaController> parallelism) { this->parallelism = std::move(parallelism); }
-    void set_dispatcher(std::shared_ptr<Dispatcher> dispatcher) { this->dispatcher = std::move(dispatcher); }
-    void set_monitor(std::shared_ptr<Monitor> monitor) { this->monitor = std::move(monitor); }
-    void set_workers(std::shared_ptr<WorkerPool> workers) { this->workers = std::move(workers); }
-    void set_model(std::shared_ptr<ModelInterface> model) { this->model = std::move(model); }
+    void set_batcher(std::shared_ptr<BatchController> batcher)
+        { this->batcher = std::move(batcher); }
+
+    void set_parallelism(std::shared_ptr<ParaController> parallelism)
+        { this->parallelism = std::move(parallelism); }
+
+    void set_dispatcher(std::shared_ptr<Dispatcher> dispatcher)
+        { this->dispatcher = std::move(dispatcher); }
+
+    void set_monitor(std::shared_ptr<Monitor> monitor)
+        { this->monitor = std::move(monitor); }
+
+    void set_workers(std::shared_ptr<WorkerPool> workers)
+        { this->workers = std::move(workers); }
+
+    void set_model(std::shared_ptr<ModelInterface> model)
+        { this->model = std::move(model); }
+
 
     void start();
     long elapsed_time() const;
