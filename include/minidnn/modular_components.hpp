@@ -81,7 +81,11 @@ public:
 
     virtual void update(double loss) = 0;
 
-    virtual double get_loss() = 0;
+    /* Get a rough but recent estimate of loss */
+    virtual double get_loss_estim() = 0;
+
+    /* Compute (maybe blocking) a more accurate estimate of model loss */
+    double get_loss_accur() { return this->get_loss_estim(); }
 };
 
 class Worker {

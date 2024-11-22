@@ -60,7 +60,7 @@ void WindowParaController::update() {
 
     if (this->is_probing) {
         if (steps_done - this->phase_start_step >= this->probe_steps) {
-            const double loss = exec.get_monitor()->get_loss();
+            const double loss = exec.get_monitor()->get_loss_estim();
             std::cout << "[window_probe] PROBE_DONE @step " << steps_done 
                 << " LOSS=" << loss << std::endl;
 

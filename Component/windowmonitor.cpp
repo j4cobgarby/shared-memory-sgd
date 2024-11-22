@@ -26,7 +26,7 @@ void SlidingWindowMonitor::update(double loss) {
     mtx.unlock();
 
     if (s % exec.steps_per_epoch == 0) {
-        const double avg_loss = this->get_loss();
+        const double avg_loss = this->get_loss_estim();
 
         std::cout << "[monitor] Completed epoch " << s / exec.steps_per_epoch
                   << ". Loss = " << avg_loss << std::endl;
@@ -38,7 +38,7 @@ void SlidingWindowMonitor::update(double loss) {
     }
 }
 
-double SlidingWindowMonitor::get_loss() {
+double SlidingWindowMonitor::get_loss_estim() {
     return std::reduce(this->window.begin(), this->window.end()) / static_cast<double>(this->window.size());
 }
 

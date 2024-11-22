@@ -16,7 +16,7 @@ public:
     SlidingWindowMonitor(SystemExecutor &exec, int window_size);
 
     void update(double loss) override;
-    double get_loss() override;
+    double get_loss_estim() override;
 };
 
 class EMAMonitor : public Monitor {
@@ -30,7 +30,7 @@ public:
     EMAMonitor(SystemExecutor &exec, double alpha, bool use_mtx);
 
     void update(double loss) override;
-    double get_loss() override;
+    double get_loss_estim() override;
 };
 
 class EvalMonitor : public Monitor {
@@ -39,18 +39,23 @@ private:
     bool use_mtx;
     std::mutex mtx;
 
+    /* Values used for EMA calculation (for the low-accuracy estimations) */
+    double alpha;
+    double ema = std::numeric_limits<double>::infinity();
+    bool got_initial = false;
+
     long eval_interval;
 
     /* Local instance of a batch controller so that it can get batches of data
      * big enough for accurate evaluation */
     SimpleBatchController local_batcher;
-
-    void eval_thread();
 public:
-    EvalMonitor(SystemExecutor &exec, long eval_interval, int eval_batch_size, bool use_mtx);
+    EvalMonitor(SystemExecutor &exec, double alpha, long eval_interval,
+                int eval_batch_size, bool use_mtx);
 
     void update(double loss) override;
-    double get_loss() override;
+    double get_loss_estim() override;
+    double get_loss_accur();
 };
 
 }

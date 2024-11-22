@@ -17,10 +17,10 @@ void EMAMonitor::update(double loss) {
         ema = alpha * loss + (1.0 - alpha) * ema;
     }
 
-    mtx.unlock();
+    if (use_mtx) mtx.unlock();
 }
 
-double EMAMonitor::get_loss() {
+double EMAMonitor::get_loss_estim() {
     return ema;
 }
 

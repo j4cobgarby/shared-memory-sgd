@@ -72,7 +72,7 @@ void SearchParaController::update() {
         if (steps_done - phase_start_step >= probe_steps) {
             std::cout << "[search] At step " << steps_done << " we are finshing a probe.\n";
             // We've got to the end of one of the probes
-            if (const double loss = exec.get_monitor()->get_loss(); loss < best_probe_loss) {
+            if (const double loss = exec.get_monitor()->get_loss_estim(); loss < best_probe_loss) {
                 best_probe = probe_counter % 3;
                 best_probe_loss = loss;
                 best_probe_m = curr_parallelism;
