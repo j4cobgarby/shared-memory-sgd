@@ -150,11 +150,14 @@ protected:
     std::shared_ptr<WorkerPool> workers = nullptr;
     std::shared_ptr<ModelInterface> model = nullptr;
 public:
-    SystemExecutor(long epoch_target, long steps_per_epoch) : epoch_target(epoch_target), steps_per_epoch(steps_per_epoch) {
+    SystemExecutor(long epoch_target, long steps_per_epoch) : epoch_target(epoch_target),
+        steps_per_epoch(steps_per_epoch) {
         this->start_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
             std::chrono::system_clock::now()
             .time_since_epoch()
         ).count();
+
+        this->start_time_hr = HRClock::now();
     }
     
     SystemExecutor(std::shared_ptr<BatchController>,
@@ -191,6 +194,7 @@ public:
     long steps_per_epoch;
 
     long start_time_ms = -1;
+    HRClock::time_point start_time_hr;
 
     std::mutex mtx_para_vec;
     std::vector<unsigned> para_values;

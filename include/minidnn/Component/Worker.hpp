@@ -8,7 +8,7 @@
 #include <memory>
 
 #define MEASURE_STEP_TIME 1
-#define PRINT_STEP_TIME 0
+#define PRINT_STEP_TIME 1
 #define N_STEP_TIME_SAMPLES 2000
 
 namespace MiniDNN {
@@ -20,7 +20,7 @@ protected:
     std::unique_ptr<Optimizer> optim;
 
 #if MEASURE_STEP_TIME
-    std::vector<long> steptime_samples;
+    std::vector<std::tuple<long, long>> steptime_samples;
 #endif
 public:
     /* pin: hw thread to pin to, or -1 to not pin */
@@ -29,6 +29,8 @@ public:
         this->optim = std::unique_ptr<Optimizer>(exec.get_model()->get_optimizer()->clone());
 
 #if MEASURE_STEP_TIME
+        /* Tuples are (start,end) time of each step */
+
         steptime_samples.reserve(N_STEP_TIME_SAMPLES);
 #endif
     }

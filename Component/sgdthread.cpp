@@ -52,16 +52,18 @@ void SGDWorker::run() {
             /* If we want to print all the measured time samples afterwards, we have to store them. */
 
             // Append new samples, up to vector's reserved size
-            if (steptime_samples.size() < N_STEP_TIME_SAMPLES)
-                steptime_samples.push_back(x);
+            if (steptime_samples.size() < N_STEP_TIME_SAMPLES) {
+                const auto t_start = exec.start_time_hr;
+                steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count());
+            }
 #endif
         }
     }
 
 #if PRINT_STEP_TIME
     std::this_thread::sleep_for(std::chrono::milliseconds(this->id * 100)); // Don't all print at once
-    for (long x : steptime_samples) {
-        std::cout << "," << x;
+    for (const auto [t1, t2] : steptime_samples) {
+        std::cout << "[" << t1 << "," << t2 << "],";
     }
 #endif
 }
