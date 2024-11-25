@@ -3,6 +3,7 @@
 
 #include <Eigen/Core>
 #include <algorithm>
+#include <chrono>
 #include <iostream>
 #include <random>
 #include <sched.h>
@@ -16,6 +17,8 @@
 typedef Eigen::Matrix<MiniDNN::Scalar, Eigen::Dynamic, Eigen::Dynamic> Matrix;
 typedef Eigen::Matrix<MiniDNN::Scalar, Eigen::Dynamic, 1> Vector;
 typedef Eigen::Array<MiniDNN::Scalar, 1, Eigen::Dynamic> RowVector;
+
+typedef std::chrono::high_resolution_clock HRClock;
 
 static std::default_random_engine generator;
 

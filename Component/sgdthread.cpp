@@ -19,9 +19,8 @@ void SGDWorker::run() {
     // this therefore doesn't have to involve busy waiting.
     while (!exec.get_dispatcher()->is_finished()) {
         if (exec.get_dispatcher()->try_start_step(this->id)) {
-#if MEASURE_STEP_TIME
             auto t1 = HRClock::now();
-#endif
+
             // Get batch from batch controller
             int batch_id = exec.get_batcher()->get_batch_ind(this->id);
             const Matrix &b_x = exec.get_batcher()->get_batch_data(batch_id);
@@ -36,9 +35,6 @@ void SGDWorker::run() {
 
             exec.get_dispatcher()->finish_step(this->id);
 
-            // Give loss to monitor
-            exec.get_monitor()->update(this->network->get_loss());
-
             // Apply gradient to model interface 
             // TODO: This section should really be delegated to the ModelInterface
             this->network->set_pointer(global_param_ptr);
@@ -46,36 +42,24 @@ void SGDWorker::run() {
 
             this->network->update_cw(this->optim.get());
 
-#if MEASURE_STEP_TIME
             auto t2 = HRClock::now();
             long x = (t2 - t1).count();
 
+            // Give loss to monitor
+            exec.get_monitor()->update(this->network->get_loss(), x);
+
+#if PRINT_STEP_TIME
+            /* If we want to print all the measured time samples afterwards, we have to store them. */
+
+            // Append new samples, up to vector's reserved size
             if (steptime_samples.size() < N_STEP_TIME_SAMPLES)
                 steptime_samples.push_back(x);
-
-            steptime_n++;
-
-            steptime_min = std::min(steptime_min, x);
-            steptime_max = std::max(steptime_max, x);
-
-            auto new_running_avg = steptime_running_avg + (x - steptime_running_avg) / steptime_n;
-            steptime_sum_of_squares += (x - steptime_running_avg) * (x - new_running_avg);
-
-            steptime_running_avg = new_running_avg;
 #endif
         }
     }
 
-#if MEASURE_STEP_TIME
+#if PRINT_STEP_TIME
     std::this_thread::sleep_for(std::chrono::milliseconds(this->id * 100)); // Don't all print at once
-    // jsoncons::json st_json;
-    // st_json["avg"] = steptime_running_avg;
-    // st_json["variance"] = steptime_sum_of_squares / steptime_n;
-    // st_json["N"] = steptime_n;
-    // st_json["max"] = steptime_max;
-    // st_json["min"] = steptime_min;
-    //
-    // std::cout << st_json << "," << std::endl;
     for (long x : steptime_samples) {
         std::cout << "," << x;
     }

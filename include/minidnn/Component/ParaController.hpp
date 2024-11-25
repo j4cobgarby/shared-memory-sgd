@@ -1,6 +1,7 @@
 #pragma once
 
 #include "modular_components.hpp"
+#include <chrono>
 
 namespace MiniDNN {
 
@@ -16,19 +17,17 @@ public:
 
 class WindowParaController : public ParaController {
 private:
+    /* Probing logic */
     bool is_probing = true;
-    int probe_counter = 0;
     unsigned curr_parallelism;
-
     long phase_start_step = -1;
     int window_btm;
     unsigned best_probe_m;
-    double best_probe_loss;
+    double best_convrate;
 
     /* Used for calculating delta loss */
-    double prev_loss = 0;
-    long prev_time_ms = 0;
-    bool got_prev_sample = false;
+    std::chrono::time_point<HRClock> t_stage_start;
+    double loss_start_of_stage;
 
     const long probe_steps, exec_steps;
     const int window_size;
@@ -81,6 +80,12 @@ public:
     unsigned get_parallelism() override;
 
     void update() override;
+};
+
+// TODO: A ParaController which replays some recorded data of parallelism generated
+// by a different ParaController, with the intention of allowing averaging of runs
+class ReplayParaController : public ParaController {
+
 };
 
 

@@ -5,16 +5,21 @@
 
 namespace MiniDNN {
 
-SlidingWindowMonitor::SlidingWindowMonitor(SystemExecutor &exec, int window_size) : Monitor(exec), window_size(window_size) {
-
+SlidingWindowMonitor::SlidingWindowMonitor(SystemExecutor &exec, const int window_size) : Monitor(exec),
+                                                                                          window_size(window_size) {
+    window.reserve(window_size);
 }
 
-void SlidingWindowMonitor::update(double loss) {
+void SlidingWindowMonitor::update(double loss, long duration_ns) {
     mtx.lock();
     const long s = exec.get_dispatcher()->get_steps_done();
     // std::cout << "[monitor] Finished " << s << " steps.\n";
 
-    this->window.push_back(loss);
+    this->window.emplace_back(
+        loss,
+        last_reported_loss >= 0 ? loss - last_reported_loss : 0.0,
+        duration_ns
+    );
 
     /* Pop first element if the window is full */
     if (this->window.size() > this->window_size) {
@@ -39,7 +44,20 @@ void SlidingWindowMonitor::update(double loss) {
 }
 
 double SlidingWindowMonitor::get_loss_estim() {
-    return std::reduce(this->window.begin(), this->window.end()) / static_cast<double>(this->window.size());
+    double sum = 0;
+    for (const auto [loss, delta, dur] : window) {
+        sum += loss;
+    }
+    return sum / static_cast<double>(this->window.size());
 }
+
+double SlidingWindowMonitor::get_rate_estim() {
+    double rate = 0;
+    for (const auto [loss, delta, dur] : window) {
+        rate += delta / (static_cast<double>(dur) / 1e9);
+    }
+    return rate / static_cast<double>(this->window.size());
+}
+
 
 }

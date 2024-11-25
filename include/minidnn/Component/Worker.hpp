@@ -8,6 +8,7 @@
 #include <memory>
 
 #define MEASURE_STEP_TIME 1
+#define PRINT_STEP_TIME 0
 #define N_STEP_TIME_SAMPLES 2000
 
 namespace MiniDNN {
@@ -19,10 +20,6 @@ protected:
     std::unique_ptr<Optimizer> optim;
 
 #if MEASURE_STEP_TIME
-    long steptime_n = 0;
-    long steptime_running_avg = 0;
-    long steptime_sum_of_squares = 0;
-    long steptime_min = LONG_MAX, steptime_max = 0;
     std::vector<long> steptime_samples;
 #endif
 public:

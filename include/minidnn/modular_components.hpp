@@ -79,13 +79,16 @@ public:
     virtual ~Monitor() = default;
     Monitor(SystemExecutor &exec) : exec(exec) {}
 
-    virtual void update(double loss) = 0;
+    virtual void update(double loss, long duration_ns) = 0;
 
-    /* Get a rough but recent estimate of loss */
+    /* Get a rough estimate of absolute loss, based on SGD training evaluations */
     virtual double get_loss_estim() = 0;
 
-    /* Compute (maybe blocking) a more accurate estimate of model loss */
-    double get_loss_accur() { return this->get_loss_estim(); }
+    /* Get a rough estimate of delta loss per step */
+    virtual double get_rate_estim() = 0;
+
+    /* Compute (maybe blocking) a more accurate estimate of absolute model loss */
+    virtual double get_loss_accur() = 0;
 };
 
 class Worker {

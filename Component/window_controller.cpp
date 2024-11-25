@@ -1,5 +1,6 @@
 #include "modular_components.hpp"
 #include "Component/ParaController.hpp"
+#include "utils.h"
 #include <limits>
 
 namespace MiniDNN {
@@ -13,7 +14,7 @@ WindowParaController::WindowParaController(SystemExecutor &exec, const int num_t
     exec_steps(exec_steps),
     total_workers(num_threads),
     phase_start_step(0),
-    best_probe_loss(std::numeric_limits<double>::infinity()),
+    best_convrate(std::numeric_limits<double>::infinity()),
     window_btm(num_threads/2 - window_size/2) {
     clip_window();
     switch_to_para(this->window_btm);
@@ -50,6 +51,9 @@ void WindowParaController::update() {
         this->phase_start_step = steps_done;
         this->window_btm = this->curr_parallelism - (this->window_size / 2);
 
+        /* Compute the loss at the start of the first probing stage of this phase */
+        this->loss_start_of_stage = exec.get_monitor()->get_loss_accur();
+
         clip_window();
 
         switch_to_para(this->window_btm);
@@ -59,25 +63,37 @@ void WindowParaController::update() {
     }
 
     if (this->is_probing) {
+        /*  Have we just finished a probing stage? */
         if (steps_done - this->phase_start_step >= this->probe_steps) {
-            const double loss = exec.get_monitor()->get_loss_estim();
-            std::cout << "[window_probe] PROBE_DONE @step " << steps_done 
-                << " LOSS=" << loss << std::endl;
+            const double loss_compd = exec.get_monitor()->get_loss_accur();
+            /* Now we have an accurate idea of the current loss, but we want to know how this
+             * compares to the loss at the start of the probing stage, AND then divide that
+             * by how long the stage took! */
 
-            const double convergence_rate = (double)(loss - this->prev_loss);
+            const double stage_dur_ns = (double)(HRClock::now() - this->t_stage_start)
+                .count() // To ns (long)
+                * 1e-9;  // To seconds (double)
+            const double stage_convrate = (loss_compd - this->loss_start_of_stage)
+                / stage_dur_ns;
 
-            if (loss < this->best_probe_loss) {
-                best_probe_loss = loss;
+            /* The next stage uses this stage's end loss as its starting loss */
+            this->loss_start_of_stage = loss_compd;
+
+            std::cout << "[window_probe] PROBE_DONE @step " << steps_done
+                << " LOSS=" << loss_compd << ", Rate=" << stage_convrate << "\n";
+
+            if (stage_convrate < this->best_convrate) {
+                best_convrate = loss_compd;
                 best_probe_m = curr_parallelism;
                 std::cout << "[window_probe] BEST_PROBE m=" << best_probe_m
-                    << " LOSS=" << best_probe_loss << std::endl;
+                    << " Rate=" << best_convrate << std::endl;
             }
 
             if (this->curr_parallelism >= this->window_btm + this->window_size) {
                 /* We've just finished the window, so switch to execution */
                 this->is_probing = false;
                 this->phase_start_step = steps_done;
-                this->best_probe_loss = std::numeric_limits<double>::infinity();
+                this->best_convrate = std::numeric_limits<double>::infinity();
                 switch_to_para(best_probe_m);
 
                 std::cout << "[window_probe] START_EXEC m=" <<
