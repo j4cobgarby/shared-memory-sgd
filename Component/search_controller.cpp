@@ -5,14 +5,17 @@ namespace MiniDNN {
 
 SearchParaController::SearchParaController(SystemExecutor &exec, const int num_threads,
                                            const int search_degree,
-                                           long probe_steps, long exec_steps) :
+                                           long probe_steps, long exec_steps,
+                                           const int window_size) :
     ParaController(exec),
     is_searching(true),
     search_degree(search_degree),
-    high_bound(num_threads),
+    low_bound(num_threads/2 - window_size/2),
+    high_bound(low_bound + window_size - 1),
     probe_steps(probe_steps),
     exec_steps(exec_steps),
-    total_workers(num_threads) {
+    total_workers(num_threads),
+    window_size(window_size) {
 
     curr_parallelism = (unsigned)(0.33 * num_threads);
     phase_start_step = 0;
@@ -58,9 +61,11 @@ void SearchParaController::update() {
     if (!is_searching && steps_done - phase_start_step >= exec_steps) {
         is_searching = true;
         phase_start_step = steps_done;
-        high_bound = total_workers;
-        low_bound = 1;
         probe_counter = 0;
+
+        /* Bound the search region to exec parallelism +/- W/2 */
+        low_bound = curr_parallelism - (window_size/2);
+        high_bound = low_bound + window_size - 1;
 
         switch_to_para(low_bound + (unsigned)(0.25 * (high_bound - low_bound)));
 

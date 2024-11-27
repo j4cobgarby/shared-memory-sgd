@@ -57,8 +57,9 @@ private:
 
     const int total_workers;
 
-    int low_bound = 1;
-    int high_bound;
+    const int window_size;
+
+    int low_bound, high_bound;
 
     // Which number is the first step in the current phase?
     long phase_start_step = -1;
@@ -75,7 +76,7 @@ private:
     void switch_to_para(unsigned m);
 public:
     SearchParaController(SystemExecutor &exec, int num_threads, int search_degree,
-        long probe_steps, long exec_steps);
+        long probe_steps, long exec_steps, int window_size);
 
     unsigned get_parallelism() override;
 

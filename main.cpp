@@ -123,7 +123,7 @@ int main(int argc, char *argv[]) {
     if (o_para_controller == "ternary") {
         exec.set_parallelism(std::make_shared<SearchParaController>
                              (exec, parallelism_limit, o_search_degree,
-                              o_probe_steps, o_exec_steps));
+                              o_probe_steps, o_exec_steps, o_searchwindow_size));
     } else if (o_para_controller == "static") {
         exec.set_parallelism(std::make_shared<StaticParaController>
                              (exec, parallelism_limit));
