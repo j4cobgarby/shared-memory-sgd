@@ -16,3 +16,12 @@ void MiniDNN::SystemExecutor::start() {
     this->workers->start_all();
     this->workers->wait_for_all();
 }
+
+long MiniDNN::SystemExecutor::submit_para_change(long m) {
+    this->mtx_para_vec.lock();
+    this->para_mstimes.push_back(this->elapsed_time());
+    this->para_values.push_back(m);
+    this->mtx_para_vec.unlock();
+    
+    return m;
+}

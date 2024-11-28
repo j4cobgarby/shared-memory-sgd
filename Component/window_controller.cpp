@@ -25,12 +25,8 @@ unsigned WindowParaController::get_parallelism() {
 }
 
 void WindowParaController::switch_to_para(const unsigned m) {
-    this->curr_parallelism = m;
-
-    exec.mtx_para_vec.lock();
-    exec.para_mstimes.push_back(exec.elapsed_time());
-    exec.para_values.push_back(m);
-    exec.mtx_para_vec.unlock();
+    // Report the new m value to the executor, for recording data
+    this->curr_parallelism = this->exec.submit_para_change(m);
 }
 
 void WindowParaController::clip_window() {

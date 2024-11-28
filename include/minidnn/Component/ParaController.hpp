@@ -2,6 +2,7 @@
 
 #include "modular_components.hpp"
 #include <chrono>
+#include <vector>
 
 namespace MiniDNN {
 
@@ -89,6 +90,45 @@ class ReplayParaController : public ParaController {
 
 };
 
+class PatternController : public ParaController {
+public:
+    enum pattern_type {
+        STATIC,
+        RAMP,
+    };
 
+    struct pattern_element {
+        pattern_type type;
+        long for_steps;
+        union {
+            struct {
+                long static_m;
+            };
+            struct {
+                long ramp_m1;
+                long ramp_m2;
+            };
+        } param;
+    };
+protected:
+    std::vector<pattern_element> parse_pattern(const std::string &pattern);
+    void show_pattern();
+
+    std::vector<pattern_element> pattern;
+    long period = 0;
+
+    int last_p_i = -1;
+
+    // How many steps between each time a ramp pattern reports
+    // a loss change to the executor? Doesn't affect the actual parallelism at all,
+    // just how often it's reported for plotting afterwards.
+    const long ramp_report_interval = 128;
+    long last_reported_ramp_m = -1;
+public:
+    PatternController(SystemExecutor &exec, std::string pattern);
+
+    unsigned get_parallelism() override;
+    void update() override;
+};
 
 }

@@ -38,6 +38,7 @@ add_executable(mininn
     Component/evalmonitor.cpp
     Component/systemexecutor.cpp
     Component/window_controller.cpp
+    Component/patterncontroller.cpp
 )
 
 TARGET_LINK_LIBRARIES(mininn pthread)

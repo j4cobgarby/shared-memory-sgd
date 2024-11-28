@@ -204,6 +204,8 @@ public:
     std::vector<double> epoch_losses;
     std::vector<long> epoch_mstimes;
 
+    long submit_para_change(long m);
+
     std::shared_ptr<BatchController> get_batcher() const { return this->batcher; }
     std::shared_ptr<ParaController> get_paracontr() const { return this->parallelism; }
     std::shared_ptr<Dispatcher> get_dispatcher() const { return this->dispatcher; }
