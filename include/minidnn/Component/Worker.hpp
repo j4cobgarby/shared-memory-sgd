@@ -8,8 +8,7 @@
 #include <memory>
 
 #define MEASURE_STEP_TIME 1
-#define PRINT_STEP_TIME 0
-#define N_STEP_TIME_SAMPLES 2000
+#define N_STEP_TIME_SAMPLES 15000
 
 namespace MiniDNN {
 

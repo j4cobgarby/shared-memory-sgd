@@ -8,7 +8,6 @@ EMAMonitor::EMAMonitor(SystemExecutor &exec, double alpha, bool use_mtx)
 }
 
 void EMAMonitor::update(double loss, long duration_ns) {
-    if (use_mtx) mtx.lock();
     const long s = exec.get_dispatcher()->get_steps_done();
     double rate = last_reported_loss >= 0 ? loss - last_reported_loss : 0.0;
     rate /= static_cast<double>(duration_ns) / 1e9;
@@ -23,6 +22,7 @@ void EMAMonitor::update(double loss, long duration_ns) {
     }
 
     /* Allow the parallelism controller to update now */
+    if (use_mtx) mtx.lock();
     this->exec.get_paracontr()->update();
     if (use_mtx) mtx.unlock();
 
