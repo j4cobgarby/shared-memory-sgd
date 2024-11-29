@@ -134,7 +134,7 @@ int main(int argc, char *argv[]) {
     } else if (o_para_controller == "pattern") {
         std::cout << "Constructing pattern controller\n";
         exec.set_parallelism(std::make_shared<PatternController>
-                             (exec, "s 128 1 s 512 10 r 512 1 10"));
+                             (exec, "s 4096 200 s 4096 50 s 2048 10 s 512 200 s 512 50 s 512 200 s 512 50"));
     } else {
         std::cerr << "parallelism controller name unrecognised.\n";
     }

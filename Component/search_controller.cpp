@@ -42,6 +42,8 @@ void SearchParaController::shrink_bounds() {
         std::cerr << "bug: best_probe not in {0,1,2}\n";
         exit(-1);
     }
+
+    clip_window();
 }
 
 void SearchParaController::switch_to_para(const unsigned m) {
@@ -53,6 +55,19 @@ void SearchParaController::switch_to_para(const unsigned m) {
     exec.mtx_para_vec.unlock();
 }
 
+void SearchParaController::clip_window() {
+    /* Clip window to be within bounds */
+    int sz = 1 + this->high_bound - this->low_bound;
+    if (this->low_bound < 1) {
+        this->low_bound = 1;
+        this->high_bound = sz;
+    }
+
+    if (this->high_bound > this->total_workers) {
+        this->high_bound = this->total_workers;
+        this->low_bound = 1 + this->total_workers - sz;
+    }
+}
 
 void SearchParaController::update() {
     const long steps_done = exec.get_dispatcher()->get_steps_done();
@@ -66,10 +81,12 @@ void SearchParaController::update() {
         /* Bound the search region to exec parallelism +/- W/2 */
         low_bound = curr_parallelism - (window_size/2);
         high_bound = low_bound + window_size - 1;
+        clip_window();
 
         switch_to_para(low_bound + (unsigned)(0.25 * (high_bound - low_bound)));
 
         std::cout << "[search] Switched to searching from execution." << std::endl;
+        std::cout << "[search] Whole window is " << low_bound << ".." << high_bound << std::endl;
         return;
     }
 

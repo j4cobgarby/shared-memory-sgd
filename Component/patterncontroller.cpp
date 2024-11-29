@@ -74,7 +74,7 @@ unsigned PatternController::get_parallelism() {
                 ret = pat.param.static_m;
                 if (this->last_p_i != p_i) {
                     this->last_p_i = p_i;
-                    std::cout << "Changing to STATIC " << ret << "\n";
+                    // std::cout << "Changing to STATIC " << ret << "\n";
                     exec.submit_para_change(ret);
                 }
                 return ret;
@@ -93,7 +93,7 @@ unsigned PatternController::get_parallelism() {
                         )) {
                     this->last_p_i = p_i;
                     this->last_reported_ramp_m = ret;
-                    std::cout << "RAMP reporting " << ret << "\n";
+                    // std::cout << "RAMP reporting " << ret << "\n";
                     exec.submit_para_change(ret);
                 }
                 return ret;

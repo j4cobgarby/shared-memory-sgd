@@ -75,6 +75,7 @@ private:
 
     void shrink_bounds();
     void switch_to_para(unsigned m);
+    void clip_window();
 public:
     SearchParaController(SystemExecutor &exec, int num_threads, int search_degree,
         long probe_steps, long exec_steps, int window_size);
