@@ -152,23 +152,18 @@ int main(int argc, char *argv[]) {
 
     exec.start();
 
-    std::cout << "[main()] Starting workers.\n";
-    exec.get_workers()->start_all();
-
-    exec.get_workers()->wait_for_all();
-    std::cout << "[main()] All workers have finished.\n";
-
     json results;
     results["epoch_loss"] = exec.epoch_losses;
     results["para_values"] = exec.para_values;
     results["para_mstimes"] = exec.para_mstimes;
     results["epoch_mstimes"] = exec.epoch_mstimes;
+    results["steptimes"] = exec.steptime_samples;
 
     json meta;
     meta["learning_rate"] = lrate;
     meta["momentum"] = momentum;
     meta["num_threads"] = parallelism_limit;
-    meta["batch_size"] = 32;
+    meta["batch_size"] = 16; // TODO: Get this properly
     meta["num_epochs"] = exec.epoch_target;
     meta["epoch_steps"] = exec.steps_per_epoch;
     meta["probe_steps"] = o_probe_steps;

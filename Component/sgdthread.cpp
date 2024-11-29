@@ -19,10 +19,10 @@ void SGDWorker::run() {
     // this therefore doesn't have to involve busy waiting.
     while (!exec.get_dispatcher()->is_finished()) {
         if (exec.get_dispatcher()->try_start_step(this->id)) {
-            auto t1 = HRClock::now();
+            const auto t1 = HRClock::now();
 
             // Get batch from batch controller
-            int batch_id = exec.get_batcher()->get_batch_ind(this->id);
+            const int batch_id = exec.get_batcher()->get_batch_ind(this->id);
             const Matrix &b_x = exec.get_batcher()->get_batch_data(batch_id);
             const Matrix &b_y = exec.get_batcher()->get_batch_labels(batch_id);
 
@@ -42,13 +42,13 @@ void SGDWorker::run() {
 
             this->network->update_cw(this->optim.get());
 
-            auto t2 = HRClock::now();
-            long x = (t2 - t1).count();
+            const auto t2 = HRClock::now();
+            const long x = (t2 - t1).count();
 
             // Give loss to monitor
             exec.get_monitor()->update(this->network->get_loss(), x);
 
-#if PRINT_STEP_TIME
+#if MEASURE_STEP_TIME
             /* If we want to print all the measured time samples afterwards, we have to store them. */
 
             // Append new samples, up to vector's reserved size
@@ -60,11 +60,12 @@ void SGDWorker::run() {
         }
     }
 
-#if PRINT_STEP_TIME
-    std::this_thread::sleep_for(std::chrono::milliseconds(this->id * 100)); // Don't all print at once
-    for (const auto [t1, t2] : steptime_samples) {
-        std::cout << "[" << t1 << "," << t2 << "],";
-    }
+#if MEASURE_STEP_TIME
+    exec.submit_steptimes(steptime_samples);
+    // std::this_thread::sleep_for(std::chrono::milliseconds(this->id * 100)); // Don't all print at once
+    // for (const auto [t1, t2] : steptime_samples) {
+    //     std::cout << "[" << t1 << "," << t2 << "],";
+    // }
 #endif
 }
 
