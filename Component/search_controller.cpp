@@ -17,7 +17,7 @@ SearchParaController::SearchParaController(SystemExecutor &exec, const int num_t
     total_workers(num_threads),
     window_size(window_size) {
 
-    curr_parallelism = (unsigned)(0.33 * num_threads);
+    switch_to_para(low_bound + (unsigned)(0.25 * (high_bound - low_bound)));
     phase_start_step = 0;
 }
 
@@ -53,6 +53,8 @@ void SearchParaController::switch_to_para(const unsigned m) {
     exec.para_mstimes.push_back(exec.elapsed_time());
     exec.para_values.push_back(m);
     exec.mtx_para_vec.unlock();
+
+    this->t_stage_start = HRClock::now();
 }
 
 void SearchParaController::clip_window() {
@@ -94,12 +96,20 @@ void SearchParaController::update() {
         if (steps_done - phase_start_step >= probe_steps) {
             std::cout << "[search] At step " << steps_done << " we are finshing a probe.\n";
             // We've got to the end of one of the probes
-            if (const double loss = exec.get_monitor()->get_loss_estim(); loss < best_probe_loss) {
+            const double loss_compd = exec.get_monitor()->get_loss_accur();
+            const double stage_dur_s = (double)(HRClock::now() - this->t_stage_start)
+                .count()
+                * 1e-9;
+            const double stage_convrate = (loss_compd - this->loss_start_of_stage)
+                / stage_dur_s;
+            this->loss_start_of_stage = loss_compd;
+
+            if (stage_convrate < best_convrate) {
                 best_probe = probe_counter % 3;
-                best_probe_loss = loss;
+                best_convrate = stage_convrate;
                 best_probe_m = curr_parallelism;
                 std::cout << "New best probe in stage: m=" << best_probe_m << ", ind=" << best_probe
-                    << ", loss=" << best_probe_loss << std::endl;
+                    << ", rate=" << best_convrate << std::endl;
             }
 
             probe_counter++;
@@ -111,7 +121,7 @@ void SearchParaController::update() {
 
                 // Reset the best found loss, since we want to find the best probing loss within one
                 // search level.
-                best_probe_loss = std::numeric_limits<double>::infinity();
+                best_convrate = std::numeric_limits<double>::infinity();
 
                 // If we would start a new search level, but we've done enough now, then we stop
                 // searching and hence begin an execution phase.

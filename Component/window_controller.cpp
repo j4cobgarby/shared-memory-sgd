@@ -27,6 +27,7 @@ unsigned WindowParaController::get_parallelism() {
 void WindowParaController::switch_to_para(const unsigned m) {
     // Report the new m value to the executor, for recording data
     this->curr_parallelism = this->exec.submit_para_change(m);
+    this->t_stage_start = HRClock::now();
 }
 
 void WindowParaController::clip_window() {
@@ -66,11 +67,11 @@ void WindowParaController::update() {
              * compares to the loss at the start of the probing stage, AND then divide that
              * by how long the stage took! */
 
-            const double stage_dur_ns = (double)(HRClock::now() - this->t_stage_start)
+            const double stage_dur_s = (double)(HRClock::now() - this->t_stage_start)
                 .count() // To ns (long)
                 * 1e-9;  // To seconds (double)
             const double stage_convrate = (loss_compd - this->loss_start_of_stage)
-                / stage_dur_ns;
+                / stage_dur_s;
 
             /* The next stage uses this stage's end loss as its starting loss */
             this->loss_start_of_stage = loss_compd;

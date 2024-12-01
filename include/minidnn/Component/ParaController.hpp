@@ -26,7 +26,7 @@ private:
     unsigned best_probe_m;
     double best_convrate;
 
-    /* Used for calculating delta loss */
+    /* Used for calculating delta loss/T */
     std::chrono::time_point<HRClock> t_stage_start;
     double loss_start_of_stage;
 
@@ -69,7 +69,11 @@ private:
 
     int best_probe = 0; // in {0,1,2}
     unsigned best_probe_m = 0;
-    double best_probe_loss = std::numeric_limits<double>::infinity();
+    double best_convrate = std::numeric_limits<double>::infinity();
+
+    /* Used for calculating delta loss/T */
+    std::chrono::time_point<HRClock> t_stage_start;
+    double loss_start_of_stage;
 
     unsigned curr_parallelism = 0;
 

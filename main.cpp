@@ -26,9 +26,10 @@ int main(int argc, char *argv[]) {
     // Default parameters
     std::string dataset_name = "CIFAR10";
     const int seed = 1337;
-    double lrate = 0.005;
-    double momentum = 0;
-    int parallelism_limit = 10;
+    double o_lrate = 0.005;
+    double o_momentum = 0;
+    int o_parallelism_limit = 10;
+    int o_batch_size = 16;
 
     // o_ variables are option parsing related.
 
@@ -47,13 +48,16 @@ int main(int argc, char *argv[]) {
     while ((c = getopt(argc, argv, "n:l:u:e:s:P:p:x:d:w:F:")) != -1) {
         switch (c) {
         case 'n':
-            parallelism_limit = std::stoi(optarg);
+            o_parallelism_limit = std::stoi(optarg);
             break;
         case 'l':
-            lrate = std::stod(optarg);
+            o_lrate = std::stod(optarg);
             break;
         case 'u':
-            momentum = std::stod(optarg);
+            o_momentum = std::stod(optarg);
+            break;
+        case 'b':
+            o_batch_size = std::stoi(optarg);
             break;
         case 'e':
             exec.epoch_target = std::stol(optarg);
@@ -90,7 +94,7 @@ int main(int argc, char *argv[]) {
     }
 
     NetworkTopology network(new ParameterContainer());
-    auto *batcher = new SimpleBatchController(exec, dataset_name, 16);
+    auto *batcher = new SimpleBatchController(exec, dataset_name, o_batch_size);
 
     if (dataset_name == "CIFAR10" || dataset_name == "CIFAR100") {
         network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
@@ -115,21 +119,22 @@ int main(int argc, char *argv[]) {
     network.set_output(new MultiClassEntropy());
     network.init(0, 0.01, seed);
 
-    auto *model = new StandardModelInterface(exec, network, lrate, momentum, seed);
+    auto *model = new StandardModelInterface(exec, network, o_lrate, o_momentum, seed);
     // auto *dispatcher = new SemiSyncDispatcher(exec, 450);
     auto *dispatcher = new AsyncDispatcher(exec);
-    auto *monitor = new SlidingWindowMonitor(exec, 16);
+    // auto *monitor = new SlidingWindowMonitor(exec, 16);
+    auto *monitor = new EMAMonitor(exec, 0.7, true);
 
     if (o_para_controller == "ternary") {
         exec.set_parallelism(std::make_shared<SearchParaController>
-                             (exec, parallelism_limit, o_search_degree,
+                             (exec, o_parallelism_limit, o_search_degree,
                               o_probe_steps, o_exec_steps, o_searchwindow_size));
     } else if (o_para_controller == "static") {
         exec.set_parallelism(std::make_shared<StaticParaController>
-                             (exec, parallelism_limit));
+                             (exec, o_parallelism_limit));
     } else if (o_para_controller == "window") {
         exec.set_parallelism(std::make_shared<WindowParaController>
-                             (exec, parallelism_limit, o_searchwindow_size,
+                             (exec, o_parallelism_limit, o_searchwindow_size,
                               o_probe_steps, o_exec_steps));
     } else if (o_para_controller == "pattern") {
         std::cout << "Constructing pattern controller\n";
@@ -147,7 +152,7 @@ int main(int argc, char *argv[]) {
     /* This is created after the rest of the executor components are in place because
      * it uses the model interface when initialising the workers.
      * TODO: There must be a better way? */
-    auto *workerpool = new ThreadWorkerPool<SGDWorker>(exec, parallelism_limit, false);
+    auto *workerpool = new ThreadWorkerPool<SGDWorker>(exec, o_parallelism_limit, false);
     exec.set_workers(std::shared_ptr<WorkerPool>(workerpool));
 
     exec.start();
@@ -160,10 +165,10 @@ int main(int argc, char *argv[]) {
     results["steptimes"] = exec.steptime_samples;
 
     json meta;
-    meta["learning_rate"] = lrate;
-    meta["momentum"] = momentum;
-    meta["num_threads"] = parallelism_limit;
-    meta["batch_size"] = 16; // TODO: Get this properly
+    meta["learning_rate"] = o_lrate;
+    meta["momentum"] = o_momentum;
+    meta["num_threads"] = o_parallelism_limit;
+    meta["batch_size"] = o_batch_size;
     meta["num_epochs"] = exec.epoch_target;
     meta["epoch_steps"] = exec.steps_per_epoch;
     meta["probe_steps"] = o_probe_steps;
