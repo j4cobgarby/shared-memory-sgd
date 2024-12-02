@@ -11,7 +11,7 @@ public:
     AsyncDispatcher(SystemExecutor &exec) : Dispatcher(exec) {}
 
     bool try_start_step(long worker_id) override;
-    bool finish_step(long worker_id) override;
+    long finish_step(long worker_id) override;
     bool is_finished() override;
 };
 
@@ -31,7 +31,7 @@ public:
         async_period(P) {}
 
     bool try_start_step(long worker_id) override;
-    bool finish_step(long worker_id) override;
+    long finish_step(long worker_id) override;
     bool is_finished() override;
 };
 

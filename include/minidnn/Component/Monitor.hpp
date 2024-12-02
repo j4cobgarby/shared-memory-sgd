@@ -23,7 +23,7 @@ private:
 public:
     SlidingWindowMonitor(SystemExecutor &exec, int window_size);
 
-    void update(double loss, long duration_ns) override;
+    void update(double loss, long duration_ns, long step) override;
     double get_loss_estim() override;
     double get_rate_estim() override;
     double get_loss_accur() override { return get_loss_estim(); }
@@ -43,7 +43,7 @@ private:
 public:
     EMAMonitor(SystemExecutor &exec, double alpha, bool use_mtx);
 
-    void update(double loss, long duration_ns) override;
+    void update(double loss, long duration_ns, long step) override;
     double get_loss_estim() override;
     double get_rate_estim() override;
     double get_loss_accur() override { return get_loss_estim(); }
@@ -70,7 +70,7 @@ public:
     EvalMonitor(SystemExecutor &exec, double alpha, long eval_interval,
                 int eval_batch_size, bool use_mtx);
 
-    void update(double loss, long duration_ns) override;
+    void update(double loss, long duration_ns, long step) override;
     double get_loss_estim() override;
     double get_rate_estim() override;
     /* Properly calculate the training loss */
