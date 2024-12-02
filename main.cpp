@@ -45,7 +45,7 @@ int main(int argc, char *argv[]) {
     SystemExecutor exec(500, 3125);
 
     int c;
-    while ((c = getopt(argc, argv, "n:l:u:e:s:P:p:x:d:w:F:")) != -1) {
+    while ((c = getopt(argc, argv, "n:l:u:b:e:s:P:p:x:d:w:F:")) != -1) {
         switch (c) {
         case 'n':
             o_parallelism_limit = std::stoi(optarg);
@@ -124,6 +124,7 @@ int main(int argc, char *argv[]) {
     auto *dispatcher = new AsyncDispatcher(exec);
     // auto *monitor = new SlidingWindowMonitor(exec, 16);
     auto *monitor = new EMAMonitor(exec, 0.7, true);
+    // auto *monitor = new EvalMonitor(exec, 0.7, -1, 2048, true);
 
     if (o_para_controller == "ternary") {
         exec.set_parallelism(std::make_shared<SearchParaController>

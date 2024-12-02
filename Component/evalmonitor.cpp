@@ -36,7 +36,7 @@ void EvalMonitor::update(double loss, long duration_ns) {
 
         std::cout << "[monitor] Completed epoch " << s / exec.steps_per_epoch
                   << ". Evaluated Loss = " << avg_loss
-                  << ". EMA Loss = " << ema_loss;
+                  << ". EMA Loss = " << ema_loss << std::endl;
 
         exec.mtx_epoch_vec.lock();
         exec.epoch_losses.push_back(avg_loss);
