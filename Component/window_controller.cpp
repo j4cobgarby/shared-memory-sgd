@@ -40,7 +40,7 @@ void WindowParaController::clip_window() {
 }
 
 /* This gets called when the monitor receives an update */
-void WindowParaController::update(long step) {
+void WindowParaController::update(const long step) {
     if (!this->is_probing && step - this->phase_start_step >= this->exec_steps) {
         this->is_probing = true;
         this->phase_start_step = step;
@@ -58,8 +58,14 @@ void WindowParaController::update(long step) {
     }
 
     if (this->is_probing) {
+
+        this->mtx.lock();
+        const bool should_progress = step - this->phase_start_step >= this->probe_steps;
+        this->phase_start_step = step;
+        this->mtx.unlock();
+
         /*  Have we just finished a probing stage? */
-        if (step - this->phase_start_step >= this->probe_steps) {
+        if (should_progress) {
             const double loss_compd = exec.get_monitor()->get_loss_accur();
             /* Now we have an accurate idea of the current loss, but we want to know how this
              * compares to the loss at the start of the probing stage, AND then divide that
@@ -87,7 +93,6 @@ void WindowParaController::update(long step) {
             if (this->curr_parallelism >= this->window_btm + this->window_size) {
                 /* We've just finished the window, so switch to execution */
                 this->is_probing = false;
-                this->phase_start_step = step;
                 this->best_convrate = std::numeric_limits<double>::infinity();
                 switch_to_para(best_probe_m);
 
@@ -98,7 +103,6 @@ void WindowParaController::update(long step) {
             }
 
             switch_to_para(this->curr_parallelism + 1);
-            this->phase_start_step = step;
             std::cout << "[window_probe] PROBE_START m=" <<
                 this->curr_parallelism << std::endl;
         }

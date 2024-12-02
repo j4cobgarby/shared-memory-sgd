@@ -71,7 +71,7 @@ void SearchParaController::clip_window() {
     }
 }
 
-void SearchParaController::update(long step) {
+void SearchParaController::update(const long step) {
     // Should we be switching to searching now?
     if (!is_searching && step - phase_start_step >= exec_steps) {
         is_searching = true;
@@ -90,8 +90,16 @@ void SearchParaController::update(long step) {
         return;
     }
 
+
     if (is_searching) {
-        if (step - phase_start_step >= probe_steps) {
+        // We need only one thread at a time to check if the stage should progress, otherwise
+        // consecutive steps (all > stage duration) can trigger individual progressions.
+        this->mtx.lock();
+        const bool should_progress = step - this->phase_start_step >= this->probe_steps;
+        this->phase_start_step = step;
+        this->mtx.unlock();
+
+        if (should_progress) {
             std::cout << "[search] At step " << step << " we are finshing a probe.\n";
             // We've got to the end of one of the probes
             const double loss_compd = exec.get_monitor()->get_loss_accur();
@@ -125,7 +133,6 @@ void SearchParaController::update(long step) {
                 // searching and hence begin an execution phase.
                 if (probe_counter == 3 * search_degree) {
                     is_searching = false;
-                    phase_start_step = step;
                     switch_to_para(best_probe_m);
 
                     std::cout << "[search] Switched to execution with m=" << curr_parallelism << std::endl;
@@ -144,8 +151,6 @@ void SearchParaController::update(long step) {
                 switch_to_para(low_bound + (unsigned)(0.75 * (high_bound - low_bound)));
                 std::cout << "[search] Switched to high probe with m=" << curr_parallelism << std::endl;
             }
-
-            phase_start_step = step;
         }
     }
 }
