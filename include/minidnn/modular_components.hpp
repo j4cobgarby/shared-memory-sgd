@@ -60,13 +60,13 @@ public:
 class Dispatcher {
 protected:
     SystemExecutor &exec;
-    long steps_done = 0;
+    std::atomic<long> steps_done = 0;
 public:
     virtual ~Dispatcher() = default;
     Dispatcher(SystemExecutor &exec) : exec(exec) {}
 
     virtual bool try_start_step(long worker_id) = 0;
-    virtual bool finish_step(long worker_id) = 0;
+    virtual long finish_step(long worker_id) = 0;
     virtual bool is_finished() = 0;
 
     long get_steps_done() const { return steps_done; }
@@ -79,7 +79,7 @@ public:
     virtual ~Monitor() = default;
     Monitor(SystemExecutor &exec) : exec(exec) {}
 
-    virtual void update(double loss, long duration_ns) = 0;
+    virtual void update(double loss, long duration_ns, long step) = 0;
 
     /* Get a rough estimate of absolute loss, based on SGD training evaluations */
     virtual double get_loss_estim() = 0;

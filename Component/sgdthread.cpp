@@ -33,7 +33,7 @@ void SGDWorker::run() {
             this->network->forward(b_x);
             this->network->backprop(b_x, b_y);
 
-            exec.get_dispatcher()->finish_step(this->id);
+            const long finished_step = exec.get_dispatcher()->finish_step(this->id);
 
             // Apply gradient to model interface 
             // TODO: This section should really be delegated to the ModelInterface
@@ -46,7 +46,7 @@ void SGDWorker::run() {
             const long x = (t2 - t1).count();
 
             // Give loss to monitor
-            exec.get_monitor()->update(this->network->get_loss(), x);
+            exec.get_monitor()->update(this->network->get_loss(), x, finished_step);
 
 #if MEASURE_STEP_TIME
             /* If we want to print all the measured time samples afterwards, we have to store them. */

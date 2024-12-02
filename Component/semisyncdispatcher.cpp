@@ -14,7 +14,7 @@ bool SemiSyncDispatcher::try_start_step(long worker_id) {
     }
 }
 
-bool SemiSyncDispatcher::finish_step(long worker_id) {
+long SemiSyncDispatcher::finish_step(long worker_id) {
     this->steps_done++;
 
     if (ends_counter.fetch_add(1) >= async_period - 1) {

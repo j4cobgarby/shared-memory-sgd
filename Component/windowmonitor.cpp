@@ -10,11 +10,7 @@ SlidingWindowMonitor::SlidingWindowMonitor(SystemExecutor &exec, const int windo
     window.reserve(window_size);
 }
 
-void SlidingWindowMonitor::update(double loss, long duration_ns) {
-    mtx.lock();
-    const long s = exec.get_dispatcher()->get_steps_done();
-    // std::cout << "[monitor] Finished " << s << " steps.\n";
-
+void SlidingWindowMonitor::update(double loss, long duration_ns, long step) {
     this->window.emplace_back(
         loss,
         last_reported_loss >= 0 ? loss - last_reported_loss : 0.0,
@@ -27,14 +23,15 @@ void SlidingWindowMonitor::update(double loss, long duration_ns) {
     }
 
     /* Allow the parallelism controller to update now */
+    mtx.lock();
     this->exec.get_paracontr()->update();
     mtx.unlock();
 
-    if (s % exec.steps_per_epoch == 0) {
+    if (step % exec.steps_per_epoch == 0) {
         const double avg_loss = this->get_loss_estim();
 
-        // std::cout << "[monitor] Completed epoch " << s / exec.steps_per_epoch
-        //           << ". Loss = " << avg_loss << std::endl;
+        std::cout << "[monitor] Completed epoch " << step / exec.steps_per_epoch
+                  << ". Loss = " << avg_loss << std::endl;
 
         exec.mtx_epoch_vec.lock();
         exec.epoch_losses.push_back(avg_loss);

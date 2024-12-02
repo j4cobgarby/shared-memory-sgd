@@ -10,9 +10,8 @@ bool AsyncDispatcher::try_start_step(long worker_id) {
     }
 }
 
-bool AsyncDispatcher::finish_step(long worker_id) {
-    this->steps_done++;
-    return !this->is_finished();
+long AsyncDispatcher::finish_step(long worker_id) {
+    return this->steps_done.fetch_add(1);
 }
 
 bool AsyncDispatcher::is_finished() {

@@ -7,8 +7,7 @@ EMAMonitor::EMAMonitor(SystemExecutor &exec, double alpha, bool use_mtx)
     : Monitor(exec), alpha(alpha), use_mtx(use_mtx) { 
 }
 
-void EMAMonitor::update(double loss, long duration_ns) {
-    const long s = exec.get_dispatcher()->get_steps_done();
+void EMAMonitor::update(double loss, long duration_ns, long step) {
     double rate = last_reported_loss >= 0 ? loss - last_reported_loss : 0.0;
     rate /= static_cast<double>(duration_ns) / 1e9;
 
@@ -26,11 +25,11 @@ void EMAMonitor::update(double loss, long duration_ns) {
     this->exec.get_paracontr()->update();
     if (use_mtx) mtx.unlock();
 
-    if (s % exec.steps_per_epoch == 0) {
+    if (step > 0 && step % exec.steps_per_epoch == 0) {
         const double avg_loss = this->get_loss_estim();
 
-        std::cout << "[monitor] Completed epoch " << s / exec.steps_per_epoch
-                  << ". Loss = " << avg_loss << std::endl;
+        std::cout << "[monitor] Completed epoch " << step / exec.steps_per_epoch
+                  << ". EMA Loss = " << avg_loss << std::endl;
 
         exec.mtx_epoch_vec.lock();
         exec.epoch_losses.push_back(avg_loss);

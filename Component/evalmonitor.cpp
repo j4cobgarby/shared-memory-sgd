@@ -11,10 +11,9 @@ EvalMonitor::EvalMonitor(SystemExecutor &exec, double alpha, long eval_interval,
     alpha(alpha), eval_interval(eval_interval) {
 }
 
-void EvalMonitor::update(double loss, long duration_ns) {
+void EvalMonitor::update(double loss, long duration_ns, long step) {
     if (exec.get_dispatcher()->is_finished()) return;
-    if (use_mtx) update_mtx.lock();
-    const long s = exec.get_dispatcher()->get_steps_done();
+    //const long s = exec.get_dispatcher()->get_steps_done(); // TODO: Can be replaced with FAA?
     double rate = last_reported_loss >= 0 ? loss - last_reported_loss : 0.0;
     rate /= static_cast<double>(duration_ns) / 1e9;
 
@@ -28,13 +27,14 @@ void EvalMonitor::update(double loss, long duration_ns) {
     }
 
     /* Allow the parallelism controller to update now */
+    if (use_mtx) update_mtx.lock();
     this->exec.get_paracontr()->update();
     if (use_mtx) update_mtx.unlock();
 
-    if (s % exec.steps_per_epoch == 0) {
+    if (step % exec.steps_per_epoch == 0) {
         const double avg_loss = this->get_loss_accur();
 
-        std::cout << "[monitor] Completed epoch " << s / exec.steps_per_epoch
+        std::cout << "[monitor] Completed epoch " << step / exec.steps_per_epoch
                   << ". Evaluated Loss = " << avg_loss
                   << ". EMA Loss = " << ema_loss << std::endl;
 
