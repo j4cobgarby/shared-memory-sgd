@@ -22,7 +22,7 @@ void EMAMonitor::update(double loss, long duration_ns, long step) {
 
     /* Allow the parallelism controller to update now */
     if (use_mtx) mtx.lock();
-    this->exec.get_paracontr()->update();
+    this->exec.get_paracontr()->update(step);
     if (use_mtx) mtx.unlock();
 
     if (step > 0 && step % exec.steps_per_epoch == 0) {

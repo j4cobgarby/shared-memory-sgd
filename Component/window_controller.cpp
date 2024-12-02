@@ -40,12 +40,10 @@ void WindowParaController::clip_window() {
 }
 
 /* This gets called when the monitor receives an update */
-void WindowParaController::update() {
-    const long steps_done = exec.get_dispatcher()->get_steps_done();
-
-    if (!this->is_probing && steps_done - this->phase_start_step >= this->exec_steps) {
+void WindowParaController::update(long step) {
+    if (!this->is_probing && step - this->phase_start_step >= this->exec_steps) {
         this->is_probing = true;
-        this->phase_start_step = steps_done;
+        this->phase_start_step = step;
         this->window_btm = this->curr_parallelism - (this->window_size / 2);
 
         /* Compute the loss at the start of the first probing stage of this phase */
@@ -61,7 +59,7 @@ void WindowParaController::update() {
 
     if (this->is_probing) {
         /*  Have we just finished a probing stage? */
-        if (steps_done - this->phase_start_step >= this->probe_steps) {
+        if (step - this->phase_start_step >= this->probe_steps) {
             const double loss_compd = exec.get_monitor()->get_loss_accur();
             /* Now we have an accurate idea of the current loss, but we want to know how this
              * compares to the loss at the start of the probing stage, AND then divide that
@@ -76,7 +74,7 @@ void WindowParaController::update() {
             /* The next stage uses this stage's end loss as its starting loss */
             this->loss_start_of_stage = loss_compd;
 
-            std::cout << "[window_probe] PROBE_DONE @step " << steps_done
+            std::cout << "[window_probe] PROBE_DONE @step " << step
                 << " LOSS=" << loss_compd << ", Rate=" << stage_convrate << "\n";
 
             if (stage_convrate < this->best_convrate) {
@@ -89,7 +87,7 @@ void WindowParaController::update() {
             if (this->curr_parallelism >= this->window_btm + this->window_size) {
                 /* We've just finished the window, so switch to execution */
                 this->is_probing = false;
-                this->phase_start_step = steps_done;
+                this->phase_start_step = step;
                 this->best_convrate = std::numeric_limits<double>::infinity();
                 switch_to_para(best_probe_m);
 
@@ -100,7 +98,7 @@ void WindowParaController::update() {
             }
 
             switch_to_para(this->curr_parallelism + 1);
-            this->phase_start_step = steps_done;
+            this->phase_start_step = step;
             std::cout << "[window_probe] PROBE_START m=" <<
                 this->curr_parallelism << std::endl;
         }

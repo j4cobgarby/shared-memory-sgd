@@ -123,8 +123,8 @@ int main(int argc, char *argv[]) {
     // auto *dispatcher = new SemiSyncDispatcher(exec, 450);
     auto *dispatcher = new AsyncDispatcher(exec);
     // auto *monitor = new SlidingWindowMonitor(exec, 16);
-    // auto *monitor = new EMAMonitor(exec, 0.7, true);
-    auto *monitor = new EvalMonitor(exec, 0.7, -1, 2048, true);
+    // auto *monitor = new EMAMonitor(exec, 0.7, false);
+    auto *monitor = new EvalMonitor(exec, 0.7, -1, 2048, false);
 
     if (o_para_controller == "ternary") {
         exec.set_parallelism(std::make_shared<SearchParaController>
