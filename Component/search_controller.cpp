@@ -71,13 +71,11 @@ void SearchParaController::clip_window() {
     }
 }
 
-void SearchParaController::update() {
-    const long steps_done = exec.get_dispatcher()->get_steps_done();
-
+void SearchParaController::update(long step) {
     // Should we be switching to searching now?
-    if (!is_searching && steps_done - phase_start_step >= exec_steps) {
+    if (!is_searching && step - phase_start_step >= exec_steps) {
         is_searching = true;
-        phase_start_step = steps_done;
+        phase_start_step = step;
         probe_counter = 0;
 
         /* Bound the search region to exec parallelism +/- W/2 */
@@ -93,8 +91,8 @@ void SearchParaController::update() {
     }
 
     if (is_searching) {
-        if (steps_done - phase_start_step >= probe_steps) {
-            std::cout << "[search] At step " << steps_done << " we are finshing a probe.\n";
+        if (step - phase_start_step >= probe_steps) {
+            std::cout << "[search] At step " << step << " we are finshing a probe.\n";
             // We've got to the end of one of the probes
             const double loss_compd = exec.get_monitor()->get_loss_accur();
             const double stage_dur_s = (double)(HRClock::now() - this->t_stage_start)
@@ -127,7 +125,7 @@ void SearchParaController::update() {
                 // searching and hence begin an execution phase.
                 if (probe_counter == 3 * search_degree) {
                     is_searching = false;
-                    phase_start_step = steps_done;
+                    phase_start_step = step;
                     switch_to_para(best_probe_m);
 
                     std::cout << "[search] Switched to execution with m=" << curr_parallelism << std::endl;
@@ -147,7 +145,7 @@ void SearchParaController::update() {
                 std::cout << "[search] Switched to high probe with m=" << curr_parallelism << std::endl;
             }
 
-            phase_start_step = steps_done;
+            phase_start_step = step;
         }
     }
 }

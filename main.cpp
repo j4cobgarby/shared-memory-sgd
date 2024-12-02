@@ -150,14 +150,13 @@ int main(int argc, char *argv[]) {
     exec.set_model(std::shared_ptr<ModelInterface>(model));
     exec.set_batcher(std::shared_ptr<BatchController>(batcher));
     exec.set_dispatcher(std::shared_ptr<Dispatcher>(dispatcher));
-    // exec.set_monitor(std::shared_ptr<Monitor>(monitor));
 
     if ("window" == o_monitor) {
         exec.set_monitor(std::make_shared<SlidingWindowMonitor>(exec, 16));
     } else if ("ema" == o_monitor) {
-        exec.set_monitor(std::make_shared<EMAMonitor>(exec, 0.7, true));
+        exec.set_monitor(std::make_shared<EMAMonitor>(exec, 0.7, false));
     } else if ("eval" == o_monitor) {
-        exec.set_monitor(std::make_shared<EvalMonitor>(exec, 0.7, -1, 512, true));
+        exec.set_monitor(std::make_shared<EvalMonitor>(exec, 0.7, -1, 512, false));
     } else {
         std::cerr << "Unrecognised monitor name: " << o_monitor << "\n";
         return -1;

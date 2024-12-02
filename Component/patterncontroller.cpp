@@ -106,8 +106,7 @@ unsigned PatternController::get_parallelism() {
     return 1;
 }
 
-void PatternController::update() {
-    return;
+void PatternController::update(long step) {
 }
 
 }

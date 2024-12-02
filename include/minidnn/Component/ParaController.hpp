@@ -13,7 +13,7 @@ private:
 public:
     StaticParaController(SystemExecutor &exec, unsigned m) : ParaController(exec), m(m) {}
     unsigned get_parallelism() override { return m; }
-    void update() override {}
+    void update(long step) override {}
 };
 
 class WindowParaController : public ParaController {
@@ -40,7 +40,7 @@ public:
     WindowParaController(SystemExecutor &exec, int num_threads, int window_size, long probe_steps, long exec_steps);
 
     unsigned get_parallelism() override;
-    void update() override;
+    void update(long step) override;
 };
 
 class SearchParaController : public ParaController {
@@ -86,7 +86,7 @@ public:
 
     unsigned get_parallelism() override;
 
-    void update() override;
+    void update(long step) override;
 };
 
 // TODO: A ParaController which replays some recorded data of parallelism generated
@@ -133,7 +133,7 @@ public:
     PatternController(SystemExecutor &exec, std::string pattern);
 
     unsigned get_parallelism() override;
-    void update() override;
+    void update(long step) override;
 };
 
 }

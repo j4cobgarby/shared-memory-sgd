@@ -47,6 +47,7 @@ public:
 class ParaController {
 protected:
     SystemExecutor &exec;
+    std::mutex mtx;
 public:
     virtual ~ParaController() = default;
     ParaController(SystemExecutor &exec) : exec(exec) {}
@@ -54,7 +55,7 @@ public:
 
     /* This is called whenever the monitor gets a new update. This allows the dispatcher to update
      * its parallelism in whatever way it wants to then. */
-    virtual void update() = 0;
+    virtual void update(long step) = 0;
 };
 
 class Dispatcher {

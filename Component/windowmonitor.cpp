@@ -24,7 +24,7 @@ void SlidingWindowMonitor::update(double loss, long duration_ns, long step) {
 
     /* Allow the parallelism controller to update now */
     mtx.lock();
-    this->exec.get_paracontr()->update();
+    this->exec.get_paracontr()->update(step);
     mtx.unlock();
 
     if (step % exec.steps_per_epoch == 0) {

@@ -13,7 +13,6 @@ EvalMonitor::EvalMonitor(SystemExecutor &exec, double alpha, long eval_interval,
 
 void EvalMonitor::update(double loss, long duration_ns, long step) {
     if (exec.get_dispatcher()->is_finished()) return;
-    //const long s = exec.get_dispatcher()->get_steps_done(); // TODO: Can be replaced with FAA?
     double rate = last_reported_loss >= 0 ? loss - last_reported_loss : 0.0;
     rate /= static_cast<double>(duration_ns) / 1e9;
 
@@ -28,7 +27,7 @@ void EvalMonitor::update(double loss, long duration_ns, long step) {
 
     /* Allow the parallelism controller to update now */
     if (use_mtx) update_mtx.lock();
-    this->exec.get_paracontr()->update();
+    this->exec.get_paracontr()->update(step);
     if (use_mtx) update_mtx.unlock();
 
     if (step % exec.steps_per_epoch == 0) {
