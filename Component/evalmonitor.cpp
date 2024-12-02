@@ -12,8 +12,8 @@ EvalMonitor::EvalMonitor(SystemExecutor &exec, double alpha, long eval_interval,
 }
 
 void EvalMonitor::update(double loss, long duration_ns) {
-    if (use_mtx) update_mtx.lock();
     if (exec.get_dispatcher()->is_finished()) return;
+    if (use_mtx) update_mtx.lock();
     const long s = exec.get_dispatcher()->get_steps_done();
     double rate = last_reported_loss >= 0 ? loss - last_reported_loss : 0.0;
     rate /= static_cast<double>(duration_ns) / 1e9;
