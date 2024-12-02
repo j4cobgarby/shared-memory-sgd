@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
     // o_ variables are option parsing related.
 
     std::string o_para_controller = "static";
+    std::string o_monitor = "ema";
 
     // Parameters for if we make a search controller
     // (o_*_steps also used for window controller)
@@ -45,7 +46,7 @@ int main(int argc, char *argv[]) {
     SystemExecutor exec(500, 3125);
 
     int c;
-    while ((c = getopt(argc, argv, "n:l:u:b:e:s:P:p:x:d:w:F:")) != -1) {
+    while ((c = getopt(argc, argv, "n:l:u:b:e:s:P:M:p:x:d:w:F:")) != -1) {
         switch (c) {
         case 'n':
             o_parallelism_limit = std::stoi(optarg);
@@ -67,6 +68,9 @@ int main(int argc, char *argv[]) {
             break;
         case 'P': // Parallelism strategy
             o_para_controller = std::string(optarg);
+            break;
+        case 'M':
+            o_monitor = std::string(optarg);
             break;
         case 'p': // probing steps
             o_probe_steps = std::stoi(optarg);
@@ -122,9 +126,6 @@ int main(int argc, char *argv[]) {
     auto *model = new StandardModelInterface(exec, network, o_lrate, o_momentum, seed);
     // auto *dispatcher = new SemiSyncDispatcher(exec, 450);
     auto *dispatcher = new AsyncDispatcher(exec);
-    // auto *monitor = new SlidingWindowMonitor(exec, 16);
-    // auto *monitor = new EMAMonitor(exec, 0.7, true);
-    auto *monitor = new EvalMonitor(exec, 0.7, -1, 2048, true);
 
     if (o_para_controller == "ternary") {
         exec.set_parallelism(std::make_shared<SearchParaController>
@@ -143,12 +144,24 @@ int main(int argc, char *argv[]) {
                              (exec, "s 4096 200 s 4096 50 s 2048 10 s 512 200 s 512 50 s 512 200 s 512 50"));
     } else {
         std::cerr << "parallelism controller name unrecognised.\n";
+        return -1;
     }
 
     exec.set_model(std::shared_ptr<ModelInterface>(model));
     exec.set_batcher(std::shared_ptr<BatchController>(batcher));
     exec.set_dispatcher(std::shared_ptr<Dispatcher>(dispatcher));
-    exec.set_monitor(std::shared_ptr<Monitor>(monitor));
+    // exec.set_monitor(std::shared_ptr<Monitor>(monitor));
+
+    if ("window" == o_monitor) {
+        exec.set_monitor(std::make_shared<SlidingWindowMonitor>(exec, 16));
+    } else if ("ema" == o_monitor) {
+        exec.set_monitor(std::make_shared<EMAMonitor>(exec, 0.7, true));
+    } else if ("eval" == o_monitor) {
+        exec.set_monitor(std::make_shared<EvalMonitor>(exec, 0.7, -1, 512, true));
+    } else {
+        std::cerr << "Unrecognised monitor name: " << o_monitor << "\n";
+        return -1;
+    }
 
     /* This is created after the rest of the executor components are in place because
      * it uses the model interface when initialising the workers.
@@ -176,6 +189,7 @@ int main(int argc, char *argv[]) {
     meta["exec_steps"] = o_exec_steps;
     meta["search_degree"] = o_search_degree;
     meta["para_ctrl"] = o_para_controller;
+    meta["monitor"] = o_monitor;
     meta["window_size"] = o_searchwindow_size;
 
     results["meta"] = meta;

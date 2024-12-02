@@ -7,7 +7,7 @@
 #include <climits>
 #include <memory>
 
-#define MEASURE_STEP_TIME 1
+#define MEASURE_STEP_TIME 0
 #define N_STEP_TIME_SAMPLES 15000
 
 namespace MiniDNN {
@@ -32,6 +32,7 @@ public:
 
         steptime_samples.reserve(N_STEP_TIME_SAMPLES);
 #endif
+        set_cpu(id);
     }
 
     void run() override;

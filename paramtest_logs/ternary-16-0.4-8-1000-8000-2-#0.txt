@@ -1,0 +1,227 @@
+[CIFAR10] Successfully loaded samples and labels.
+	n_training = 50000
+	x columns = 50000
+[batch] Created 3125 batches.
+[CIFAR10] Successfully loaded samples and labels.
+	n_training = 50000
+	x columns = 50000
+[batch] Created 25 batches.
+Creating 512 workers.
+Created all workers.
+[search] At step 1000 we are finshing a probe.
+[monitor] Completed epoch 0. Evaluated Loss = 2.30248. EMA Loss = 2.30219
+New best probe in stage: m=253, ind=0, rate=0.655948
+[search] Switched to mid probe with m=255
+[search] At step 2000 we are finshing a probe.
+New best probe in stage: m=255, ind=1, rate=-0.000521204
+[search] Switched to high probe with m=257
+[search] At step 3000 we are finshing a probe.
+[search] Switched to low probe with m=253
+[search] At step 4001 we are finshing a probe.
+[monitor] Completed epoch 1. Evaluated Loss = 2.30249. EMA Loss = 2.30032
+New best probe in stage: m=253, ind=0, rate=-0.000394985
+[search] Switched to mid probe with m=254
+[search] At step 5001 we are finshing a probe.
+[search] Switched to high probe with m=255
+[search] At step 6002 we are finshing a probe.
+[search] Switched to execution with m=253
+[search] Switched to searching from execution.
+[search] Whole window is 249..256
+[search] At step 15003 we are finshing a probe.
+[monitor] Completed epoch 2. Evaluated Loss = 2.30291. EMA Loss = 2.30368
+[monitor] Completed epoch 3. Evaluated Loss = 2.30285. EMA Loss = 2.3027
+[monitor] Completed epoch 4. Evaluated Loss = 2.30258. EMA Loss = 2.30255
+New best probe in stage: m=250, ind=0, rate=-0.000207226
+[search] Switched to mid probe with m=252
+[search] At step 16004 we are finshing a probe.
+[monitor] Completed epoch 5. Evaluated Loss = 2.303. EMA Loss = 2.30211
+[search] Switched to high probe with m=254
+[search] At step 17004 we are finshing a probe.
+[search] Switched to low probe with m=249
+[search] At step 18005 we are finshing a probe.
+New best probe in stage: m=249, ind=0, rate=-0.000468882
+[search] Switched to mid probe with m=250
+[search] At step 19005 we are finshing a probe.
+[search] Switched to high probe with m=251
+[monitor] Completed epoch 6. Evaluated Loss = 2.30222. EMA Loss = 2.30519
+[search] At step 20006 we are finshing a probe.
+[search] Switched to execution with m=249
+[search] Switched to searching from execution.
+[search] Whole window is 245..252
+[search] At step 29007 we are finshing a probe.
+[monitor] Completed epoch 7. Evaluated Loss = 2.30398. EMA Loss = 2.30861
+[monitor] Completed epoch 8. Evaluated Loss = 2.30382. EMA Loss = 2.30463
+[monitor] Completed epoch 9. Evaluated Loss = 2.30318. EMA Loss = 2.30211
+New best probe in stage: m=246, ind=0, rate=-0.000112354
+[search] Switched to mid probe with m=248
+[search] At step 30007 we are finshing a probe.
+New best probe in stage: m=248, ind=1, rate=-0.000327966
+[search] Switched to high probe with m=250
+[search] At step 31008 we are finshing a probe.
+New best probe in stage: m=250, ind=2, rate=-0.00057539
+[search] Switched to low probe with m=249
+[search] At step 32008 we are finshing a probe.
+[monitor] Completed epoch 10. Evaluated Loss = 2.30161. EMA Loss = 2.29815
+New best probe in stage: m=249, ind=0, rate=-1.66871e-05
+[search] Switched to mid probe with m=250
+[search] At step 33008 we are finshing a probe.
+New best probe in stage: m=250, ind=1, rate=-0.002793
+[search] Switched to high probe with m=251
+[search] At step 34008 we are finshing a probe.
+New best probe in stage: m=251, ind=2, rate=-0.0170455
+[search] Switched to execution with m=251
+[search] Switched to searching from execution.
+[search] Whole window is 247..254
+[search] At step 43008 we are finshing a probe.
+[monitor] Completed epoch 11. Evaluated Loss = 2.2607. EMA Loss = 2.29788
+[monitor] Completed epoch 12. Evaluated Loss = 2.24511. EMA Loss = 2.23991
+[monitor] Completed epoch 13. Evaluated Loss = 2.25779. EMA Loss = 2.17059
+New best probe in stage: m=248, ind=0, rate=-0.0191906
+[search] Switched to mid probe with m=250
+[search] At step 44008 we are finshing a probe.
+[monitor] Completed epoch 14. Evaluated Loss = 2.15633. EMA Loss = 2.14598
+New best probe in stage: m=250, ind=1, rate=-0.057948
+[search] Switched to high probe with m=252
+[search] At step 45008 we are finshing a probe.
+[search] Switched to low probe with m=248
+[search] At step 46010 we are finshing a probe.
+New best probe in stage: m=248, ind=0, rate=-0.0376875
+[search] Switched to mid probe with m=249
+[search] At step 47011 we are finshing a probe.
+[search] Switched to high probe with m=250
+[search] At step 48012 we are finshing a probe.
+[monitor] Completed epoch 15. Evaluated Loss = 2.14401. EMA Loss = 2.29452
+New best probe in stage: m=250, ind=2, rate=-0.0393451
+[search] Switched to execution with m=250
+[search] Switched to searching from execution.
+[search] Whole window is 246..253
+[search] At step 57012 we are finshing a probe.
+[monitor] Completed epoch 16. Evaluated Loss = 2.10207. EMA Loss = 2.18094
+[monitor] Completed epoch 17. Evaluated Loss = 2.11662. EMA Loss = 1.96223
+[monitor] Completed epoch 18. Evaluated Loss = 2.10504. EMA Loss = 2.07267
+New best probe in stage: m=247, ind=0, rate=-0.00679487
+[search] Switched to mid probe with m=249
+[search] At step 58013 we are finshing a probe.
+[search] Switched to high probe with m=251
+[search] At step 59013 we are finshing a probe.
+[search] Switched to low probe with m=246
+[search] At step 60013 we are finshing a probe.
+[monitor] Completed epoch 19. Evaluated Loss = 2.16743. EMA Loss = 2.15707
+New best probe in stage: m=246, ind=0, rate=-0.20628
+[search] Switched to mid probe with m=247
+[search] At step 61015 we are finshing a probe.
+[search] Switched to high probe with m=248
+[search] At step 62017 we are finshing a probe.
+[search] Switched to execution with m=246
+[search] Switched to searching from execution.
+[search] Whole window is 242..249
+[search] At step 71017 we are finshing a probe.
+[monitor] Completed epoch 20. Evaluated Loss = 2.09736. EMA Loss = 2.0824
+[monitor] Completed epoch 21. Evaluated Loss = 2.14901. EMA Loss = 1.90977
+[monitor] Completed epoch 22. Evaluated Loss = 2.09989. EMA Loss = 2.06293
+New best probe in stage: m=243, ind=0, rate=-0.146718
+[search] Switched to mid probe with m=245
+[search] At step 72018 we are finshing a probe.
+[monitor] Completed epoch 23. Evaluated Loss = 2.08192. EMA Loss = 1.99104
+[search] Switched to high probe with m=247
+[search] At step 73018 we are finshing a probe.
+[search] Switched to low probe with m=242
+[search] At step 74018 we are finshing a probe.
+New best probe in stage: m=242, ind=0, rate=-0.00606389
+[search] Switched to mid probe with m=243
+[search] At step 75018 we are finshing a probe.
+[search] Switched to high probe with m=244
+[search] At step 76019 we are finshing a probe.
+[monitor] Completed epoch 24. Evaluated Loss = 2.04216. EMA Loss = 2.02559
+New best probe in stage: m=244, ind=2, rate=-0.0108864
+[search] Switched to execution with m=244
+[search] Switched to searching from execution.
+[search] Whole window is 240..247
+[search] At step 85021 we are finshing a probe.
+[monitor] Completed epoch 25. Evaluated Loss = 2.07201. EMA Loss = 2.15815
+[monitor] Completed epoch 26. Evaluated Loss = 2.05718. EMA Loss = 2.17301
+[monitor] Completed epoch 27. Evaluated Loss = 2.07517. EMA Loss = 2.12923
+New best probe in stage: m=241, ind=0, rate=0.00965949
+[search] Switched to mid probe with m=243
+[search] At step 86021 we are finshing a probe.
+New best probe in stage: m=243, ind=1, rate=0.00356854
+[search] Switched to high probe with m=245
+[search] At step 87021 we are finshing a probe.
+New best probe in stage: m=245, ind=2, rate=-0.0151654
+[search] Switched to low probe with m=244
+[search] At step 88021 we are finshing a probe.
+[monitor] Completed epoch 28. Evaluated Loss = 2.05019. EMA Loss = 2.14418
+New best probe in stage: m=244, ind=0, rate=0.00280128
+[search] Switched to mid probe with m=245
+[search] At step 89021 we are finshing a probe.
+[search] Switched to high probe with m=246
+[search] At step 90021 we are finshing a probe.
+[search] Switched to execution with m=244
+[search] Switched to searching from execution.
+[search] Whole window is 240..247
+[search] At step 99024 we are finshing a probe.
+New best probe in stage: m=241, ind=0, rate=-0.299782
+[search] Switched to mid probe with m=243
+[search] At step 100024 we are finshing a probe.
+[monitor] Completed epoch 29. Evaluated Loss = 1.86914. EMA Loss = 1.85235
+[monitor] Completed epoch 30. Evaluated Loss = 1.89775. EMA Loss = 2.04529
+[monitor] Completed epoch 31. Evaluated Loss = 1.92289. EMA Loss = 1.88757
+[monitor] Completed epoch 32. Evaluated Loss = 1.86892. EMA Loss = 2.18103
+[search] Switched to high probe with m=245
+[search] At step 101024 we are finshing a probe.
+[search] Switched to low probe with m=240
+[search] At step 102024 we are finshing a probe.
+New best probe in stage: m=240, ind=0, rate=0.0578933
+[search] Switched to mid probe with m=241
+[search] At step 103026 we are finshing a probe.
+New best probe in stage: m=241, ind=1, rate=-0.0541659
+[search] Switched to high probe with m=242
+[search] At step 104028 we are finshing a probe.
+[monitor] Completed epoch 33. Evaluated Loss = 1.86446. EMA Loss = 1.95265
+[search] Switched to execution with m=241
+[search] Switched to searching from execution.
+[search] Whole window is 237..244
+[search] At step 113028 we are finshing a probe.
+[monitor] Completed epoch 34. Evaluated Loss = 1.80765. EMA Loss = 2.19749
+[monitor] Completed epoch 35. Evaluated Loss = 1.82703. EMA Loss = 1.95948
+[monitor] Completed epoch 36. Evaluated Loss = 1.84981. EMA Loss = 1.89323
+New best probe in stage: m=238, ind=0, rate=-0.0208051
+[search] Switched to mid probe with m=240
+[search] At step 114028 we are finshing a probe.
+[search] Switched to high probe with m=242
+[search] At step 115030 we are finshing a probe.
+[search] Switched to low probe with m=237
+[search] At step 116032 we are finshing a probe.
+[monitor] Completed epoch 37. Evaluated Loss = 1.84242. EMA Loss = 1.78515
+New best probe in stage: m=237, ind=0, rate=-0.101691
+[search] Switched to mid probe with m=238
+[search] At step 117032 we are finshing a probe.
+[search] Switched to high probe with m=239
+[search] At step 118032 we are finshing a probe.
+[search] Switched to execution with m=237
+[search] Switched to searching from execution.
+[search] Whole window is 233..240
+[search] At step 127032 we are finshing a probe.
+[monitor] Completed epoch 38. Evaluated Loss = 1.83566. EMA Loss = 1.67747
+[monitor] Completed epoch 39. Evaluated Loss = 1.79968. EMA Loss = 2.06497
+[monitor] Completed epoch 40. Evaluated Loss = 1.82577. EMA Loss = 2.00414
+New best probe in stage: m=234, ind=0, rate=-0.0100706
+[search] Switched to mid probe with m=236
+[search] At step 128033 we are finshing a probe.
+[search] Switched to high probe with m=238
+[search] At step 129034 we are finshing a probe.
+[monitor] Completed epoch 41. Evaluated Loss = 1.86611. EMA Loss = 1.6883
+[search] Switched to low probe with m=233
+[search] At step 130034 we are finshing a probe.
+New best probe in stage: m=233, ind=0, rate=0.164783
+[search] Switched to mid probe with m=234
+[search] At step 131035 we are finshing a probe.
+New best probe in stage: m=234, ind=1, rate=-0.156743
+[search] Switched to high probe with m=235
+[search] At step 132035 we are finshing a probe.
+[monitor] Completed epoch 42. Evaluated Loss = 1.85551. EMA Loss = 1.9472
+[search] Switched to execution with m=234
+[search] Switched to searching from execution.
+[search] Whole window is 230..237
+[search] At step 141036 we are finshing a probe.
+[monitor] Completed epoch 43. Evaluated Loss = 1.78159. EMA Loss = 1.8779

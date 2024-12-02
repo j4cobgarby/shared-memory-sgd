@@ -1,0 +1,3086 @@
+[CIFAR10] Successfully loaded samples and labels.
+	n_training = 50000
+	x columns = 50000
+[batch] Created 3125 batches.
+[CIFAR10] Successfully loaded samples and labels.
+	n_training = 50000
+	x columns = 50000
+[batch] Created 25 batches.
+Creating 512 workers.
+Created all workers.
+[monitor] Completed epoch 0. Evaluated Loss = 2.30231. EMA Loss = 2.30481
+[window_probe] PROBE_DONE @step 1000 LOSS=2.3027, Rate=0.659324
+[window_probe] BEST_PROBE m=252 Rate=2.3027
+[window_probe] PROBE_START m=253
+[window_probe] PROBE_DONE @step 2001 LOSS=2.30248, Rate=-0.000144876
+[window_probe] BEST_PROBE m=253 Rate=2.30248
+[window_probe] PROBE_START m=254
+[window_probe] PROBE_DONE @step 3003 LOSS=2.30303, Rate=0.000375457
+[window_probe] BEST_PROBE m=254 Rate=2.30303
+[window_probe] PROBE_START m=255
+[monitor] Completed epoch 1. Evaluated Loss = 2.30255. EMA Loss = 2.304
+[window_probe] PROBE_DONE @step 4003 LOSS=2.3025, Rate=-0.000367004
+[window_probe] BEST_PROBE m=255 Rate=2.3025
+[window_probe] PROBE_START m=256
+[window_probe] PROBE_DONE @step 5003 LOSS=2.30277, Rate=0.000182904
+[window_probe] BEST_PROBE m=256 Rate=2.30277
+[window_probe] PROBE_START m=257
+[window_probe] PROBE_DONE @step 6003 LOSS=2.30305, Rate=0.000191965
+[window_probe] BEST_PROBE m=257 Rate=2.30305
+[window_probe] PROBE_START m=258
+[monitor] Completed epoch 2. Evaluated Loss = 2.30253. EMA Loss = 2.30203
+[window_probe] PROBE_DONE @step 7003 LOSS=2.30284, Rate=-0.000143641
+[window_probe] BEST_PROBE m=258 Rate=2.30284
+[window_probe] PROBE_START m=259
+[window_probe] PROBE_DONE @step 8005 LOSS=2.30245, Rate=-0.000267851
+[window_probe] BEST_PROBE m=259 Rate=2.30245
+[window_probe] PROBE_START m=260
+[window_probe] PROBE_DONE @step 9006 LOSS=2.30263, Rate=0.000262236
+[window_probe] BEST_PROBE m=260 Rate=2.30263
+[window_probe] START_EXEC m=260
+[monitor] Completed epoch 3. Evaluated Loss = 2.30253. EMA Loss = 2.30294
+[monitor] Completed epoch 4. Evaluated Loss = 2.30262. EMA Loss = 2.30147
+[monitor] Completed epoch 5. Evaluated Loss = 2.30285. EMA Loss = 2.30112
+[window_probe] START_PROBING window_btm=256
+[window_probe] PROBE_DONE @step 18006 LOSS=2.30251, Rate=-0.000144586
+[window_probe] BEST_PROBE m=256 Rate=2.30251
+[window_probe] PROBE_START m=257
+[monitor] Completed epoch 6. Evaluated Loss = 2.30235. EMA Loss = 2.30353
+[window_probe] PROBE_DONE @step 19007 LOSS=2.30255, Rate=3.08741e-05
+[window_probe] BEST_PROBE m=257 Rate=2.30255
+[window_probe] PROBE_START m=258
+[window_probe] PROBE_DONE @step 20008 LOSS=2.30266, Rate=7.20624e-05
+[window_probe] BEST_PROBE m=258 Rate=2.30266
+[window_probe] PROBE_START m=259
+[window_probe] PROBE_DONE @step 21010 LOSS=2.3024, Rate=-0.000175768
+[window_probe] BEST_PROBE m=259 Rate=2.3024
+[window_probe] PROBE_START m=260
+[monitor] Completed epoch 7. Evaluated Loss = 2.30196. EMA Loss = 2.3036
+[window_probe] PROBE_DONE @step 22010 LOSS=2.30188, Rate=-0.000352653
+[window_probe] BEST_PROBE m=260 Rate=2.30188
+[window_probe] PROBE_START m=261
+[window_probe] PROBE_DONE @step 23010 LOSS=2.30184, Rate=-2.71191e-05
+[window_probe] BEST_PROBE m=261 Rate=2.30184
+[window_probe] PROBE_START m=262
+[window_probe] PROBE_DONE @step 24010 LOSS=2.30165, Rate=-0.000358998
+[window_probe] BEST_PROBE m=262 Rate=2.30165
+[window_probe] PROBE_START m=263
+[window_probe] PROBE_DONE @step 25010 LOSS=2.29895, Rate=-0.00184428
+[window_probe] BEST_PROBE m=263 Rate=2.29895
+[window_probe] PROBE_START m=264
+[monitor] Completed epoch 8. Evaluated Loss = 2.27585. EMA Loss = 2.28293
+[window_probe] PROBE_DONE @step 26012 LOSS=2.27212, Rate=-0.0185118
+[window_probe] BEST_PROBE m=264 Rate=2.27212
+[window_probe] START_EXEC m=264
+[monitor] Completed epoch 9. Evaluated Loss = 2.28498. EMA Loss = 2.30474
+[monitor] Completed epoch 10. Evaluated Loss = 2.29326. EMA Loss = 2.33064
+[window_probe] START_PROBING window_btm=260
+[monitor] Completed epoch 11. Evaluated Loss = 2.24214. EMA Loss = 2.20621
+[window_probe] PROBE_DONE @step 35014 LOSS=2.23433, Rate=-0.0346706
+[window_probe] BEST_PROBE m=260 Rate=2.23433
+[window_probe] PROBE_START m=261
+[window_probe] PROBE_DONE @step 36014 LOSS=2.22389, Rate=-0.00698934
+[window_probe] BEST_PROBE m=261 Rate=2.22389
+[window_probe] PROBE_START m=262
+[window_probe] PROBE_DONE @step 37014 LOSS=2.27723, Rate=0.0358402
+[window_probe] BEST_PROBE m=262 Rate=2.27723
+[window_probe] PROBE_START m=263
+[monitor] Completed epoch 12. Evaluated Loss = 2.22043. EMA Loss = 2.23913
+[window_probe] PROBE_DONE @step 38016 LOSS=2.22323, Rate=-0.0369403
+[window_probe] BEST_PROBE m=263 Rate=2.22323
+[window_probe] PROBE_START m=264
+[window_probe] PROBE_DONE @step 39016 LOSS=2.18315, Rate=-0.0267641
+[window_probe] BEST_PROBE m=264 Rate=2.18315
+[window_probe] PROBE_START m=265
+[window_probe] PROBE_DONE @step 40016 LOSS=2.30944, Rate=0.0876613
+[window_probe] BEST_PROBE m=265 Rate=2.30944
+[window_probe] PROBE_START m=266
+[monitor] Completed epoch 13. Evaluated Loss = 2.30353. EMA Loss = 2.29807
+[window_probe] PROBE_DONE @step 41017 LOSS=2.30646, Rate=-0.00200587
+[window_probe] BEST_PROBE m=266 Rate=2.30646
+[window_probe] PROBE_START m=267
+[window_probe] PROBE_DONE @step 42017 LOSS=2.3031, Rate=-0.00229109
+[window_probe] BEST_PROBE m=267 Rate=2.3031
+[window_probe] PROBE_START m=268
+[window_probe] PROBE_DONE @step 43018 LOSS=2.30251, Rate=-0.000415715
+[window_probe] BEST_PROBE m=268 Rate=2.30251
+[window_probe] START_EXEC m=268
+[monitor] Completed epoch 14. Evaluated Loss = 2.30286. EMA Loss = 2.30363
+[monitor] Completed epoch 15. Evaluated Loss = 2.30312. EMA Loss = 2.30295
+[monitor] Completed epoch 16. Evaluated Loss = 2.3026. EMA Loss = 2.30009
+[window_probe] START_PROBING window_btm=264
+[window_probe] PROBE_DONE @step 52019 LOSS=2.3034, Rate=0.000278828
+[window_probe] BEST_PROBE m=264 Rate=2.3034
+[window_probe] PROBE_START m=265
+[window_probe] PROBE_DONE @step 53020 LOSS=2.30324, Rate=-0.000109188
+[window_probe] BEST_PROBE m=265 Rate=2.30324
+[window_probe] PROBE_START m=266
+[monitor] Completed epoch 17. Evaluated Loss = 2.30289. EMA Loss = 2.30149
+[window_probe] PROBE_DONE @step 54021 LOSS=2.30271, Rate=-0.000366207
+[window_probe] BEST_PROBE m=266 Rate=2.30271
+[window_probe] PROBE_START m=267
+[window_probe] PROBE_DONE @step 55021 LOSS=2.30282, Rate=7.18358e-05
+[window_probe] BEST_PROBE m=267 Rate=2.30282
+[window_probe] PROBE_START m=268
+[window_probe] PROBE_DONE @step 56021 LOSS=2.3034, Rate=0.000405475
+[window_probe] BEST_PROBE m=268 Rate=2.3034
+[window_probe] PROBE_START m=269
+[monitor] Completed epoch 18. Evaluated Loss = 2.30229. EMA Loss = 2.29815
+[window_probe] PROBE_DONE @step 57021 LOSS=2.30264, Rate=-0.00051232
+[window_probe] BEST_PROBE m=269 Rate=2.30264
+[window_probe] PROBE_START m=270
+[window_probe] PROBE_DONE @step 58022 LOSS=2.30213, Rate=-0.000352247
+[window_probe] BEST_PROBE m=270 Rate=2.30213
+[window_probe] PROBE_START m=271
+[window_probe] PROBE_DONE @step 59023 LOSS=2.30228, Rate=0.00010457
+[window_probe] BEST_PROBE m=271 Rate=2.30228
+[window_probe] PROBE_START m=272
+[monitor] Completed epoch 19. Evaluated Loss = 2.30247. EMA Loss = 2.30227
+[window_probe] PROBE_DONE @step 60024 LOSS=2.30238, Rate=6.34757e-05
+[window_probe] BEST_PROBE m=272 Rate=2.30238
+[window_probe] START_EXEC m=272
+[monitor] Completed epoch 20. Evaluated Loss = 2.30268. EMA Loss = 2.30397
+[monitor] Completed epoch 21. Evaluated Loss = 2.30255. EMA Loss = 2.30571
+[window_probe] START_PROBING window_btm=268
+[window_probe] PROBE_DONE @step 69024 LOSS=2.30252, Rate=-0.000192295
+[window_probe] BEST_PROBE m=268 Rate=2.30252
+[window_probe] PROBE_START m=269
+[monitor] Completed epoch 22. Evaluated Loss = 2.30311. EMA Loss = 2.30202
+[window_probe] PROBE_DONE @step 70024 LOSS=2.30291, Rate=0.000262945
+[window_probe] BEST_PROBE m=269 Rate=2.30291
+[window_probe] PROBE_START m=270
+[window_probe] PROBE_DONE @step 71025 LOSS=2.30233, Rate=-0.000407893
+[window_probe] BEST_PROBE m=270 Rate=2.30233
+[window_probe] PROBE_START m=271
+[window_probe] PROBE_DONE @step 72025 LOSS=2.30226, Rate=-4.35589e-05
+[window_probe] BEST_PROBE m=271 Rate=2.30226
+[window_probe] PROBE_START m=272
+[monitor] Completed epoch 23. Evaluated Loss = 2.30201. EMA Loss = 2.29641
+[window_probe] PROBE_DONE @step 73025 LOSS=2.30284, Rate=0.000396281
+[window_probe] BEST_PROBE m=272 Rate=2.30284
+[window_probe] PROBE_START m=273
+[window_probe] PROBE_DONE @step 74026 LOSS=2.30308, Rate=0.000218603
+[window_probe] BEST_PROBE m=273 Rate=2.30308
+[window_probe] PROBE_START m=274
+[window_probe] PROBE_DONE @step 75026 LOSS=2.30266, Rate=-0.000290326
+[window_probe] BEST_PROBE m=274 Rate=2.30266
+[window_probe] PROBE_START m=275
+[monitor] Completed epoch 24. Evaluated Loss = 2.3029. EMA Loss = 2.29928
+[window_probe] PROBE_DONE @step 76027 LOSS=2.3026, Rate=-5.76625e-05
+[window_probe] BEST_PROBE m=275 Rate=2.3026
+[window_probe] PROBE_START m=276
+[window_probe] PROBE_DONE @step 77027 LOSS=2.30234, Rate=-0.000241736
+[window_probe] BEST_PROBE m=276 Rate=2.30234
+[window_probe] START_EXEC m=276
+[monitor] Completed epoch 25. Evaluated Loss = 2.30264. EMA Loss = 2.30212
+[monitor] Completed epoch 26. Evaluated Loss = 2.30278. EMA Loss = 2.30108
+[monitor] Completed epoch 27. Evaluated Loss = 2.30248. EMA Loss = 2.30319
+[window_probe] START_PROBING window_btm=272
+[window_probe] PROBE_DONE @step 86028 LOSS=2.30175, Rate=-0.000353792
+[window_probe] BEST_PROBE m=272 Rate=2.30175
+[window_probe] PROBE_START m=273
+[window_probe] PROBE_DONE @step 87029 LOSS=2.30241, Rate=0.000614735
+[window_probe] BEST_PROBE m=273 Rate=2.30241
+[window_probe] PROBE_START m=274
+[monitor] Completed epoch 28. Evaluated Loss = 2.30266. EMA Loss = 2.30044
+[window_probe] PROBE_DONE @step 88029 LOSS=2.30286, Rate=0.000311301
+[window_probe] BEST_PROBE m=274 Rate=2.30286
+[window_probe] PROBE_START m=275
+[window_probe] PROBE_DONE @step 89033 LOSS=2.30232, Rate=-0.000374361
+[window_probe] BEST_PROBE m=275 Rate=2.30232
+[window_probe] PROBE_START m=276
+[window_probe] PROBE_DONE @step 90034 LOSS=2.30296, Rate=0.000594665
+[window_probe] BEST_PROBE m=276 Rate=2.30296
+[window_probe] PROBE_START m=277
+[window_probe] PROBE_DONE @step 91034 LOSS=2.30276, Rate=-0.000138063
+[window_probe] BEST_PROBE m=277 Rate=2.30276
+[window_probe] PROBE_START m=278
+[monitor] Completed epoch 29. Evaluated Loss = 2.30299. EMA Loss = 2.30135
+[window_probe] PROBE_DONE @step 92034 LOSS=2.30262, Rate=-0.00012681
+[window_probe] BEST_PROBE m=278 Rate=2.30262
+[window_probe] PROBE_START m=279
+[window_probe] PROBE_DONE @step 93035 LOSS=2.30249, Rate=-8.89572e-05
+[window_probe] BEST_PROBE m=279 Rate=2.30249
+[window_probe] PROBE_START m=280
+[window_probe] PROBE_DONE @step 94035 LOSS=2.30243, Rate=-4.22113e-05
+[window_probe] BEST_PROBE m=280 Rate=2.30243
+[window_probe] START_EXEC m=280
+[monitor] Completed epoch 30. Evaluated Loss = 2.3026. EMA Loss = 2.30187
+[monitor] Completed epoch 31. Evaluated Loss = 2.30227. EMA Loss = 2.29937
+[monitor] Completed epoch 32. Evaluated Loss = 2.3031. EMA Loss = 2.30057
+[window_probe] START_PROBING window_btm=276
+[window_probe] PROBE_DONE @step 103035 LOSS=2.30244, Rate=-0.000414964
+[window_probe] BEST_PROBE m=276 Rate=2.30244
+[window_probe] PROBE_START m=277
+[monitor] Completed epoch 33. Evaluated Loss = 2.30279. EMA Loss = 2.30218
+[window_probe] PROBE_DONE @step 104035 LOSS=2.30253, Rate=6.10454e-05
+[window_probe] BEST_PROBE m=277 Rate=2.30253
+[window_probe] PROBE_START m=278
+[window_probe] PROBE_DONE @step 105036 LOSS=2.30326, Rate=0.000513347
+[window_probe] BEST_PROBE m=278 Rate=2.30326
+[window_probe] PROBE_START m=279
+[window_probe] PROBE_DONE @step 106036 LOSS=2.30218, Rate=-0.000746662
+[window_probe] BEST_PROBE m=279 Rate=2.30218
+[window_probe] PROBE_START m=280
+[window_probe] PROBE_DONE @step 107037 LOSS=2.30285, Rate=0.0012257
+[window_probe] BEST_PROBE m=280 Rate=2.30285
+[window_probe] PROBE_START m=281
+[monitor] Completed epoch 34. Evaluated Loss = 2.3022. EMA Loss = 2.29934
+[window_probe] PROBE_DONE @step 108037 LOSS=2.30266, Rate=-0.000126912
+[window_probe] BEST_PROBE m=281 Rate=2.30266
+[window_probe] PROBE_START m=282
+[window_probe] PROBE_DONE @step 109037 LOSS=2.30251, Rate=-0.000106165
+[window_probe] BEST_PROBE m=282 Rate=2.30251
+[window_probe] PROBE_START m=283
+[monitor] Completed epoch 35. Evaluated Loss = 2.30211. EMA Loss = 2.30164
+[window_probe] PROBE_DONE @step 110037 LOSS=2.30247, Rate=-2.95348e-05
+[window_probe] BEST_PROBE m=283 Rate=2.30247
+[window_probe] PROBE_START m=284
+[window_probe] PROBE_DONE @step 111037 LOSS=2.30303, Rate=0.000531523
+[window_probe] BEST_PROBE m=284 Rate=2.30303
+[window_probe] START_EXEC m=284
+[window_probe] START_PROBING window_btm=280
+[monitor] Completed epoch 36. Evaluated Loss = 2.30226. EMA Loss = 2.30367
+[monitor] Completed epoch 37. Evaluated Loss = 2.30303. EMA Loss = 2.30164
+[monitor] Completed epoch 38. Evaluated Loss = 2.30232. EMA Loss = 2.30349
+[window_probe] PROBE_DONE @step 120038 LOSS=2.30214, Rate=-0.000682708
+[window_probe] BEST_PROBE m=280 Rate=2.30214
+[window_probe] PROBE_START m=281
+[window_probe] PROBE_DONE @step 121039 LOSS=2.30239, Rate=0.000174374
+[window_probe] BEST_PROBE m=281 Rate=2.30239
+[window_probe] PROBE_START m=282
+[monitor] Completed epoch 39. Evaluated Loss = 2.30285. EMA Loss = 2.30653
+[window_probe] PROBE_DONE @step 122039 LOSS=2.30322, Rate=0.000568496
+[window_probe] BEST_PROBE m=282 Rate=2.30322
+[window_probe] PROBE_START m=283
+[window_probe] PROBE_DONE @step 123041 LOSS=2.30277, Rate=-0.000663972
+[window_probe] BEST_PROBE m=283 Rate=2.30277
+[window_probe] PROBE_START m=284
+[window_probe] PROBE_DONE @step 124042 LOSS=2.30271, Rate=-5.77062e-05
+[window_probe] BEST_PROBE m=284 Rate=2.30271
+[window_probe] PROBE_START m=285
+[window_probe] PROBE_DONE @step 125043 LOSS=2.30291, Rate=0.000135198
+[window_probe] BEST_PROBE m=285 Rate=2.30291
+[window_probe] PROBE_START m=286
+[monitor] Completed epoch 40. Evaluated Loss = 2.30289. EMA Loss = 2.30205
+[window_probe] PROBE_DONE @step 126044 LOSS=2.30291, Rate=5.59539e-06
+[window_probe] BEST_PROBE m=286 Rate=2.30291
+[window_probe] PROBE_START m=287
+[window_probe] PROBE_DONE @step 127044 LOSS=2.30273, Rate=-0.000129353
+[window_probe] BEST_PROBE m=287 Rate=2.30273
+[window_probe] PROBE_START m=288
+[window_probe] PROBE_DONE @step 128046 LOSS=2.30171, Rate=-0.000707147
+[window_probe] BEST_PROBE m=288 Rate=2.30171
+[window_probe] START_EXEC m=288
+[monitor] Completed epoch 41. Evaluated Loss = 2.30281. EMA Loss = 2.3045
+[monitor] Completed epoch 42. Evaluated Loss = 2.30316. EMA Loss = 2.30794
+[monitor] Completed epoch 43. Evaluated Loss = 2.30342. EMA Loss = 2.30201
+[window_probe] START_PROBING window_btm=284
+[window_probe] PROBE_DONE @step 137046 LOSS=2.30206, Rate=-5.74677e-05
+[window_probe] BEST_PROBE m=284 Rate=2.30206
+[window_probe] PROBE_START m=285
+[monitor] Completed epoch 44. Evaluated Loss = 2.30274. EMA Loss = 2.30409
+[window_probe] PROBE_DONE @step 138048 LOSS=2.30255, Rate=0.000338452
+[window_probe] BEST_PROBE m=285 Rate=2.30255
+[window_probe] PROBE_START m=286
+[window_probe] PROBE_DONE @step 139049 LOSS=2.30208, Rate=-0.000320145
+[window_probe] BEST_PROBE m=286 Rate=2.30208
+[window_probe] PROBE_START m=287
+[window_probe] PROBE_DONE @step 140049 LOSS=2.30324, Rate=0.00110856
+[window_probe] BEST_PROBE m=287 Rate=2.30324
+[window_probe] PROBE_START m=288
+[window_probe] PROBE_DONE @step 141049 LOSS=2.30274, Rate=-0.000355678
+[window_probe] BEST_PROBE m=288 Rate=2.30274
+[window_probe] PROBE_START m=289
+[monitor] Completed epoch 45. Evaluated Loss = 2.3026. EMA Loss = 2.30336
+[window_probe] PROBE_DONE @step 142050 LOSS=2.30299, Rate=0.000177552
+[window_probe] BEST_PROBE m=289 Rate=2.30299
+[window_probe] PROBE_START m=290
+[window_probe] PROBE_DONE @step 143050 LOSS=2.30264, Rate=-0.000239531
+[window_probe] BEST_PROBE m=290 Rate=2.30264
+[window_probe] PROBE_START m=291
+[window_probe] PROBE_DONE @step 144050 LOSS=2.30315, Rate=0.0003523
+[window_probe] BEST_PROBE m=291 Rate=2.30315
+[window_probe] PROBE_START m=292
+[monitor] Completed epoch 46. Evaluated Loss = 2.30275. EMA Loss = 2.30235
+[window_probe] PROBE_DONE @step 145050 LOSS=2.3024, Rate=-0.00052254
+[window_probe] BEST_PROBE m=292 Rate=2.3024
+[window_probe] START_EXEC m=292
+[monitor] Completed epoch 48. Evaluated Loss = 2.30308. EMA Loss = 2.2974
+[monitor] Completed epoch 47. Evaluated Loss = 2.3027. EMA Loss = 2.30178
+[window_probe] START_PROBING window_btm=288
+[monitor] Completed epoch 49. Evaluated Loss = 2.30249. EMA Loss = 2.30222
+[window_probe] PROBE_DONE @step 154050 LOSS=2.30271, Rate=-4.14514e-05
+[window_probe] BEST_PROBE m=288 Rate=2.30271
+[window_probe] PROBE_START m=289
+[window_probe] PROBE_DONE @step 155050 LOSS=2.30313, Rate=0.000290644
+[window_probe] BEST_PROBE m=289 Rate=2.30313
+[window_probe] PROBE_START m=290
+[window_probe] PROBE_DONE @step 156050 LOSS=2.30221, Rate=-0.000639188
+[window_probe] BEST_PROBE m=290 Rate=2.30221
+[window_probe] PROBE_START m=291
+[monitor] Completed epoch 50. Evaluated Loss = 2.30279. EMA Loss = 2.30256
+[window_probe] PROBE_DONE @step 157050 LOSS=2.30268, Rate=0.00031898
+[window_probe] BEST_PROBE m=291 Rate=2.30268
+[window_probe] PROBE_START m=292
+[window_probe] PROBE_DONE @step 158050 LOSS=2.30277, Rate=6.75622e-05
+[window_probe] BEST_PROBE m=292 Rate=2.30277
+[window_probe] PROBE_START m=293
+[window_probe] PROBE_DONE @step 159050 LOSS=2.30212, Rate=-0.000454337
+[window_probe] BEST_PROBE m=293 Rate=2.30212
+[window_probe] PROBE_START m=294
+[monitor] Completed epoch 51. Evaluated Loss = 2.30224. EMA Loss = 2.30246
+[window_probe] PROBE_DONE @step 160050 LOSS=2.30267, Rate=0.000382193
+[window_probe] BEST_PROBE m=294 Rate=2.30267
+[window_probe] PROBE_START m=295
+[window_probe] PROBE_DONE @step 161051 LOSS=2.3036, Rate=0.00168965
+[window_probe] BEST_PROBE m=295 Rate=2.3036
+[window_probe] PROBE_START m=296
+[window_probe] PROBE_DONE @step 162052 LOSS=2.30293, Rate=-0.000466004
+[window_probe] BEST_PROBE m=296 Rate=2.30293
+[window_probe] START_EXEC m=296
+[monitor] Completed epoch 52. Evaluated Loss = 2.30291. EMA Loss = 2.30227
+[monitor] Completed epoch 53. Evaluated Loss = 2.30233. EMA Loss = 2.30228
+[monitor] Completed epoch 54. Evaluated Loss = 2.30205. EMA Loss = 2.30034
+[window_probe] START_PROBING window_btm=292
+[window_probe] PROBE_DONE @step 171052 LOSS=2.30276, Rate=-9.08204e-05
+[window_probe] BEST_PROBE m=292 Rate=2.30276
+[window_probe] PROBE_START m=293
+[monitor] Completed epoch 55. Evaluated Loss = 2.30206. EMA Loss = 2.30366
+[window_probe] PROBE_DONE @step 172052 LOSS=2.30343, Rate=0.000457019
+[window_probe] BEST_PROBE m=293 Rate=2.30343
+[window_probe] PROBE_START m=294
+[window_probe] PROBE_DONE @step 173052 LOSS=2.30236, Rate=-0.000741361
+[window_probe] BEST_PROBE m=294 Rate=2.30236
+[window_probe] PROBE_START m=295
+[window_probe] PROBE_DONE @step 174052 LOSS=2.30245, Rate=6.17222e-05
+[window_probe] BEST_PROBE m=295 Rate=2.30245
+[window_probe] PROBE_START m=296
+[window_probe] PROBE_DONE @step 175053 LOSS=2.303, Rate=0.000388622
+[window_probe] BEST_PROBE m=296 Rate=2.303
+[window_probe] PROBE_START m=297
+[monitor] Completed epoch 56. Evaluated Loss = 2.30249. EMA Loss = 2.30464
+[window_probe] PROBE_DONE @step 176053 LOSS=2.30278, Rate=-0.00015112
+[window_probe] BEST_PROBE m=297 Rate=2.30278
+[window_probe] PROBE_START m=298
+[window_probe] PROBE_DONE @step 177053 LOSS=2.30267, Rate=-8.00291e-05
+[window_probe] BEST_PROBE m=298 Rate=2.30267
+[window_probe] PROBE_START m=299
+[window_probe] PROBE_DONE @step 178054 LOSS=2.30279, Rate=8.60548e-05
+[window_probe] BEST_PROBE m=299 Rate=2.30279
+[window_probe] PROBE_START m=300
+[monitor] Completed epoch 57. Evaluated Loss = 2.30274. EMA Loss = 2.3042
+[window_probe] PROBE_DONE @step 179054 LOSS=2.30296, Rate=0.000111963
+[window_probe] BEST_PROBE m=300 Rate=2.30296
+[window_probe] START_EXEC m=300
+[monitor] Completed epoch 58. Evaluated Loss = 2.3021. EMA Loss = 2.29969
+[monitor] Completed epoch 59. Evaluated Loss = 2.30236. EMA Loss = 2.29787
+[window_probe] START_PROBING window_btm=296
+[monitor] Completed epoch 60. Evaluated Loss = 2.30262. EMA Loss = 2.30351
+[window_probe] PROBE_DONE @step 188055 LOSS=2.3025, Rate=0.000293733
+[window_probe] BEST_PROBE m=296 Rate=2.3025
+[window_probe] PROBE_START m=297
+[window_probe] PROBE_DONE @step 189055 LOSS=2.30298, Rate=0.000347533
+[window_probe] BEST_PROBE m=297 Rate=2.30298
+[window_probe] PROBE_START m=298
+[window_probe] PROBE_DONE @step 190055 LOSS=2.30316, Rate=0.000120459
+[window_probe] BEST_PROBE m=298 Rate=2.30316
+[window_probe] PROBE_START m=299
+[monitor] Completed epoch 61. Evaluated Loss = 2.30232. EMA Loss = 2.30444
+[window_probe] PROBE_DONE @step 191055 LOSS=2.30267, Rate=-0.000463424
+[window_probe] BEST_PROBE m=299 Rate=2.30267
+[window_probe] PROBE_START m=300
+[window_probe] PROBE_DONE @step 192055 LOSS=2.30306, Rate=0.000278847
+[window_probe] BEST_PROBE m=300 Rate=2.30306
+[window_probe] PROBE_START m=301
+[window_probe] PROBE_DONE @step 193055 LOSS=2.30287, Rate=-0.000134366
+[window_probe] BEST_PROBE m=301 Rate=2.30287
+[window_probe] PROBE_START m=302
+[monitor] Completed epoch 62. Evaluated Loss = 2.30324. EMA Loss = 2.29774
+[window_probe] PROBE_DONE @step 194055 LOSS=2.30254, Rate=-0.000229724
+[window_probe] BEST_PROBE m=302 Rate=2.30254
+[window_probe] PROBE_START m=303
+[window_probe] PROBE_DONE @step 195057 LOSS=2.30234, Rate=-0.000191865
+[window_probe] BEST_PROBE m=303 Rate=2.30234
+[window_probe] PROBE_START m=304
+[window_probe] PROBE_DONE @step 196060 LOSS=2.30248, Rate=0.000100095
+[window_probe] BEST_PROBE m=304 Rate=2.30248
+[window_probe] START_EXEC m=304
+[monitor] Completed epoch 64. Evaluated Loss = 2.30267. EMA Loss = 2.30335
+[monitor] Completed epoch 63. Evaluated Loss = 2.30247. EMA Loss = 2.30394
+[window_probe] START_PROBING window_btm=300
+[monitor] Completed epoch 65. Evaluated Loss = 2.30214. EMA Loss = 2.30571
+[window_probe] PROBE_DONE @step 205062 LOSS=2.30266, Rate=5.4428e-05
+[window_probe] BEST_PROBE m=300 Rate=2.30266
+[window_probe] PROBE_START m=301
+[window_probe] PROBE_DONE @step 206062 LOSS=2.30303, Rate=0.000263711
+[window_probe] BEST_PROBE m=301 Rate=2.30303
+[window_probe] PROBE_START m=302
+[monitor] Completed epoch 66. Evaluated Loss = 2.30265. EMA Loss = 2.30524
+[window_probe] PROBE_DONE @step 207064 LOSS=2.30249, Rate=-0.00037036
+[window_probe] BEST_PROBE m=302 Rate=2.30249
+[window_probe] PROBE_START m=303
+[window_probe] PROBE_DONE @step 208064 LOSS=2.30257, Rate=5.2563e-05
+[window_probe] BEST_PROBE m=303 Rate=2.30257
+[window_probe] PROBE_START m=304
+[window_probe] PROBE_DONE @step 209064 LOSS=2.3023, Rate=-0.000195567
+[window_probe] BEST_PROBE m=304 Rate=2.3023
+[window_probe] PROBE_START m=305
+[monitor] Completed epoch 67. Evaluated Loss = 2.30251. EMA Loss = 2.30126
+[window_probe] PROBE_DONE @step 210064 LOSS=2.30279, Rate=0.00034388
+[window_probe] BEST_PROBE m=305 Rate=2.30279
+[window_probe] PROBE_START m=306
+[window_probe] PROBE_DONE @step 211064 LOSS=2.30365, Rate=0.00059429
+[window_probe] BEST_PROBE m=306 Rate=2.30365
+[window_probe] PROBE_START m=307
+[window_probe] PROBE_DONE @step 212067 LOSS=2.30259, Rate=-0.000732308
+[window_probe] BEST_PROBE m=307 Rate=2.30259
+[window_probe] PROBE_START m=308
+[monitor] Completed epoch 68. Evaluated Loss = 2.30256. EMA Loss = 2.30479
+[window_probe] PROBE_DONE @step 213068 LOSS=2.30201, Rate=-0.000408375
+[window_probe] BEST_PROBE m=308 Rate=2.30201
+[window_probe] START_EXEC m=308
+[monitor] Completed epoch 70. Evaluated Loss = 2.30276. EMA Loss = 2.30297
+[monitor] Completed epoch 69. Evaluated Loss = 2.3028. EMA Loss = 2.30188
+[window_probe] START_PROBING window_btm=304
+[window_probe] PROBE_DONE @step 222068 LOSS=2.30334, Rate=0.000852669
+[window_probe] BEST_PROBE m=304 Rate=2.30334
+[window_probe] PROBE_START m=305
+[monitor] Completed epoch 71. Evaluated Loss = 2.30298. EMA Loss = 2.30672
+[window_probe] PROBE_DONE @step 223068 LOSS=2.30201, Rate=-0.000944051
+[window_probe] BEST_PROBE m=305 Rate=2.30201
+[window_probe] PROBE_START m=306
+[window_probe] PROBE_DONE @step 224068 LOSS=2.30287, Rate=0.000616117
+[window_probe] BEST_PROBE m=306 Rate=2.30287
+[window_probe] PROBE_START m=307
+[window_probe] PROBE_DONE @step 225068 LOSS=2.30218, Rate=-0.00106113
+[window_probe] BEST_PROBE m=307 Rate=2.30218
+[window_probe] PROBE_START m=308
+[monitor] Completed epoch 72. Evaluated Loss = 2.30243. EMA Loss = 2.30427
+[window_probe] PROBE_DONE @step 226070 LOSS=2.30248, Rate=0.000206307
+[window_probe] BEST_PROBE m=308 Rate=2.30248
+[window_probe] PROBE_START m=309
+[window_probe] PROBE_DONE @step 227072 LOSS=2.30255, Rate=5.29738e-05
+[window_probe] BEST_PROBE m=309 Rate=2.30255
+[window_probe] PROBE_START m=310
+[window_probe] PROBE_DONE @step 228072 LOSS=2.30311, Rate=0.000527978
+[window_probe] BEST_PROBE m=310 Rate=2.30311
+[window_probe] PROBE_START m=311
+[monitor] Completed epoch 73. Evaluated Loss = 2.30258. EMA Loss = 2.30218
+[window_probe] PROBE_DONE @step 229073 LOSS=2.3025, Rate=-0.000419091
+[window_probe] BEST_PROBE m=311 Rate=2.3025
+[window_probe] PROBE_START m=312
+[window_probe] PROBE_DONE @step 230073 LOSS=2.3022, Rate=-0.000214662
+[window_probe] BEST_PROBE m=312 Rate=2.3022
+[window_probe] START_EXEC m=312
+[monitor] Completed epoch 75. Evaluated Loss = 2.30249. EMA Loss = 2.30248
+[monitor] Completed epoch 74. Evaluated Loss = 2.30261. EMA Loss = 2.30613
+[monitor] Completed epoch 76. Evaluated Loss = 2.30296. EMA Loss = 2.30284
+[window_probe] START_PROBING window_btm=308
+[window_probe] PROBE_DONE @step 239077 LOSS=2.30316, Rate=0.000559404
+[window_probe] BEST_PROBE m=308 Rate=2.30316
+[window_probe] PROBE_START m=309
+[window_probe] PROBE_DONE @step 240077 LOSS=2.30249, Rate=-0.000468217
+[window_probe] BEST_PROBE m=309 Rate=2.30249
+[window_probe] PROBE_START m=310
+[window_probe] PROBE_DONE @step 241078 LOSS=2.30263, Rate=0.000103478
+[window_probe] BEST_PROBE m=310 Rate=2.30263
+[window_probe] PROBE_START m=311
+[monitor] Completed epoch 77. Evaluated Loss = 2.30243. EMA Loss = 2.30319
+[window_probe] PROBE_DONE @step 242078 LOSS=2.30305, Rate=0.000298389
+[window_probe] BEST_PROBE m=311 Rate=2.30305
+[window_probe] PROBE_START m=312
+[window_probe] PROBE_DONE @step 243079 LOSS=2.30286, Rate=-0.00013244
+[window_probe] BEST_PROBE m=312 Rate=2.30286
+[window_probe] PROBE_START m=313
+[window_probe] PROBE_DONE @step 244080 LOSS=2.30214, Rate=-0.00103627
+[window_probe] BEST_PROBE m=313 Rate=2.30214
+[window_probe] PROBE_START m=314
+[monitor] Completed epoch 78. Evaluated Loss = 2.30214. EMA Loss = 2.29817
+[window_probe] PROBE_DONE @step 245080 LOSS=2.30245, Rate=0.000286804
+[window_probe] BEST_PROBE m=314 Rate=2.30245
+[window_probe] PROBE_START m=315
+[window_probe] PROBE_DONE @step 246081 LOSS=2.30245, Rate=2.32661e-06
+[window_probe] BEST_PROBE m=315 Rate=2.30245
+[window_probe] PROBE_START m=316
+[monitor] Completed epoch 79. Evaluated Loss = 2.30347. EMA Loss = 2.30205
+[window_probe] PROBE_DONE @step 247081 LOSS=2.30341, Rate=0.000655395
+[window_probe] BEST_PROBE m=316 Rate=2.30341
+[window_probe] START_EXEC m=316
+[monitor] Completed epoch 80. Evaluated Loss = 2.30306. EMA Loss = 2.30186
+[monitor] Completed epoch 81. Evaluated Loss = 2.30239. EMA Loss = 2.30141
+[window_probe] START_PROBING window_btm=312
+[window_probe] PROBE_DONE @step 256082 LOSS=2.30324, Rate=0.000309515
+[window_probe] BEST_PROBE m=312 Rate=2.30324
+[window_probe] PROBE_START m=313
+[monitor] Completed epoch 82. Evaluated Loss = 2.30246. EMA Loss = 2.30496
+[window_probe] PROBE_DONE @step 257082 LOSS=2.30283, Rate=-0.000281121
+[window_probe] BEST_PROBE m=313 Rate=2.30283
+[window_probe] PROBE_START m=314
+[window_probe] PROBE_DONE @step 258082 LOSS=2.30238, Rate=-0.000315242
+[window_probe] BEST_PROBE m=314 Rate=2.30238
+[window_probe] PROBE_START m=315
+[window_probe] PROBE_DONE @step 259082 LOSS=2.30266, Rate=0.0002008
+[window_probe] BEST_PROBE m=315 Rate=2.30266
+[window_probe] PROBE_START m=316
+[window_probe] PROBE_DONE @step 260082 LOSS=2.30267, Rate=5.42988e-06
+[window_probe] BEST_PROBE m=316 Rate=2.30267
+[window_probe] PROBE_START m=317
+[monitor] Completed epoch 83. Evaluated Loss = 2.30219. EMA Loss = 2.30328
+[window_probe] PROBE_DONE @step 261082 LOSS=2.30321, Rate=0.000375405
+[window_probe] BEST_PROBE m=317 Rate=2.30321
+[window_probe] PROBE_START m=318
+[window_probe] PROBE_DONE @step 262082 LOSS=2.30251, Rate=-0.000486188
+[window_probe] BEST_PROBE m=318 Rate=2.30251
+[window_probe] PROBE_START m=319
+[monitor] Completed epoch 84. Evaluated Loss = 2.30228. EMA Loss = 2.29895
+[window_probe] PROBE_DONE @step 263083 LOSS=2.3026, Rate=6.34163e-05
+[window_probe] BEST_PROBE m=319 Rate=2.3026
+[window_probe] PROBE_START m=320
+[window_probe] PROBE_DONE @step 264086 LOSS=2.3028, Rate=0.000141542
+[window_probe] BEST_PROBE m=320 Rate=2.3028
+[window_probe] START_EXEC m=320
+[monitor] Completed epoch 87. Evaluated Loss = 2.30224. EMA Loss = 2.29943
+[monitor] Completed epoch 85. Evaluated Loss = 2.30183. EMA Loss = 2.3028
+[monitor] Completed epoch 86. Evaluated Loss = 2.30263. EMA Loss = 2.30389
+[window_probe] START_PROBING window_btm=316
+[window_probe] PROBE_DONE @step 273086 LOSS=2.30233, Rate=5.20552e-05
+[window_probe] BEST_PROBE m=316 Rate=2.30233
+[window_probe] PROBE_START m=317
+[window_probe] PROBE_DONE @step 274086 LOSS=2.30277, Rate=0.000646609
+[window_probe] BEST_PROBE m=317 Rate=2.30277
+[window_probe] PROBE_START m=318
+[monitor] Completed epoch 88. Evaluated Loss = 2.30291. EMA Loss = 2.30172
+[window_probe] PROBE_DONE @step 275086 LOSS=2.30265, Rate=-8.18784e-05
+[window_probe] BEST_PROBE m=318 Rate=2.30265
+[window_probe] PROBE_START m=319
+[window_probe] PROBE_DONE @step 276086 LOSS=2.30239, Rate=-0.000187533
+[window_probe] BEST_PROBE m=319 Rate=2.30239
+[window_probe] PROBE_START m=320
+[window_probe] PROBE_DONE @step 277086 LOSS=2.30239, Rate=9.69406e-07
+[window_probe] BEST_PROBE m=320 Rate=2.30239
+[window_probe] PROBE_START m=321
+[window_probe] PROBE_DONE @step 278088 LOSS=2.30243, Rate=3.18388e-05
+[window_probe] BEST_PROBE m=321 Rate=2.30243
+[window_probe] PROBE_START m=322
+[monitor] Completed epoch 89. Evaluated Loss = 2.30235. EMA Loss = 2.30278
+[window_probe] PROBE_DONE @step 279089 LOSS=2.30302, Rate=0.000417043
+[window_probe] BEST_PROBE m=322 Rate=2.30302
+[window_probe] PROBE_START m=323
+[window_probe] PROBE_DONE @step 280089 LOSS=2.30223, Rate=-0.000758705
+[window_probe] BEST_PROBE m=323 Rate=2.30223
+[window_probe] PROBE_START m=324
+[window_probe] PROBE_DONE @step 281089 LOSS=2.30311, Rate=0.000847062
+[window_probe] BEST_PROBE m=324 Rate=2.30311
+[window_probe] START_EXEC m=324
+[monitor] Completed epoch 90. Evaluated Loss = 2.30197. EMA Loss = 2.30255
+[monitor] Completed epoch 91. Evaluated Loss = 2.30262. EMA Loss = 2.30454
+[monitor] Completed epoch 92. Evaluated Loss = 2.30241. EMA Loss = 2.30335
+[window_probe] START_PROBING window_btm=320
+[window_probe] PROBE_DONE @step 290090 LOSS=2.30249, Rate=0.000134852
+[window_probe] BEST_PROBE m=320 Rate=2.30249
+[window_probe] PROBE_START m=321
+[monitor] Completed epoch 93. Evaluated Loss = 2.30248. EMA Loss = 2.30323
+[window_probe] PROBE_DONE @step 291090 LOSS=2.30286, Rate=0.000254774
+[window_probe] BEST_PROBE m=321 Rate=2.30286
+[window_probe] PROBE_START m=322
+[window_probe] PROBE_DONE @step 292091 LOSS=2.30308, Rate=0.00015846
+[window_probe] BEST_PROBE m=322 Rate=2.30308
+[window_probe] PROBE_START m=323
+[window_probe] PROBE_DONE @step 293092 LOSS=2.30237, Rate=-0.000494421
+[window_probe] BEST_PROBE m=323 Rate=2.30237
+[window_probe] PROBE_START m=324
+[window_probe] PROBE_DONE @step 294092 LOSS=2.30202, Rate=-0.000325734
+[window_probe] BEST_PROBE m=324 Rate=2.30202
+[window_probe] PROBE_START m=325
+[monitor] Completed epoch 94. Evaluated Loss = 2.30288. EMA Loss = 2.30188
+[window_probe] PROBE_DONE @step 295092 LOSS=2.30283, Rate=0.000571324
+[window_probe] BEST_PROBE m=325 Rate=2.30283
+[window_probe] PROBE_START m=326
+[window_probe] PROBE_DONE @step 296092 LOSS=2.3029, Rate=4.65128e-05
+[window_probe] BEST_PROBE m=326 Rate=2.3029
+[window_probe] PROBE_START m=327
+[window_probe] PROBE_DONE @step 297092 LOSS=2.30309, Rate=0.000186983
+[window_probe] BEST_PROBE m=327 Rate=2.30309
+[window_probe] PROBE_START m=328
+[window_probe] PROBE_DONE @step 298093 LOSS=2.30322, Rate=0.000304293
+[window_probe] BEST_PROBE m=328 Rate=2.30322
+[window_probe] START_EXEC m=328
+[monitor] Completed epoch 95. Evaluated Loss = 2.30269. EMA Loss = 2.30216
+[monitor] Completed epoch 96. Evaluated Loss = 2.30305. EMA Loss = 2.30112
+[monitor] Completed epoch 97. Evaluated Loss = 2.30234. EMA Loss = 2.30435
+[window_probe] START_PROBING window_btm=324
+[monitor] Completed epoch 98. Evaluated Loss = 2.30255. EMA Loss = 2.30197
+[window_probe] PROBE_DONE @step 307098 LOSS=2.30261, Rate=-0.000518456
+[window_probe] BEST_PROBE m=324 Rate=2.30261
+[window_probe] PROBE_START m=325
+[window_probe] PROBE_DONE @step 308105 LOSS=2.30223, Rate=-0.000263897
+[window_probe] BEST_PROBE m=325 Rate=2.30223
+[window_probe] PROBE_START m=326
+[window_probe] PROBE_DONE @step 309105 LOSS=2.30227, Rate=2.43162e-05
+[window_probe] BEST_PROBE m=326 Rate=2.30227
+[window_probe] PROBE_START m=327
+[monitor] Completed epoch 99. Evaluated Loss = 2.30266. EMA Loss = 2.3066
+[window_probe] PROBE_DONE @step 310105 LOSS=2.3026, Rate=0.000310927
+[window_probe] BEST_PROBE m=327 Rate=2.3026
+[window_probe] PROBE_START m=328
+[window_probe] PROBE_DONE @step 311106 LOSS=2.30198, Rate=-0.000434613
+[window_probe] BEST_PROBE m=328 Rate=2.30198
+[window_probe] PROBE_START m=329
+[window_probe] PROBE_DONE @step 312109 LOSS=2.3028, Rate=0.000572119
+[window_probe] BEST_PROBE m=329 Rate=2.3028
+[window_probe] PROBE_START m=330
+[monitor] Completed epoch 100. Evaluated Loss = 2.30257. EMA Loss = 2.30362
+[window_probe] PROBE_DONE @step 313110 LOSS=2.30298, Rate=0.000127185
+[window_probe] BEST_PROBE m=330 Rate=2.30298
+[window_probe] PROBE_START m=331
+[window_probe] PROBE_DONE @step 314111 LOSS=2.30299, Rate=8.29526e-06
+[window_probe] BEST_PROBE m=331 Rate=2.30299
+[window_probe] PROBE_START m=332
+[window_probe] PROBE_DONE @step 315111 LOSS=2.30248, Rate=-0.000352565
+[window_probe] BEST_PROBE m=332 Rate=2.30248
+[window_probe] START_EXEC m=332
+[monitor] Completed epoch 101. Evaluated Loss = 2.3026. EMA Loss = 2.30389
+[monitor] Completed epoch 102. Evaluated Loss = 2.30283. EMA Loss = 2.30455
+[monitor] Completed epoch 103. Evaluated Loss = 2.30295. EMA Loss = 2.30305
+[window_probe] START_PROBING window_btm=328
+[window_probe] PROBE_DONE @step 324115 LOSS=2.30305, Rate=0.000158868
+[window_probe] BEST_PROBE m=328 Rate=2.30305
+[window_probe] PROBE_START m=329
+[window_probe] PROBE_DONE @step 325116 LOSS=2.30215, Rate=-0.000573858
+[window_probe] BEST_PROBE m=329 Rate=2.30215
+[window_probe] PROBE_START m=330
+[monitor] Completed epoch 104. Evaluated Loss = 2.30259. EMA Loss = 2.29787
+[window_probe] PROBE_DONE @step 326116 LOSS=2.30255, Rate=0.000277079
+[window_probe] BEST_PROBE m=330 Rate=2.30255
+[window_probe] PROBE_START m=331
+[window_probe] PROBE_DONE @step 327118 LOSS=2.30234, Rate=-0.000197989
+[window_probe] BEST_PROBE m=331 Rate=2.30234
+[window_probe] PROBE_START m=332
+[window_probe] PROBE_DONE @step 328118 LOSS=2.30185, Rate=-0.000885869
+[window_probe] BEST_PROBE m=332 Rate=2.30185
+[window_probe] PROBE_START m=333
+[monitor] Completed epoch 105. Evaluated Loss = 2.3025. EMA Loss = 2.30003
+[window_probe] PROBE_DONE @step 329118 LOSS=2.30273, Rate=0.000606537
+[window_probe] BEST_PROBE m=333 Rate=2.30273
+[window_probe] PROBE_START m=334
+[window_probe] PROBE_DONE @step 330118 LOSS=2.30226, Rate=-0.000323082
+[window_probe] BEST_PROBE m=334 Rate=2.30226
+[window_probe] PROBE_START m=335
+[window_probe] PROBE_DONE @step 331118 LOSS=2.3034, Rate=0.000803719
+[window_probe] BEST_PROBE m=335 Rate=2.3034
+[window_probe] PROBE_START m=336
+[monitor] Completed epoch 106. Evaluated Loss = 2.30258. EMA Loss = 2.30368
+[window_probe] PROBE_DONE @step 332118 LOSS=2.30258, Rate=-0.000772218
+[window_probe] BEST_PROBE m=336 Rate=2.30258
+[window_probe] START_EXEC m=336
+[monitor] Completed epoch 108. Evaluated Loss = 2.30276. EMA Loss = 2.30561
+[monitor] Completed epoch 107. Evaluated Loss = 2.3023. EMA Loss = 2.30365
+[window_probe] START_PROBING window_btm=332
+[monitor] Completed epoch 109. Evaluated Loss = 2.30295. EMA Loss = 2.30125
+[window_probe] PROBE_DONE @step 341119 LOSS=2.30279, Rate=-5.12779e-05
+[window_probe] BEST_PROBE m=332 Rate=2.30279
+[window_probe] PROBE_START m=333
+[window_probe] PROBE_DONE @step 342119 LOSS=2.30266, Rate=-8.96008e-05
+[window_probe] BEST_PROBE m=333 Rate=2.30266
+[window_probe] PROBE_START m=334
+[window_probe] PROBE_DONE @step 343120 LOSS=2.30235, Rate=-0.000223111
+[window_probe] BEST_PROBE m=334 Rate=2.30235
+[window_probe] PROBE_START m=335
+[monitor] Completed epoch 110. Evaluated Loss = 2.3025. EMA Loss = 2.30539
+[window_probe] PROBE_DONE @step 344122 LOSS=2.30257, Rate=0.000146744
+[window_probe] BEST_PROBE m=335 Rate=2.30257
+[window_probe] PROBE_START m=336
+[window_probe] PROBE_DONE @step 345122 LOSS=2.30272, Rate=0.000109398
+[window_probe] BEST_PROBE m=336 Rate=2.30272
+[window_probe] PROBE_START m=337
+[window_probe] PROBE_DONE @step 346123 LOSS=2.30278, Rate=5.3558e-05
+[window_probe] BEST_PROBE m=337 Rate=2.30278
+[window_probe] PROBE_START m=338
+[monitor] Completed epoch 111. Evaluated Loss = 2.30237. EMA Loss = 2.30308
+[window_probe] PROBE_DONE @step 347123 LOSS=2.30256, Rate=-0.000155062
+[window_probe] BEST_PROBE m=338 Rate=2.30256
+[window_probe] PROBE_START m=339
+[window_probe] PROBE_DONE @step 348123 LOSS=2.30299, Rate=0.000303941
+[window_probe] BEST_PROBE m=339 Rate=2.30299
+[window_probe] PROBE_START m=340
+[window_probe] PROBE_DONE @step 349124 LOSS=2.30276, Rate=-0.000211739
+[window_probe] BEST_PROBE m=340 Rate=2.30276
+[window_probe] START_EXEC m=340
+[window_probe] START_PROBING window_btm=336
+[monitor] Completed epoch 112. Evaluated Loss = 2.30293. EMA Loss = 2.30561
+[monitor] Completed epoch 113. Evaluated Loss = 2.30325. EMA Loss = 2.3042
+[monitor] Completed epoch 114. Evaluated Loss = 2.30231. EMA Loss = 2.30497
+[window_probe] PROBE_DONE @step 358130 LOSS=2.3028, Rate=0.00012492
+[window_probe] BEST_PROBE m=336 Rate=2.3028
+[window_probe] PROBE_START m=337
+[window_probe] PROBE_DONE @step 359130 LOSS=2.30252, Rate=-0.000257828
+[window_probe] BEST_PROBE m=337 Rate=2.30252
+[window_probe] PROBE_START m=338
+[monitor] Completed epoch 115. Evaluated Loss = 2.30229. EMA Loss = 2.30463
+[window_probe] PROBE_DONE @step 360130 LOSS=2.30256, Rate=2.75613e-05
+[window_probe] BEST_PROBE m=338 Rate=2.30256
+[window_probe] PROBE_START m=339
+[window_probe] PROBE_DONE @step 361130 LOSS=2.30303, Rate=0.000324769
+[window_probe] BEST_PROBE m=339 Rate=2.30303
+[window_probe] PROBE_START m=340
+[window_probe] PROBE_DONE @step 362131 LOSS=2.30305, Rate=1.93805e-05
+[window_probe] BEST_PROBE m=340 Rate=2.30305
+[window_probe] PROBE_START m=341
+[window_probe] PROBE_DONE @step 363132 LOSS=2.30288, Rate=-0.000165644
+[window_probe] BEST_PROBE m=341 Rate=2.30288
+[window_probe] PROBE_START m=342
+[monitor] Completed epoch 116. Evaluated Loss = 2.30317. EMA Loss = 2.30418
+[window_probe] PROBE_DONE @step 364135 LOSS=2.30228, Rate=-0.000421485
+[window_probe] BEST_PROBE m=342 Rate=2.30228
+[window_probe] PROBE_START m=343
+[window_probe] PROBE_DONE @step 365137 LOSS=2.30283, Rate=0.000382234
+[window_probe] BEST_PROBE m=343 Rate=2.30283
+[window_probe] PROBE_START m=344
+[window_probe] PROBE_DONE @step 366138 LOSS=2.3026, Rate=-0.000162878
+[window_probe] BEST_PROBE m=344 Rate=2.3026
+[window_probe] START_EXEC m=344
+[monitor] Completed epoch 117. Evaluated Loss = 2.30283. EMA Loss = 2.30344
+[monitor] Completed epoch 118. Evaluated Loss = 2.3022. EMA Loss = 2.30037
+[monitor] Completed epoch 119. Evaluated Loss = 2.30268. EMA Loss = 2.30273
+[window_probe] START_PROBING window_btm=340
+[monitor] Completed epoch 120. Evaluated Loss = 2.30284. EMA Loss = 2.29983
+[window_probe] PROBE_DONE @step 375138 LOSS=2.30226, Rate=-0.000348313
+[window_probe] BEST_PROBE m=340 Rate=2.30226
+[window_probe] PROBE_START m=341
+[window_probe] PROBE_DONE @step 376139 LOSS=2.30288, Rate=0.00043421
+[window_probe] BEST_PROBE m=341 Rate=2.30288
+[window_probe] PROBE_START m=342
+[window_probe] PROBE_DONE @step 377140 LOSS=2.30269, Rate=-0.000134135
+[window_probe] BEST_PROBE m=342 Rate=2.30269
+[window_probe] PROBE_START m=343
+[window_probe] PROBE_DONE @step 378141 LOSS=2.30187, Rate=-0.000571817
+[window_probe] BEST_PROBE m=343 Rate=2.30187
+[window_probe] PROBE_START m=344
+[window_probe] PROBE_DONE @step 379143 LOSS=2.30289, Rate=0.000977883
+[window_probe] BEST_PROBE m=344 Rate=2.30289
+[window_probe] PROBE_START m=345
+[monitor] Completed epoch 121. Evaluated Loss = 2.30276. EMA Loss = 2.30154
+[window_probe] PROBE_DONE @step 380143 LOSS=2.3031, Rate=0.00014531
+[window_probe] BEST_PROBE m=345 Rate=2.3031
+[window_probe] PROBE_START m=346
+[window_probe] PROBE_DONE @step 381143 LOSS=2.30328, Rate=0.000130941
+[window_probe] BEST_PROBE m=346 Rate=2.30328
+[window_probe] PROBE_START m=347
+[monitor] Completed epoch 122. Evaluated Loss = 2.30258. EMA Loss = 2.30415
+[window_probe] PROBE_DONE @step 382144 LOSS=2.30255, Rate=-0.000508235
+[window_probe] BEST_PROBE m=347 Rate=2.30255
+[window_probe] PROBE_START m=348
+[window_probe] PROBE_DONE @step 383144 LOSS=2.303, Rate=0.000321576
+[window_probe] BEST_PROBE m=348 Rate=2.303
+[window_probe] START_EXEC m=348
+[window_probe] START_PROBING window_btm=344
+[monitor] Completed epoch 125. Evaluated Loss = 2.30261. EMA Loss = 2.30673
+[monitor] Completed epoch 123. Evaluated Loss = 2.30246. EMA Loss = 2.30138
+[monitor] Completed epoch 124. Evaluated Loss = 2.30198. EMA Loss = 2.30464
+[window_probe] PROBE_DONE @step 392146 LOSS=2.30284, Rate=9.98996e-05
+[window_probe] BEST_PROBE m=344 Rate=2.30284
+[window_probe] PROBE_START m=345
+[window_probe] PROBE_DONE @step 393146 LOSS=2.30245, Rate=-0.000272112
+[window_probe] BEST_PROBE m=345 Rate=2.30245
+[window_probe] PROBE_START m=346
+[window_probe] PROBE_DONE @step 394146 LOSS=2.30318, Rate=0.000518575
+[window_probe] BEST_PROBE m=346 Rate=2.30318
+[window_probe] PROBE_START m=347
+[monitor] Completed epoch 126. Evaluated Loss = 2.30279. EMA Loss = 2.30414
+[window_probe] PROBE_DONE @step 395146 LOSS=2.30247, Rate=-0.00049143
+[window_probe] BEST_PROBE m=347 Rate=2.30247
+[window_probe] PROBE_START m=348
+[window_probe] PROBE_DONE @step 396146 LOSS=2.30278, Rate=0.000219091
+[window_probe] BEST_PROBE m=348 Rate=2.30278
+[window_probe] PROBE_START m=349
+[monitor] Completed epoch 127. Evaluated Loss = 2.30304. EMA Loss = 2.30746
+[window_probe] PROBE_DONE @step 397146 LOSS=2.30258, Rate=-0.000136754
+[window_probe] BEST_PROBE m=349 Rate=2.30258
+[window_probe] PROBE_START m=350
+[window_probe] PROBE_DONE @step 398147 LOSS=2.30273, Rate=0.00010602
+[window_probe] BEST_PROBE m=350 Rate=2.30273
+[window_probe] PROBE_START m=351
+[window_probe] PROBE_DONE @step 399147 LOSS=2.30234, Rate=-0.000380466
+[window_probe] BEST_PROBE m=351 Rate=2.30234
+[window_probe] PROBE_START m=352
+[window_probe] PROBE_DONE @step 400147 LOSS=2.30223, Rate=-7.34887e-05
+[window_probe] BEST_PROBE m=352 Rate=2.30223
+[window_probe] START_EXEC m=352
+[monitor] Completed epoch 128. Evaluated Loss = 2.30245. EMA Loss = 2.30529
+[monitor] Completed epoch 129. Evaluated Loss = 2.30276. EMA Loss = 2.29948
+[window_probe] START_PROBING window_btm=348
+[monitor] Completed epoch 130. Evaluated Loss = 2.3021. EMA Loss = 2.30329
+[window_probe] PROBE_DONE @step 409151 LOSS=2.3022, Rate=-0.000443645
+[window_probe] BEST_PROBE m=348 Rate=2.3022
+[window_probe] PROBE_START m=349
+[window_probe] PROBE_DONE @step 410152 LOSS=2.3029, Rate=0.000505387
+[window_probe] BEST_PROBE m=349 Rate=2.3029
+[window_probe] PROBE_START m=350
+[monitor] Completed epoch 131. Evaluated Loss = 2.30208. EMA Loss = 2.30215
+[window_probe] PROBE_DONE @step 411152 LOSS=2.3034, Rate=0.000927029
+[window_probe] BEST_PROBE m=350 Rate=2.3034
+[window_probe] PROBE_START m=351
+[window_probe] PROBE_DONE @step 412152 LOSS=2.30269, Rate=-0.000490212
+[window_probe] BEST_PROBE m=351 Rate=2.30269
+[window_probe] PROBE_START m=352
+[monitor] Completed epoch 132. Evaluated Loss = 2.3025. EMA Loss = 2.3009
+[window_probe] PROBE_DONE @step 413154 LOSS=2.30261, Rate=-5.50757e-05
+[window_probe] BEST_PROBE m=352 Rate=2.30261
+[window_probe] PROBE_START m=353
+[window_probe] PROBE_DONE @step 414154 LOSS=2.30203, Rate=-0.000546067
+[window_probe] BEST_PROBE m=353 Rate=2.30203
+[window_probe] PROBE_START m=354
+[window_probe] PROBE_DONE @step 415156 LOSS=2.30251, Rate=0.000458284
+[window_probe] BEST_PROBE m=354 Rate=2.30251
+[window_probe] PROBE_START m=355
+[window_probe] PROBE_DONE @step 416156 LOSS=2.30249, Rate=-2.15085e-05
+[window_probe] BEST_PROBE m=355 Rate=2.30249
+[window_probe] PROBE_START m=356
+[monitor] Completed epoch 133. Evaluated Loss = 2.30223. EMA Loss = 2.30145
+[window_probe] PROBE_DONE @step 417156 LOSS=2.30231, Rate=-0.000128049
+[window_probe] BEST_PROBE m=356 Rate=2.30231
+[window_probe] START_EXEC m=356
+[monitor] Completed epoch 136. Evaluated Loss = 2.30297. EMA Loss = 2.3042
+[monitor] Completed epoch 134. Evaluated Loss = 2.30305. EMA Loss = 2.30415
+[monitor] Completed epoch 135. Evaluated Loss = 2.30328. EMA Loss = 2.30578
+[window_probe] START_PROBING window_btm=352
+[window_probe] PROBE_DONE @step 426156 LOSS=2.30272, Rate=-0.00015671
+[window_probe] BEST_PROBE m=352 Rate=2.30272
+[window_probe] PROBE_START m=353
+[window_probe] PROBE_DONE @step 427158 LOSS=2.30278, Rate=4.08959e-05
+[window_probe] BEST_PROBE m=353 Rate=2.30278
+[window_probe] PROBE_START m=354
+[monitor] Completed epoch 137. Evaluated Loss = 2.30252. EMA Loss = 2.3006
+[window_probe] PROBE_DONE @step 428159 LOSS=2.30285, Rate=5.00901e-05
+[window_probe] BEST_PROBE m=354 Rate=2.30285
+[window_probe] PROBE_START m=355
+[window_probe] PROBE_DONE @step 429159 LOSS=2.30265, Rate=-0.000143814
+[window_probe] BEST_PROBE m=355 Rate=2.30265
+[window_probe] PROBE_START m=356
+[window_probe] PROBE_DONE @step 430160 LOSS=2.303, Rate=0.000335267
+[window_probe] BEST_PROBE m=356 Rate=2.303
+[window_probe] PROBE_START m=357
+[window_probe] PROBE_DONE @step 431160 LOSS=2.3024, Rate=-0.000420846
+[window_probe] BEST_PROBE m=357 Rate=2.3024
+[window_probe] PROBE_START m=358
+[monitor] Completed epoch 138. Evaluated Loss = 2.30241. EMA Loss = 2.30228
+[window_probe] PROBE_DONE @step 432160 LOSS=2.30254, Rate=9.76423e-05
+[window_probe] BEST_PROBE m=358 Rate=2.30254
+[window_probe] PROBE_START m=359
+[window_probe] PROBE_DONE @step 433160 LOSS=2.303, Rate=0.000325432
+[window_probe] BEST_PROBE m=359 Rate=2.303
+[window_probe] PROBE_START m=360
+[window_probe] PROBE_DONE @step 434161 LOSS=2.3029, Rate=-7.1172e-05
+[window_probe] BEST_PROBE m=360 Rate=2.3029
+[window_probe] START_EXEC m=360
+[monitor] Completed epoch 140. Evaluated Loss = 2.30345. EMA Loss = 2.3015
+[monitor] Completed epoch 139. Evaluated Loss = 2.30214. EMA Loss = 2.30291
+[monitor] Completed epoch 141. Evaluated Loss = 2.30236. EMA Loss = 2.30152
+[window_probe] START_PROBING window_btm=356
+[window_probe] PROBE_DONE @step 443164 LOSS=2.3026, Rate=-0.000243997
+[window_probe] BEST_PROBE m=356 Rate=2.3026
+[window_probe] PROBE_START m=357
+[monitor] Completed epoch 142. Evaluated Loss = 2.30323. EMA Loss = 2.30919
+[window_probe] PROBE_DONE @step 444164 LOSS=2.30251, Rate=-6.06406e-05
+[window_probe] BEST_PROBE m=357 Rate=2.30251
+[window_probe] PROBE_START m=358
+[window_probe] PROBE_DONE @step 445164 LOSS=2.30236, Rate=-0.000102965
+[window_probe] BEST_PROBE m=358 Rate=2.30236
+[window_probe] PROBE_START m=359
+[window_probe] PROBE_DONE @step 446164 LOSS=2.30251, Rate=0.000107048
+[window_probe] BEST_PROBE m=359 Rate=2.30251
+[window_probe] PROBE_START m=360
+[monitor] Completed epoch 143. Evaluated Loss = 2.30323. EMA Loss = 2.30543
+[window_probe] PROBE_DONE @step 447164 LOSS=2.30295, Rate=0.00030365
+[window_probe] BEST_PROBE m=360 Rate=2.30295
+[window_probe] PROBE_START m=361
+[window_probe] PROBE_DONE @step 448168 LOSS=2.3026, Rate=-0.000249636
+[window_probe] BEST_PROBE m=361 Rate=2.3026
+[window_probe] PROBE_START m=362
+[window_probe] PROBE_DONE @step 449180 LOSS=2.3024, Rate=-0.000143487
+[window_probe] BEST_PROBE m=362 Rate=2.3024
+[window_probe] PROBE_START m=363
+[monitor] Completed epoch 144. Evaluated Loss = 2.30266. EMA Loss = 2.30247
+[window_probe] PROBE_DONE @step 450181 LOSS=2.30318, Rate=0.000554713
+[window_probe] BEST_PROBE m=363 Rate=2.30318
+[window_probe] PROBE_START m=364
+[window_probe] PROBE_DONE @step 451182 LOSS=2.30256, Rate=-0.000434527
+[window_probe] BEST_PROBE m=364 Rate=2.30256
+[window_probe] START_EXEC m=364
+[monitor] Completed epoch 145. Evaluated Loss = 2.30236. EMA Loss = 2.30158
+[monitor] Completed epoch 146. Evaluated Loss = 2.30257. EMA Loss = 2.30061
+[window_probe] START_PROBING window_btm=360
+[window_probe] PROBE_DONE @step 460182 LOSS=2.30271, Rate=0.00011751
+[window_probe] BEST_PROBE m=360 Rate=2.30271
+[window_probe] PROBE_START m=361
+[monitor] Completed epoch 147. Evaluated Loss = 2.30311. EMA Loss = 2.29846
+[window_probe] PROBE_DONE @step 461183 LOSS=2.30342, Rate=0.000489716
+[window_probe] BEST_PROBE m=361 Rate=2.30342
+[window_probe] PROBE_START m=362
+[window_probe] PROBE_DONE @step 462184 LOSS=2.30253, Rate=-0.00083697
+[window_probe] BEST_PROBE m=362 Rate=2.30253
+[window_probe] PROBE_START m=363
+[monitor] Completed epoch 148. Evaluated Loss = 2.30245. EMA Loss = 2.30433
+[window_probe] PROBE_DONE @step 463184 LOSS=2.3021, Rate=-0.000299433
+[window_probe] BEST_PROBE m=363 Rate=2.3021
+[window_probe] PROBE_START m=364
+[window_probe] PROBE_DONE @step 464201 LOSS=2.30216, Rate=4.36462e-05
+[window_probe] BEST_PROBE m=364 Rate=2.30216
+[window_probe] PROBE_START m=365
+[window_probe] PROBE_DONE @step 465201 LOSS=2.30253, Rate=0.000554004
+[window_probe] BEST_PROBE m=365 Rate=2.30253
+[window_probe] PROBE_START m=366
+[window_probe] PROBE_DONE @step 466202 LOSS=2.30256, Rate=2.41219e-05
+[window_probe] BEST_PROBE m=366 Rate=2.30256
+[window_probe] PROBE_START m=367
+[monitor] Completed epoch 149. Evaluated Loss = 2.30243. EMA Loss = 2.30312
+[window_probe] PROBE_DONE @step 467202 LOSS=2.30237, Rate=-0.000129377
+[window_probe] BEST_PROBE m=367 Rate=2.30237
+[window_probe] PROBE_START m=368
+[window_probe] PROBE_DONE @step 468208 LOSS=2.30294, Rate=0.000547299
+[window_probe] BEST_PROBE m=368 Rate=2.30294
+[window_probe] START_EXEC m=368
+[monitor] Completed epoch 152. Evaluated Loss = 2.30299. EMA Loss = 2.30157
+[window_probe] START_PROBING window_btm=364
+[monitor] Completed epoch 151. Evaluated Loss = 2.30252. EMA Loss = 2.30305
+[monitor] Completed epoch 150. Evaluated Loss = 2.30293. EMA Loss = 2.30385
+[window_probe] PROBE_DONE @step 477212 LOSS=2.30243, Rate=-2.42992e-06
+[window_probe] BEST_PROBE m=364 Rate=2.30243
+[window_probe] PROBE_START m=365
+[window_probe] PROBE_DONE @step 478212 LOSS=2.30279, Rate=0.000341936
+[window_probe] BEST_PROBE m=365 Rate=2.30279
+[window_probe] PROBE_START m=366
+[monitor] Completed epoch 153. Evaluated Loss = 2.30266. EMA Loss = 2.30419
+[window_probe] PROBE_DONE @step 479216 LOSS=2.30273, Rate=-5.96708e-05
+[window_probe] BEST_PROBE m=366 Rate=2.30273
+[window_probe] PROBE_START m=367
+[window_probe] PROBE_DONE @step 480219 LOSS=2.30223, Rate=-0.000357148
+[window_probe] BEST_PROBE m=367 Rate=2.30223
+[window_probe] PROBE_START m=368
+[window_probe] PROBE_DONE @step 481219 LOSS=2.30262, Rate=0.000272567
+[window_probe] BEST_PROBE m=368 Rate=2.30262
+[window_probe] PROBE_START m=369
+[monitor] Completed epoch 154. Evaluated Loss = 2.30254. EMA Loss = 2.30447
+[window_probe] PROBE_DONE @step 482220 LOSS=2.30282, Rate=0.000144229
+[window_probe] BEST_PROBE m=369 Rate=2.30282
+[window_probe] PROBE_START m=370
+[window_probe] PROBE_DONE @step 483220 LOSS=2.30329, Rate=0.000448853
+[window_probe] BEST_PROBE m=370 Rate=2.30329
+[window_probe] PROBE_START m=371
+[window_probe] PROBE_DONE @step 484220 LOSS=2.30226, Rate=-0.000963726
+[window_probe] BEST_PROBE m=371 Rate=2.30226
+[window_probe] PROBE_START m=372
+[window_probe] PROBE_DONE @step 485220 LOSS=2.30257, Rate=0.000300381
+[window_probe] BEST_PROBE m=372 Rate=2.30257
+[window_probe] START_EXEC m=372
+[monitor] Completed epoch 155. Evaluated Loss = 2.30257. EMA Loss = 2.30301
+[monitor] Completed epoch 156. Evaluated Loss = 2.30268. EMA Loss = 2.3034
+[monitor] Completed epoch 157. Evaluated Loss = 2.30273. EMA Loss = 2.30239
+[window_probe] START_PROBING window_btm=368
+[window_probe] PROBE_DONE @step 494222 LOSS=2.30204, Rate=-0.00180802
+[window_probe] BEST_PROBE m=368 Rate=2.30204
+[window_probe] PROBE_START m=369
+[monitor] Completed epoch 158. Evaluated Loss = 2.30231. EMA Loss = 2.30253
+[window_probe] PROBE_DONE @step 495224 LOSS=2.30245, Rate=0.000281734
+[window_probe] BEST_PROBE m=369 Rate=2.30245
+[window_probe] PROBE_START m=370
+[window_probe] PROBE_DONE @step 496224 LOSS=2.30266, Rate=0.000149254
+[window_probe] BEST_PROBE m=370 Rate=2.30266
+[window_probe] PROBE_START m=371
+[window_probe] PROBE_DONE @step 497227 LOSS=2.3034, Rate=0.000705451
+[window_probe] BEST_PROBE m=371 Rate=2.3034
+[window_probe] PROBE_START m=372
+[monitor] Completed epoch 159. Evaluated Loss = 2.30233. EMA Loss = 2.30337
+[window_probe] PROBE_DONE @step 498232 LOSS=2.30271, Rate=-0.000490792
+[window_probe] BEST_PROBE m=372 Rate=2.30271
+[window_probe] PROBE_START m=373
+[window_probe] PROBE_DONE @step 499232 LOSS=2.30249, Rate=-0.000153022
+[window_probe] BEST_PROBE m=373 Rate=2.30249
+[window_probe] PROBE_START m=374
+[monitor] Completed epoch 160. Evaluated Loss = 2.30219. EMA Loss = 2.30747
+[window_probe] PROBE_DONE @step 500232 LOSS=2.30322, Rate=0.000524196
+[window_probe] BEST_PROBE m=374 Rate=2.30322
+[window_probe] PROBE_START m=375
+[window_probe] PROBE_DONE @step 501233 LOSS=2.30245, Rate=-0.000740231
+[window_probe] BEST_PROBE m=375 Rate=2.30245
+[window_probe] PROBE_START m=376
+[window_probe] PROBE_DONE @step 502234 LOSS=2.30219, Rate=-0.000181895
+[window_probe] BEST_PROBE m=376 Rate=2.30219
+[window_probe] START_EXEC m=376
+[monitor] Completed epoch 162. Evaluated Loss = 2.30258. EMA Loss = 2.30294
+[monitor] Completed epoch 161. Evaluated Loss = 2.30281. EMA Loss = 2.3023
+[monitor] Completed epoch 163. Evaluated Loss = 2.30295. EMA Loss = 2.30181
+[window_probe] START_PROBING window_btm=372
+[window_probe] PROBE_DONE @step 511237 LOSS=2.30316, Rate=0.000382805
+[window_probe] BEST_PROBE m=372 Rate=2.30316
+[window_probe] PROBE_START m=373
+[window_probe] PROBE_DONE @step 512237 LOSS=2.30245, Rate=-0.000497094
+[window_probe] BEST_PROBE m=373 Rate=2.30245
+[window_probe] PROBE_START m=374
+[monitor] Completed epoch 164. Evaluated Loss = 2.30231. EMA Loss = 2.30366
+[window_probe] PROBE_DONE @step 513237 LOSS=2.30256, Rate=7.67512e-05
+[window_probe] BEST_PROBE m=374 Rate=2.30256
+[window_probe] PROBE_START m=375
+[window_probe] PROBE_DONE @step 514240 LOSS=2.30279, Rate=0.000164139
+[window_probe] BEST_PROBE m=375 Rate=2.30279
+[window_probe] PROBE_START m=376
+[window_probe] PROBE_DONE @step 515240 LOSS=2.30251, Rate=-0.000197469
+[window_probe] BEST_PROBE m=376 Rate=2.30251
+[window_probe] PROBE_START m=377
+[monitor] Completed epoch 165. Evaluated Loss = 2.30253. EMA Loss = 2.30198
+[window_probe] PROBE_DONE @step 516245 LOSS=2.30243, Rate=-5.54618e-05
+[window_probe] BEST_PROBE m=377 Rate=2.30243
+[window_probe] PROBE_START m=378
+[window_probe] PROBE_DONE @step 517247 LOSS=2.30286, Rate=0.000412058
+[window_probe] BEST_PROBE m=378 Rate=2.30286
+[window_probe] PROBE_START m=379
+[window_probe] PROBE_DONE @step 518247 LOSS=2.30273, Rate=-8.94023e-05
+[window_probe] BEST_PROBE m=379 Rate=2.30273
+[window_probe] PROBE_START m=380
+[monitor] Completed epoch 166. Evaluated Loss = 2.30201. EMA Loss = 2.30029
+[window_probe] PROBE_DONE @step 519247 LOSS=2.30278, Rate=4.84374e-05
+[window_probe] BEST_PROBE m=380 Rate=2.30278
+[window_probe] START_EXEC m=380
+[monitor] Completed epoch 168. Evaluated Loss = 2.30226. EMA Loss = 2.304
+[monitor] Completed epoch 167. Evaluated Loss = 2.303. EMA Loss = 2.30317
+[window_probe] START_PROBING window_btm=376
+[window_probe] PROBE_DONE @step 528247 LOSS=2.30299, Rate=0.000640958
+[window_probe] BEST_PROBE m=376 Rate=2.30299
+[window_probe] PROBE_START m=377
+[monitor] Completed epoch 169. Evaluated Loss = 2.30243. EMA Loss = 2.3013
+[window_probe] PROBE_DONE @step 529249 LOSS=2.30277, Rate=-0.000160067
+[window_probe] BEST_PROBE m=377 Rate=2.30277
+[window_probe] PROBE_START m=378
+[window_probe] PROBE_DONE @step 530249 LOSS=2.30227, Rate=-0.000354728
+[window_probe] BEST_PROBE m=378 Rate=2.30227
+[window_probe] PROBE_START m=379
+[window_probe] PROBE_DONE @step 531249 LOSS=2.30298, Rate=0.000502145
+[window_probe] BEST_PROBE m=379 Rate=2.30298
+[window_probe] PROBE_START m=380
+[monitor] Completed epoch 170. Evaluated Loss = 2.30303. EMA Loss = 2.30149
+[window_probe] PROBE_DONE @step 532249 LOSS=2.30279, Rate=-0.000129938
+[window_probe] BEST_PROBE m=380 Rate=2.30279
+[window_probe] PROBE_START m=381
+[window_probe] PROBE_DONE @step 533250 LOSS=2.30242, Rate=-0.000261968
+[window_probe] BEST_PROBE m=381 Rate=2.30242
+[window_probe] PROBE_START m=382
+[window_probe] PROBE_DONE @step 534250 LOSS=2.30261, Rate=0.000135045
+[window_probe] BEST_PROBE m=382 Rate=2.30261
+[window_probe] PROBE_START m=383
+[monitor] Completed epoch 171. Evaluated Loss = 2.30251. EMA Loss = 2.3018
+[window_probe] PROBE_DONE @step 535251 LOSS=2.30243, Rate=-0.000121711
+[window_probe] BEST_PROBE m=383 Rate=2.30243
+[window_probe] PROBE_START m=384
+[window_probe] PROBE_DONE @step 536251 LOSS=2.30267, Rate=0.00022849
+[window_probe] BEST_PROBE m=384 Rate=2.30267
+[window_probe] START_EXEC m=384
+[window_probe] START_PROBING window_btm=380
+[monitor] Completed epoch 172. Evaluated Loss = 2.30293. EMA Loss = 2.30349
+[monitor] Completed epoch 173. Evaluated Loss = 2.30306. EMA Loss = 2.30448
+[monitor] Completed epoch 174. Evaluated Loss = 2.30267. EMA Loss = 2.30141
+[window_probe] PROBE_DONE @step 545251 LOSS=2.30278, Rate=0.000462713
+[window_probe] BEST_PROBE m=380 Rate=2.30278
+[window_probe] PROBE_START m=381
+[window_probe] PROBE_DONE @step 546253 LOSS=2.30292, Rate=0.000135979
+[window_probe] BEST_PROBE m=381 Rate=2.30292
+[window_probe] PROBE_START m=382
+[window_probe] PROBE_DONE @step 547259 LOSS=2.30291, Rate=-7.56074e-06
+[window_probe] BEST_PROBE m=382 Rate=2.30291
+[window_probe] PROBE_START m=383
+[monitor] Completed epoch 175. Evaluated Loss = 2.30275. EMA Loss = 2.30702
+[window_probe] PROBE_DONE @step 548259 LOSS=2.30314, Rate=0.000529018
+[window_probe] BEST_PROBE m=383 Rate=2.30314
+[window_probe] PROBE_START m=384
+[window_probe] PROBE_DONE @step 549259 LOSS=2.30234, Rate=-0.00077638
+[window_probe] BEST_PROBE m=384 Rate=2.30234
+[window_probe] PROBE_START m=385
+[monitor] Completed epoch 176. Evaluated Loss = 2.30268. EMA Loss = 2.30418
+[window_probe] PROBE_DONE @step 550268 LOSS=2.30333, Rate=0.000904557
+[window_probe] BEST_PROBE m=385 Rate=2.30333
+[window_probe] PROBE_START m=386
+[window_probe] PROBE_DONE @step 551268 LOSS=2.30251, Rate=-0.000761124
+[window_probe] BEST_PROBE m=386 Rate=2.30251
+[window_probe] PROBE_START m=387
+[window_probe] PROBE_DONE @step 552270 LOSS=2.30293, Rate=0.00029429
+[window_probe] BEST_PROBE m=387 Rate=2.30293
+[window_probe] PROBE_START m=388
+[monitor] Completed epoch 177. Evaluated Loss = 2.303. EMA Loss = 2.30206
+[window_probe] PROBE_DONE @step 553270 LOSS=2.30227, Rate=-0.000612152
+[window_probe] BEST_PROBE m=388 Rate=2.30227
+[window_probe] START_EXEC m=388
+[monitor] Completed epoch 178. Evaluated Loss = 2.30231. EMA Loss = 2.30157
+[monitor] Completed epoch 179. Evaluated Loss = 2.30234. EMA Loss = 2.30415
+[window_probe] START_PROBING window_btm=384
+[window_probe] PROBE_DONE @step 562273 LOSS=2.3025, Rate=0.000385816
+[window_probe] BEST_PROBE m=384 Rate=2.3025
+[window_probe] PROBE_START m=385
+[monitor] Completed epoch 180. Evaluated Loss = 2.30255. EMA Loss = 2.30223
+[window_probe] PROBE_DONE @step 563277 LOSS=2.30293, Rate=0.000396223
+[window_probe] BEST_PROBE m=385 Rate=2.30293
+[window_probe] PROBE_START m=386
+[window_probe] PROBE_DONE @step 564277 LOSS=2.30278, Rate=-0.000107489
+[window_probe] BEST_PROBE m=386 Rate=2.30278
+[window_probe] PROBE_START m=387
+[window_probe] PROBE_DONE @step 565279 LOSS=2.3026, Rate=-0.000125469
+[window_probe] BEST_PROBE m=387 Rate=2.3026
+[window_probe] PROBE_START m=388
+[monitor] Completed epoch 181. Evaluated Loss = 2.30275. EMA Loss = 2.30702
+[window_probe] PROBE_DONE @step 566280 LOSS=2.30199, Rate=-0.000567267
+[window_probe] BEST_PROBE m=388 Rate=2.30199
+[window_probe] PROBE_START m=389
+[window_probe] PROBE_DONE @step 567288 LOSS=2.30307, Rate=0.000745968
+[window_probe] BEST_PROBE m=389 Rate=2.30307
+[window_probe] PROBE_START m=390
+[window_probe] PROBE_DONE @step 568290 LOSS=2.30258, Rate=-0.000345203
+[window_probe] BEST_PROBE m=390 Rate=2.30258
+[window_probe] PROBE_START m=391
+[monitor] Completed epoch 182. Evaluated Loss = 2.3019. EMA Loss = 2.30194
+[window_probe] PROBE_DONE @step 569291 LOSS=2.30266, Rate=7.43722e-05
+[window_probe] BEST_PROBE m=391 Rate=2.30266
+[window_probe] PROBE_START m=392
+[window_probe] PROBE_DONE @step 570293 LOSS=2.30273, Rate=4.68742e-05
+[window_probe] BEST_PROBE m=392 Rate=2.30273
+[window_probe] START_EXEC m=392
+[monitor] Completed epoch 185. Evaluated Loss = 2.30204. EMA Loss = 2.30191
+[monitor] Completed epoch 183. Evaluated Loss = 2.30238. EMA Loss = 2.30154
+[monitor] Completed epoch 184. Evaluated Loss = 2.30289. EMA Loss = 2.29948
+[window_probe] START_PROBING window_btm=388
+[window_probe] PROBE_DONE @step 579297 LOSS=2.30244, Rate=-0.000560881
+[window_probe] BEST_PROBE m=388 Rate=2.30244
+[window_probe] PROBE_START m=389
+[window_probe] PROBE_DONE @step 580297 LOSS=2.30237, Rate=-6.79416e-05
+[window_probe] BEST_PROBE m=389 Rate=2.30237
+[window_probe] PROBE_START m=390
+[window_probe] PROBE_DONE @step 581297 LOSS=2.30328, Rate=0.000642093
+[window_probe] BEST_PROBE m=390 Rate=2.30328
+[window_probe] PROBE_START m=391
+[monitor] Completed epoch 186. Evaluated Loss = 2.30251. EMA Loss = 2.30041
+[window_probe] PROBE_DONE @step 582297 LOSS=2.30261, Rate=-0.000471493
+[window_probe] BEST_PROBE m=391 Rate=2.30261
+[window_probe] PROBE_START m=392
+[window_probe] PROBE_DONE @step 583298 LOSS=2.30285, Rate=0.000226239
+[window_probe] BEST_PROBE m=392 Rate=2.30285
+[window_probe] PROBE_START m=393
+[window_probe] PROBE_DONE @step 584298 LOSS=2.30277, Rate=-7.14307e-05
+[window_probe] BEST_PROBE m=393 Rate=2.30277
+[window_probe] PROBE_START m=394
+[monitor] Completed epoch 187. Evaluated Loss = 2.30255. EMA Loss = 2.30412
+[window_probe] PROBE_DONE @step 585300 LOSS=2.30277, Rate=-3.92693e-07
+[window_probe] BEST_PROBE m=394 Rate=2.30277
+[window_probe] PROBE_START m=395
+[window_probe] PROBE_DONE @step 586308 LOSS=2.30256, Rate=-0.000152934
+[window_probe] BEST_PROBE m=395 Rate=2.30256
+[window_probe] PROBE_START m=396
+[window_probe] PROBE_DONE @step 587308 LOSS=2.30264, Rate=5.68703e-05
+[window_probe] BEST_PROBE m=396 Rate=2.30264
+[window_probe] START_EXEC m=396
+[monitor] Completed epoch 189. Evaluated Loss = 2.30271. EMA Loss = 2.30305
+[monitor] Completed epoch 188. Evaluated Loss = 2.30254. EMA Loss = 2.30318
+[monitor] Completed epoch 190. Evaluated Loss = 2.30283. EMA Loss = 2.30655
+[window_probe] START_PROBING window_btm=392
+[window_probe] PROBE_DONE @step 596308 LOSS=2.3026, Rate=-2.16035e-05
+[window_probe] BEST_PROBE m=392 Rate=2.3026
+[window_probe] PROBE_START m=393
+[monitor] Completed epoch 191. Evaluated Loss = 2.30247. EMA Loss = 2.30548
+[window_probe] PROBE_DONE @step 597308 LOSS=2.30245, Rate=-0.000138088
+[window_probe] BEST_PROBE m=393 Rate=2.30245
+[window_probe] PROBE_START m=394
+[window_probe] PROBE_DONE @step 598308 LOSS=2.30264, Rate=0.000186451
+[window_probe] BEST_PROBE m=394 Rate=2.30264
+[window_probe] PROBE_START m=395
+[window_probe] PROBE_DONE @step 599308 LOSS=2.30277, Rate=0.000120077
+[window_probe] BEST_PROBE m=395 Rate=2.30277
+[window_probe] PROBE_START m=396
+[monitor] Completed epoch 192. Evaluated Loss = 2.30225. EMA Loss = 2.30248
+[window_probe] PROBE_DONE @step 600308 LOSS=2.30245, Rate=-0.00022498
+[window_probe] BEST_PROBE m=396 Rate=2.30245
+[window_probe] PROBE_START m=397
+[window_probe] PROBE_DONE @step 601308 LOSS=2.30271, Rate=0.000247281
+[window_probe] BEST_PROBE m=397 Rate=2.30271
+[window_probe] PROBE_START m=398
+[window_probe] PROBE_DONE @step 602308 LOSS=2.30338, Rate=0.000993987
+[window_probe] BEST_PROBE m=398 Rate=2.30338
+[window_probe] PROBE_START m=399
+[monitor] Completed epoch 193. Evaluated Loss = 2.30297. EMA Loss = 2.3021
+[window_probe] PROBE_DONE @step 603310 LOSS=2.30248, Rate=-0.000631645
+[window_probe] BEST_PROBE m=399 Rate=2.30248
+[window_probe] PROBE_START m=400
+[window_probe] PROBE_DONE @step 604311 LOSS=2.30246, Rate=-1.21979e-05
+[window_probe] BEST_PROBE m=400 Rate=2.30246
+[window_probe] START_EXEC m=400
+[window_probe] START_PROBING window_btm=396
+[monitor] Completed epoch 194. Evaluated Loss = 2.30292. EMA Loss = 2.30757
+[monitor] Completed epoch 195. Evaluated Loss = 2.30253. EMA Loss = 2.30596
+[monitor] Completed epoch 196. Evaluated Loss = 2.3026. EMA Loss = 2.304
+[window_probe] PROBE_DONE @step 613313 LOSS=2.30283, Rate=-4.36823e-05
+[window_probe] BEST_PROBE m=396 Rate=2.30283
+[window_probe] PROBE_START m=397
+[window_probe] PROBE_DONE @step 614313 LOSS=2.30223, Rate=-0.000419888
+[window_probe] BEST_PROBE m=397 Rate=2.30223
+[window_probe] PROBE_START m=398
+[window_probe] PROBE_DONE @step 615314 LOSS=2.30275, Rate=0.000368051
+[window_probe] BEST_PROBE m=398 Rate=2.30275
+[window_probe] PROBE_START m=399
+[window_probe] PROBE_DONE @step 616315 LOSS=2.30283, Rate=7.69885e-05
+[window_probe] BEST_PROBE m=399 Rate=2.30283
+[window_probe] PROBE_START m=400
+[monitor] Completed epoch 197. Evaluated Loss = 2.30252. EMA Loss = 2.30252
+[window_probe] PROBE_DONE @step 617315 LOSS=2.30268, Rate=-0.000104584
+[window_probe] BEST_PROBE m=400 Rate=2.30268
+[window_probe] PROBE_START m=401
+[window_probe] PROBE_DONE @step 618315 LOSS=2.30252, Rate=-0.000159819
+[window_probe] BEST_PROBE m=401 Rate=2.30252
+[window_probe] PROBE_START m=402
+[monitor] Completed epoch 198. Evaluated Loss = 2.30243. EMA Loss = 2.30278
+[window_probe] PROBE_DONE @step 619316 LOSS=2.30281, Rate=0.00020628
+[window_probe] BEST_PROBE m=402 Rate=2.30281
+[window_probe] PROBE_START m=403
+[window_probe] PROBE_DONE @step 620321 LOSS=2.30288, Rate=6.3034e-05
+[window_probe] BEST_PROBE m=403 Rate=2.30288
+[window_probe] PROBE_START m=404
+[window_probe] PROBE_DONE @step 621331 LOSS=2.30264, Rate=-0.000161952
+[window_probe] BEST_PROBE m=404 Rate=2.30264
+[window_probe] START_EXEC m=404
+[monitor] Completed epoch 200. Evaluated Loss = 2.30243. EMA Loss = 2.3015
+[monitor] Completed epoch 199. Evaluated Loss = 2.30261. EMA Loss = 2.30124
+[monitor] Completed epoch 201. Evaluated Loss = 2.3026. EMA Loss = 2.30079
+[window_probe] START_PROBING window_btm=400
+[window_probe] PROBE_DONE @step 630333 LOSS=2.30289, Rate=0.000245804
+[window_probe] BEST_PROBE m=400 Rate=2.30289
+[window_probe] PROBE_START m=401
+[window_probe] PROBE_DONE @step 631334 LOSS=2.30282, Rate=-4.3516e-05
+[window_probe] BEST_PROBE m=401 Rate=2.30282
+[window_probe] PROBE_START m=402
+[monitor] Completed epoch 202. Evaluated Loss = 2.30247. EMA Loss = 2.30001
+[window_probe] PROBE_DONE @step 632335 LOSS=2.30266, Rate=-0.000157676
+[window_probe] BEST_PROBE m=402 Rate=2.30266
+[window_probe] PROBE_START m=403
+[window_probe] PROBE_DONE @step 633335 LOSS=2.30314, Rate=0.000336984
+[window_probe] BEST_PROBE m=403 Rate=2.30314
+[window_probe] PROBE_START m=404
+[window_probe] PROBE_DONE @step 634336 LOSS=2.30292, Rate=-0.000204565
+[window_probe] BEST_PROBE m=404 Rate=2.30292
+[window_probe] PROBE_START m=405
+[monitor] Completed epoch 203. Evaluated Loss = 2.30276. EMA Loss = 2.30145
+[window_probe] PROBE_DONE @step 635337 LOSS=2.30248, Rate=-0.000415098
+[window_probe] BEST_PROBE m=405 Rate=2.30248
+[window_probe] PROBE_START m=406
+[window_probe] PROBE_DONE @step 636341 LOSS=2.30222, Rate=-0.000178264
+[window_probe] BEST_PROBE m=406 Rate=2.30222
+[window_probe] PROBE_START m=407
+[window_probe] PROBE_DONE @step 637344 LOSS=2.30216, Rate=-5.71096e-05
+[window_probe] BEST_PROBE m=407 Rate=2.30216
+[window_probe] PROBE_START m=408
+[monitor] Completed epoch 204. Evaluated Loss = 2.30281. EMA Loss = 2.30426
+[window_probe] PROBE_DONE @step 638346 LOSS=2.30283, Rate=0.000631546
+[window_probe] BEST_PROBE m=408 Rate=2.30283
+[window_probe] START_EXEC m=408
+[monitor] Completed epoch 205. Evaluated Loss = 2.30234. EMA Loss = 2.29962
+[monitor] Completed epoch 206. Evaluated Loss = 2.30247. EMA Loss = 2.3072
+[window_probe] START_PROBING window_btm=404
+[window_probe] PROBE_DONE @step 647348 LOSS=2.30263, Rate=-3.85816e-05
+[window_probe] BEST_PROBE m=404 Rate=2.30263
+[window_probe] PROBE_START m=405
+[monitor] Completed epoch 207. Evaluated Loss = 2.30301. EMA Loss = 2.30352
+[window_probe] PROBE_DONE @step 648348 LOSS=2.30257, Rate=-3.92828e-05
+[window_probe] BEST_PROBE m=405 Rate=2.30257
+[window_probe] PROBE_START m=406
+[window_probe] PROBE_DONE @step 649348 LOSS=2.30228, Rate=-0.00020132
+[window_probe] BEST_PROBE m=406 Rate=2.30228
+[window_probe] PROBE_START m=407
+[window_probe] PROBE_DONE @step 650348 LOSS=2.30217, Rate=-0.000103838
+[window_probe] BEST_PROBE m=407 Rate=2.30217
+[window_probe] PROBE_START m=408
+[monitor] Completed epoch 208. Evaluated Loss = 2.30239. EMA Loss = 2.30312
+[window_probe] PROBE_DONE @step 651354 LOSS=2.30274, Rate=0.000541986
+[window_probe] BEST_PROBE m=408 Rate=2.30274
+[window_probe] PROBE_START m=409
+[window_probe] PROBE_DONE @step 652354 LOSS=2.30336, Rate=0.000439584
+[window_probe] BEST_PROBE m=409 Rate=2.30336
+[window_probe] PROBE_START m=410
+[window_probe] PROBE_DONE @step 653354 LOSS=2.30226, Rate=-0.00103741
+[window_probe] BEST_PROBE m=410 Rate=2.30226
+[window_probe] PROBE_START m=411
+[monitor] Completed epoch 209. Evaluated Loss = 2.30256. EMA Loss = 2.30274
+[window_probe] PROBE_DONE @step 654360 LOSS=2.30244, Rate=0.000125221
+[window_probe] BEST_PROBE m=411 Rate=2.30244
+[window_probe] PROBE_START m=412
+[window_probe] PROBE_DONE @step 655361 LOSS=2.30228, Rate=-0.000152301
+[window_probe] BEST_PROBE m=412 Rate=2.30228
+[window_probe] START_EXEC m=412
+[monitor] Completed epoch 210. Evaluated Loss = 2.30213. EMA Loss = 2.30456
+[monitor] Completed epoch 212. Evaluated Loss = 2.30254. EMA Loss = 2.30387
+[monitor] Completed epoch 211. Evaluated Loss = 2.30271. EMA Loss = 2.30317
+[window_probe] START_PROBING window_btm=408
+[window_probe] PROBE_DONE @step 664363 LOSS=2.30208, Rate=-0.000517868
+[window_probe] BEST_PROBE m=408 Rate=2.30208
+[window_probe] PROBE_START m=409
+[window_probe] PROBE_DONE @step 665363 LOSS=2.3026, Rate=0.000487119
+[window_probe] BEST_PROBE m=409 Rate=2.3026
+[window_probe] PROBE_START m=410
+[monitor] Completed epoch 213. Evaluated Loss = 2.30304. EMA Loss = 2.29983
+[window_probe] PROBE_DONE @step 666363 LOSS=2.30224, Rate=-0.000342214
+[window_probe] BEST_PROBE m=410 Rate=2.30224
+[window_probe] PROBE_START m=411
+[window_probe] PROBE_DONE @step 667363 LOSS=2.30234, Rate=7.4686e-05
+[window_probe] BEST_PROBE m=411 Rate=2.30234
+[window_probe] PROBE_START m=412
+[window_probe] PROBE_DONE @step 668364 LOSS=2.30283, Rate=0.000350596
+[window_probe] BEST_PROBE m=412 Rate=2.30283
+[window_probe] PROBE_START m=413
+[window_probe] PROBE_DONE @step 669364 LOSS=2.30295, Rate=0.000107933
+[window_probe] BEST_PROBE m=413 Rate=2.30295
+[window_probe] PROBE_START m=414
+[monitor] Completed epoch 214. Evaluated Loss = 2.30269. EMA Loss = 2.29983
+[window_probe] PROBE_DONE @step 670369 LOSS=2.30245, Rate=-0.000479579
+[window_probe] BEST_PROBE m=414 Rate=2.30245
+[window_probe] PROBE_START m=415
+[window_probe] PROBE_DONE @step 671376 LOSS=2.30215, Rate=-0.000280477
+[window_probe] BEST_PROBE m=415 Rate=2.30215
+[window_probe] PROBE_START m=416
+[monitor] Completed epoch 215. Evaluated Loss = 2.30256. EMA Loss = 2.30201
+[window_probe] PROBE_DONE @step 672376 LOSS=2.30256, Rate=0.000283168
+[window_probe] BEST_PROBE m=416 Rate=2.30256
+[window_probe] START_EXEC m=416
+[monitor] Completed epoch 216. Evaluated Loss = 2.3027. EMA Loss = 2.30299
+[monitor] Completed epoch 217. Evaluated Loss = 2.30317. EMA Loss = 2.30312
+[window_probe] START_PROBING window_btm=412
+[monitor] Completed epoch 218. Evaluated Loss = 2.30247. EMA Loss = 2.30365
+[window_probe] PROBE_DONE @step 681377 LOSS=2.30225, Rate=-0.000506361
+[window_probe] BEST_PROBE m=412 Rate=2.30225
+[window_probe] PROBE_START m=413
+[window_probe] PROBE_DONE @step 682377 LOSS=2.30257, Rate=0.000311083
+[window_probe] BEST_PROBE m=413 Rate=2.30257
+[window_probe] PROBE_START m=414
+[window_probe] PROBE_DONE @step 683378 LOSS=2.30306, Rate=0.000350907
+[window_probe] BEST_PROBE m=414 Rate=2.30306
+[window_probe] PROBE_START m=415
+[window_probe] PROBE_DONE @step 684379 LOSS=2.30285, Rate=-0.000204367
+[window_probe] BEST_PROBE m=415 Rate=2.30285
+[window_probe] PROBE_START m=416
+[window_probe] PROBE_DONE @step 685379 LOSS=2.30244, Rate=-0.0005908
+[window_probe] BEST_PROBE m=416 Rate=2.30244
+[window_probe] PROBE_START m=417
+[monitor] Completed epoch 219. Evaluated Loss = 2.30225. EMA Loss = 2.30295
+[window_probe] PROBE_DONE @step 686379 LOSS=2.30268, Rate=0.0001681
+[window_probe] BEST_PROBE m=417 Rate=2.30268
+[window_probe] PROBE_START m=418
+[window_probe] PROBE_DONE @step 687380 LOSS=2.30249, Rate=-0.00017495
+[window_probe] BEST_PROBE m=418 Rate=2.30249
+[window_probe] PROBE_START m=419
+[monitor] Completed epoch 220. Evaluated Loss = 2.30273. EMA Loss = 2.30292
+[window_probe] PROBE_DONE @step 688381 LOSS=2.30294, Rate=0.000416938
+[window_probe] BEST_PROBE m=419 Rate=2.30294
+[window_probe] PROBE_START m=420
+[window_probe] PROBE_DONE @step 689381 LOSS=2.30281, Rate=-0.000122364
+[window_probe] BEST_PROBE m=420 Rate=2.30281
+[window_probe] START_EXEC m=420
+[window_probe] START_PROBING window_btm=416
+[monitor] Completed epoch 223. Evaluated Loss = 2.30308. EMA Loss = 2.3032
+[monitor] Completed epoch 221. Evaluated Loss = 2.30245. EMA Loss = 2.30427
+[monitor] Completed epoch 222. Evaluated Loss = 2.30301. EMA Loss = 2.30268
+[window_probe] PROBE_DONE @step 698383 LOSS=2.30287, Rate=1.21192e-05
+[window_probe] BEST_PROBE m=416 Rate=2.30287
+[window_probe] PROBE_START m=417
+[window_probe] PROBE_DONE @step 699383 LOSS=2.30241, Rate=-0.000320754
+[window_probe] BEST_PROBE m=417 Rate=2.30241
+[window_probe] PROBE_START m=418
+[monitor] Completed epoch 224. Evaluated Loss = 2.30267. EMA Loss = 2.30454
+[window_probe] PROBE_DONE @step 700383 LOSS=2.30283, Rate=0.000404585
+[window_probe] BEST_PROBE m=418 Rate=2.30283
+[window_probe] PROBE_START m=419
+[window_probe] PROBE_DONE @step 701383 LOSS=2.30259, Rate=-0.000168087
+[window_probe] BEST_PROBE m=419 Rate=2.30259
+[window_probe] PROBE_START m=420
+[window_probe] PROBE_DONE @step 702384 LOSS=2.30284, Rate=0.000173295
+[window_probe] BEST_PROBE m=420 Rate=2.30284
+[window_probe] PROBE_START m=421
+[window_probe] PROBE_DONE @step 703384 LOSS=2.30237, Rate=-0.000454509
+[window_probe] BEST_PROBE m=421 Rate=2.30237
+[window_probe] PROBE_START m=422
+[monitor] Completed epoch 225. Evaluated Loss = 2.30291. EMA Loss = 2.30476
+[window_probe] PROBE_DONE @step 704384 LOSS=2.30246, Rate=8.70548e-05
+[window_probe] BEST_PROBE m=422 Rate=2.30246
+[window_probe] PROBE_START m=423
+[window_probe] PROBE_DONE @step 705384 LOSS=2.3027, Rate=0.000172214
+[window_probe] BEST_PROBE m=423 Rate=2.3027
+[window_probe] PROBE_START m=424
+[monitor] Completed epoch 226. Evaluated Loss = 2.30242. EMA Loss = 2.30633
+[window_probe] PROBE_DONE @step 706384 LOSS=2.30248, Rate=-0.00015752
+[window_probe] BEST_PROBE m=424 Rate=2.30248
+[window_probe] START_EXEC m=424
+[monitor] Completed epoch 227. Evaluated Loss = 2.30291. EMA Loss = 2.30143
+[monitor] Completed epoch 228. Evaluated Loss = 2.30282. EMA Loss = 2.30465
+[window_probe] START_PROBING window_btm=420
+[window_probe] PROBE_DONE @step 715385 LOSS=2.30278, Rate=0.000933038
+[window_probe] BEST_PROBE m=420 Rate=2.30278
+[window_probe] PROBE_START m=421
+[monitor] Completed epoch 229. Evaluated Loss = 2.30288. EMA Loss = 2.30366
+[window_probe] PROBE_DONE @step 716385 LOSS=2.30236, Rate=-0.000386918
+[window_probe] BEST_PROBE m=421 Rate=2.30236
+[window_probe] PROBE_START m=422
+[window_probe] PROBE_DONE @step 717385 LOSS=2.30235, Rate=-7.20699e-06
+[window_probe] BEST_PROBE m=422 Rate=2.30235
+[window_probe] PROBE_START m=423
+[window_probe] PROBE_DONE @step 718385 LOSS=2.30261, Rate=0.000178736
+[window_probe] BEST_PROBE m=423 Rate=2.30261
+[window_probe] PROBE_START m=424
+[window_probe] PROBE_DONE @step 719386 LOSS=2.30299, Rate=0.00036951
+[window_probe] BEST_PROBE m=424 Rate=2.30299
+[window_probe] PROBE_START m=425
+[monitor] Completed epoch 230. Evaluated Loss = 2.30253. EMA Loss = 2.30104
+[window_probe] PROBE_DONE @step 720386 LOSS=2.30298, Rate=-5.24513e-06
+[window_probe] BEST_PROBE m=425 Rate=2.30298
+[window_probe] PROBE_START m=426
+[window_probe] PROBE_DONE @step 721387 LOSS=2.30238, Rate=-0.000577612
+[window_probe] BEST_PROBE m=426 Rate=2.30238
+[window_probe] PROBE_START m=427
+[monitor] Completed epoch 231. Evaluated Loss = 2.3029. EMA Loss = 2.30357
+[window_probe] PROBE_DONE @step 722387 LOSS=2.30308, Rate=0.000660679
+[window_probe] BEST_PROBE m=427 Rate=2.30308
+[window_probe] PROBE_START m=428
+[window_probe] PROBE_DONE @step 723387 LOSS=2.30265, Rate=-0.000301615
+[window_probe] BEST_PROBE m=428 Rate=2.30265
+[window_probe] START_EXEC m=428
+[window_probe] START_PROBING window_btm=424
+[monitor] Completed epoch 234. Evaluated Loss = 2.30269. EMA Loss = 2.30346
+[monitor] Completed epoch 232. Evaluated Loss = 2.30257. EMA Loss = 2.30096
+[monitor] Completed epoch 233. Evaluated Loss = 2.3028. EMA Loss = 2.30149
+[window_probe] PROBE_DONE @step 732388 LOSS=2.30289, Rate=0.000179483
+[window_probe] BEST_PROBE m=424 Rate=2.30289
+[window_probe] PROBE_START m=425
+[window_probe] PROBE_DONE @step 733393 LOSS=2.30287, Rate=-1.96258e-05
+[window_probe] BEST_PROBE m=425 Rate=2.30287
+[window_probe] PROBE_START m=426
+[window_probe] PROBE_DONE @step 734393 LOSS=2.30231, Rate=-0.000386779
+[window_probe] BEST_PROBE m=426 Rate=2.30231
+[window_probe] PROBE_START m=427
+[monitor] Completed epoch 235. Evaluated Loss = 2.3026. EMA Loss = 2.30552
+[window_probe] PROBE_DONE @step 735395 LOSS=2.30239, Rate=6.98558e-05
+[window_probe] BEST_PROBE m=427 Rate=2.30239
+[window_probe] PROBE_START m=428
+[window_probe] PROBE_DONE @step 736395 LOSS=2.30271, Rate=0.000312679
+[window_probe] BEST_PROBE m=428 Rate=2.30271
+[window_probe] PROBE_START m=429
+[window_probe] PROBE_DONE @step 737395 LOSS=2.30275, Rate=3.13842e-05
+[window_probe] BEST_PROBE m=429 Rate=2.30275
+[window_probe] PROBE_START m=430
+[monitor] Completed epoch 236. Evaluated Loss = 2.30206. EMA Loss = 2.30601
+[window_probe] PROBE_DONE @step 738395 LOSS=2.303, Rate=0.000243237
+[window_probe] BEST_PROBE m=430 Rate=2.303
+[window_probe] PROBE_START m=431
+[window_probe] PROBE_DONE @step 739395 LOSS=2.30333, Rate=0.000612136
+[window_probe] BEST_PROBE m=431 Rate=2.30333
+[window_probe] PROBE_START m=432
+[window_probe] PROBE_DONE @step 740395 LOSS=2.30243, Rate=-0.000850874
+[window_probe] BEST_PROBE m=432 Rate=2.30243
+[window_probe] START_EXEC m=432
+[monitor] Completed epoch 237. Evaluated Loss = 2.30252. EMA Loss = 2.29778
+[monitor] Completed epoch 239. Evaluated Loss = 2.30258. EMA Loss = 2.30139
+[window_probe] START_PROBING window_btm=428
+[monitor] Completed epoch 238. Evaluated Loss = 2.30229. EMA Loss = 2.29836
+[window_probe] PROBE_DONE @step 749398 LOSS=2.30232, Rate=-0.000260466
+[window_probe] BEST_PROBE m=428 Rate=2.30232
+[window_probe] PROBE_START m=429
+[monitor] Completed epoch 240. Evaluated Loss = 2.30232. EMA Loss = 2.30148
+[window_probe] PROBE_DONE @step 750399 LOSS=2.30297, Rate=0.000605503
+[window_probe] BEST_PROBE m=429 Rate=2.30297
+[window_probe] PROBE_START m=430
+[window_probe] PROBE_DONE @step 751400 LOSS=2.30251, Rate=-0.000441445
+[window_probe] BEST_PROBE m=430 Rate=2.30251
+[window_probe] PROBE_START m=431
+[window_probe] PROBE_DONE @step 752401 LOSS=2.30215, Rate=-0.000257725
+[window_probe] BEST_PROBE m=431 Rate=2.30215
+[window_probe] PROBE_START m=432
+[monitor] Completed epoch 241. Evaluated Loss = 2.30281. EMA Loss = 2.30378
+[window_probe] PROBE_DONE @step 753401 LOSS=2.3026, Rate=0.000315327
+[window_probe] BEST_PROBE m=432 Rate=2.3026
+[window_probe] PROBE_START m=433
+[window_probe] PROBE_DONE @step 754405 LOSS=2.30292, Rate=0.000226647
+[window_probe] BEST_PROBE m=433 Rate=2.30292
+[window_probe] PROBE_START m=434
+[window_probe] PROBE_DONE @step 755405 LOSS=2.30291, Rate=-5.32864e-06
+[window_probe] BEST_PROBE m=434 Rate=2.30291
+[window_probe] PROBE_START m=435
+[monitor] Completed epoch 242. Evaluated Loss = 2.30257. EMA Loss = 2.3
+[window_probe] PROBE_DONE @step 756408 LOSS=2.30241, Rate=-0.000349557
+[window_probe] BEST_PROBE m=435 Rate=2.30241
+[window_probe] PROBE_START m=436
+[window_probe] PROBE_DONE @step 757408 LOSS=2.30234, Rate=-6.30881e-05
+[window_probe] BEST_PROBE m=436 Rate=2.30234
+[window_probe] START_EXEC m=436
+[monitor] Completed epoch 244. Evaluated Loss = 2.30265. EMA Loss = 2.30275
+[window_probe] START_PROBING window_btm=432
+[monitor] Completed epoch 243. Evaluated Loss = 2.30235. EMA Loss = 2.30418
+[window_probe] PROBE_DONE @step 766408 LOSS=2.30232, Rate=-0.00071696
+[window_probe] BEST_PROBE m=432 Rate=2.30232
+[window_probe] PROBE_START m=433
+[monitor] Completed epoch 245. Evaluated Loss = 2.30268. EMA Loss = 2.30513
+[window_probe] PROBE_DONE @step 767408 LOSS=2.30271, Rate=0.000269938
+[window_probe] BEST_PROBE m=433 Rate=2.30271
+[window_probe] PROBE_START m=434
+[window_probe] PROBE_DONE @step 768408 LOSS=2.30255, Rate=-0.000144358
+[window_probe] BEST_PROBE m=434 Rate=2.30255
+[window_probe] PROBE_START m=435
+[monitor] Completed epoch 246. Evaluated Loss = 2.30195. EMA Loss = 2.3014
+[window_probe] PROBE_DONE @step 769408 LOSS=2.30274, Rate=0.000176485
+[window_probe] BEST_PROBE m=435 Rate=2.30274
+[window_probe] PROBE_START m=436
+[window_probe] PROBE_DONE @step 770409 LOSS=2.30261, Rate=-9.2562e-05
+[window_probe] BEST_PROBE m=436 Rate=2.30261
+[window_probe] PROBE_START m=437
+[window_probe] PROBE_DONE @step 771409 LOSS=2.30237, Rate=-0.000166616
+[window_probe] BEST_PROBE m=437 Rate=2.30237
+[window_probe] PROBE_START m=438
+[window_probe] PROBE_DONE @step 772417 LOSS=2.30248, Rate=0.00016411
+[window_probe] BEST_PROBE m=438 Rate=2.30248
+[window_probe] PROBE_START m=439
+[monitor] Completed epoch 247. Evaluated Loss = 2.30237. EMA Loss = 2.2986
+[window_probe] PROBE_DONE @step 773422 LOSS=2.30245, Rate=-2.21182e-05
+[window_probe] BEST_PROBE m=439 Rate=2.30245
+[window_probe] PROBE_START m=440
+[window_probe] PROBE_DONE @step 774422 LOSS=2.30265, Rate=0.000147279
+[window_probe] BEST_PROBE m=440 Rate=2.30265
+[window_probe] START_EXEC m=440
+[monitor] Completed epoch 250. Evaluated Loss = 2.30301. EMA Loss = 2.30407
+[window_probe] START_PROBING window_btm=436
+[monitor] Completed epoch 248. Evaluated Loss = 2.30242. EMA Loss = 2.30329
+[monitor] Completed epoch 249. Evaluated Loss = 2.30239. EMA Loss = 2.30153
+[window_probe] PROBE_DONE @step 783428 LOSS=2.30246, Rate=-0.000290043
+[window_probe] BEST_PROBE m=436 Rate=2.30246
+[window_probe] PROBE_START m=437
+[monitor] Completed epoch 251. Evaluated Loss = 2.30254. EMA Loss = 2.3058
+[window_probe] PROBE_DONE @step 784428 LOSS=2.3025, Rate=3.98464e-05
+[window_probe] BEST_PROBE m=437 Rate=2.3025
+[window_probe] PROBE_START m=438
+[window_probe] PROBE_DONE @step 785428 LOSS=2.30244, Rate=-5.81444e-05
+[window_probe] BEST_PROBE m=438 Rate=2.30244
+[window_probe] PROBE_START m=439
+[window_probe] PROBE_DONE @step 786428 LOSS=2.30287, Rate=0.000415543
+[window_probe] BEST_PROBE m=439 Rate=2.30287
+[window_probe] PROBE_START m=440
+[window_probe] PROBE_DONE @step 787432 LOSS=2.30252, Rate=-0.000333698
+[window_probe] BEST_PROBE m=440 Rate=2.30252
+[window_probe] PROBE_START m=441
+[monitor] Completed epoch 252. Evaluated Loss = 2.30244. EMA Loss = 2.30113
+[window_probe] PROBE_DONE @step 788433 LOSS=2.30265, Rate=0.00012122
+[window_probe] BEST_PROBE m=441 Rate=2.30265
+[window_probe] PROBE_START m=442
+[window_probe] PROBE_DONE @step 789433 LOSS=2.30281, Rate=0.000111794
+[window_probe] BEST_PROBE m=442 Rate=2.30281
+[window_probe] PROBE_START m=443
+[window_probe] PROBE_DONE @step 790433 LOSS=2.30254, Rate=-0.000259857
+[window_probe] BEST_PROBE m=443 Rate=2.30254
+[window_probe] PROBE_START m=444
+[monitor] Completed epoch 253. Evaluated Loss = 2.30228. EMA Loss = 2.30386
+[window_probe] PROBE_DONE @step 791433 LOSS=2.30221, Rate=-0.000224753
+[window_probe] BEST_PROBE m=444 Rate=2.30221
+[window_probe] START_EXEC m=444
+[monitor] Completed epoch 255. Evaluated Loss = 2.30337. EMA Loss = 2.3031
+[monitor] Completed epoch 254. Evaluated Loss = 2.30229. EMA Loss = 2.30627
+[window_probe] START_PROBING window_btm=440
+[window_probe] PROBE_DONE @step 800436 LOSS=2.30296, Rate=0.000450918
+[window_probe] BEST_PROBE m=440 Rate=2.30296
+[window_probe] PROBE_START m=441
+[monitor] Completed epoch 256. Evaluated Loss = 2.30249. EMA Loss = 2.30086
+[window_probe] PROBE_DONE @step 801437 LOSS=2.30246, Rate=-0.000479427
+[window_probe] BEST_PROBE m=441 Rate=2.30246
+[window_probe] PROBE_START m=442
+[window_probe] PROBE_DONE @step 802442 LOSS=2.30289, Rate=0.000408151
+[window_probe] BEST_PROBE m=442 Rate=2.30289
+[window_probe] PROBE_START m=443
+[window_probe] PROBE_DONE @step 803443 LOSS=2.30219, Rate=-0.000667765
+[window_probe] BEST_PROBE m=443 Rate=2.30219
+[window_probe] PROBE_START m=444
+[monitor] Completed epoch 257. Evaluated Loss = 2.30302. EMA Loss = 2.30132
+[window_probe] PROBE_DONE @step 804445 LOSS=2.30273, Rate=0.000381212
+[window_probe] BEST_PROBE m=444 Rate=2.30273
+[window_probe] PROBE_START m=445
+[window_probe] PROBE_DONE @step 805445 LOSS=2.30241, Rate=-0.000227269
+[window_probe] BEST_PROBE m=445 Rate=2.30241
+[window_probe] PROBE_START m=446
+[monitor] Completed epoch 258. Evaluated Loss = 2.30291. EMA Loss = 2.30325
+[window_probe] PROBE_DONE @step 806445 LOSS=2.30263, Rate=0.000150377
+[window_probe] BEST_PROBE m=446 Rate=2.30263
+[window_probe] PROBE_START m=447
+[window_probe] PROBE_DONE @step 807445 LOSS=2.30269, Rate=6.08008e-05
+[window_probe] BEST_PROBE m=447 Rate=2.30269
+[window_probe] PROBE_START m=448
+[window_probe] PROBE_DONE @step 808447 LOSS=2.30247, Rate=-0.000211982
+[window_probe] BEST_PROBE m=448 Rate=2.30247
+[window_probe] START_EXEC m=448
+[monitor] Completed epoch 259. Evaluated Loss = 2.30257. EMA Loss = 2.30361
+[monitor] Completed epoch 260. Evaluated Loss = 2.30249. EMA Loss = 2.30361
+[window_probe] START_PROBING window_btm=444
+[monitor] Completed epoch 261. Evaluated Loss = 2.30275. EMA Loss = 2.3095
+[window_probe] PROBE_DONE @step 817452 LOSS=2.30291, Rate=0.000484984
+[window_probe] BEST_PROBE m=444 Rate=2.30291
+[window_probe] PROBE_START m=445
+[window_probe] PROBE_DONE @step 818460 LOSS=2.30267, Rate=-0.000231553
+[window_probe] BEST_PROBE m=445 Rate=2.30267
+[window_probe] PROBE_START m=446
+[monitor] Completed epoch 262. Evaluated Loss = 2.30204. EMA Loss = 2.30206
+[window_probe] PROBE_DONE @step 819460 LOSS=2.30259, Rate=-5.79826e-05
+[window_probe] BEST_PROBE m=446 Rate=2.30259
+[window_probe] PROBE_START m=447
+[window_probe] PROBE_DONE @step 820463 LOSS=2.30263, Rate=3.05031e-05
+[window_probe] BEST_PROBE m=447 Rate=2.30263
+[window_probe] PROBE_START m=448
+[window_probe] PROBE_DONE @step 821466 LOSS=2.30327, Rate=0.000442341
+[window_probe] BEST_PROBE m=448 Rate=2.30327
+[window_probe] PROBE_START m=449
+[window_probe] PROBE_DONE @step 822470 LOSS=2.30199, Rate=-0.00234829
+[window_probe] BEST_PROBE m=449 Rate=2.30199
+[window_probe] PROBE_START m=450
+[monitor] Completed epoch 263. Evaluated Loss = 2.30261. EMA Loss = 2.30343
+[window_probe] PROBE_DONE @step 823476 LOSS=2.30256, Rate=0.000393454
+[window_probe] BEST_PROBE m=450 Rate=2.30256
+[window_probe] PROBE_START m=451
+[window_probe] PROBE_DONE @step 824485 LOSS=2.30288, Rate=0.000307437
+[window_probe] BEST_PROBE m=451 Rate=2.30288
+[window_probe] PROBE_START m=452
+[monitor] Completed epoch 264. Evaluated Loss = 2.303. EMA Loss = 2.30145
+[window_probe] PROBE_DONE @step 825489 LOSS=2.30326, Rate=0.000257058
+[window_probe] BEST_PROBE m=452 Rate=2.30326
+[window_probe] START_EXEC m=452
+[monitor] Completed epoch 265. Evaluated Loss = 2.30282. EMA Loss = 2.30457
+[monitor] Completed epoch 266. Evaluated Loss = 2.30215. EMA Loss = 2.30035
+[window_probe] START_PROBING window_btm=448
+[monitor] Completed epoch 267. Evaluated Loss = 2.30268. EMA Loss = 2.30277
+[window_probe] PROBE_DONE @step 834489 LOSS=2.30281, Rate=-0.000477045
+[window_probe] BEST_PROBE m=448 Rate=2.30281
+[window_probe] PROBE_START m=449
+[window_probe] PROBE_DONE @step 835492 LOSS=2.30303, Rate=0.000141108
+[window_probe] BEST_PROBE m=449 Rate=2.30303
+[window_probe] PROBE_START m=450
+[window_probe] PROBE_DONE @step 836493 LOSS=2.3025, Rate=-0.000505767
+[window_probe] BEST_PROBE m=450 Rate=2.3025
+[window_probe] PROBE_START m=451
+[window_probe] PROBE_DONE @step 837493 LOSS=2.30278, Rate=0.000271002
+[window_probe] BEST_PROBE m=451 Rate=2.30278
+[window_probe] PROBE_START m=452
+[monitor] Completed epoch 268. Evaluated Loss = 2.30307. EMA Loss = 2.30327
+[window_probe] PROBE_DONE @step 838493 LOSS=2.30251, Rate=-0.000258124
+[window_probe] BEST_PROBE m=452 Rate=2.30251
+[window_probe] PROBE_START m=453
+[window_probe] PROBE_DONE @step 839493 LOSS=2.3028, Rate=0.00028064
+[window_probe] BEST_PROBE m=453 Rate=2.3028
+[window_probe] PROBE_START m=454
+[window_probe] PROBE_DONE @step 840494 LOSS=2.30233, Rate=-0.00044739
+[window_probe] BEST_PROBE m=454 Rate=2.30233
+[window_probe] PROBE_START m=455
+[window_probe] PROBE_DONE @step 841496 LOSS=2.30235, Rate=1.61623e-05
+[window_probe] BEST_PROBE m=455 Rate=2.30235
+[window_probe] PROBE_START m=456
+[monitor] Completed epoch 269. Evaluated Loss = 2.3027. EMA Loss = 2.30422
+[window_probe] PROBE_DONE @step 842496 LOSS=2.30276, Rate=0.000387488
+[window_probe] BEST_PROBE m=456 Rate=2.30276
+[window_probe] START_EXEC m=456
+[monitor] Completed epoch 271. Evaluated Loss = 2.30262. EMA Loss = 2.30278
+[monitor] Completed epoch 270. Evaluated Loss = 2.30211. EMA Loss = 2.30226
+[window_probe] START_PROBING window_btm=452
+[monitor] Completed epoch 272. Evaluated Loss = 2.30253. EMA Loss = 2.30186
+[window_probe] PROBE_DONE @step 851499 LOSS=2.30272, Rate=0.000157308
+[window_probe] BEST_PROBE m=452 Rate=2.30272
+[window_probe] PROBE_START m=453
+[window_probe] PROBE_DONE @step 852499 LOSS=2.30328, Rate=0.00132556
+[window_probe] BEST_PROBE m=453 Rate=2.30328
+[window_probe] PROBE_START m=454
+[window_probe] PROBE_DONE @step 853507 LOSS=2.30252, Rate=-0.000728472
+[window_probe] BEST_PROBE m=454 Rate=2.30252
+[window_probe] PROBE_START m=455
+[monitor] Completed epoch 273. Evaluated Loss = 2.30282. EMA Loss = 2.30583
+[window_probe] PROBE_DONE @step 854510 LOSS=2.30252, Rate=5.63189e-06
+[window_probe] BEST_PROBE m=455 Rate=2.30252
+[window_probe] PROBE_START m=456
+[window_probe] PROBE_DONE @step 855511 LOSS=2.30208, Rate=-0.000424356
+[window_probe] BEST_PROBE m=456 Rate=2.30208
+[window_probe] PROBE_START m=457
+[monitor] Completed epoch 274. Evaluated Loss = 2.30251. EMA Loss = 2.3018
+[window_probe] PROBE_DONE @step 856511 LOSS=2.30287, Rate=0.000739395
+[window_probe] BEST_PROBE m=457 Rate=2.30287
+[window_probe] PROBE_START m=458
+[window_probe] PROBE_DONE @step 857512 LOSS=2.30269, Rate=-0.000172237
+[window_probe] BEST_PROBE m=458 Rate=2.30269
+[window_probe] PROBE_START m=459
+[window_probe] PROBE_DONE @step 858518 LOSS=2.30229, Rate=-0.000387692
+[window_probe] BEST_PROBE m=459 Rate=2.30229
+[window_probe] PROBE_START m=460
+[window_probe] PROBE_DONE @step 859518 LOSS=2.30272, Rate=0.000411536
+[window_probe] BEST_PROBE m=460 Rate=2.30272
+[window_probe] START_EXEC m=460
+[monitor] Completed epoch 275. Evaluated Loss = 2.30233. EMA Loss = 2.30432
+[monitor] Completed epoch 276. Evaluated Loss = 2.30272. EMA Loss = 2.30381
+[window_probe] START_PROBING window_btm=456
+[monitor] Completed epoch 277. Evaluated Loss = 2.30276. EMA Loss = 2.30189
+[window_probe] PROBE_DONE @step 868523 LOSS=2.30262, Rate=-0.000122666
+[window_probe] BEST_PROBE m=456 Rate=2.30262
+[window_probe] PROBE_START m=457
+[monitor] Completed epoch 278. Evaluated Loss = 2.30246. EMA Loss = 2.30095
+[window_probe] PROBE_DONE @step 869523 LOSS=2.30269, Rate=7.21948e-05
+[window_probe] BEST_PROBE m=457 Rate=2.30269
+[window_probe] PROBE_START m=458
+[window_probe] PROBE_DONE @step 870523 LOSS=2.30258, Rate=-0.000107373
+[window_probe] BEST_PROBE m=458 Rate=2.30258
+[window_probe] PROBE_START m=459
+[window_probe] PROBE_DONE @step 871524 LOSS=2.30296, Rate=0.000367254
+[window_probe] BEST_PROBE m=459 Rate=2.30296
+[window_probe] PROBE_START m=460
+[window_probe] PROBE_DONE @step 872524 LOSS=2.30199, Rate=-0.000939123
+[window_probe] BEST_PROBE m=460 Rate=2.30199
+[window_probe] PROBE_START m=461
+[monitor] Completed epoch 279. Evaluated Loss = 2.30248. EMA Loss = 2.30363
+[window_probe] PROBE_DONE @step 873524 LOSS=2.30247, Rate=0.000465957
+[window_probe] BEST_PROBE m=461 Rate=2.30247
+[window_probe] PROBE_START m=462
+[window_probe] PROBE_DONE @step 874524 LOSS=2.30307, Rate=0.000400138
+[window_probe] BEST_PROBE m=462 Rate=2.30307
+[window_probe] PROBE_START m=463
+[window_probe] PROBE_DONE @step 875527 LOSS=2.30316, Rate=8.26047e-05
+[window_probe] BEST_PROBE m=463 Rate=2.30316
+[window_probe] PROBE_START m=464
+[monitor] Completed epoch 280. Evaluated Loss = 2.30232. EMA Loss = 2.30242
+[window_probe] PROBE_DONE @step 876527 LOSS=2.3025, Rate=-0.00084377
+[window_probe] BEST_PROBE m=464 Rate=2.3025
+[window_probe] START_EXEC m=464
+[monitor] Completed epoch 282. Evaluated Loss = 2.3026. EMA Loss = 2.29923
+[window_probe] START_PROBING window_btm=460
+[monitor] Completed epoch 283. Evaluated Loss = 2.30268. EMA Loss = 2.30162
+[monitor] Completed epoch 281. Evaluated Loss = 2.30262. EMA Loss = 2.29817
+[window_probe] PROBE_DONE @step 885532 LOSS=2.30259, Rate=-0.000112017
+[window_probe] BEST_PROBE m=460 Rate=2.30259
+[window_probe] PROBE_START m=461
+[window_probe] PROBE_DONE @step 886532 LOSS=2.30232, Rate=-0.000262283
+[window_probe] BEST_PROBE m=461 Rate=2.30232
+[window_probe] PROBE_START m=462
+[window_probe] PROBE_DONE @step 887532 LOSS=2.30248, Rate=0.00015169
+[window_probe] BEST_PROBE m=462 Rate=2.30248
+[window_probe] PROBE_START m=463
+[window_probe] PROBE_DONE @step 888532 LOSS=2.30281, Rate=0.000319564
+[window_probe] BEST_PROBE m=463 Rate=2.30281
+[window_probe] PROBE_START m=464
+[monitor] Completed epoch 284. Evaluated Loss = 2.3025. EMA Loss = 2.30312
+[window_probe] PROBE_DONE @step 889532 LOSS=2.30227, Rate=-0.000513027
+[window_probe] BEST_PROBE m=464 Rate=2.30227
+[window_probe] PROBE_START m=465
+[window_probe] PROBE_DONE @step 890532 LOSS=2.30249, Rate=0.000142973
+[window_probe] BEST_PROBE m=465 Rate=2.30249
+[window_probe] PROBE_START m=466
+[monitor] Completed epoch 285. Evaluated Loss = 2.30277. EMA Loss = 2.30378
+[window_probe] PROBE_DONE @step 891534 LOSS=2.303, Rate=0.000481091
+[window_probe] BEST_PROBE m=466 Rate=2.303
+[window_probe] PROBE_START m=467
+[window_probe] PROBE_DONE @step 892535 LOSS=2.30266, Rate=-0.000325832
+[window_probe] BEST_PROBE m=467 Rate=2.30266
+[window_probe] PROBE_START m=468
+[window_probe] PROBE_DONE @step 893535 LOSS=2.30278, Rate=0.000109518
+[window_probe] BEST_PROBE m=468 Rate=2.30278
+[window_probe] START_EXEC m=468
+[monitor] Completed epoch 286. Evaluated Loss = 2.30294. EMA Loss = 2.29915
+[monitor] Completed epoch 287. Evaluated Loss = 2.30243. EMA Loss = 2.30022
+[monitor] Completed epoch 288. Evaluated Loss = 2.30254. EMA Loss = 2.3025
+[window_probe] START_PROBING window_btm=464
+[window_probe] PROBE_DONE @step 902537 LOSS=2.30313, Rate=0.000463106
+[window_probe] BEST_PROBE m=464 Rate=2.30313
+[window_probe] PROBE_START m=465
+[window_probe] PROBE_DONE @step 903539 LOSS=2.30242, Rate=-0.000676943
+[window_probe] BEST_PROBE m=465 Rate=2.30242
+[window_probe] PROBE_START m=466
+[monitor] Completed epoch 289. Evaluated Loss = 2.30252. EMA Loss = 2.30346
+[window_probe] PROBE_DONE @step 904539 LOSS=2.30212, Rate=-0.000283275
+[window_probe] BEST_PROBE m=466 Rate=2.30212
+[window_probe] PROBE_START m=467
+[window_probe] PROBE_DONE @step 905539 LOSS=2.30216, Rate=3.37692e-05
+[window_probe] BEST_PROBE m=467 Rate=2.30216
+[window_probe] PROBE_START m=468
+[monitor] Completed epoch 290. Evaluated Loss = 2.30226. EMA Loss = 2.30183
+[window_probe] PROBE_DONE @step 906545 LOSS=2.30267, Rate=0.000494771
+[window_probe] BEST_PROBE m=468 Rate=2.30267
+[window_probe] PROBE_START m=469
+[window_probe] PROBE_DONE @step 907545 LOSS=2.30256, Rate=-0.000115047
+[window_probe] BEST_PROBE m=469 Rate=2.30256
+[window_probe] PROBE_START m=470
+[window_probe] PROBE_DONE @step 908545 LOSS=2.30232, Rate=-0.000231146
+[window_probe] BEST_PROBE m=470 Rate=2.30232
+[window_probe] PROBE_START m=471
+[monitor] Completed epoch 291. Evaluated Loss = 2.3029. EMA Loss = 2.30048
+[window_probe] PROBE_DONE @step 909550 LOSS=2.30259, Rate=0.000255992
+[window_probe] BEST_PROBE m=471 Rate=2.30259
+[window_probe] PROBE_START m=472
+[window_probe] PROBE_DONE @step 910551 LOSS=2.30281, Rate=0.000214974
+[window_probe] BEST_PROBE m=472 Rate=2.30281
+[window_probe] START_EXEC m=472
+[monitor] Completed epoch 292. Evaluated Loss = 2.30292. EMA Loss = 2.3011
+[monitor] Completed epoch 293. Evaluated Loss = 2.30225. EMA Loss = 2.29889
+[window_probe] START_PROBING window_btm=468
+[window_probe] PROBE_DONE @step 919552 LOSS=2.30282, Rate=0.000447795
+[window_probe] BEST_PROBE m=468 Rate=2.30282
+[window_probe] PROBE_START m=469
+[monitor] Completed epoch 294. Evaluated Loss = 2.30278. EMA Loss = 2.30371
+[window_probe] PROBE_DONE @step 920552 LOSS=2.30253, Rate=-0.000202843
+[window_probe] BEST_PROBE m=469 Rate=2.30253
+[window_probe] PROBE_START m=470
+[window_probe] PROBE_DONE @step 921554 LOSS=2.3023, Rate=-0.000213163
+[window_probe] BEST_PROBE m=470 Rate=2.3023
+[window_probe] PROBE_START m=471
+[monitor] Completed epoch 295. Evaluated Loss = 2.30262. EMA Loss = 2.30406
+[window_probe] PROBE_DONE @step 922555 LOSS=2.30253, Rate=0.000211322
+[window_probe] BEST_PROBE m=471 Rate=2.30253
+[window_probe] PROBE_START m=472
+[window_probe] PROBE_DONE @step 923557 LOSS=2.3028, Rate=0.000191799
+[window_probe] BEST_PROBE m=472 Rate=2.3028
+[window_probe] PROBE_START m=473
+[window_probe] PROBE_DONE @step 924560 LOSS=2.30288, Rate=7.01445e-05
+[window_probe] BEST_PROBE m=473 Rate=2.30288
+[window_probe] PROBE_START m=474
+[monitor] Completed epoch 296. Evaluated Loss = 2.30233. EMA Loss = 2.30425
+[window_probe] PROBE_DONE @step 925563 LOSS=2.30245, Rate=-0.000306346
+[window_probe] BEST_PROBE m=474 Rate=2.30245
+[window_probe] PROBE_START m=475
+[window_probe] PROBE_DONE @step 926563 LOSS=2.30236, Rate=-8.35525e-05
+[window_probe] BEST_PROBE m=475 Rate=2.30236
+[window_probe] PROBE_START m=476
+[window_probe] PROBE_DONE @step 927568 LOSS=2.30279, Rate=0.00041324
+[window_probe] BEST_PROBE m=476 Rate=2.30279
+[window_probe] START_EXEC m=476
+[window_probe] START_PROBING window_btm=472
+[monitor] Completed epoch 297. Evaluated Loss = 2.30284. EMA Loss = 2.3026
+[monitor] Completed epoch 298. Evaluated Loss = 2.30268. EMA Loss = 2.30071
+[monitor] Completed epoch 299. Evaluated Loss = 2.30221. EMA Loss = 2.3022
+[window_probe] PROBE_DONE @step 936572 LOSS=2.30243, Rate=0.000307262
+[window_probe] BEST_PROBE m=472 Rate=2.30243
+[window_probe] PROBE_START m=473
+[window_probe] PROBE_DONE @step 937575 LOSS=2.3025, Rate=7.11377e-05
+[window_probe] BEST_PROBE m=473 Rate=2.3025
+[window_probe] PROBE_START m=474
+[monitor] Completed epoch 300. Evaluated Loss = 2.30256. EMA Loss = 2.30592
+[window_probe] PROBE_DONE @step 938576 LOSS=2.3033, Rate=0.000762484
+[window_probe] BEST_PROBE m=474 Rate=2.3033
+[window_probe] PROBE_START m=475
+[window_probe] PROBE_DONE @step 939577 LOSS=2.3027, Rate=-0.000576126
+[window_probe] BEST_PROBE m=475 Rate=2.3027
+[window_probe] PROBE_START m=476
+[window_probe] PROBE_DONE @step 940577 LOSS=2.30256, Rate=-0.000131194
+[window_probe] BEST_PROBE m=476 Rate=2.30256
+[window_probe] PROBE_START m=477
+[window_probe] PROBE_DONE @step 941581 LOSS=2.30305, Rate=0.0004724
+[window_probe] BEST_PROBE m=477 Rate=2.30305
+[window_probe] PROBE_START m=478
+[monitor] Completed epoch 301. Evaluated Loss = 2.30281. EMA Loss = 2.30219
+[window_probe] PROBE_DONE @step 942584 LOSS=2.30237, Rate=-0.000658594
+[window_probe] BEST_PROBE m=478 Rate=2.30237
+[window_probe] PROBE_START m=479
+[window_probe] PROBE_DONE @step 943585 LOSS=2.30222, Rate=-0.000143074
+[window_probe] BEST_PROBE m=479 Rate=2.30222
+[window_probe] PROBE_START m=480
+[monitor] Completed epoch 302. Evaluated Loss = 2.30285. EMA Loss = 2.30136
+[window_probe] PROBE_DONE @step 944587 LOSS=2.3026, Rate=0.00034809
+[window_probe] BEST_PROBE m=480 Rate=2.3026
+[window_probe] START_EXEC m=480
+[monitor] Completed epoch 303. Evaluated Loss = 2.30231. EMA Loss = 2.30473
+[monitor] Completed epoch 304. Evaluated Loss = 2.30293. EMA Loss = 2.30364
+[window_probe] START_PROBING window_btm=476
+[window_probe] PROBE_DONE @step 953589 LOSS=2.30248, Rate=-0.000577828
+[window_probe] BEST_PROBE m=476 Rate=2.30248
+[window_probe] PROBE_START m=477
+[monitor] Completed epoch 305. Evaluated Loss = 2.30243. EMA Loss = 2.30285
+[window_probe] PROBE_DONE @step 954590 LOSS=2.30258, Rate=8.65458e-05
+[window_probe] BEST_PROBE m=477 Rate=2.30258
+[window_probe] PROBE_START m=478
+[window_probe] PROBE_DONE @step 955592 LOSS=2.30278, Rate=0.000193896
+[window_probe] BEST_PROBE m=478 Rate=2.30278
+[window_probe] PROBE_START m=479
+[window_probe] PROBE_DONE @step 956594 LOSS=2.30262, Rate=-0.000153467
+[window_probe] BEST_PROBE m=479 Rate=2.30262
+[window_probe] PROBE_START m=480
+[monitor] Completed epoch 306. Evaluated Loss = 2.30229. EMA Loss = 2.30477
+[window_probe] PROBE_DONE @step 957595 LOSS=2.30249, Rate=-0.000121234
+[window_probe] BEST_PROBE m=480 Rate=2.30249
+[window_probe] PROBE_START m=481
+[window_probe] PROBE_DONE @step 958596 LOSS=2.30282, Rate=0.000308443
+[window_probe] BEST_PROBE m=481 Rate=2.30282
+[window_probe] PROBE_START m=482
+[window_probe] PROBE_DONE @step 959598 LOSS=2.30253, Rate=-0.000657113
+[window_probe] BEST_PROBE m=482 Rate=2.30253
+[window_probe] PROBE_START m=483
+[monitor] Completed epoch 307. Evaluated Loss = 2.30296. EMA Loss = 2.30541
+[window_probe] PROBE_DONE @step 960598 LOSS=2.30271, Rate=0.000164137
+[window_probe] BEST_PROBE m=483 Rate=2.30271
+[window_probe] PROBE_START m=484
+[window_probe] PROBE_DONE @step 961598 LOSS=2.30282, Rate=0.000105463
+[window_probe] BEST_PROBE m=484 Rate=2.30282
+[window_probe] START_EXEC m=484
+[monitor] Completed epoch 309. Evaluated Loss = 2.30311. EMA Loss = 2.30134
+[monitor] Completed epoch 308. Evaluated Loss = 2.30303. EMA Loss = 2.30255
+[monitor] Completed epoch 310. Evaluated Loss = 2.30238. EMA Loss = 2.29868
+[window_probe] START_PROBING window_btm=480
+[window_probe] PROBE_DONE @step 970598 LOSS=2.30261, Rate=-0.000332686
+[window_probe] BEST_PROBE m=480 Rate=2.30261
+[window_probe] PROBE_START m=481
+[window_probe] PROBE_DONE @step 971601 LOSS=2.30226, Rate=-0.000335111
+[window_probe] BEST_PROBE m=481 Rate=2.30226
+[window_probe] PROBE_START m=482
+[window_probe] PROBE_DONE @step 972601 LOSS=2.30297, Rate=0.000678129
+[window_probe] BEST_PROBE m=482 Rate=2.30297
+[window_probe] PROBE_START m=483
+[monitor] Completed epoch 311. Evaluated Loss = 2.303. EMA Loss = 2.30333
+[window_probe] PROBE_DONE @step 973602 LOSS=2.30288, Rate=-8.34893e-05
+[window_probe] BEST_PROBE m=483 Rate=2.30288
+[window_probe] PROBE_START m=484
+[window_probe] PROBE_DONE @step 974602 LOSS=2.30248, Rate=-0.000382122
+[window_probe] BEST_PROBE m=484 Rate=2.30248
+[window_probe] PROBE_START m=485
+[window_probe] PROBE_DONE @step 975602 LOSS=2.30255, Rate=6.48367e-05
+[window_probe] BEST_PROBE m=485 Rate=2.30255
+[window_probe] PROBE_START m=486
+[monitor] Completed epoch 312. Evaluated Loss = 2.30246. EMA Loss = 2.30178
+[window_probe] PROBE_DONE @step 976606 LOSS=2.30247, Rate=-7.60966e-05
+[window_probe] BEST_PROBE m=486 Rate=2.30247
+[window_probe] PROBE_START m=487
+[window_probe] PROBE_DONE @step 977606 LOSS=2.30272, Rate=0.000240268
+[window_probe] BEST_PROBE m=487 Rate=2.30272
+[window_probe] PROBE_START m=488
+[window_probe] PROBE_DONE @step 978611 LOSS=2.30227, Rate=-0.000435472
+[window_probe] BEST_PROBE m=488 Rate=2.30227
+[window_probe] START_EXEC m=488
+[monitor] Completed epoch 313. Evaluated Loss = 2.3027. EMA Loss = 2.30611
+[monitor] Completed epoch 314. Evaluated Loss = 2.30277. EMA Loss = 2.3049
+[monitor] Completed epoch 315. Evaluated Loss = 2.30278. EMA Loss = 2.30103
+[window_probe] START_PROBING window_btm=484
+[window_probe] PROBE_DONE @step 987613 LOSS=2.30296, Rate=0.000221581
+[window_probe] BEST_PROBE m=484 Rate=2.30296
+[window_probe] PROBE_START m=485
+[monitor] Completed epoch 316. Evaluated Loss = 2.30232. EMA Loss = 2.30331
+[window_probe] PROBE_DONE @step 988613 LOSS=2.30284, Rate=-0.000109968
+[window_probe] BEST_PROBE m=485 Rate=2.30284
+[window_probe] PROBE_START m=486
+[window_probe] PROBE_DONE @step 989614 LOSS=2.30294, Rate=0.000221385
+[window_probe] BEST_PROBE m=486 Rate=2.30294
+[window_probe] PROBE_START m=487
+[window_probe] PROBE_DONE @step 990615 LOSS=2.30237, Rate=-0.000545662
+[window_probe] BEST_PROBE m=487 Rate=2.30237
+[window_probe] PROBE_START m=488
+[monitor] Completed epoch 317. Evaluated Loss = 2.30258. EMA Loss = 2.30361
+[window_probe] PROBE_DONE @step 991616 LOSS=2.3032, Rate=0.000801839
+[window_probe] BEST_PROBE m=488 Rate=2.3032
+[window_probe] PROBE_START m=489
+[window_probe] PROBE_DONE @step 992617 LOSS=2.30252, Rate=-0.000651041
+[window_probe] BEST_PROBE m=489 Rate=2.30252
+[window_probe] PROBE_START m=490
+[window_probe] PROBE_DONE @step 993617 LOSS=2.30288, Rate=0.000345263
+[window_probe] BEST_PROBE m=490 Rate=2.30288
+[window_probe] PROBE_START m=491
+[window_probe] PROBE_DONE @step 994618 LOSS=2.30246, Rate=-0.000404316
+[window_probe] BEST_PROBE m=491 Rate=2.30246
+[window_probe] PROBE_START m=492
+[monitor] Completed epoch 318. Evaluated Loss = 2.30292. EMA Loss = 2.30293
+[window_probe] PROBE_DONE @step 995619 LOSS=2.30272, Rate=0.000245159
+[window_probe] BEST_PROBE m=492 Rate=2.30272
+[window_probe] START_EXEC m=492
+[monitor] Completed epoch 319. Evaluated Loss = 2.30278. EMA Loss = 2.30093
+[monitor] Completed epoch 320. Evaluated Loss = 2.30272. EMA Loss = 2.30015
+[monitor] Completed epoch 321. Evaluated Loss = 2.30256. EMA Loss = 2.30086
+[window_probe] START_PROBING window_btm=488
+[window_probe] PROBE_DONE @step 1004623 LOSS=2.30283, Rate=0.000143872
+[window_probe] BEST_PROBE m=488 Rate=2.30283
+[window_probe] PROBE_START m=489
+[window_probe] PROBE_DONE @step 1005628 LOSS=2.30264, Rate=-0.00017703
+[window_probe] BEST_PROBE m=489 Rate=2.30264
+[window_probe] PROBE_START m=490
+[window_probe] PROBE_DONE @step 1006628 LOSS=2.30225, Rate=-0.000373946
+[window_probe] BEST_PROBE m=490 Rate=2.30225
+[window_probe] PROBE_START m=491
+[monitor] Completed epoch 322. Evaluated Loss = 2.30248. EMA Loss = 2.30342
+[window_probe] PROBE_DONE @step 1007630 LOSS=2.30206, Rate=-0.000177496
+[window_probe] BEST_PROBE m=491 Rate=2.30206
+[window_probe] PROBE_START m=492
+[window_probe] PROBE_DONE @step 1008630 LOSS=2.30302, Rate=0.000917682
+[window_probe] BEST_PROBE m=492 Rate=2.30302
+[window_probe] PROBE_START m=493
+[monitor] Completed epoch 323. Evaluated Loss = 2.30256. EMA Loss = 2.29908
+[window_probe] PROBE_DONE @step 1009630 LOSS=2.30301, Rate=-1.28963e-05
+[window_probe] BEST_PROBE m=493 Rate=2.30301
+[window_probe] PROBE_START m=494
+[window_probe] PROBE_DONE @step 1010630 LOSS=2.30265, Rate=-0.000338795
+[window_probe] BEST_PROBE m=494 Rate=2.30265
+[window_probe] PROBE_START m=495
+[window_probe] PROBE_DONE @step 1011631 LOSS=2.30272, Rate=6.05653e-05
+[window_probe] BEST_PROBE m=495 Rate=2.30272
+[window_probe] PROBE_START m=496
+[monitor] Completed epoch 324. Evaluated Loss = 2.30311. EMA Loss = 2.30768
+[window_probe] PROBE_DONE @step 1012631 LOSS=2.30255, Rate=-0.000153295
+[window_probe] BEST_PROBE m=496 Rate=2.30255
+[window_probe] START_EXEC m=496
+[monitor] Completed epoch 325. Evaluated Loss = 2.30239. EMA Loss = 2.30035
+[monitor] Completed epoch 326. Evaluated Loss = 2.30288. EMA Loss = 2.30548
+[window_probe] START_PROBING window_btm=492
+[window_probe] PROBE_DONE @step 1021633 LOSS=2.30231, Rate=-0.000255166
+[window_probe] BEST_PROBE m=492 Rate=2.30231
+[window_probe] PROBE_START m=493
+[window_probe] PROBE_DONE @step 1022633 LOSS=2.30251, Rate=0.000187142
+[window_probe] BEST_PROBE m=493 Rate=2.30251
+[window_probe] PROBE_START m=494
+[monitor] Completed epoch 327. Evaluated Loss = 2.30325. EMA Loss = 2.30378
+[window_probe] PROBE_DONE @step 1023634 LOSS=2.3027, Rate=0.000183473
+[window_probe] BEST_PROBE m=494 Rate=2.3027
+[window_probe] PROBE_START m=495
+[window_probe] PROBE_DONE @step 1024634 LOSS=2.303, Rate=0.000290316
+[window_probe] BEST_PROBE m=495 Rate=2.303
+[window_probe] PROBE_START m=496
+[monitor] Completed epoch 328. Evaluated Loss = 2.30265. EMA Loss = 2.30174
+[window_probe] PROBE_DONE @step 1025634 LOSS=2.30283, Rate=-0.000158469
+[window_probe] BEST_PROBE m=496 Rate=2.30283
+[window_probe] PROBE_START m=497
+[window_probe] PROBE_DONE @step 1026634 LOSS=2.30292, Rate=8.31829e-05
+[window_probe] BEST_PROBE m=497 Rate=2.30292
+[window_probe] PROBE_START m=498
+[window_probe] PROBE_DONE @step 1027634 LOSS=2.30264, Rate=-0.000196199
+[window_probe] BEST_PROBE m=498 Rate=2.30264
+[window_probe] PROBE_START m=499
+[monitor] Completed epoch 329. Evaluated Loss = 2.30278. EMA Loss = 2.3022
+[window_probe] PROBE_DONE @step 1028636 LOSS=2.30246, Rate=-0.000165606
+[window_probe] BEST_PROBE m=499 Rate=2.30246
+[window_probe] PROBE_START m=500
+[window_probe] PROBE_DONE @step 1029637 LOSS=2.30254, Rate=7.1114e-05
+[window_probe] BEST_PROBE m=500 Rate=2.30254
+[window_probe] START_EXEC m=500
+[monitor] Completed epoch 331. Evaluated Loss = 2.30234. EMA Loss = 2.30381
+[monitor] Completed epoch 330. Evaluated Loss = 2.30276. EMA Loss = 2.30381
+[monitor] Completed epoch 332. Evaluated Loss = 2.30277. EMA Loss = 2.30252
+[window_probe] START_PROBING window_btm=496
+[window_probe] PROBE_DONE @step 1038643 LOSS=2.30242, Rate=-0.000611795
+[window_probe] BEST_PROBE m=496 Rate=2.30242
+[window_probe] PROBE_START m=497
+[window_probe] PROBE_DONE @step 1039643 LOSS=2.30268, Rate=0.000246766
+[window_probe] BEST_PROBE m=497 Rate=2.30268
+[window_probe] PROBE_START m=498
+[window_probe] PROBE_DONE @step 1040644 LOSS=2.30275, Rate=6.59749e-05
+[window_probe] BEST_PROBE m=498 Rate=2.30275
+[window_probe] PROBE_START m=499
+[monitor] Completed epoch 333. Evaluated Loss = 2.30231. EMA Loss = 2.30163
+[window_probe] PROBE_DONE @step 1041644 LOSS=2.30245, Rate=-0.000292041
+[window_probe] BEST_PROBE m=499 Rate=2.30245
+[window_probe] PROBE_START m=500
+[window_probe] PROBE_DONE @step 1042645 LOSS=2.30267, Rate=0.000206256
+[window_probe] BEST_PROBE m=500 Rate=2.30267
+[window_probe] PROBE_START m=501
+[window_probe] PROBE_DONE @step 1043645 LOSS=2.30332, Rate=0.00149994
+[window_probe] BEST_PROBE m=501 Rate=2.30332
+[window_probe] PROBE_START m=502
+[monitor] Completed epoch 334. Evaluated Loss = 2.30281. EMA Loss = 2.3032
+[window_probe] PROBE_DONE @step 1044645 LOSS=2.3025, Rate=-0.000766732
+[window_probe] BEST_PROBE m=502 Rate=2.3025
+[window_probe] PROBE_START m=503
+[window_probe] PROBE_DONE @step 1045645 LOSS=2.30245, Rate=-5.29045e-05
+[window_probe] BEST_PROBE m=503 Rate=2.30245
+[window_probe] PROBE_START m=504
+[window_probe] PROBE_DONE @step 1046645 LOSS=2.30207, Rate=-0.000361464
+[window_probe] BEST_PROBE m=504 Rate=2.30207
+[window_probe] START_EXEC m=504
+[monitor] Completed epoch 335. Evaluated Loss = 2.30251. EMA Loss = 2.30313
+[monitor] Completed epoch 336. Evaluated Loss = 2.30296. EMA Loss = 2.30384
+[monitor] Completed epoch 337. Evaluated Loss = 2.30235. EMA Loss = 2.30312
+[window_probe] START_PROBING window_btm=500
+[window_probe] PROBE_DONE @step 1055646 LOSS=2.30235, Rate=-0.000666751
+[window_probe] BEST_PROBE m=500 Rate=2.30235
+[window_probe] PROBE_START m=501
+[monitor] Completed epoch 338. Evaluated Loss = 2.30244. EMA Loss = 2.30615
+[window_probe] PROBE_DONE @step 1056653 LOSS=2.3024, Rate=4.79062e-05
+[window_probe] BEST_PROBE m=501 Rate=2.3024
+[window_probe] PROBE_START m=502
+[window_probe] PROBE_DONE @step 1057653 LOSS=2.30277, Rate=0.000362221
+[window_probe] BEST_PROBE m=502 Rate=2.30277
+[window_probe] PROBE_START m=503
+[window_probe] PROBE_DONE @step 1058653 LOSS=2.30286, Rate=6.10499e-05
+[window_probe] BEST_PROBE m=503 Rate=2.30286
+[window_probe] PROBE_START m=504
+[monitor] Completed epoch 339. Evaluated Loss = 2.30264. EMA Loss = 2.30063
+[window_probe] PROBE_DONE @step 1059653 LOSS=2.30275, Rate=-0.000103604
+[window_probe] BEST_PROBE m=504 Rate=2.30275
+[window_probe] PROBE_START m=505
+[window_probe] PROBE_DONE @step 1060656 LOSS=2.30266, Rate=-9.01064e-05
+[window_probe] BEST_PROBE m=505 Rate=2.30266
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1061656 LOSS=2.30261, Rate=-4.83161e-05
+[window_probe] BEST_PROBE m=506 Rate=2.30261
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1062656 LOSS=2.30269, Rate=7.49464e-05
+[window_probe] BEST_PROBE m=507 Rate=2.30269
+[window_probe] PROBE_START m=508
+[monitor] Completed epoch 340. Evaluated Loss = 2.30282. EMA Loss = 2.30016
+[window_probe] PROBE_DONE @step 1063657 LOSS=2.30206, Rate=-0.000603328
+[window_probe] BEST_PROBE m=508 Rate=2.30206
+[window_probe] START_EXEC m=508
+[monitor] Completed epoch 341. Evaluated Loss = 2.30278. EMA Loss = 2.30202
+[monitor] Completed epoch 342. Evaluated Loss = 2.30278. EMA Loss = 2.30144
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1072661 LOSS=2.30247, Rate=-0.000334156
+[window_probe] BEST_PROBE m=505 Rate=2.30247
+[window_probe] PROBE_START m=506
+[monitor] Completed epoch 343. Evaluated Loss = 2.30278. EMA Loss = 2.30319
+[window_probe] PROBE_DONE @step 1073661 LOSS=2.30265, Rate=0.000168184
+[window_probe] BEST_PROBE m=506 Rate=2.30265
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1074663 LOSS=2.30292, Rate=0.000255281
+[window_probe] BEST_PROBE m=507 Rate=2.30292
+[window_probe] PROBE_START m=508
+[monitor] Completed epoch 344. Evaluated Loss = 2.30269. EMA Loss = 2.30376
+[window_probe] PROBE_DONE @step 1075663 LOSS=2.30286, Rate=-5.98761e-05
+[window_probe] BEST_PROBE m=508 Rate=2.30286
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1076664 LOSS=2.30247, Rate=-0.000370797
+[window_probe] BEST_PROBE m=509 Rate=2.30247
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1077664 LOSS=2.30238, Rate=-8.40411e-05
+[window_probe] BEST_PROBE m=510 Rate=2.30238
+[window_probe] PROBE_START m=511
+[monitor] Completed epoch 345. Evaluated Loss = 2.30256. EMA Loss = 2.30457
+[window_probe] PROBE_DONE @step 1078664 LOSS=2.30246, Rate=7.46636e-05
+[window_probe] BEST_PROBE m=511 Rate=2.30246
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1079665 LOSS=2.30279, Rate=0.000319398
+[window_probe] BEST_PROBE m=512 Rate=2.30279
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1080665 LOSS=2.30252, Rate=-0.000254663
+[window_probe] BEST_PROBE m=513 Rate=2.30252
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 346. Evaluated Loss = 2.30267. EMA Loss = 2.30315
+[monitor] Completed epoch 347. Evaluated Loss = 2.30261. EMA Loss = 2.30195
+[monitor] Completed epoch 348. Evaluated Loss = 2.30243. EMA Loss = 2.30195
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1089666 LOSS=2.30267, Rate=2.91859e-06
+[window_probe] BEST_PROBE m=505 Rate=2.30267
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1090668 LOSS=2.30303, Rate=0.000339866
+[window_probe] BEST_PROBE m=506 Rate=2.30303
+[window_probe] PROBE_START m=507
+[monitor] Completed epoch 349. Evaluated Loss = 2.30267. EMA Loss = 2.30619
+[window_probe] PROBE_DONE @step 1091668 LOSS=2.30227, Rate=-0.000713566
+[window_probe] BEST_PROBE m=507 Rate=2.30227
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1092669 LOSS=2.30261, Rate=0.000321523
+[window_probe] BEST_PROBE m=508 Rate=2.30261
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1093670 LOSS=2.30293, Rate=0.000299914
+[window_probe] BEST_PROBE m=509 Rate=2.30293
+[window_probe] PROBE_START m=510
+[monitor] Completed epoch 350. Evaluated Loss = 2.3026. EMA Loss = 2.30492
+[window_probe] PROBE_DONE @step 1094671 LOSS=2.30259, Rate=-0.000321181
+[window_probe] BEST_PROBE m=510 Rate=2.30259
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1095671 LOSS=2.30224, Rate=-0.000330966
+[window_probe] BEST_PROBE m=511 Rate=2.30224
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1096673 LOSS=2.30222, Rate=-2.30729e-05
+[window_probe] BEST_PROBE m=512 Rate=2.30222
+[window_probe] PROBE_START m=513
+[monitor] Completed epoch 351. Evaluated Loss = 2.30256. EMA Loss = 2.30662
+[window_probe] PROBE_DONE @step 1097675 LOSS=2.30257, Rate=0.00033855
+[window_probe] BEST_PROBE m=513 Rate=2.30257
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 352. Evaluated Loss = 2.30263. EMA Loss = 2.30351
+[monitor] Completed epoch 353. Evaluated Loss = 2.30247. EMA Loss = 2.30329
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1106675 LOSS=2.30242, Rate=-8.42564e-05
+[window_probe] BEST_PROBE m=505 Rate=2.30242
+[window_probe] PROBE_START m=506
+[monitor] Completed epoch 354. Evaluated Loss = 2.3028. EMA Loss = 2.30443
+[window_probe] PROBE_DONE @step 1107678 LOSS=2.3024, Rate=-1.26658e-05
+[window_probe] BEST_PROBE m=506 Rate=2.3024
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1108682 LOSS=2.30276, Rate=0.00033711
+[window_probe] BEST_PROBE m=507 Rate=2.30276
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1109683 LOSS=2.30204, Rate=-0.000695829
+[window_probe] BEST_PROBE m=508 Rate=2.30204
+[window_probe] PROBE_START m=509
+[monitor] Completed epoch 355. Evaluated Loss = 2.30249. EMA Loss = 2.30432
+[window_probe] PROBE_DONE @step 1110683 LOSS=2.30278, Rate=0.000707788
+[window_probe] BEST_PROBE m=509 Rate=2.30278
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1111683 LOSS=2.30245, Rate=-0.000319428
+[window_probe] BEST_PROBE m=510 Rate=2.30245
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1112683 LOSS=2.30277, Rate=0.000309899
+[window_probe] BEST_PROBE m=511 Rate=2.30277
+[window_probe] PROBE_START m=512
+[monitor] Completed epoch 356. Evaluated Loss = 2.30239. EMA Loss = 2.30132
+[window_probe] PROBE_DONE @step 1113683 LOSS=2.30237, Rate=-0.000388486
+[window_probe] BEST_PROBE m=512 Rate=2.30237
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1114686 LOSS=2.30284, Rate=0.000441989
+[window_probe] BEST_PROBE m=513 Rate=2.30284
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 357. Evaluated Loss = 2.30282. EMA Loss = 2.3021
+[monitor] Completed epoch 358. Evaluated Loss = 2.30279. EMA Loss = 2.30393
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 359. Evaluated Loss = 2.30243. EMA Loss = 2.30268
+[window_probe] PROBE_DONE @step 1123687 LOSS=2.30264, Rate=-0.000616091
+[window_probe] BEST_PROBE m=505 Rate=2.30264
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1124688 LOSS=2.30263, Rate=-1.44346e-05
+[window_probe] BEST_PROBE m=506 Rate=2.30263
+[window_probe] PROBE_START m=507
+[monitor] Completed epoch 360. Evaluated Loss = 2.30291. EMA Loss = 2.30486
+[window_probe] PROBE_DONE @step 1125688 LOSS=2.30249, Rate=-0.000132449
+[window_probe] BEST_PROBE m=507 Rate=2.30249
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1126690 LOSS=2.30203, Rate=-0.00108172
+[window_probe] BEST_PROBE m=508 Rate=2.30203
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1127691 LOSS=2.30254, Rate=0.000489915
+[window_probe] BEST_PROBE m=509 Rate=2.30254
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1128691 LOSS=2.30236, Rate=-0.000164443
+[window_probe] BEST_PROBE m=510 Rate=2.30236
+[window_probe] PROBE_START m=511
+[monitor] Completed epoch 361. Evaluated Loss = 2.3029. EMA Loss = 2.30484
+[window_probe] PROBE_DONE @step 1129691 LOSS=2.30313, Rate=0.000728801
+[window_probe] BEST_PROBE m=511 Rate=2.30313
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1130693 LOSS=2.3025, Rate=-0.000609203
+[window_probe] BEST_PROBE m=512 Rate=2.3025
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1131695 LOSS=2.30302, Rate=0.000499393
+[window_probe] BEST_PROBE m=513 Rate=2.30302
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 362. Evaluated Loss = 2.30225. EMA Loss = 2.3033
+[monitor] Completed epoch 363. Evaluated Loss = 2.30302. EMA Loss = 2.30183
+[monitor] Completed epoch 364. Evaluated Loss = 2.30277. EMA Loss = 2.30351
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 365. Evaluated Loss = 2.30248. EMA Loss = 2.30272
+[window_probe] PROBE_DONE @step 1140695 LOSS=2.30264, Rate=-0.000394177
+[window_probe] BEST_PROBE m=505 Rate=2.30264
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1141695 LOSS=2.30222, Rate=-0.000395195
+[window_probe] BEST_PROBE m=506 Rate=2.30222
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1142696 LOSS=2.30253, Rate=0.000285705
+[window_probe] BEST_PROBE m=507 Rate=2.30253
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1143696 LOSS=2.30271, Rate=0.000179216
+[window_probe] BEST_PROBE m=508 Rate=2.30271
+[window_probe] PROBE_START m=509
+[monitor] Completed epoch 366. Evaluated Loss = 2.30233. EMA Loss = 2.30722
+[window_probe] PROBE_DONE @step 1144698 LOSS=2.30276, Rate=4.49101e-05
+[window_probe] BEST_PROBE m=509 Rate=2.30276
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1145698 LOSS=2.30232, Rate=-0.000410404
+[window_probe] BEST_PROBE m=510 Rate=2.30232
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1146699 LOSS=2.30268, Rate=0.000341374
+[window_probe] BEST_PROBE m=511 Rate=2.30268
+[window_probe] PROBE_START m=512
+[monitor] Completed epoch 367. Evaluated Loss = 2.30317. EMA Loss = 2.30336
+[window_probe] PROBE_DONE @step 1147701 LOSS=2.30283, Rate=0.000140818
+[window_probe] BEST_PROBE m=512 Rate=2.30283
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1148701 LOSS=2.30217, Rate=-0.000623446
+[window_probe] BEST_PROBE m=513 Rate=2.30217
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 370. Evaluated Loss = 2.30314. EMA Loss = 2.3036
+[monitor] Completed epoch 368. Evaluated Loss = 2.3028. EMA Loss = 2.30404
+[monitor] Completed epoch 369. Evaluated Loss = 2.30224. EMA Loss = 2.30177
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1157709 LOSS=2.30247, Rate=-0.000193738
+[window_probe] BEST_PROBE m=505 Rate=2.30247
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1158709 LOSS=2.30261, Rate=0.000136101
+[window_probe] BEST_PROBE m=506 Rate=2.30261
+[window_probe] PROBE_START m=507
+[monitor] Completed epoch 371. Evaluated Loss = 2.30214. EMA Loss = 2.30357
+[window_probe] PROBE_DONE @step 1159709 LOSS=2.30279, Rate=0.000164099
+[window_probe] BEST_PROBE m=507 Rate=2.30279
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1160709 LOSS=2.30291, Rate=0.000116121
+[window_probe] BEST_PROBE m=508 Rate=2.30291
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1161713 LOSS=2.30258, Rate=-0.000313242
+[window_probe] BEST_PROBE m=509 Rate=2.30258
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1162713 LOSS=2.30238, Rate=-0.00018486
+[window_probe] BEST_PROBE m=510 Rate=2.30238
+[window_probe] PROBE_START m=511
+[monitor] Completed epoch 372. Evaluated Loss = 2.3024. EMA Loss = 2.30439
+[window_probe] PROBE_DONE @step 1163713 LOSS=2.30253, Rate=0.000136876
+[window_probe] BEST_PROBE m=511 Rate=2.30253
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1164716 LOSS=2.30285, Rate=0.000301671
+[window_probe] BEST_PROBE m=512 Rate=2.30285
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1165716 LOSS=2.30277, Rate=-6.92983e-05
+[window_probe] BEST_PROBE m=513 Rate=2.30277
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 373. Evaluated Loss = 2.30249. EMA Loss = 2.3022
+[monitor] Completed epoch 374. Evaluated Loss = 2.30257. EMA Loss = 2.30629
+[monitor] Completed epoch 375. Evaluated Loss = 2.30243. EMA Loss = 2.30526
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1174718 LOSS=2.30257, Rate=1.40041e-05
+[window_probe] BEST_PROBE m=505 Rate=2.30257
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1175718 LOSS=2.30269, Rate=0.00011481
+[window_probe] BEST_PROBE m=506 Rate=2.30269
+[window_probe] PROBE_START m=507
+[monitor] Completed epoch 376. Evaluated Loss = 2.30301. EMA Loss = 2.30345
+[window_probe] PROBE_DONE @step 1176718 LOSS=2.30248, Rate=-0.00020105
+[window_probe] BEST_PROBE m=507 Rate=2.30248
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1177718 LOSS=2.30253, Rate=5.00242e-05
+[window_probe] BEST_PROBE m=508 Rate=2.30253
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1178719 LOSS=2.30287, Rate=0.000322381
+[window_probe] BEST_PROBE m=509 Rate=2.30287
+[window_probe] PROBE_START m=510
+[monitor] Completed epoch 377. Evaluated Loss = 2.30291. EMA Loss = 2.30325
+[window_probe] PROBE_DONE @step 1179720 LOSS=2.30282, Rate=-4.71985e-05
+[window_probe] BEST_PROBE m=510 Rate=2.30282
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1180724 LOSS=2.30225, Rate=-0.00223031
+[window_probe] BEST_PROBE m=511 Rate=2.30225
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1181725 LOSS=2.30289, Rate=0.000602435
+[window_probe] BEST_PROBE m=512 Rate=2.30289
+[window_probe] PROBE_START m=513
+[monitor] Completed epoch 378. Evaluated Loss = 2.30263. EMA Loss = 2.30363
+[window_probe] PROBE_DONE @step 1182726 LOSS=2.30283, Rate=-5.78118e-05
+[window_probe] BEST_PROBE m=513 Rate=2.30283
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 379. Evaluated Loss = 2.30251. EMA Loss = 2.30227
+[monitor] Completed epoch 380. Evaluated Loss = 2.30256. EMA Loss = 2.30206
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 381. Evaluated Loss = 2.3024. EMA Loss = 2.30215
+[window_probe] PROBE_DONE @step 1191728 LOSS=2.30228, Rate=-0.000545115
+[window_probe] BEST_PROBE m=505 Rate=2.30228
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1192728 LOSS=2.3029, Rate=0.00059559
+[window_probe] BEST_PROBE m=506 Rate=2.3029
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1193730 LOSS=2.30297, Rate=6.2709e-05
+[window_probe] BEST_PROBE m=507 Rate=2.30297
+[window_probe] PROBE_START m=508
+[monitor] Completed epoch 382. Evaluated Loss = 2.30237. EMA Loss = 2.30299
+[window_probe] PROBE_DONE @step 1194731 LOSS=2.3027, Rate=-0.00025494
+[window_probe] BEST_PROBE m=508 Rate=2.3027
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1195731 LOSS=2.30269, Rate=-5.71559e-06
+[window_probe] BEST_PROBE m=509 Rate=2.30269
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1196738 LOSS=2.30258, Rate=-0.000103136
+[window_probe] BEST_PROBE m=510 Rate=2.30258
+[window_probe] PROBE_START m=511
+[monitor] Completed epoch 383. Evaluated Loss = 2.30312. EMA Loss = 2.30493
+[window_probe] PROBE_DONE @step 1197738 LOSS=2.30266, Rate=7.23834e-05
+[window_probe] BEST_PROBE m=511 Rate=2.30266
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1198741 LOSS=2.30259, Rate=-6.97189e-05
+[window_probe] BEST_PROBE m=512 Rate=2.30259
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1199744 LOSS=2.30251, Rate=-7.14173e-05
+[window_probe] BEST_PROBE m=513 Rate=2.30251
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 384. Evaluated Loss = 2.30267. EMA Loss = 2.30226
+[monitor] Completed epoch 385. Evaluated Loss = 2.30307. EMA Loss = 2.30209
+[monitor] Completed epoch 386. Evaluated Loss = 2.30266. EMA Loss = 2.301
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1208747 LOSS=2.30244, Rate=-0.000526661
+[window_probe] BEST_PROBE m=505 Rate=2.30244
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1209748 LOSS=2.30287, Rate=0.000992062
+[window_probe] BEST_PROBE m=506 Rate=2.30287
+[window_probe] PROBE_START m=507
+[monitor] Completed epoch 387. Evaluated Loss = 2.30249. EMA Loss = 2.30459
+[window_probe] PROBE_DONE @step 1210750 LOSS=2.30249, Rate=-0.000364922
+[window_probe] BEST_PROBE m=507 Rate=2.30249
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1211750 LOSS=2.30263, Rate=0.000137841
+[window_probe] BEST_PROBE m=508 Rate=2.30263
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1212751 LOSS=2.30242, Rate=-0.000191305
+[window_probe] BEST_PROBE m=509 Rate=2.30242
+[window_probe] PROBE_START m=510
+[monitor] Completed epoch 388. Evaluated Loss = 2.30246. EMA Loss = 2.3067
+[window_probe] PROBE_DONE @step 1213752 LOSS=2.30278, Rate=0.000341926
+[window_probe] BEST_PROBE m=510 Rate=2.30278
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1214752 LOSS=2.30285, Rate=6.96057e-05
+[window_probe] BEST_PROBE m=511 Rate=2.30285
+[window_probe] PROBE_START m=512
+[monitor] Completed epoch 389. Evaluated Loss = 2.30262. EMA Loss = 2.30367
+[window_probe] PROBE_DONE @step 1215752 LOSS=2.30264, Rate=-0.000205354
+[window_probe] BEST_PROBE m=512 Rate=2.30264
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1216753 LOSS=2.30249, Rate=-0.000142946
+[window_probe] BEST_PROBE m=513 Rate=2.30249
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 390. Evaluated Loss = 2.30284. EMA Loss = 2.30502
+[monitor] Completed epoch 391. Evaluated Loss = 2.30279. EMA Loss = 2.30352
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 392. Evaluated Loss = 2.30258. EMA Loss = 2.30263
+[window_probe] PROBE_DONE @step 1225756 LOSS=2.30274, Rate=0.000132865
+[window_probe] BEST_PROBE m=505 Rate=2.30274
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1226759 LOSS=2.30255, Rate=-0.000180679
+[window_probe] BEST_PROBE m=506 Rate=2.30255
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1227760 LOSS=2.30276, Rate=0.000143662
+[window_probe] BEST_PROBE m=507 Rate=2.30276
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1228763 LOSS=2.30309, Rate=0.00031788
+[window_probe] BEST_PROBE m=508 Rate=2.30309
+[window_probe] PROBE_START m=509
+[monitor] Completed epoch 393. Evaluated Loss = 2.30272. EMA Loss = 2.30309
+[window_probe] PROBE_DONE @step 1229764 LOSS=2.30258, Rate=-0.000492106
+[window_probe] BEST_PROBE m=509 Rate=2.30258
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1230765 LOSS=2.30209, Rate=-0.000475082
+[window_probe] BEST_PROBE m=510 Rate=2.30209
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1231765 LOSS=2.30259, Rate=0.000479005
+[window_probe] BEST_PROBE m=511 Rate=2.30259
+[window_probe] PROBE_START m=512
+[monitor] Completed epoch 394. Evaluated Loss = 2.30264. EMA Loss = 2.30262
+[window_probe] PROBE_DONE @step 1232767 LOSS=2.30302, Rate=0.000406702
+[window_probe] BEST_PROBE m=512 Rate=2.30302
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1233767 LOSS=2.3028, Rate=-0.000209979
+[window_probe] BEST_PROBE m=513 Rate=2.3028
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 395. Evaluated Loss = 2.30321. EMA Loss = 2.30314
+[monitor] Completed epoch 396. Evaluated Loss = 2.30261. EMA Loss = 2.2999
+[monitor] Completed epoch 397. Evaluated Loss = 2.30306. EMA Loss = 2.30295
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1242768 LOSS=2.30281, Rate=0.000474597
+[window_probe] BEST_PROBE m=505 Rate=2.30281
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1243768 LOSS=2.30247, Rate=-0.000230918
+[window_probe] BEST_PROBE m=506 Rate=2.30247
+[window_probe] PROBE_START m=507
+[monitor] Completed epoch 398. Evaluated Loss = 2.3023. EMA Loss = 2.30114
+[window_probe] PROBE_DONE @step 1244768 LOSS=2.30302, Rate=0.000504867
+[window_probe] BEST_PROBE m=507 Rate=2.30302
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1245769 LOSS=2.30266, Rate=-0.000336995
+[window_probe] BEST_PROBE m=508 Rate=2.30266
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1246770 LOSS=2.30264, Rate=-1.94302e-05
+[window_probe] BEST_PROBE m=509 Rate=2.30264
+[window_probe] PROBE_START m=510
+[monitor] Completed epoch 399. Evaluated Loss = 2.30221. EMA Loss = 2.30455
+[window_probe] PROBE_DONE @step 1247770 LOSS=2.30256, Rate=-7.75079e-05
+[window_probe] BEST_PROBE m=510 Rate=2.30256
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1248771 LOSS=2.30281, Rate=0.000235112
+[window_probe] BEST_PROBE m=511 Rate=2.30281
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1249773 LOSS=2.30299, Rate=0.000170116
+[window_probe] BEST_PROBE m=512 Rate=2.30299
+[window_probe] PROBE_START m=513
+[monitor] Completed epoch 400. Evaluated Loss = 2.3026. EMA Loss = 2.30239
+[window_probe] PROBE_DONE @step 1250773 LOSS=2.30284, Rate=-0.000136114
+[window_probe] BEST_PROBE m=513 Rate=2.30284
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 401. Evaluated Loss = 2.30258. EMA Loss = 2.30207
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 402. Evaluated Loss = 2.30238. EMA Loss = 2.30329
+[monitor] Completed epoch 403. Evaluated Loss = 2.30266. EMA Loss = 2.30353
+[window_probe] PROBE_DONE @step 1259775 LOSS=2.30238, Rate=2.08679e-05
+[window_probe] BEST_PROBE m=505 Rate=2.30238
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1260776 LOSS=2.30269, Rate=0.000469145
+[window_probe] BEST_PROBE m=506 Rate=2.30269
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1261777 LOSS=2.3024, Rate=-0.000275901
+[window_probe] BEST_PROBE m=507 Rate=2.3024
+[window_probe] PROBE_START m=508
+[monitor] Completed epoch 404. Evaluated Loss = 2.30243. EMA Loss = 2.30438
+[window_probe] PROBE_DONE @step 1262778 LOSS=2.30266, Rate=0.0002537
+[window_probe] BEST_PROBE m=508 Rate=2.30266
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1263778 LOSS=2.30314, Rate=0.00112215
+[window_probe] BEST_PROBE m=509 Rate=2.30314
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1264778 LOSS=2.30283, Rate=-0.000293405
+[window_probe] BEST_PROBE m=510 Rate=2.30283
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1265781 LOSS=2.30261, Rate=-0.000215638
+[window_probe] BEST_PROBE m=511 Rate=2.30261
+[window_probe] PROBE_START m=512
+[monitor] Completed epoch 405. Evaluated Loss = 2.30259. EMA Loss = 2.30312
+[window_probe] PROBE_DONE @step 1266782 LOSS=2.30203, Rate=-0.000553163
+[window_probe] BEST_PROBE m=512 Rate=2.30203
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1267782 LOSS=2.30247, Rate=0.000426792
+[window_probe] BEST_PROBE m=513 Rate=2.30247
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 407. Evaluated Loss = 2.30277. EMA Loss = 2.30166
+[monitor] Completed epoch 406. Evaluated Loss = 2.30258. EMA Loss = 2.30166
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 408. Evaluated Loss = 2.30265. EMA Loss = 2.30159
+[window_probe] PROBE_DONE @step 1276782 LOSS=2.30225, Rate=-0.000117672
+[window_probe] BEST_PROBE m=505 Rate=2.30225
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1277783 LOSS=2.30283, Rate=0.000401701
+[window_probe] BEST_PROBE m=506 Rate=2.30283
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1278784 LOSS=2.30282, Rate=-2.44514e-06
+[window_probe] BEST_PROBE m=507 Rate=2.30282
+[window_probe] PROBE_START m=508
+[monitor] Completed epoch 409. Evaluated Loss = 2.30259. EMA Loss = 2.30357
+[window_probe] PROBE_DONE @step 1279784 LOSS=2.30271, Rate=-0.000107658
+[window_probe] BEST_PROBE m=508 Rate=2.30271
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1280784 LOSS=2.30254, Rate=-0.000162727
+[window_probe] BEST_PROBE m=509 Rate=2.30254
+[window_probe] PROBE_START m=510
+[monitor] Completed epoch 410. Evaluated Loss = 2.30278. EMA Loss = 2.30205
+[window_probe] PROBE_DONE @step 1281787 LOSS=2.30253, Rate=-6.41547e-06
+[window_probe] BEST_PROBE m=510 Rate=2.30253
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1282789 LOSS=2.30297, Rate=0.000423912
+[window_probe] BEST_PROBE m=511 Rate=2.30297
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1283794 LOSS=2.30244, Rate=-0.000506501
+[window_probe] BEST_PROBE m=512 Rate=2.30244
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1284795 LOSS=2.30247, Rate=3.15279e-05
+[window_probe] BEST_PROBE m=513 Rate=2.30247
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 411. Evaluated Loss = 2.30249. EMA Loss = 2.30149
+[monitor] Completed epoch 412. Evaluated Loss = 2.30299. EMA Loss = 2.303
+[monitor] Completed epoch 413. Evaluated Loss = 2.30306. EMA Loss = 2.30288
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1293798 LOSS=2.30218, Rate=-0.000775331
+[window_probe] BEST_PROBE m=505 Rate=2.30218
+[window_probe] PROBE_START m=506
+[monitor] Completed epoch 414. Evaluated Loss = 2.3025. EMA Loss = 2.30305
+[window_probe] PROBE_DONE @step 1294800 LOSS=2.30281, Rate=0.000582996
+[window_probe] BEST_PROBE m=506 Rate=2.30281
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1295800 LOSS=2.30245, Rate=-0.000340425
+[window_probe] BEST_PROBE m=507 Rate=2.30245
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1296800 LOSS=2.30311, Rate=0.000636586
+[window_probe] BEST_PROBE m=508 Rate=2.30311
+[window_probe] PROBE_START m=509
+[monitor] Completed epoch 415. Evaluated Loss = 2.3026. EMA Loss = 2.30148
+[window_probe] PROBE_DONE @step 1297800 LOSS=2.30242, Rate=-0.000649717
+[window_probe] BEST_PROBE m=509 Rate=2.30242
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1298800 LOSS=2.30284, Rate=0.000396595
+[window_probe] BEST_PROBE m=510 Rate=2.30284
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1299800 LOSS=2.30302, Rate=0.000166251
+[window_probe] BEST_PROBE m=511 Rate=2.30302
+[window_probe] PROBE_START m=512
+[monitor] Completed epoch 416. Evaluated Loss = 2.30266. EMA Loss = 2.30259
+[window_probe] PROBE_DONE @step 1300802 LOSS=2.30286, Rate=-0.000150408
+[window_probe] BEST_PROBE m=512 Rate=2.30286
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1301802 LOSS=2.30242, Rate=-0.000417103
+[window_probe] BEST_PROBE m=513 Rate=2.30242
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 417. Evaluated Loss = 2.3027. EMA Loss = 2.29988
+[monitor] Completed epoch 418. Evaluated Loss = 2.30293. EMA Loss = 2.30272
+[monitor] Completed epoch 419. Evaluated Loss = 2.30259. EMA Loss = 2.30125
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1310806 LOSS=2.30267, Rate=0.000211326
+[window_probe] BEST_PROBE m=505 Rate=2.30267
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1311806 LOSS=2.3026, Rate=-7.20457e-05
+[window_probe] BEST_PROBE m=506 Rate=2.3026
+[window_probe] PROBE_START m=507
+[monitor] Completed epoch 420. Evaluated Loss = 2.30239. EMA Loss = 2.30759
+[window_probe] PROBE_DONE @step 1312806 LOSS=2.30263, Rate=2.88008e-05
+[window_probe] BEST_PROBE m=507 Rate=2.30263
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1313806 LOSS=2.30291, Rate=0.000267637
+[window_probe] BEST_PROBE m=508 Rate=2.30291
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1314806 LOSS=2.30269, Rate=-0.000209457
+[window_probe] BEST_PROBE m=509 Rate=2.30269
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1315806 LOSS=2.30219, Rate=-0.000469049
+[window_probe] BEST_PROBE m=510 Rate=2.30219
+[window_probe] PROBE_START m=511
+[monitor] Completed epoch 421. Evaluated Loss = 2.30242. EMA Loss = 2.30311
+[window_probe] PROBE_DONE @step 1316807 LOSS=2.30226, Rate=6.32008e-05
+[window_probe] BEST_PROBE m=511 Rate=2.30226
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1317808 LOSS=2.30267, Rate=0.000960065
+[window_probe] BEST_PROBE m=512 Rate=2.30267
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1318821 LOSS=2.30239, Rate=-0.000258236
+[window_probe] BEST_PROBE m=513 Rate=2.30239
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 422. Evaluated Loss = 2.30281. EMA Loss = 2.30415
+[monitor] Completed epoch 423. Evaluated Loss = 2.30229. EMA Loss = 2.30334
+[monitor] Completed epoch 424. Evaluated Loss = 2.30215. EMA Loss = 2.30185
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1327825 LOSS=2.30288, Rate=0.000149004
+[window_probe] BEST_PROBE m=505 Rate=2.30288
+[window_probe] PROBE_START m=506
+[monitor] Completed epoch 425. Evaluated Loss = 2.30288. EMA Loss = 2.30583
+[window_probe] PROBE_DONE @step 1328826 LOSS=2.30268, Rate=-0.000182102
+[window_probe] BEST_PROBE m=506 Rate=2.30268
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1329826 LOSS=2.30238, Rate=-0.000290411
+[window_probe] BEST_PROBE m=507 Rate=2.30238
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1330828 LOSS=2.30284, Rate=0.000444629
+[window_probe] BEST_PROBE m=508 Rate=2.30284
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1331828 LOSS=2.30275, Rate=-8.50045e-05
+[window_probe] BEST_PROBE m=509 Rate=2.30275
+[window_probe] PROBE_START m=510
+[monitor] Completed epoch 426. Evaluated Loss = 2.30274. EMA Loss = 2.30232
+[window_probe] PROBE_DONE @step 1332830 LOSS=2.30244, Rate=-0.000298607
+[window_probe] BEST_PROBE m=510 Rate=2.30244
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1333830 LOSS=2.30252, Rate=7.72971e-05
+[window_probe] BEST_PROBE m=511 Rate=2.30252
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1334830 LOSS=2.30272, Rate=0.000189603
+[window_probe] BEST_PROBE m=512 Rate=2.30272
+[window_probe] PROBE_START m=513
+[monitor] Completed epoch 427. Evaluated Loss = 2.30242. EMA Loss = 2.30311
+[window_probe] PROBE_DONE @step 1335832 LOSS=2.30285, Rate=0.000129236
+[window_probe] BEST_PROBE m=513 Rate=2.30285
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 428. Evaluated Loss = 2.30231. EMA Loss = 2.30232
+[monitor] Completed epoch 430. Evaluated Loss = 2.30213. EMA Loss = 2.30454
+[monitor] Completed epoch 429. Evaluated Loss = 2.30245. EMA Loss = 2.30397
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1344834 LOSS=2.30268, Rate=0.000131141
+[window_probe] BEST_PROBE m=505 Rate=2.30268
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1345834 LOSS=2.30311, Rate=0.000402761
+[window_probe] BEST_PROBE m=506 Rate=2.30311
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1346834 LOSS=2.30303, Rate=-7.62501e-05
+[window_probe] BEST_PROBE m=507 Rate=2.30303
+[window_probe] PROBE_START m=508
+[monitor] Completed epoch 431. Evaluated Loss = 2.30239. EMA Loss = 2.30042
+[window_probe] PROBE_DONE @step 1347834 LOSS=2.30258, Rate=-0.000424773
+[window_probe] BEST_PROBE m=508 Rate=2.30258
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1348834 LOSS=2.30301, Rate=0.000408682
+[window_probe] BEST_PROBE m=509 Rate=2.30301
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1349834 LOSS=2.30294, Rate=-6.37887e-05
+[window_probe] BEST_PROBE m=510 Rate=2.30294
+[window_probe] PROBE_START m=511
+[monitor] Completed epoch 432. Evaluated Loss = 2.30266. EMA Loss = 2.30302
+[window_probe] PROBE_DONE @step 1350836 LOSS=2.30252, Rate=-0.000391137
+[window_probe] BEST_PROBE m=511 Rate=2.30252
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1351836 LOSS=2.30223, Rate=-0.00027536
+[window_probe] BEST_PROBE m=512 Rate=2.30223
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1352836 LOSS=2.30247, Rate=0.000230179
+[window_probe] BEST_PROBE m=513 Rate=2.30247
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 433. Evaluated Loss = 2.30254. EMA Loss = 2.30023
+[monitor] Completed epoch 434. Evaluated Loss = 2.30234. EMA Loss = 2.30271
+[monitor] Completed epoch 435. Evaluated Loss = 2.30249. EMA Loss = 2.30271
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1361837 LOSS=2.30263, Rate=-2.59219e-05
+[window_probe] BEST_PROBE m=505 Rate=2.30263
+[window_probe] PROBE_START m=506
+[monitor] Completed epoch 436. Evaluated Loss = 2.30288. EMA Loss = 2.30261
+[window_probe] PROBE_DONE @step 1362843 LOSS=2.30255, Rate=-7.51445e-05
+[window_probe] BEST_PROBE m=506 Rate=2.30255
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1363843 LOSS=2.30263, Rate=7.41042e-05
+[window_probe] BEST_PROBE m=507 Rate=2.30263
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1364843 LOSS=2.30241, Rate=-0.000205767
+[window_probe] BEST_PROBE m=508 Rate=2.30241
+[window_probe] PROBE_START m=509
+[monitor] Completed epoch 437. Evaluated Loss = 2.30259. EMA Loss = 2.30398
+[window_probe] PROBE_DONE @step 1365848 LOSS=2.30227, Rate=-0.000129273
+[window_probe] BEST_PROBE m=509 Rate=2.30227
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1366848 LOSS=2.30273, Rate=0.00044295
+[window_probe] BEST_PROBE m=510 Rate=2.30273
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1367853 LOSS=2.30329, Rate=0.000519585
+[window_probe] BEST_PROBE m=511 Rate=2.30329
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1368853 LOSS=2.30227, Rate=-0.000973002
+[window_probe] BEST_PROBE m=512 Rate=2.30227
+[window_probe] PROBE_START m=513
+[monitor] Completed epoch 438. Evaluated Loss = 2.30256. EMA Loss = 2.30405
+[window_probe] PROBE_DONE @step 1369857 LOSS=2.30229, Rate=1.69873e-05
+[window_probe] BEST_PROBE m=513 Rate=2.30229
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 440. Evaluated Loss = 2.30254. EMA Loss = 2.3033
+[monitor] Completed epoch 439. Evaluated Loss = 2.30266. EMA Loss = 2.3009
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 441. Evaluated Loss = 2.30231. EMA Loss = 2.30178
+[window_probe] PROBE_DONE @step 1378860 LOSS=2.3027, Rate=7.83091e-05
+[window_probe] BEST_PROBE m=505 Rate=2.3027
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1379860 LOSS=2.30225, Rate=-0.00043016
+[window_probe] BEST_PROBE m=506 Rate=2.30225
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1380860 LOSS=2.30265, Rate=0.000377259
+[window_probe] BEST_PROBE m=507 Rate=2.30265
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1381860 LOSS=2.3022, Rate=-0.000426062
+[window_probe] BEST_PROBE m=508 Rate=2.3022
+[window_probe] PROBE_START m=509
+[monitor] Completed epoch 442. Evaluated Loss = 2.30257. EMA Loss = 2.29887
+[window_probe] PROBE_DONE @step 1382860 LOSS=2.30248, Rate=0.000269625
+[window_probe] BEST_PROBE m=509 Rate=2.30248
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1383864 LOSS=2.30255, Rate=6.13361e-05
+[window_probe] BEST_PROBE m=510 Rate=2.30255
+[window_probe] PROBE_START m=511
+[monitor] Completed epoch 443. Evaluated Loss = 2.30292. EMA Loss = 2.30314
+[window_probe] PROBE_DONE @step 1384865 LOSS=2.3027, Rate=0.000140349
+[window_probe] BEST_PROBE m=511 Rate=2.3027
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1385866 LOSS=2.30253, Rate=-0.000160274
+[window_probe] BEST_PROBE m=512 Rate=2.30253
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1386866 LOSS=2.3023, Rate=-0.000218151
+[window_probe] BEST_PROBE m=513 Rate=2.3023
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 445. Evaluated Loss = 2.30249. EMA Loss = 2.30197
+[monitor] Completed epoch 444. Evaluated Loss = 2.30262. EMA Loss = 2.30197
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 446. Evaluated Loss = 2.30296. EMA Loss = 2.30303
+[window_probe] PROBE_DONE @step 1395868 LOSS=2.30287, Rate=0.000482109
+[window_probe] BEST_PROBE m=505 Rate=2.30287
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1396868 LOSS=2.3025, Rate=-0.000353603
+[window_probe] BEST_PROBE m=506 Rate=2.3025
+[window_probe] PROBE_START m=507
+[monitor] Completed epoch 447. Evaluated Loss = 2.30241. EMA Loss = 2.30229
+[window_probe] PROBE_DONE @step 1397868 LOSS=2.30255, Rate=4.41465e-05
+[window_probe] BEST_PROBE m=507 Rate=2.30255
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1398869 LOSS=2.30281, Rate=0.000249749
+[window_probe] BEST_PROBE m=508 Rate=2.30281
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1399869 LOSS=2.30295, Rate=0.000132809
+[window_probe] BEST_PROBE m=509 Rate=2.30295
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1400870 LOSS=2.30205, Rate=-0.0016668
+[window_probe] BEST_PROBE m=510 Rate=2.30205
+[window_probe] PROBE_START m=511
+[monitor] Completed epoch 448. Evaluated Loss = 2.30224. EMA Loss = 2.30091
+[window_probe] PROBE_DONE @step 1401870 LOSS=2.30241, Rate=0.00034403
+[window_probe] BEST_PROBE m=511 Rate=2.30241
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1402870 LOSS=2.30254, Rate=0.000129111
+[window_probe] BEST_PROBE m=512 Rate=2.30254
+[window_probe] PROBE_START m=513
+[monitor] Completed epoch 449. Evaluated Loss = 2.30315. EMA Loss = 2.30238
+[window_probe] PROBE_DONE @step 1403873 LOSS=2.30324, Rate=0.000656394
+[window_probe] BEST_PROBE m=513 Rate=2.30324
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 450. Evaluated Loss = 2.30277. EMA Loss = 2.30109
+[monitor] Completed epoch 451. Evaluated Loss = 2.30235. EMA Loss = 2.30284
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1412873 LOSS=2.30282, Rate=-5.65846e-06
+[window_probe] BEST_PROBE m=505 Rate=2.30282
+[window_probe] PROBE_START m=506
+[monitor] Completed epoch 452. Evaluated Loss = 2.30293. EMA Loss = 2.30421
+[window_probe] PROBE_DONE @step 1413873 LOSS=2.30286, Rate=3.88427e-05
+[window_probe] BEST_PROBE m=506 Rate=2.30286
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1414873 LOSS=2.30248, Rate=-0.00036141
+[window_probe] BEST_PROBE m=507 Rate=2.30248
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1415875 LOSS=2.30246, Rate=-1.96984e-05
+[window_probe] BEST_PROBE m=508 Rate=2.30246
+[window_probe] PROBE_START m=509
+[monitor] Completed epoch 453. Evaluated Loss = 2.30256. EMA Loss = 2.30306
+[window_probe] PROBE_DONE @step 1416877 LOSS=2.30249, Rate=2.41103e-05
+[window_probe] BEST_PROBE m=509 Rate=2.30249
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1417877 LOSS=2.30298, Rate=0.000468599
+[window_probe] BEST_PROBE m=510 Rate=2.30298
+[window_probe] PROBE_START m=511
+[monitor] Completed epoch 454. Evaluated Loss = 2.30237. EMA Loss = 2.30332
+[window_probe] PROBE_DONE @step 1418877 LOSS=2.30253, Rate=-0.000427939
+[window_probe] BEST_PROBE m=511 Rate=2.30253
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1419877 LOSS=2.30245, Rate=-7.51247e-05
+[window_probe] BEST_PROBE m=512 Rate=2.30245
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1420877 LOSS=2.30275, Rate=0.00045677
+[window_probe] BEST_PROBE m=513 Rate=2.30275
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 455. Evaluated Loss = 2.30204. EMA Loss = 2.30338
+[monitor] Completed epoch 456. Evaluated Loss = 2.30251. EMA Loss = 2.30599
+[monitor] Completed epoch 457. Evaluated Loss = 2.30226. EMA Loss = 2.30474
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1429878 LOSS=2.30264, Rate=6.8239e-05
+[window_probe] BEST_PROBE m=505 Rate=2.30264
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1430878 LOSS=2.30326, Rate=0.00146254
+[window_probe] BEST_PROBE m=506 Rate=2.30326
+[window_probe] PROBE_START m=507
+[monitor] Completed epoch 458. Evaluated Loss = 2.30291. EMA Loss = 2.30244
+[window_probe] PROBE_DONE @step 1431878 LOSS=2.30253, Rate=-0.000679439
+[window_probe] BEST_PROBE m=507 Rate=2.30253
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1432878 LOSS=2.30259, Rate=6.43441e-05
+[window_probe] BEST_PROBE m=508 Rate=2.30259
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1433886 LOSS=2.30209, Rate=-0.000487754
+[window_probe] BEST_PROBE m=509 Rate=2.30209
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1434894 LOSS=2.30298, Rate=0.000865205
+[window_probe] BEST_PROBE m=510 Rate=2.30298
+[window_probe] PROBE_START m=511
+[monitor] Completed epoch 459. Evaluated Loss = 2.3024. EMA Loss = 2.30177
+[window_probe] PROBE_DONE @step 1435894 LOSS=2.30278, Rate=-0.000134855
+[window_probe] BEST_PROBE m=511 Rate=2.30278
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1436894 LOSS=2.3023, Rate=-0.000459483
+[window_probe] BEST_PROBE m=512 Rate=2.3023
+[window_probe] PROBE_START m=513
+[monitor] Completed epoch 460. Evaluated Loss = 2.30299. EMA Loss = 2.30308
+[window_probe] PROBE_DONE @step 1437895 LOSS=2.30289, Rate=0.000575153
+[window_probe] BEST_PROBE m=513 Rate=2.30289
+[window_probe] START_EXEC m=513
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 461. Evaluated Loss = 2.30242. EMA Loss = 2.30416
+[monitor] Completed epoch 462. Evaluated Loss = 2.30269. EMA Loss = 2.30683
+[window_probe] PROBE_DONE @step 1446896 LOSS=2.30263, Rate=-8.46747e-05
+[window_probe] BEST_PROBE m=505 Rate=2.30263
+[window_probe] PROBE_START m=506
+[monitor] Completed epoch 463. Evaluated Loss = 2.30252. EMA Loss = 2.30385
+[window_probe] PROBE_DONE @step 1447896 LOSS=2.30271, Rate=8.04058e-05
+[window_probe] BEST_PROBE m=506 Rate=2.30271
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1448896 LOSS=2.30261, Rate=-0.000103052
+[window_probe] BEST_PROBE m=507 Rate=2.30261
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1449896 LOSS=2.30294, Rate=0.000314791
+[window_probe] BEST_PROBE m=508 Rate=2.30294
+[window_probe] PROBE_START m=509
+[monitor] Completed epoch 464. Evaluated Loss = 2.30245. EMA Loss = 2.30369
+[window_probe] PROBE_DONE @step 1450899 LOSS=2.30212, Rate=-0.000779929
+[window_probe] BEST_PROBE m=509 Rate=2.30212
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1451899 LOSS=2.30254, Rate=0.000398879
+[window_probe] BEST_PROBE m=510 Rate=2.30254
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1452899 LOSS=2.30309, Rate=0.000530855
+[window_probe] BEST_PROBE m=511 Rate=2.30309
+[window_probe] PROBE_START m=512
+[monitor] Completed epoch 465. Evaluated Loss = 2.30246. EMA Loss = 2.30342
+[window_probe] PROBE_DONE @step 1453899 LOSS=2.30298, Rate=-0.00010631
+[window_probe] BEST_PROBE m=512 Rate=2.30298
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1454899 LOSS=2.30252, Rate=-0.00107557
+[window_probe] BEST_PROBE m=513 Rate=2.30252
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 466. Evaluated Loss = 2.30265. EMA Loss = 2.30322
+[monitor] Completed epoch 467. Evaluated Loss = 2.30246. EMA Loss = 2.30292
+[monitor] Completed epoch 468. Evaluated Loss = 2.30263. EMA Loss = 2.30263
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1463902 LOSS=2.30254, Rate=-0.000271959
+[window_probe] BEST_PROBE m=505 Rate=2.30254
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1464902 LOSS=2.30234, Rate=-0.000192468
+[window_probe] BEST_PROBE m=506 Rate=2.30234
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1465910 LOSS=2.30247, Rate=0.000131047
+[window_probe] BEST_PROBE m=507 Rate=2.30247
+[window_probe] PROBE_START m=508
+[monitor] Completed epoch 469. Evaluated Loss = 2.30243. EMA Loss = 2.30208
+[window_probe] PROBE_DONE @step 1466913 LOSS=2.30287, Rate=0.000381899
+[window_probe] BEST_PROBE m=508 Rate=2.30287
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1467913 LOSS=2.30236, Rate=-0.00049125
+[window_probe] BEST_PROBE m=509 Rate=2.30236
+[window_probe] PROBE_START m=510
+[monitor] Completed epoch 470. Evaluated Loss = 2.30238. EMA Loss = 2.30618
+[window_probe] PROBE_DONE @step 1468913 LOSS=2.3027, Rate=0.000313491
+[window_probe] BEST_PROBE m=510 Rate=2.3027
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1469913 LOSS=2.30292, Rate=0.000210305
+[window_probe] BEST_PROBE m=511 Rate=2.30292
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1470913 LOSS=2.30262, Rate=-0.000277746
+[window_probe] BEST_PROBE m=512 Rate=2.30262
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1471913 LOSS=2.30236, Rate=-0.000249763
+[window_probe] BEST_PROBE m=513 Rate=2.30236
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 471. Evaluated Loss = 2.30277. EMA Loss = 2.30383
+[monitor] Completed epoch 472. Evaluated Loss = 2.30246. EMA Loss = 2.30275
+[monitor] Completed epoch 473. Evaluated Loss = 2.3024. EMA Loss = 2.30524
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1480916 LOSS=2.30307, Rate=0.000425888
+[window_probe] BEST_PROBE m=505 Rate=2.30307
+[window_probe] PROBE_START m=506
+[monitor] Completed epoch 474. Evaluated Loss = 2.30259. EMA Loss = 2.2965
+[window_probe] PROBE_DONE @step 1481916 LOSS=2.30258, Rate=-0.000467944
+[window_probe] BEST_PROBE m=506 Rate=2.30258
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1482921 LOSS=2.30223, Rate=-0.000333996
+[window_probe] BEST_PROBE m=507 Rate=2.30223
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1483926 LOSS=2.30229, Rate=5.59082e-05
+[window_probe] BEST_PROBE m=508 Rate=2.30229
+[window_probe] PROBE_START m=509
+[monitor] Completed epoch 475. Evaluated Loss = 2.30259. EMA Loss = 2.30423
+[window_probe] PROBE_DONE @step 1484926 LOSS=2.30257, Rate=0.000267133
+[window_probe] BEST_PROBE m=509 Rate=2.30257
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1485928 LOSS=2.30251, Rate=-5.97987e-05
+[window_probe] BEST_PROBE m=510 Rate=2.30251
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1486928 LOSS=2.30248, Rate=-3.0198e-05
+[window_probe] BEST_PROBE m=511 Rate=2.30248
+[window_probe] PROBE_START m=512
+[monitor] Completed epoch 476. Evaluated Loss = 2.30273. EMA Loss = 2.29902
+[window_probe] PROBE_DONE @step 1487928 LOSS=2.30274, Rate=0.000247729
+[window_probe] BEST_PROBE m=512 Rate=2.30274
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1488932 LOSS=2.30297, Rate=0.00022896
+[window_probe] BEST_PROBE m=513 Rate=2.30297
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 477. Evaluated Loss = 2.3028. EMA Loss = 2.30233
+[monitor] Completed epoch 478. Evaluated Loss = 2.30228. EMA Loss = 2.29894
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 479. Evaluated Loss = 2.30249. EMA Loss = 2.3062
+[window_probe] PROBE_DONE @step 1497935 LOSS=2.30281, Rate=0.000696268
+[window_probe] BEST_PROBE m=505 Rate=2.30281
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1498936 LOSS=2.30245, Rate=-0.000338872
+[window_probe] BEST_PROBE m=506 Rate=2.30245
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1499937 LOSS=2.30229, Rate=-0.000155673
+[window_probe] BEST_PROBE m=507 Rate=2.30229
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1500938 LOSS=2.30248, Rate=0.00017992
+[window_probe] BEST_PROBE m=508 Rate=2.30248
+[window_probe] PROBE_START m=509
+[monitor] Completed epoch 480. Evaluated Loss = 2.30255. EMA Loss = 2.30462
+[window_probe] PROBE_DONE @step 1501938 LOSS=2.30284, Rate=0.00034955
+[window_probe] BEST_PROBE m=509 Rate=2.30284
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1502940 LOSS=2.30304, Rate=0.000198856
+[window_probe] BEST_PROBE m=510 Rate=2.30304
+[window_probe] PROBE_START m=511
+[monitor] Completed epoch 481. Evaluated Loss = 2.30229. EMA Loss = 2.30391
+[window_probe] PROBE_DONE @step 1503941 LOSS=2.30249, Rate=-0.000513205
+[window_probe] BEST_PROBE m=511 Rate=2.30249
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1504941 LOSS=2.30224, Rate=-0.000244143
+[window_probe] BEST_PROBE m=512 Rate=2.30224
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1505942 LOSS=2.30282, Rate=0.000545374
+[window_probe] BEST_PROBE m=513 Rate=2.30282
+[window_probe] START_EXEC m=513
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 482. Evaluated Loss = 2.30259. EMA Loss = 2.30049
+[monitor] Completed epoch 483. Evaluated Loss = 2.30234. EMA Loss = 2.30212
+[monitor] Completed epoch 484. Evaluated Loss = 2.30251. EMA Loss = 2.30169
+[window_probe] PROBE_DONE @step 1514951 LOSS=2.30255, Rate=0.000408824
+[window_probe] BEST_PROBE m=505 Rate=2.30255
+[window_probe] PROBE_START m=506
+[monitor] Completed epoch 485. Evaluated Loss = 2.3028. EMA Loss = 2.30271
+[window_probe] PROBE_DONE @step 1515951 LOSS=2.30234, Rate=-0.000196326
+[window_probe] BEST_PROBE m=506 Rate=2.30234
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1516951 LOSS=2.30302, Rate=0.000657793
+[window_probe] BEST_PROBE m=507 Rate=2.30302
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1517951 LOSS=2.30255, Rate=-0.000446599
+[window_probe] BEST_PROBE m=508 Rate=2.30255
+[window_probe] PROBE_START m=509
+[monitor] Completed epoch 486. Evaluated Loss = 2.30239. EMA Loss = 2.30434
+[window_probe] PROBE_DONE @step 1518951 LOSS=2.30271, Rate=0.000143193
+[window_probe] BEST_PROBE m=509 Rate=2.30271
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1519952 LOSS=2.30293, Rate=0.00021155
+[window_probe] BEST_PROBE m=510 Rate=2.30293
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1520952 LOSS=2.30262, Rate=-0.000294525
+[window_probe] BEST_PROBE m=511 Rate=2.30262
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1521952 LOSS=2.3024, Rate=-0.000205653
+[window_probe] BEST_PROBE m=512 Rate=2.3024
+[window_probe] PROBE_START m=513
+[monitor] Completed epoch 487. Evaluated Loss = 2.30208. EMA Loss = 2.30033
+[window_probe] PROBE_DONE @step 1522953 LOSS=2.30263, Rate=0.000218836
+[window_probe] BEST_PROBE m=513 Rate=2.30263
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 488. Evaluated Loss = 2.30275. EMA Loss = 2.30319
+[monitor] Completed epoch 489. Evaluated Loss = 2.30261. EMA Loss = 2.301
+[window_probe] START_PROBING window_btm=505
+[monitor] Completed epoch 490. Evaluated Loss = 2.30232. EMA Loss = 2.30394
+[window_probe] PROBE_DONE @step 1531954 LOSS=2.30268, Rate=-7.96788e-05
+[window_probe] BEST_PROBE m=505 Rate=2.30268
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1532955 LOSS=2.30226, Rate=-0.000397785
+[window_probe] BEST_PROBE m=506 Rate=2.30226
+[window_probe] PROBE_START m=507
+[window_probe] PROBE_DONE @step 1533956 LOSS=2.30271, Rate=0.000435216
+[window_probe] BEST_PROBE m=507 Rate=2.30271
+[window_probe] PROBE_START m=508
+[monitor] Completed epoch 491. Evaluated Loss = 2.30327. EMA Loss = 2.30394
+[window_probe] PROBE_DONE @step 1534959 LOSS=2.30271, Rate=-6.08224e-06
+[window_probe] BEST_PROBE m=508 Rate=2.30271
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1535960 LOSS=2.30231, Rate=-0.000378743
+[window_probe] BEST_PROBE m=509 Rate=2.30231
+[window_probe] PROBE_START m=510
+[window_probe] PROBE_DONE @step 1536962 LOSS=2.30246, Rate=0.000139203
+[window_probe] BEST_PROBE m=510 Rate=2.30246
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1537962 LOSS=2.30324, Rate=0.00183389
+[window_probe] BEST_PROBE m=511 Rate=2.30324
+[window_probe] PROBE_START m=512
+[monitor] Completed epoch 492. Evaluated Loss = 2.30297. EMA Loss = 2.30187
+[window_probe] PROBE_DONE @step 1538964 LOSS=2.30294, Rate=-0.000294077
+[window_probe] BEST_PROBE m=512 Rate=2.30294
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1539969 LOSS=2.30252, Rate=-0.000397689
+[window_probe] BEST_PROBE m=513 Rate=2.30252
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 493. Evaluated Loss = 2.30264. EMA Loss = 2.30272
+[monitor] Completed epoch 494. Evaluated Loss = 2.30291. EMA Loss = 2.30467
+[monitor] Completed epoch 495. Evaluated Loss = 2.3026. EMA Loss = 2.3024
+[window_probe] START_PROBING window_btm=505
+[window_probe] PROBE_DONE @step 1548972 LOSS=2.30264, Rate=-0.000228121
+[window_probe] BEST_PROBE m=505 Rate=2.30264
+[window_probe] PROBE_START m=506
+[window_probe] PROBE_DONE @step 1549972 LOSS=2.30244, Rate=-0.000196149
+[window_probe] BEST_PROBE m=506 Rate=2.30244
+[window_probe] PROBE_START m=507
+[monitor] Completed epoch 496. Evaluated Loss = 2.30282. EMA Loss = 2.30582
+[window_probe] PROBE_DONE @step 1550972 LOSS=2.30266, Rate=0.000215465
+[window_probe] BEST_PROBE m=507 Rate=2.30266
+[window_probe] PROBE_START m=508
+[window_probe] PROBE_DONE @step 1551973 LOSS=2.30287, Rate=0.000195259
+[window_probe] BEST_PROBE m=508 Rate=2.30287
+[window_probe] PROBE_START m=509
+[window_probe] PROBE_DONE @step 1552976 LOSS=2.30261, Rate=-0.000242298
+[window_probe] BEST_PROBE m=509 Rate=2.30261
+[window_probe] PROBE_START m=510
+[monitor] Completed epoch 497. Evaluated Loss = 2.30231. EMA Loss = 2.30225
+[window_probe] PROBE_DONE @step 1553978 LOSS=2.30257, Rate=-3.70138e-05
+[window_probe] BEST_PROBE m=510 Rate=2.30257
+[window_probe] PROBE_START m=511
+[window_probe] PROBE_DONE @step 1554980 LOSS=2.30239, Rate=-0.000177295
+[window_probe] BEST_PROBE m=511 Rate=2.30239
+[window_probe] PROBE_START m=512
+[window_probe] PROBE_DONE @step 1555982 LOSS=2.30275, Rate=0.000355395
+[window_probe] BEST_PROBE m=512 Rate=2.30275
+[window_probe] PROBE_START m=513
+[window_probe] PROBE_DONE @step 1556982 LOSS=2.30287, Rate=0.00011478
+[window_probe] BEST_PROBE m=513 Rate=2.30287
+[window_probe] START_EXEC m=513
+[monitor] Completed epoch 498. Evaluated Loss = 2.30276. EMA Loss = 2.29984
+[monitor] Completed epoch 499. Evaluated Loss = 2.30278. EMA Loss = 2.3006
+[main()] Saved results to "paramtest_jsons/2024-12-02_17-31-57_results.json"

@@ -1,0 +1,712 @@
+[CIFAR10] Successfully loaded samples and labels.
+	n_training = 50000
+	x columns = 50000
+[batch] Created 3125 batches.
+[CIFAR10] Successfully loaded samples and labels.
+	n_training = 50000
+	x columns = 50000
+[batch] Created 25 batches.
+Creating 200 workers.
+Created all workers.
+[monitor] Completed epoch 1. Evaluated Loss = 2.30233. EMA Loss = 2.30476
+[monitor] Completed epoch 0. Evaluated Loss = 2.30275. EMA Loss = 2.30037
+[monitor] Completed epoch 3. Evaluated Loss = 2.3025. EMA Loss = 2.30299
+[monitor] Completed epoch 8. Evaluated Loss = 2.30296. EMA Loss = 2.30189
+[monitor] Completed epoch 2. Evaluated Loss = 2.30236. EMA Loss = 2.30052
+[monitor] Completed epoch 4. Evaluated Loss = 2.30285. EMA Loss = 2.30177
+[monitor] Completed epoch 11. Evaluated Loss = 2.28117. EMA Loss = 2.31672
+[monitor] Completed epoch 5. Evaluated Loss = 2.309. EMA Loss = 2.3228
+[monitor] Completed epoch 12. Evaluated Loss = 2.27636. EMA Loss = 2.32946
+[monitor] Completed epoch 13. Evaluated Loss = 2.27009. EMA Loss = 2.25098
+[monitor] Completed epoch 14. Evaluated Loss = 2.16855. EMA Loss = 2.23145
+[monitor] Completed epoch 6. Evaluated Loss = 2.4136. EMA Loss = 2.2802
+[monitor] Completed epoch 7. Evaluated Loss = 2.30873. EMA Loss = 2.12651
+[monitor] Completed epoch 9. Evaluated Loss = 2.36765. EMA Loss = 2.06766
+[monitor] Completed epoch 10. Evaluated Loss = 2.19008. EMA Loss = 1.94961
+[monitor] Completed epoch 24. Evaluated Loss = 1.96037. EMA Loss = 2.35214
+[monitor] Completed epoch 15. Evaluated Loss = 2.04108. EMA Loss = 2.11267
+[monitor] Completed epoch 23. Evaluated Loss = 2.00635. EMA Loss = 2.23548
+[monitor] Completed epoch 16. Evaluated Loss = 2.024. EMA Loss = 1.81533
+[monitor] Completed epoch 17. Evaluated Loss = 2.0033. EMA Loss = 1.97534
+[monitor] Completed epoch 19. Evaluated Loss = 2.01079. EMA Loss = 2.26614
+[monitor] Completed epoch 18. Evaluated Loss = 1.94165. EMA Loss = 1.9268
+[monitor] Completed epoch 20. Evaluated Loss = 1.92523. EMA Loss = 1.88333
+[monitor] Completed epoch 21. Evaluated Loss = 1.90043. EMA Loss = 1.81909
+[monitor] Completed epoch 22. Evaluated Loss = 1.98753. EMA Loss = 2.1059
+[monitor] Completed epoch 28. Evaluated Loss = 1.83532. EMA Loss = 2.03308
+[monitor] Completed epoch 25. Evaluated Loss = 1.87036. EMA Loss = 2.12398
+[monitor] Completed epoch 27. Evaluated Loss = 1.83456. EMA Loss = 1.90565
+[monitor] Completed epoch 26. Evaluated Loss = 1.90331. EMA Loss = 1.88661
+[monitor] Completed epoch 32. Evaluated Loss = 1.88039. EMA Loss = 2.00134
+[monitor] Completed epoch 34. Evaluated Loss = 1.87934. EMA Loss = 1.8324
+[monitor] Completed epoch 29. Evaluated Loss = 1.88469. EMA Loss = 2.03143
+[monitor] Completed epoch 30. Evaluated Loss = 1.82952. EMA Loss = 1.56273
+[monitor] Completed epoch 35. Evaluated Loss = 1.84868. EMA Loss = 1.58206
+[monitor] Completed epoch 31. Evaluated Loss = 1.87314. EMA Loss = 1.91075
+[monitor] Completed epoch 37. Evaluated Loss = 1.83145. EMA Loss = 1.81697
+[monitor] Completed epoch 33. Evaluated Loss = 1.82177. EMA Loss = 1.86597
+[monitor] Completed epoch 38. Evaluated Loss = 1.82945. EMA Loss = 2.00616
+[monitor] Completed epoch 36. Evaluated Loss = 1.86831. EMA Loss = 2.02526
+[monitor] Completed epoch 41. Evaluated Loss = 1.77062. EMA Loss = 2.22647
+[monitor] Completed epoch 42. Evaluated Loss = 1.83692. EMA Loss = 1.82304
+[monitor] Completed epoch 39. Evaluated Loss = 1.77328. EMA Loss = 1.95103
+[monitor] Completed epoch 43. Evaluated Loss = 1.8751. EMA Loss = 1.91478
+[monitor] Completed epoch 40. Evaluated Loss = 1.80933. EMA Loss = 1.76044
+[monitor] Completed epoch 49. Evaluated Loss = 1.79562. EMA Loss = 1.8298
+[monitor] Completed epoch 44. Evaluated Loss = 1.85273. EMA Loss = 1.87341
+[monitor] Completed epoch 48. Evaluated Loss = 1.90017. EMA Loss = 1.91568
+[monitor] Completed epoch 45. Evaluated Loss = 1.80547. EMA Loss = 1.77239
+[monitor] Completed epoch 46. Evaluated Loss = 1.73061. EMA Loss = 1.77451
+[monitor] Completed epoch 50. Evaluated Loss = 1.76042. EMA Loss = 1.8363
+[monitor] Completed epoch 47. Evaluated Loss = 1.78444. EMA Loss = 1.76374
+[monitor] Completed epoch 55. Evaluated Loss = 1.75589. EMA Loss = 1.57142
+[monitor] Completed epoch 52. Evaluated Loss = 1.78038. EMA Loss = 1.84988
+[monitor] Completed epoch 51. Evaluated Loss = 1.80895. EMA Loss = 1.98665
+[monitor] Completed epoch 53. Evaluated Loss = 1.72539. EMA Loss = 1.84615
+[monitor] Completed epoch 54. Evaluated Loss = 1.73502. EMA Loss = 1.73174
+[monitor] Completed epoch 58. Evaluated Loss = 1.73259. EMA Loss = 1.69079
+[monitor] Completed epoch 59. Evaluated Loss = 1.75649. EMA Loss = 1.73199
+[monitor] Completed epoch 56. Evaluated Loss = 1.75233. EMA Loss = 1.81657
+[monitor] Completed epoch 60. Evaluated Loss = 1.77735. EMA Loss = 1.85834
+[monitor] Completed epoch 57. Evaluated Loss = 1.70021. EMA Loss = 1.62214
+[monitor] Completed epoch 63. Evaluated Loss = 1.76318. EMA Loss = 1.83495
+[monitor] Completed epoch 61. Evaluated Loss = 1.72432. EMA Loss = 1.66063
+[monitor] Completed epoch 62. Evaluated Loss = 1.73164. EMA Loss = 2.16198
+[monitor] Completed epoch 65. Evaluated Loss = 1.73434. EMA Loss = 1.72648
+[monitor] Completed epoch 64. Evaluated Loss = 1.65351. EMA Loss = 1.43542
+[monitor] Completed epoch 67. Evaluated Loss = 1.71443. EMA Loss = 2.29222
+[monitor] Completed epoch 66. Evaluated Loss = 1.66173. EMA Loss = 1.66358
+[monitor] Completed epoch 69. Evaluated Loss = 1.72283. EMA Loss = 1.46635
+[monitor] Completed epoch 68. Evaluated Loss = 1.73924. EMA Loss = 1.86486
+[monitor] Completed epoch 70. Evaluated Loss = 1.71433. EMA Loss = 2.06501
+[monitor] Completed epoch 71. Evaluated Loss = 1.65856. EMA Loss = 1.58645
+[monitor] Completed epoch 74. Evaluated Loss = 1.66751. EMA Loss = 1.73833
+[monitor] Completed epoch 73. Evaluated Loss = 1.70547. EMA Loss = 1.66761
+[monitor] Completed epoch 72. Evaluated Loss = 1.66305. EMA Loss = 1.61031
+[monitor] Completed epoch 75. Evaluated Loss = 1.64528. EMA Loss = 1.76898
+[monitor] Completed epoch 77. Evaluated Loss = 1.68408. EMA Loss = 1.83039
+[monitor] Completed epoch 76. Evaluated Loss = 1.69462. EMA Loss = 1.82333
+[monitor] Completed epoch 79. Evaluated Loss = 1.6829. EMA Loss = 1.83006
+[monitor] Completed epoch 78. Evaluated Loss = 1.65763. EMA Loss = 1.66364
+[monitor] Completed epoch 80. Evaluated Loss = 1.61361. EMA Loss = 1.40829
+[monitor] Completed epoch 81. Evaluated Loss = 1.62865. EMA Loss = 1.97366
+[monitor] Completed epoch 82. Evaluated Loss = 1.66553. EMA Loss = 1.84911
+[monitor] Completed epoch 83. Evaluated Loss = 1.64678. EMA Loss = 1.57372
+[monitor] Completed epoch 84. Evaluated Loss = 1.59171. EMA Loss = 1.54099
+[monitor] Completed epoch 85. Evaluated Loss = 1.57706. EMA Loss = 1.80063
+[monitor] Completed epoch 86. Evaluated Loss = 1.59088. EMA Loss = 1.71595
+[monitor] Completed epoch 87. Evaluated Loss = 1.6391. EMA Loss = 1.62277
+[monitor] Completed epoch 88. Evaluated Loss = 1.6055. EMA Loss = 1.75317
+[monitor] Completed epoch 89. Evaluated Loss = 1.57153. EMA Loss = 1.43073
+[monitor] Completed epoch 90. Evaluated Loss = 1.66285. EMA Loss = 1.75868
+[monitor] Completed epoch 91. Evaluated Loss = 1.55405. EMA Loss = 2.00183
+[monitor] Completed epoch 92. Evaluated Loss = 1.58988. EMA Loss = 1.58914
+[monitor] Completed epoch 93. Evaluated Loss = 1.62363. EMA Loss = 1.87622
+[monitor] Completed epoch 94. Evaluated Loss = 1.6075. EMA Loss = 1.54302
+[monitor] Completed epoch 95. Evaluated Loss = 1.55911. EMA Loss = 1.92907
+[monitor] Completed epoch 96. Evaluated Loss = 1.5417. EMA Loss = 1.55999
+[monitor] Completed epoch 99. Evaluated Loss = 1.551. EMA Loss = 1.3341
+[monitor] Completed epoch 97. Evaluated Loss = 1.58046. EMA Loss = 1.84885
+[monitor] Completed epoch 98. Evaluated Loss = 1.58692. EMA Loss = 1.44519
+[monitor] Completed epoch 101. Evaluated Loss = 1.59755. EMA Loss = 1.6003
+[monitor] Completed epoch 100. Evaluated Loss = 1.53511. EMA Loss = 1.58626
+[monitor] Completed epoch 102. Evaluated Loss = 1.54446. EMA Loss = 1.79776
+[monitor] Completed epoch 103. Evaluated Loss = 1.56036. EMA Loss = 1.58353
+[monitor] Completed epoch 104. Evaluated Loss = 1.53211. EMA Loss = 1.40754
+[monitor] Completed epoch 105. Evaluated Loss = 1.5205. EMA Loss = 1.50068
+[monitor] Completed epoch 107. Evaluated Loss = 1.50613. EMA Loss = 1.41842
+[monitor] Completed epoch 106. Evaluated Loss = 1.54564. EMA Loss = 1.50032
+[monitor] Completed epoch 109. Evaluated Loss = 1.59818. EMA Loss = 1.53522
+[monitor] Completed epoch 108. Evaluated Loss = 1.57675. EMA Loss = 1.8049
+[monitor] Completed epoch 110. Evaluated Loss = 1.52003. EMA Loss = 1.58401
+[monitor] Completed epoch 111. Evaluated Loss = 1.53885. EMA Loss = 1.57535
+[monitor] Completed epoch 112. Evaluated Loss = 1.51333. EMA Loss = 1.31158
+[monitor] Completed epoch 113. Evaluated Loss = 1.54622. EMA Loss = 1.31596
+[monitor] Completed epoch 114. Evaluated Loss = 1.51943. EMA Loss = 1.53801
+[monitor] Completed epoch 116. Evaluated Loss = 1.50689. EMA Loss = 1.48768
+[monitor] Completed epoch 115. Evaluated Loss = 1.56679. EMA Loss = 1.72716
+[monitor] Completed epoch 117. Evaluated Loss = 1.54294. EMA Loss = 1.71896
+[monitor] Completed epoch 118. Evaluated Loss = 1.51918. EMA Loss = 1.49433
+[monitor] Completed epoch 119. Evaluated Loss = 1.5391. EMA Loss = 1.46429
+[monitor] Completed epoch 124. Evaluated Loss = 1.52692. EMA Loss = 1.7304
+[monitor] Completed epoch 120. Evaluated Loss = 1.49781. EMA Loss = 1.59651
+[monitor] Completed epoch 121. Evaluated Loss = 1.51934. EMA Loss = 1.15021
+[monitor] Completed epoch 122. Evaluated Loss = 1.54704. EMA Loss = 1.55461
+[monitor] Completed epoch 123. Evaluated Loss = 1.56052. EMA Loss = 1.51994
+[monitor] Completed epoch 125. Evaluated Loss = 1.46688. EMA Loss = 1.30417
+[monitor] Completed epoch 126. Evaluated Loss = 1.55046. EMA Loss = 1.71483
+[monitor] Completed epoch 127. Evaluated Loss = 1.52311. EMA Loss = 1.85342
+[monitor] Completed epoch 128. Evaluated Loss = 1.47571. EMA Loss = 1.79341
+[monitor] Completed epoch 129. Evaluated Loss = 1.50616. EMA Loss = 1.89154
+[monitor] Completed epoch 130. Evaluated Loss = 1.48467. EMA Loss = 1.84571
+[monitor] Completed epoch 131. Evaluated Loss = 1.49771. EMA Loss = 1.5515
+[monitor] Completed epoch 132. Evaluated Loss = 1.46898. EMA Loss = 1.78401
+[monitor] Completed epoch 133. Evaluated Loss = 1.50444. EMA Loss = 1.54192
+[monitor] Completed epoch 134. Evaluated Loss = 1.50401. EMA Loss = 1.36901
+[monitor] Completed epoch 135. Evaluated Loss = 1.48733. EMA Loss = 1.49621
+[monitor] Completed epoch 136. Evaluated Loss = 1.50127. EMA Loss = 1.15822
+[monitor] Completed epoch 137. Evaluated Loss = 1.50739. EMA Loss = 1.2974
+[monitor] Completed epoch 139. Evaluated Loss = 1.46852. EMA Loss = 1.77968
+[monitor] Completed epoch 138. Evaluated Loss = 1.54707. EMA Loss = 1.4244
+[monitor] Completed epoch 140. Evaluated Loss = 1.57984. EMA Loss = 1.72899
+[monitor] Completed epoch 141. Evaluated Loss = 1.47024. EMA Loss = 1.40567
+[monitor] Completed epoch 142. Evaluated Loss = 1.53398. EMA Loss = 1.63055
+[monitor] Completed epoch 143. Evaluated Loss = 1.44222. EMA Loss = 1.5492
+[monitor] Completed epoch 144. Evaluated Loss = 1.4714. EMA Loss = 1.67093
+[monitor] Completed epoch 145. Evaluated Loss = 1.51299. EMA Loss = 1.96977
+[monitor] Completed epoch 149. Evaluated Loss = 1.51693. EMA Loss = 1.25662
+[monitor] Completed epoch 147. Evaluated Loss = 1.44072. EMA Loss = 1.32629
+[monitor] Completed epoch 146. Evaluated Loss = 1.47181. EMA Loss = 1.52984
+[monitor] Completed epoch 148. Evaluated Loss = 1.51298. EMA Loss = 1.41577
+[monitor] Completed epoch 150. Evaluated Loss = 1.458. EMA Loss = 1.967
+[monitor] Completed epoch 151. Evaluated Loss = 1.54209. EMA Loss = 1.57351
+[monitor] Completed epoch 152. Evaluated Loss = 1.4485. EMA Loss = 1.54922
+[monitor] Completed epoch 153. Evaluated Loss = 1.44877. EMA Loss = 1.49689
+[monitor] Completed epoch 154. Evaluated Loss = 1.46682. EMA Loss = 1.18348
+[monitor] Completed epoch 155. Evaluated Loss = 1.44714. EMA Loss = 1.53127
+[monitor] Completed epoch 156. Evaluated Loss = 1.49095. EMA Loss = 1.65894
+[monitor] Completed epoch 157. Evaluated Loss = 1.47321. EMA Loss = 1.35891
+[monitor] Completed epoch 158. Evaluated Loss = 1.43308. EMA Loss = 1.36341
+[monitor] Completed epoch 159. Evaluated Loss = 1.51112. EMA Loss = 1.36386
+[monitor] Completed epoch 161. Evaluated Loss = 1.54196. EMA Loss = 1.58413
+[monitor] Completed epoch 160. Evaluated Loss = 1.46121. EMA Loss = 1.354
+[monitor] Completed epoch 162. Evaluated Loss = 1.46068. EMA Loss = 1.62328
+[monitor] Completed epoch 163. Evaluated Loss = 1.43913. EMA Loss = 1.5762
+[monitor] Completed epoch 164. Evaluated Loss = 1.47797. EMA Loss = 1.4137
+[monitor] Completed epoch 165. Evaluated Loss = 1.53156. EMA Loss = 1.76666
+[monitor] Completed epoch 166. Evaluated Loss = 1.44606. EMA Loss = 1.67515
+[monitor] Completed epoch 167. Evaluated Loss = 1.46. EMA Loss = 1.48553
+[monitor] Completed epoch 168. Evaluated Loss = 1.51276. EMA Loss = 1.72376
+[monitor] Completed epoch 169. Evaluated Loss = 1.48349. EMA Loss = 1.4973
+[monitor] Completed epoch 170. Evaluated Loss = 1.4404. EMA Loss = 1.63421
+[monitor] Completed epoch 174. Evaluated Loss = 1.4551. EMA Loss = 1.55191
+[monitor] Completed epoch 171. Evaluated Loss = 1.41964. EMA Loss = 1.24807
+[monitor] Completed epoch 172. Evaluated Loss = 1.42181. EMA Loss = 1.59841
+[monitor] Completed epoch 173. Evaluated Loss = 1.45816. EMA Loss = 1.52942
+[monitor] Completed epoch 175. Evaluated Loss = 1.42271. EMA Loss = 1.73016
+[monitor] Completed epoch 176. Evaluated Loss = 1.45075. EMA Loss = 1.55495
+[monitor] Completed epoch 177. Evaluated Loss = 1.45812. EMA Loss = 1.43016
+[monitor] Completed epoch 178. Evaluated Loss = 1.39969. EMA Loss = 1.46716
+[monitor] Completed epoch 179. Evaluated Loss = 1.4137. EMA Loss = 1.18809
+[monitor] Completed epoch 180. Evaluated Loss = 1.46136. EMA Loss = 1.48831
+[monitor] Completed epoch 181. Evaluated Loss = 1.52072. EMA Loss = 1.88468
+[monitor] Completed epoch 182. Evaluated Loss = 1.41892. EMA Loss = 1.51887
+[monitor] Completed epoch 183. Evaluated Loss = 1.42243. EMA Loss = 1.60199
+[monitor] Completed epoch 184. Evaluated Loss = 1.4402. EMA Loss = 1.13946
+[monitor] Completed epoch 185. Evaluated Loss = 1.42563. EMA Loss = 1.40166
+[monitor] Completed epoch 186. Evaluated Loss = 1.47654. EMA Loss = 1.44349
+[monitor] Completed epoch 187. Evaluated Loss = 1.46896. EMA Loss = 1.81264
+[monitor] Completed epoch 188. Evaluated Loss = 1.45453. EMA Loss = 1.58309
+[monitor] Completed epoch 189. Evaluated Loss = 1.46786. EMA Loss = 1.52518
+[monitor] Completed epoch 190. Evaluated Loss = 1.47534. EMA Loss = 1.60915
+[monitor] Completed epoch 191. Evaluated Loss = 1.47827. EMA Loss = 1.62233
+[monitor] Completed epoch 192. Evaluated Loss = 1.46377. EMA Loss = 1.19799
+[monitor] Completed epoch 193. Evaluated Loss = 1.43538. EMA Loss = 1.49411
+[monitor] Completed epoch 194. Evaluated Loss = 1.41514. EMA Loss = 1.31525
+[monitor] Completed epoch 199. Evaluated Loss = 1.47043. EMA Loss = 1.84012
+[monitor] Completed epoch 195. Evaluated Loss = 1.43808. EMA Loss = 1.19724
+[monitor] Completed epoch 196. Evaluated Loss = 1.40577. EMA Loss = 1.35427
+[monitor] Completed epoch 197. Evaluated Loss = 1.45363. EMA Loss = 1.48972
+[monitor] Completed epoch 198. Evaluated Loss = 1.43049. EMA Loss = 1.03475
+[monitor] Completed epoch 200. Evaluated Loss = 1.3733. EMA Loss = 1.16269
+[monitor] Completed epoch 201. Evaluated Loss = 1.43613. EMA Loss = 1.89951
+[monitor] Completed epoch 202. Evaluated Loss = 1.43124. EMA Loss = 1.5439
+[monitor] Completed epoch 203. Evaluated Loss = 1.48058. EMA Loss = 1.96237
+[monitor] Completed epoch 204. Evaluated Loss = 1.41081. EMA Loss = 1.49521
+[monitor] Completed epoch 205. Evaluated Loss = 1.41982. EMA Loss = 1.51489
+[monitor] Completed epoch 206. Evaluated Loss = 1.44277. EMA Loss = 1.71081
+[monitor] Completed epoch 207. Evaluated Loss = 1.40909. EMA Loss = 1.45867
+[monitor] Completed epoch 208. Evaluated Loss = 1.47372. EMA Loss = 1.46988
+[monitor] Completed epoch 209. Evaluated Loss = 1.46439. EMA Loss = 1.45598
+[monitor] Completed epoch 210. Evaluated Loss = 1.44419. EMA Loss = 1.62362
+[monitor] Completed epoch 211. Evaluated Loss = 1.54972. EMA Loss = 1.79773
+[monitor] Completed epoch 212. Evaluated Loss = 1.43078. EMA Loss = 1.49533
+[monitor] Completed epoch 213. Evaluated Loss = 1.48548. EMA Loss = 1.91647
+[monitor] Completed epoch 214. Evaluated Loss = 1.44298. EMA Loss = 1.39102
+[monitor] Completed epoch 215. Evaluated Loss = 1.47667. EMA Loss = 1.53634
+[monitor] Completed epoch 216. Evaluated Loss = 1.41533. EMA Loss = 1.21827
+[monitor] Completed epoch 217. Evaluated Loss = 1.42929. EMA Loss = 1.72244
+[monitor] Completed epoch 218. Evaluated Loss = 1.49531. EMA Loss = 1.60013
+[monitor] Completed epoch 219. Evaluated Loss = 1.54316. EMA Loss = 1.68384
+[monitor] Completed epoch 220. Evaluated Loss = 1.41508. EMA Loss = 1.69234
+[monitor] Completed epoch 224. Evaluated Loss = 1.50537. EMA Loss = 1.60663
+[monitor] Completed epoch 221. Evaluated Loss = 1.35935. EMA Loss = 1.77746
+[monitor] Completed epoch 222. Evaluated Loss = 1.40822. EMA Loss = 1.07953
+[monitor] Completed epoch 223. Evaluated Loss = 1.46408. EMA Loss = 1.83089
+[monitor] Completed epoch 225. Evaluated Loss = 1.43504. EMA Loss = 1.44469
+[monitor] Completed epoch 226. Evaluated Loss = 1.48842. EMA Loss = 1.35829
+[monitor] Completed epoch 227. Evaluated Loss = 1.48147. EMA Loss = 1.52091
+[monitor] Completed epoch 228. Evaluated Loss = 1.42921. EMA Loss = 1.49219
+[monitor] Completed epoch 229. Evaluated Loss = 1.41722. EMA Loss = 1.22317
+[monitor] Completed epoch 230. Evaluated Loss = 1.45788. EMA Loss = 1.55429
+[monitor] Completed epoch 231. Evaluated Loss = 1.40435. EMA Loss = 1.66915
+[monitor] Completed epoch 232. Evaluated Loss = 1.45457. EMA Loss = 1.16023
+[monitor] Completed epoch 233. Evaluated Loss = 1.38553. EMA Loss = 1.48142
+[monitor] Completed epoch 234. Evaluated Loss = 1.40643. EMA Loss = 1.79236
+[monitor] Completed epoch 235. Evaluated Loss = 1.41163. EMA Loss = 1.1876
+[monitor] Completed epoch 236. Evaluated Loss = 1.46107. EMA Loss = 1.58868
+[monitor] Completed epoch 237. Evaluated Loss = 1.4286. EMA Loss = 1.37131
+[monitor] Completed epoch 238. Evaluated Loss = 1.45747. EMA Loss = 1.72497
+[monitor] Completed epoch 239. Evaluated Loss = 1.41955. EMA Loss = 1.652
+[monitor] Completed epoch 240. Evaluated Loss = 1.41575. EMA Loss = 1.11474
+[monitor] Completed epoch 241. Evaluated Loss = 1.40447. EMA Loss = 1.81381
+[monitor] Completed epoch 242. Evaluated Loss = 1.47854. EMA Loss = 1.68426
+[monitor] Completed epoch 243. Evaluated Loss = 1.49421. EMA Loss = 1.61501
+[monitor] Completed epoch 244. Evaluated Loss = 1.44661. EMA Loss = 1.73104
+[monitor] Completed epoch 245. Evaluated Loss = 1.44315. EMA Loss = 1.434
+[monitor] Completed epoch 249. Evaluated Loss = 1.43551. EMA Loss = 1.30223
+[monitor] Completed epoch 246. Evaluated Loss = 1.42095. EMA Loss = 1.69198
+[monitor] Completed epoch 247. Evaluated Loss = 1.37779. EMA Loss = 1.41668
+[monitor] Completed epoch 248. Evaluated Loss = 1.46734. EMA Loss = 1.61764
+[monitor] Completed epoch 250. Evaluated Loss = 1.4184. EMA Loss = 1.60118
+[monitor] Completed epoch 251. Evaluated Loss = 1.44428. EMA Loss = 1.77416
+[monitor] Completed epoch 252. Evaluated Loss = 1.44031. EMA Loss = 1.48232
+[monitor] Completed epoch 253. Evaluated Loss = 1.43766. EMA Loss = 1.57248
+[monitor] Completed epoch 254. Evaluated Loss = 1.42181. EMA Loss = 1.38186
+[monitor] Completed epoch 255. Evaluated Loss = 1.39443. EMA Loss = 1.21287
+[monitor] Completed epoch 256. Evaluated Loss = 1.42322. EMA Loss = 1.74548
+[monitor] Completed epoch 257. Evaluated Loss = 1.4629. EMA Loss = 1.86217
+[monitor] Completed epoch 258. Evaluated Loss = 1.42364. EMA Loss = 1.5509
+[monitor] Completed epoch 259. Evaluated Loss = 1.46487. EMA Loss = 1.39872
+[monitor] Completed epoch 260. Evaluated Loss = 1.47421. EMA Loss = 1.66549
+[monitor] Completed epoch 261. Evaluated Loss = 1.4892. EMA Loss = 1.65282
+[monitor] Completed epoch 262. Evaluated Loss = 1.37774. EMA Loss = 1.83593
+[monitor] Completed epoch 263. Evaluated Loss = 1.43259. EMA Loss = 1.52446
+[monitor] Completed epoch 264. Evaluated Loss = 1.41281. EMA Loss = 1.36415
+[monitor] Completed epoch 265. Evaluated Loss = 1.41539. EMA Loss = 1.34824
+[monitor] Completed epoch 266. Evaluated Loss = 1.36982. EMA Loss = 1.37862
+[monitor] Completed epoch 267. Evaluated Loss = 1.44276. EMA Loss = 1.76419
+[monitor] Completed epoch 268. Evaluated Loss = 1.41363. EMA Loss = 1.28409
+[monitor] Completed epoch 269. Evaluated Loss = 1.41136. EMA Loss = 1.29757
+[monitor] Completed epoch 271. Evaluated Loss = 1.38043. EMA Loss = 1.60167
+[monitor] Completed epoch 270. Evaluated Loss = 1.32809. EMA Loss = 1.0545
+[monitor] Completed epoch 274. Evaluated Loss = 1.46429. EMA Loss = 1.50421
+[monitor] Completed epoch 272. Evaluated Loss = 1.35589. EMA Loss = 1.3667
+[monitor] Completed epoch 273. Evaluated Loss = 1.39993. EMA Loss = 1.50216
+[monitor] Completed epoch 275. Evaluated Loss = 1.39352. EMA Loss = 1.55887
+[monitor] Completed epoch 276. Evaluated Loss = 1.45546. EMA Loss = 1.10115
+[monitor] Completed epoch 277. Evaluated Loss = 1.34606. EMA Loss = 1.20574
+[monitor] Completed epoch 278. Evaluated Loss = 1.40915. EMA Loss = 1.00719
+[monitor] Completed epoch 279. Evaluated Loss = 1.38535. EMA Loss = 1.52121
+[monitor] Completed epoch 280. Evaluated Loss = 1.42959. EMA Loss = 1.86979
+[monitor] Completed epoch 281. Evaluated Loss = 1.40953. EMA Loss = 1.23923
+[monitor] Completed epoch 282. Evaluated Loss = 1.42676. EMA Loss = 1.49715
+[monitor] Completed epoch 283. Evaluated Loss = 1.46256. EMA Loss = 1.3009
+[monitor] Completed epoch 284. Evaluated Loss = 1.46204. EMA Loss = 1.22311
+[monitor] Completed epoch 285. Evaluated Loss = 1.40396. EMA Loss = 1.56373
+[monitor] Completed epoch 286. Evaluated Loss = 1.43095. EMA Loss = 1.20181
+[monitor] Completed epoch 287. Evaluated Loss = 1.38312. EMA Loss = 1.19684
+[monitor] Completed epoch 288. Evaluated Loss = 1.3713. EMA Loss = 1.35429
+[monitor] Completed epoch 289. Evaluated Loss = 1.43897. EMA Loss = 1.24561
+[monitor] Completed epoch 290. Evaluated Loss = 1.40888. EMA Loss = 2.00564
+[monitor] Completed epoch 291. Evaluated Loss = 1.34699. EMA Loss = 1.30197
+[monitor] Completed epoch 292. Evaluated Loss = 1.38197. EMA Loss = 1.27354
+[monitor] Completed epoch 293. Evaluated Loss = 1.42047. EMA Loss = 1.23915
+[monitor] Completed epoch 294. Evaluated Loss = 1.42671. EMA Loss = 1.54945
+[monitor] Completed epoch 295. Evaluated Loss = 1.35137. EMA Loss = 1.37067
+[monitor] Completed epoch 299. Evaluated Loss = 1.38342. EMA Loss = 1.12114
+[monitor] Completed epoch 296. Evaluated Loss = 1.36428. EMA Loss = 1.02979
+[monitor] Completed epoch 297. Evaluated Loss = 1.38423. EMA Loss = 1.54564
+[monitor] Completed epoch 298. Evaluated Loss = 1.39671. EMA Loss = 1.41342
+[monitor] Completed epoch 300. Evaluated Loss = 1.38753. EMA Loss = 1.13074
+[monitor] Completed epoch 301. Evaluated Loss = 1.41764. EMA Loss = 1.29119
+[monitor] Completed epoch 302. Evaluated Loss = 1.37267. EMA Loss = 1.84433
+[monitor] Completed epoch 303. Evaluated Loss = 1.42146. EMA Loss = 1.83463
+[monitor] Completed epoch 304. Evaluated Loss = 1.38903. EMA Loss = 1.5354
+[monitor] Completed epoch 305. Evaluated Loss = 1.38826. EMA Loss = 1.57427
+[monitor] Completed epoch 306. Evaluated Loss = 1.41312. EMA Loss = 1.60209
+[monitor] Completed epoch 307. Evaluated Loss = 1.38973. EMA Loss = 0.99093
+[monitor] Completed epoch 308. Evaluated Loss = 1.42793. EMA Loss = 1.05545
+[monitor] Completed epoch 309. Evaluated Loss = 1.44606. EMA Loss = 1.64866
+[monitor] Completed epoch 310. Evaluated Loss = 1.39615. EMA Loss = 2.08803
+[monitor] Completed epoch 311. Evaluated Loss = 1.46776. EMA Loss = 1.6746
+[monitor] Completed epoch 312. Evaluated Loss = 1.37047. EMA Loss = 1.26537
+[monitor] Completed epoch 313. Evaluated Loss = 1.41272. EMA Loss = 1.67268
+[monitor] Completed epoch 314. Evaluated Loss = 1.40501. EMA Loss = 1.19483
+[monitor] Completed epoch 315. Evaluated Loss = 1.45324. EMA Loss = 1.46931
+[monitor] Completed epoch 316. Evaluated Loss = 1.33288. EMA Loss = 1.68327
+[monitor] Completed epoch 317. Evaluated Loss = 1.43512. EMA Loss = 1.38561
+[monitor] Completed epoch 318. Evaluated Loss = 1.38848. EMA Loss = 1.68475
+[monitor] Completed epoch 319. Evaluated Loss = 1.41121. EMA Loss = 1.489
+[monitor] Completed epoch 320. Evaluated Loss = 1.407. EMA Loss = 1.59738
+[monitor] Completed epoch 324. Evaluated Loss = 1.43856. EMA Loss = 1.51
+[monitor] Completed epoch 321. Evaluated Loss = 1.36852. EMA Loss = 1.36041
+[monitor] Completed epoch 322. Evaluated Loss = 1.412. EMA Loss = 1.62277
+[monitor] Completed epoch 323. Evaluated Loss = 1.4044. EMA Loss = 1.31776
+[monitor] Completed epoch 325. Evaluated Loss = 1.37067. EMA Loss = 1.39069
+[monitor] Completed epoch 326. Evaluated Loss = 1.43322. EMA Loss = 1.42797
+[monitor] Completed epoch 327. Evaluated Loss = 1.35231. EMA Loss = 1.23147
+[monitor] Completed epoch 329. Evaluated Loss = 1.38502. EMA Loss = 1.73044
+[monitor] Completed epoch 328. Evaluated Loss = 1.36313. EMA Loss = 1.48236
+[monitor] Completed epoch 330. Evaluated Loss = 1.38844. EMA Loss = 1.3948
+[monitor] Completed epoch 331. Evaluated Loss = 1.36219. EMA Loss = 1.42539
+[monitor] Completed epoch 332. Evaluated Loss = 1.38305. EMA Loss = 1.40793
+[monitor] Completed epoch 333. Evaluated Loss = 1.37739. EMA Loss = 1.17996
+[monitor] Completed epoch 334. Evaluated Loss = 1.42623. EMA Loss = 1.37667
+[monitor] Completed epoch 335. Evaluated Loss = 1.34841. EMA Loss = 1.18405
+[monitor] Completed epoch 336. Evaluated Loss = 1.42189. EMA Loss = 1.46656
+[monitor] Completed epoch 337. Evaluated Loss = 1.30938. EMA Loss = 1.54455
+[monitor] Completed epoch 338. Evaluated Loss = 1.44193. EMA Loss = 1.5347
+[monitor] Completed epoch 339. Evaluated Loss = 1.36844. EMA Loss = 1.61614
+[monitor] Completed epoch 340. Evaluated Loss = 1.39429. EMA Loss = 1.40768
+[monitor] Completed epoch 342. Evaluated Loss = 1.37471. EMA Loss = 1.07194
+[monitor] Completed epoch 341. Evaluated Loss = 1.32389. EMA Loss = 1.51714
+[monitor] Completed epoch 343. Evaluated Loss = 1.3546. EMA Loss = 1.46539
+[monitor] Completed epoch 344. Evaluated Loss = 1.3625. EMA Loss = 1.51985
+[monitor] Completed epoch 345. Evaluated Loss = 1.37153. EMA Loss = 1.36124
+[monitor] Completed epoch 349. Evaluated Loss = 1.33474. EMA Loss = 1.4101
+[monitor] Completed epoch 346. Evaluated Loss = 1.35066. EMA Loss = 1.14001
+[monitor] Completed epoch 348. Evaluated Loss = 1.43722. EMA Loss = 1.35627
+[monitor] Completed epoch 347. Evaluated Loss = 1.33604. EMA Loss = 1.27731
+[monitor] Completed epoch 350. Evaluated Loss = 1.3282. EMA Loss = 1.6488
+[monitor] Completed epoch 351. Evaluated Loss = 1.38707. EMA Loss = 1.31893
+[monitor] Completed epoch 352. Evaluated Loss = 1.38058. EMA Loss = 1.37
+[monitor] Completed epoch 353. Evaluated Loss = 1.3493. EMA Loss = 1.7818
+[monitor] Completed epoch 354. Evaluated Loss = 1.35531. EMA Loss = 1.38734
+[monitor] Completed epoch 355. Evaluated Loss = 1.37945. EMA Loss = 1.2387
+[monitor] Completed epoch 356. Evaluated Loss = 1.43312. EMA Loss = 1.61983
+[monitor] Completed epoch 358. Evaluated Loss = 1.43568. EMA Loss = 1.35215
+[monitor] Completed epoch 357. Evaluated Loss = 1.34562. EMA Loss = 1.71239
+[monitor] Completed epoch 359. Evaluated Loss = 1.37992. EMA Loss = 1.42391
+[monitor] Completed epoch 360. Evaluated Loss = 1.40164. EMA Loss = 1.5806
+[monitor] Completed epoch 361. Evaluated Loss = 1.42201. EMA Loss = 1.30632
+[monitor] Completed epoch 362. Evaluated Loss = 1.34049. EMA Loss = 1.13756
+[monitor] Completed epoch 363. Evaluated Loss = 1.39611. EMA Loss = 1.92691
+[monitor] Completed epoch 364. Evaluated Loss = 1.41446. EMA Loss = 1.37881
+[monitor] Completed epoch 365. Evaluated Loss = 1.41507. EMA Loss = 1.37712
+[monitor] Completed epoch 366. Evaluated Loss = 1.31344. EMA Loss = 1.45495
+[monitor] Completed epoch 367. Evaluated Loss = 1.37055. EMA Loss = 1.50113
+[monitor] Completed epoch 368. Evaluated Loss = 1.37788. EMA Loss = 1.43112
+[monitor] Completed epoch 369. Evaluated Loss = 1.406. EMA Loss = 1.62353
+[monitor] Completed epoch 370. Evaluated Loss = 1.35962. EMA Loss = 1.32961
+[monitor] Completed epoch 374. Evaluated Loss = 1.36072. EMA Loss = 1.57855
+[monitor] Completed epoch 371. Evaluated Loss = 1.37164. EMA Loss = 1.39116
+[monitor] Completed epoch 372. Evaluated Loss = 1.3168. EMA Loss = 1.60611
+[monitor] Completed epoch 373. Evaluated Loss = 1.38055. EMA Loss = 1.52384
+[monitor] Completed epoch 375. Evaluated Loss = 1.37125. EMA Loss = 1.32492
+[monitor] Completed epoch 376. Evaluated Loss = 1.37835. EMA Loss = 1.29362
+[monitor] Completed epoch 377. Evaluated Loss = 1.37749. EMA Loss = 1.21132
+[monitor] Completed epoch 378. Evaluated Loss = 1.35748. EMA Loss = 1.2568
+[monitor] Completed epoch 379. Evaluated Loss = 1.4121. EMA Loss = 1.53083
+[monitor] Completed epoch 380. Evaluated Loss = 1.3791. EMA Loss = 1.75992
+[monitor] Completed epoch 381. Evaluated Loss = 1.45471. EMA Loss = 1.51423
+[monitor] Completed epoch 382. Evaluated Loss = 1.35886. EMA Loss = 1.55755
+[monitor] Completed epoch 383. Evaluated Loss = 1.4119. EMA Loss = 1.47009
+[monitor] Completed epoch 384. Evaluated Loss = 1.43332. EMA Loss = 1.43194
+[monitor] Completed epoch 385. Evaluated Loss = 1.42967. EMA Loss = 1.54043
+[monitor] Completed epoch 386. Evaluated Loss = 1.3967. EMA Loss = 1.02202
+[monitor] Completed epoch 387. Evaluated Loss = 1.36046. EMA Loss = 1.31771
+[monitor] Completed epoch 388. Evaluated Loss = 1.39478. EMA Loss = 1.77786
+[monitor] Completed epoch 389. Evaluated Loss = 1.3383. EMA Loss = 1.03558
+[monitor] Completed epoch 390. Evaluated Loss = 1.39166. EMA Loss = 1.23665
+[monitor] Completed epoch 391. Evaluated Loss = 1.33621. EMA Loss = 1.37155
+[monitor] Completed epoch 392. Evaluated Loss = 1.38661. EMA Loss = 1.29062
+[monitor] Completed epoch 393. Evaluated Loss = 1.38478. EMA Loss = 1.43073
+[monitor] Completed epoch 394. Evaluated Loss = 1.3847. EMA Loss = 1.39908
+[monitor] Completed epoch 395. Evaluated Loss = 1.44204. EMA Loss = 1.5328
+[monitor] Completed epoch 399. Evaluated Loss = 1.43164. EMA Loss = 1.75793
+[monitor] Completed epoch 396. Evaluated Loss = 1.36564. EMA Loss = 1.25477
+[monitor] Completed epoch 397. Evaluated Loss = 1.38286. EMA Loss = 1.53678
+[monitor] Completed epoch 398. Evaluated Loss = 1.44089. EMA Loss = 1.09892
+[monitor] Completed epoch 400. Evaluated Loss = 1.33749. EMA Loss = 1.74583
+[monitor] Completed epoch 401. Evaluated Loss = 1.41767. EMA Loss = 1.42128
+[monitor] Completed epoch 402. Evaluated Loss = 1.32325. EMA Loss = 1.42664
+[monitor] Completed epoch 403. Evaluated Loss = 1.38779. EMA Loss = 1.33027
+[monitor] Completed epoch 404. Evaluated Loss = 1.31697. EMA Loss = 1.53722
+[monitor] Completed epoch 405. Evaluated Loss = 1.38419. EMA Loss = 1.53866
+[monitor] Completed epoch 406. Evaluated Loss = 1.41801. EMA Loss = 1.37753
+[monitor] Completed epoch 407. Evaluated Loss = 1.40399. EMA Loss = 1.26889
+[monitor] Completed epoch 408. Evaluated Loss = 1.43039. EMA Loss = 1.16804
+[monitor] Completed epoch 409. Evaluated Loss = 1.36993. EMA Loss = 1.55201
+[monitor] Completed epoch 410. Evaluated Loss = 1.32551. EMA Loss = 1.24106
+[monitor] Completed epoch 411. Evaluated Loss = 1.41535. EMA Loss = 1.76411
+[monitor] Completed epoch 412. Evaluated Loss = 1.38036. EMA Loss = 1.524
+[monitor] Completed epoch 413. Evaluated Loss = 1.41348. EMA Loss = 1.46254
+[monitor] Completed epoch 414. Evaluated Loss = 1.29182. EMA Loss = 1.33919
+[monitor] Completed epoch 415. Evaluated Loss = 1.35078. EMA Loss = 1.55847
+[monitor] Completed epoch 416. Evaluated Loss = 1.3029. EMA Loss = 1.43476
+[monitor] Completed epoch 417. Evaluated Loss = 1.41796. EMA Loss = 1.31159
+[monitor] Completed epoch 418. Evaluated Loss = 1.34121. EMA Loss = 1.35674
+[monitor] Completed epoch 419. Evaluated Loss = 1.42356. EMA Loss = 2.0905
+[monitor] Completed epoch 420. Evaluated Loss = 1.3387. EMA Loss = 1.47451
+[monitor] Completed epoch 424. Evaluated Loss = 1.34726. EMA Loss = 1.41733
+[monitor] Completed epoch 421. Evaluated Loss = 1.36393. EMA Loss = 1.66064
+[monitor] Completed epoch 422. Evaluated Loss = 1.34757. EMA Loss = 1.856
+[monitor] Completed epoch 423. Evaluated Loss = 1.40286. EMA Loss = 1.38452
+[monitor] Completed epoch 425. Evaluated Loss = 1.30814. EMA Loss = 1.48291
+[monitor] Completed epoch 426. Evaluated Loss = 1.40638. EMA Loss = 0.997181
+[monitor] Completed epoch 427. Evaluated Loss = 1.34452. EMA Loss = 1.55987
+[monitor] Completed epoch 428. Evaluated Loss = 1.33295. EMA Loss = 1.29394
+[monitor] Completed epoch 429. Evaluated Loss = 1.32716. EMA Loss = 1.4146
+[monitor] Completed epoch 430. Evaluated Loss = 1.389. EMA Loss = 1.28887
+[monitor] Completed epoch 431. Evaluated Loss = 1.37417. EMA Loss = 1.30895
+[monitor] Completed epoch 432. Evaluated Loss = 1.32475. EMA Loss = 1.59061
+[monitor] Completed epoch 433. Evaluated Loss = 1.3454. EMA Loss = 1.36849
+[monitor] Completed epoch 434. Evaluated Loss = 1.39161. EMA Loss = 1.53705
+[monitor] Completed epoch 435. Evaluated Loss = 1.37912. EMA Loss = 1.5719
+[monitor] Completed epoch 436. Evaluated Loss = 1.45885. EMA Loss = 1.70654
+[monitor] Completed epoch 437. Evaluated Loss = 1.35665. EMA Loss = 1.75672
+[monitor] Completed epoch 438. Evaluated Loss = 1.34976. EMA Loss = 1.29238
+[monitor] Completed epoch 439. Evaluated Loss = 1.33024. EMA Loss = 1.96041
+[monitor] Completed epoch 441. Evaluated Loss = 1.33751. EMA Loss = 1.49535
+[monitor] Completed epoch 440. Evaluated Loss = 1.43137. EMA Loss = 1.89612
+[monitor] Completed epoch 442. Evaluated Loss = 1.39004. EMA Loss = 1.07516
+[monitor] Completed epoch 443. Evaluated Loss = 1.37365. EMA Loss = 1.87184
+[monitor] Completed epoch 444. Evaluated Loss = 1.33779. EMA Loss = 1.25786
+[monitor] Completed epoch 445. Evaluated Loss = 1.34972. EMA Loss = 1.39472
+[monitor] Completed epoch 449. Evaluated Loss = 1.4006. EMA Loss = 1.35295
+[monitor] Completed epoch 446. Evaluated Loss = 1.40755. EMA Loss = 1.64743
+[monitor] Completed epoch 447. Evaluated Loss = 1.33823. EMA Loss = 1.606
+[monitor] Completed epoch 448. Evaluated Loss = 1.44491. EMA Loss = 1.34366
+[monitor] Completed epoch 450. Evaluated Loss = 1.41943. EMA Loss = 1.97872
+[monitor] Completed epoch 451. Evaluated Loss = 1.38538. EMA Loss = 1.32013
+[monitor] Completed epoch 452. Evaluated Loss = 1.41379. EMA Loss = 1.64703
+[monitor] Completed epoch 453. Evaluated Loss = 1.28583. EMA Loss = 1.20279
+[monitor] Completed epoch 454. Evaluated Loss = 1.36534. EMA Loss = 0.980494
+[monitor] Completed epoch 455. Evaluated Loss = 1.41526. EMA Loss = 1.53492
+[monitor] Completed epoch 456. Evaluated Loss = 1.37163. EMA Loss = 1.45607
+[monitor] Completed epoch 457. Evaluated Loss = 1.37882. EMA Loss = 1.55854
+[monitor] Completed epoch 458. Evaluated Loss = 1.39563. EMA Loss = 1.51848
+[monitor] Completed epoch 459. Evaluated Loss = 1.38368. EMA Loss = 1.32643
+[monitor] Completed epoch 460. Evaluated Loss = 1.35586. EMA Loss = 1.36649
+[monitor] Completed epoch 461. Evaluated Loss = 1.43246. EMA Loss = 1.46846
+[monitor] Completed epoch 462. Evaluated Loss = 1.42689. EMA Loss = 1.51823
+[monitor] Completed epoch 463. Evaluated Loss = 1.37219. EMA Loss = 1.71204
+[monitor] Completed epoch 464. Evaluated Loss = 1.33717. EMA Loss = 1.36009
+[monitor] Completed epoch 465. Evaluated Loss = 1.37644. EMA Loss = 1.25639
+[monitor] Completed epoch 466. Evaluated Loss = 1.34108. EMA Loss = 1.60518
+[monitor] Completed epoch 467. Evaluated Loss = 1.34611. EMA Loss = 1.45351
+[monitor] Completed epoch 468. Evaluated Loss = 1.32895. EMA Loss = 1.43768
+[monitor] Completed epoch 469. Evaluated Loss = 1.40387. EMA Loss = 1.55961
+[monitor] Completed epoch 470. Evaluated Loss = 1.33843. EMA Loss = 1.29138
+[monitor] Completed epoch 474. Evaluated Loss = 1.384. EMA Loss = 1.40233
+[monitor] Completed epoch 471. Evaluated Loss = 1.34996. EMA Loss = 1.22587
+[monitor] Completed epoch 472. Evaluated Loss = 1.30596. EMA Loss = 1.25025
+[monitor] Completed epoch 473. Evaluated Loss = 1.40804. EMA Loss = 1.4948
+[monitor] Completed epoch 475. Evaluated Loss = 1.37197. EMA Loss = 1.12475
+[monitor] Completed epoch 476. Evaluated Loss = 1.41796. EMA Loss = 1.31156
+[monitor] Completed epoch 477. Evaluated Loss = 1.33684. EMA Loss = 1.5138
+[monitor] Completed epoch 478. Evaluated Loss = 1.32661. EMA Loss = 1.53389
+[monitor] Completed epoch 479. Evaluated Loss = 1.37479. EMA Loss = 1.44911
+[monitor] Completed epoch 480. Evaluated Loss = 1.38003. EMA Loss = 1.1519
+[monitor] Completed epoch 481. Evaluated Loss = 1.4732. EMA Loss = 1.49409
+[monitor] Completed epoch 482. Evaluated Loss = 1.45287. EMA Loss = 1.3169
+[monitor] Completed epoch 483. Evaluated Loss = 1.45492. EMA Loss = 1.57227
+[monitor] Completed epoch 484. Evaluated Loss = 1.3991. EMA Loss = 1.6097
+[monitor] Completed epoch 485. Evaluated Loss = 1.29557. EMA Loss = 1.30702
+[monitor] Completed epoch 486. Evaluated Loss = 1.40073. EMA Loss = 1.04738
+[monitor] Completed epoch 487. Evaluated Loss = 1.44826. EMA Loss = 1.36115
+[monitor] Completed epoch 488. Evaluated Loss = 1.42667. EMA Loss = 1.62789
+[monitor] Completed epoch 489. Evaluated Loss = 1.34236. EMA Loss = 1.54759
+[monitor] Completed epoch 490. Evaluated Loss = 1.35573. EMA Loss = 1.42691
+[monitor] Completed epoch 491. Evaluated Loss = 1.33313. EMA Loss = 1.31161
+[monitor] Completed epoch 492. Evaluated Loss = 1.3312. EMA Loss = 1.97957
+[monitor] Completed epoch 493. Evaluated Loss = 1.34184. EMA Loss = 1.48813
+[monitor] Completed epoch 494. Evaluated Loss = 1.35123. EMA Loss = 1.46003
+[exec] Thread submitting 7770 step times.
+[exec] Thread submitting 7651 step times.
+[exec] Thread submitting 7317 step times.
+[exec] Thread submitting 7716 step times.
+[exec] Thread submitting 7709 step times.
+[exec] Thread submitting 8263 step times.
+[exec] Thread submitting 8302 step times.
+[exec] Thread submitting 7700 step times.
+[exec] Thread submitting 7826 step times.
+[exec] Thread submitting 8478 step times.
+[exec] Thread submitting 8198 step times.
+[exec] Thread submitting 8125 step times.
+[exec] Thread submitting 8017 step times.
+[exec] Thread submitting 7003 step times.
+[exec] Thread submitting 7696 step times.
+[exec] Thread submitting 7698 step times.
+[exec] Thread submitting 7748 step times.
+[exec] Thread submitting 7274 step times.
+[exec] Thread submitting 7501 step times.
+[exec] Thread submitting 7657 step times.
+[exec] Thread submitting 7853 step times.
+[exec] Thread submitting 8194 step times.
+[exec] Thread submitting 7754 step times.
+[exec] Thread submitting 8219 step times.
+[exec] Thread submitting 7622 step times.
+[exec] Thread submitting 7672 step times.
+[exec] Thread submitting 7841 step times.
+[exec] Thread submitting 8408 step times.
+[exec] Thread submitting 8037 step times.
+[exec] Thread submitting 7700 step times.
+[exec] Thread submitting 7320 step times.
+[exec] Thread submitting 7461 step times.
+[exec] Thread submitting 7604 step times.
+[exec] Thread submitting 7497 step times.
+[exec] Thread submitting 8021 step times.
+[exec] Thread submitting 7979 step times.
+[exec] Thread submitting 7542 step times.
+[exec] Thread submitting 8277 step times.
+[exec] Thread submitting 7534 step times.
+[exec] Thread submitting 7571 step times.
+[exec] Thread submitting 8352 step times.
+[exec] Thread submitting 7936 step times.
+[exec] Thread submitting 8294 step times.
+[exec] Thread submitting 8021 step times.
+[exec] Thread submitting 8213 step times.
+[exec] Thread submitting 8092 step times.
+[exec] Thread submitting 7420 step times.
+[exec] Thread submitting 7464 step times.
+[exec] Thread submitting 7937 step times.
+[exec] Thread submitting 7587 step times.
+[exec] Thread submitting 8117 step times.
+[exec] Thread submitting 7446 step times.
+[exec] Thread submitting 7648 step times.
+[exec] Thread submitting 7746 step times.
+[exec] Thread submitting 8368 step times.
+[exec] Thread submitting 7502 step times.
+[exec] Thread submitting 7674 step times.
+[exec] Thread submitting 7807 step times.
+[exec] Thread submitting 7804 step times.
+[exec] Thread submitting 7367 step times.
+[exec] Thread submitting 7855 step times.
+[exec] Thread submitting 7566 step times.
+[exec] Thread submitting 7831 step times.
+[exec] Thread submitting 7803 step times.
+[exec] Thread submitting 7949 step times.
+[exec] Thread submitting 8207 step times.
+[exec] Thread submitting 7596 step times.
+[exec] Thread submitting 8145 step times.
+[exec] Thread submitting 8245 step times.
+[exec] Thread submitting 8370 step times.
+[exec] Thread submitting 7540 step times.
+[exec] Thread submitting 7749 step times.
+[exec] Thread submitting 7863 step times.
+[exec] Thread submitting 7645 step times.
+[exec] Thread submitting 7601 step times.
+[exec] Thread submitting 7785 step times.
+[exec] Thread submitting 7717 step times.
+[exec] Thread submitting 8305 step times.
+[exec] Thread submitting 7771 step times.
+[exec] Thread submitting 8467 step times.
+[exec] Thread submitting 8126 step times.
+[exec] Thread submitting 7700 step times.
+[exec] Thread submitting 7896 step times.
+[exec] Thread submitting 7480 step times.
+[exec] Thread submitting 8137 step times.
+[exec] Thread submitting 7465 step times.
+[exec] Thread submitting 7291 step times.
+[exec] Thread submitting 7612 step times.
+[exec] Thread submitting 7835 step times.
+[exec] Thread submitting 7562 step times.
+[exec] Thread submitting 7931 step times.
+[exec] Thread submitting 7145 step times.
+[exec] Thread submitting 7294 step times.
+[exec] Thread submitting 7582 step times.
+[exec] Thread submitting 7254 step times.
+[exec] Thread submitting 8339 step times.
+[exec] Thread submitting 8031 step times.
+[exec] Thread submitting 7929 step times.
+[exec] Thread submitting 8195 step times.
+[exec] Thread submitting 7861 step times.
+[exec] Thread submitting 7560 step times.
+[exec] Thread submitting 8290 step times.
+[exec] Thread submitting 8145 step times.
+[exec] Thread submitting 8078 step times.
+[exec] Thread submitting 8195 step times.
+[exec] Thread submitting 7901 step times.
+[exec] Thread submitting 8276 step times.
+[exec] Thread submitting 7686 step times.
+[exec] Thread submitting 8158 step times.
+[exec] Thread submitting 8232 step times.
+[exec] Thread submitting 7294 step times.
+[exec] Thread submitting 7565 step times.
+[exec] Thread submitting 7563 step times.
+[exec] Thread submitting 7616 step times.
+[exec] Thread submitting 7598 step times.
+[exec] Thread submitting 8359 step times.
+[exec] Thread submitting 8233 step times.
+[exec] Thread submitting 7604 step times.
+[exec] Thread submitting 7588 step times.
+[exec] Thread submitting 7451 step times.
+[exec] Thread submitting 8207 step times.
+[exec] Thread submitting 8367 step times.
+[exec] Thread submitting 8356 step times.
+[exec] Thread submitting 7838 step times.
+[exec] Thread submitting 7588 step times.
+[exec] Thread submitting 7617 step times.
+[exec] Thread submitting 7586 step times.
+[exec] Thread submitting 8086 step times.
+[exec] Thread submitting 8348 step times.
+[exec] Thread submitting 7756 step times.
+[exec] Thread submitting 8415 step times.
+[exec] Thread submitting 7570 step times.
+[exec] Thread submitting 7925 step times.
+[exec] Thread submitting 8354 step times.
+[exec] Thread submitting 7515 step times.
+[exec] Thread submitting 7801 step times.
+[exec] Thread submitting 8407 step times.
+[exec] Thread submitting 7326 step times.
+[exec] Thread submitting 7525 step times.
+[exec] Thread submitting 7802 step times.
+[exec] Thread submitting 8434 step times.
+[exec] Thread submitting 7931 step times.
+[exec] Thread submitting 7865 step times.
+[exec] Thread submitting 7395 step times.
+[exec] Thread submitting 7418 step times.
+[exec] Thread submitting 7592 step times.
+[exec] Thread submitting 7924 step times.
+[exec] Thread submitting 7334 step times.
+[exec] Thread submitting 7846 step times.
+[exec] Thread submitting 8153 step times.
+[exec] Thread submitting 7398 step times.
+[exec] Thread submitting 7513 step times.
+[exec] Thread submitting 7838 step times.
+[exec] Thread submitting 8152 step times.
+[exec] Thread submitting 7537 step times.
+[exec] Thread submitting 8078 step times.
+[exec] Thread submitting 7535 step times.
+[exec] Thread submitting 7354 step times.
+[exec] Thread submitting 7176 step times.
+[exec] Thread submitting 7748 step times.
+[exec] Thread submitting 8162 step times.
+[exec] Thread submitting 7905 step times.
+[exec] Thread submitting 7416 step times.
+[exec] Thread submitting 7618 step times.
+[exec] Thread submitting 7550 step times.
+[exec] Thread submitting 7825 step times.
+[exec] Thread submitting 8033 step times.
+[exec] Thread submitting 7766 step times.
+[exec] Thread submitting 7488 step times.
+[exec] Thread submitting 7562 step times.
+[exec] Thread submitting 7743 step times.
+[exec] Thread submitting 8049 step times.
+[exec] Thread submitting 7643 step times.
+[exec] Thread submitting 7374 step times.
+[exec] Thread submitting 8031 step times.
+[exec] Thread submitting 8165 step times.
+[exec] Thread submitting 7982 step times.
+[exec] Thread submitting 7637 step times.
+[exec] Thread submitting 8198 step times.
+[exec] Thread submitting 7725 step times.
+[exec] Thread submitting 8395 step times.
+[exec] Thread submitting 8133 step times.
+[exec] Thread submitting 7704 step times.
+[exec] Thread submitting 8208 step times.
+[exec] Thread submitting 7194 step times.
+[exec] Thread submitting 7725 step times.
+[exec] Thread submitting 8279 step times.
+[exec] Thread submitting 8244 step times.
+[exec] Thread submitting 7612 step times.
+[exec] Thread submitting 7512 step times.
+[exec] Thread submitting 7581 step times.
+[exec] Thread submitting 7989 step times.
+[exec] Thread submitting 7654 step times.
+[exec] Thread submitting 7424 step times.
+[exec] Thread submitting 7547 step times.
+[monitor] Completed epoch 495. Evaluated Loss = 1.36185. EMA Loss = 1.2936
+[exec] Thread submitting 7671 step times.
+[monitor] Completed epoch 496. Evaluated Loss = 1.45505. EMA Loss = 1.2936
+[exec] Thread submitting 7926 step times.
+[monitor] Completed epoch 499. Evaluated Loss = 1.55822. EMA Loss = 1.2936
+[exec] Thread submitting 7885 step times.
+[monitor] Completed epoch 497. Evaluated Loss = 1.50951. EMA Loss = 1.2936
+[exec] Thread submitting 7098 step times.
+[monitor] Completed epoch 498. Evaluated Loss = 1.55965. EMA Loss = 1.2936
+[exec] Thread submitting 7788 step times.
+[main()] Saved results to "./experiments/2024-12-02_11-58-34_results.json"
+Finished with exit code 0; unlocking.

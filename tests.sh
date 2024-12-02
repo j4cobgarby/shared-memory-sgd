@@ -1,4 +1,4 @@
-OUT_FOLDER=window_vs_ternary
+OUT_FOLDER=eval_monitor_tests
 
 PROBE_DUR=4000
 EXEC_DUR=16000
@@ -28,9 +28,11 @@ mkdir -p $OUT_FOLDER
 
 # Testing different batch sizes now
 
-./cmake-build/mininn -n 200 -b 8 -l 0.005 -u 0.35 -e 500 -P static -F $OUT_FOLDER
-./cmake-build/mininn -n 200 -b 32 -l 0.005 -u 0.35 -e 500 -P static -F $OUT_FOLDER
-./cmake-build/mininn -n 200 -b 64 -l 0.005 -u 0.35 -e 500 -P static -F $OUT_FOLDER
-./cmake-build/mininn -n 200 -b 128 -l 0.005 -u 0.35 -e 500 -P static -F $OUT_FOLDER
+# ./cmake-build/mininn -n 200 -b 8 -l 0.005 -u 0.35 -e 500 -P static -F $OUT_FOLDER
+# ./cmake-build/mininn -n 200 -b 32 -l 0.005 -u 0.35 -e 500 -P static -F $OUT_FOLDER
+# ./cmake-build/mininn -n 200 -b 64 -l 0.005 -u 0.35 -e 500 -P static -F $OUT_FOLDER
+# ./cmake-build/mininn -n 200 -b 128 -l 0.005 -u 0.35 -e 500 -P static -F $OUT_FOLDER
+#
+# ./cmake-build/mininn -n 500 -b 32 -l 0.005 -u 0.35 -e 500 -P ternary -w 64 -d 2 -p $PROBE_DUR -x $EXEC_DUR -F $OUT_FOLDER
 
-./cmake-build/mininn -n 500 -b 32 -l 0.005 -u 0.35 -e 500 -P ternary -w 64 -d 2 -p $PROBE_DUR -x $EXEC_DUR -F $OUT_FOLDER
+./cmake-build/mininn -n 200 -b 16 -l 0.005 -u 0.35 -e 500 -P static -F $OUT_FOLDER

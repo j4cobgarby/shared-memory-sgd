@@ -22,13 +22,13 @@ ThreadWorkerPool<WorkerType>::ThreadWorkerPool(SystemExecutor &exec, int n_worke
         worker_threads.push_back(new std::thread(&WorkerType::run, &workers.at(i)));
 
         if (pin) {
-            cpu_set_t cpuset;
-            CPU_ZERO(&cpuset);
-            CPU_SET(i, &cpuset);
-
-            if (pthread_setaffinity_np(worker_threads.at(i)->native_handle(), sizeof(cpu_set_t), &cpuset) != 0) {
-                std::cerr << "Failed to pin thread " << i << std::endl;
-            }
+            // cpu_set_t cpuset;
+            // CPU_ZERO(&cpuset);
+            // CPU_SET(i, &cpuset);
+            //
+            // if (pthread_setaffinity_np(worker_threads.at(i)->native_handle(), sizeof(cpu_set_t), &cpuset) != 0) {
+            //     std::cerr << "Failed to pin thread " << i << std::endl;
+            // }
         }
     }
 

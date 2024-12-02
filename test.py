@@ -1,54 +1,36 @@
 import subprocess
 from os import mkdir
 
-grads = [
-    # 0.000000,
-    0.000025,
-    0.000050,
-    # 0.000075,
-    0.000100,
-    0.000200,
-    0.000400,
-]
+batch_sizes = [16]
+static_paras = [20, 100, 200, 400]
 
-G_factors = [0, -10, -50, 10]
-J_factors = [0, -5, -15]
-M_factors = [0, 0.5, 1.0, 2]
-
+log_dir = 'paramtest_logs'
 
 try:
-    mkdir("runtime_logs")
+    mkdir(log_dir)
 except FileExistsError:
     pass
 
-NUM_REPS = 5
+NUM_REPS = 3
 
-# for G in G_factors:
-#     for J in J_factors:
-#         for M in M_factors:
-#             for t_i in range(NUM_REPS):
-#                 with open(f"autotests_30apr/elasync-G{G}-J{J}-M{M}-#{t_i}.txt", "w") as ofile:
-#                     cmd = f"./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -e 200 -b 16 -l 0.005 -w 16 -i 128 -d 32 -s 128 -G '{G}' -J '{J}' -M '{M}' -N auto_skewing_test_{G}_{J}_{M}_#{t_i}"
-#                     print(f"{t_i} / {NUM_REPS-1}: {cmd}")
-#                     subprocess.call(cmd.split(" "), stdout=ofile)
+for bs in batch_sizes:
+    for mu in [0.4]:
+        for ws in [8, 16, 32, 64]:
+            for pd, xd in [(1000, 8000), (4000, 16000)]:
+                for ti in range(NUM_REPS):
+                    with open(f"{log_dir}/window-{bs}-{mu}-{ws}-{pd}-{xd}-#{ti}.txt", "w") as ofile:
+                        cmd = f"./cmake-build/mininn -n 512 -l 0.005 -u {mu} -b {bs} -e 500 -P window -M eval -p {pd} -x {xd} -w {ws} -F paramtest_jsons"
+                        print(f"Running '{cmd}' rep {ti}")
+                        subprocess.call(cmd.split(" "), stdout=ofile)
+                    for sd in [2,3]:
+                        with open(f"{log_dir}/ternary-{bs}-{mu}-{ws}-{pd}-{xd}-{sd}-#{ti}.txt", "w") as ofile:
+                            cmd = f"./cmake-build/mininn -n 512 -l 0.005 -u {mu} -b {bs} -e 500 -P ternary -M eval -p {pd} -x {xd} -w {ws} -F paramtest_jsons"
+                            print(f"Running '{cmd}' rep {ti}")
+                            subprocess.call(cmd.split(" "), stdout=ofile)
+        for ti in range(NUM_REPS):
+            for m in static_paras:
+                with open(f"{log_dir}/static-{bs}-{mu}-{m}-#{ti}.txt", "w") as ofile:
+                    cmd = f"./cmake-build/mininn -n 512 -l 0.005 -u {mu} -b {bs} -e 500 -P static -M eval -F paramtest_jsons"
 
-for gr in grads:
-    for t_i in range(NUM_REPS):
-        with open(f"runtime_logs/linear-{gr}-#{t_i}.txt", "w") as ofile:
-            # Test CIFAR10
-            cmd = f"./cmake-build/mininn -a HEURISTIC -G {gr} -A LENET -D CIFAR10 -n 100 -e 200 -b 16 -l 0.005 -N may-linear-start100-grad{gr}-#{t_i}"
-            print(f"({t_i}) {cmd}")
-            subprocess.call(cmd.split(" "), stdout=ofile)
-        #
-        # with open(f"runtime_logs/linear-cifar100-{gr}-#{t_i}.txt", "w") as ofile:
-        #     # Test CIFAR100
-        #     cmd = f"./cmake-build/mininn -a HEURISTIC -G {gr} -A LENET -D CIFAR100 -n 128 -e 300 -b 16 -l 0.005 -N linear-cifar100-{gr}-#{t_i}"
-        #     print(f"({t_i}) {cmd}")
-        #     subprocess.call(cmd.split(" "), stdout=ofile)
-
-# for t_i in range(NUM_REPS):
-#     with open(f"runtime/elasync-#{t_i}.txt", "w") as ofile:
-#         # Test elasync CIFAR10
-#         cmd = f"./cmake-build/mininn -a ELASYNC -A LENET -D CIFAR10 -n 512 -s 128 -e 200 -b 16 -l 0.005 -w 8 -i 512 -d 32 -N elasync-#{t_i}"
-#         print(f"({t_i}) {cmd}")
-#         subprocess.call(cmd.split(" "), stdout=ofile)
+                    print(f"Running '{cmd}' rep {ti}")
+                    subprocess.call(cmd.split(" "), stdout=ofile)
