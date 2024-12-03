@@ -61,7 +61,7 @@ void WindowParaController::update(const long step) {
 
         this->mtx.lock();
         const bool should_progress = step - this->phase_start_step >= this->probe_steps;
-        this->phase_start_step = step;
+        if (should_progress) this->phase_start_step = step;
         this->mtx.unlock();
 
         /*  Have we just finished a probing stage? */

@@ -96,7 +96,7 @@ void SearchParaController::update(const long step) {
         // consecutive steps (all > stage duration) can trigger individual progressions.
         this->mtx.lock();
         const bool should_progress = step - this->phase_start_step >= this->probe_steps;
-        this->phase_start_step = step;
+        if (should_progress) this->phase_start_step = step;
         this->mtx.unlock();
 
         if (should_progress) {
