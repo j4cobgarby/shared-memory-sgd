@@ -4,7 +4,6 @@
 #include "Optimizer.h"
 #include "modular_components.hpp"
 #include <chrono>
-#include <climits>
 #include <memory>
 
 #define MEASURE_STEP_TIME 1
@@ -17,6 +16,9 @@ class SGDWorker : public Worker {
 protected:
     std::unique_ptr<NetworkTopology> network;
     std::unique_ptr<Optimizer> optim;
+
+    bool hogwild = false;
+    std::mutex mtx_update;
 
 #if MEASURE_STEP_TIME
     std::vector<std::tuple<long, long>> steptime_samples;

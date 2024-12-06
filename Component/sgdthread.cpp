@@ -33,14 +33,16 @@ void SGDWorker::run() {
             this->network->forward(b_x);
             this->network->backprop(b_x, b_y);
 
-
+            const double local_loss = this->network->get_loss();
 
             // Apply gradient to model interface 
             // TODO: This section should really be delegated to the ModelInterface
             this->network->set_pointer(global_param_ptr);
             delete local_param;
 
-            this->network->update_cw(this->optim.get());
+            if (hogwild) mtx_update.lock();
+                this->network->update_cw(this->optim.get());
+            if (hogwild) mtx_update.unlock();
 
             const long finished_step = exec.get_dispatcher()->finish_step(this->id);
 
@@ -48,7 +50,7 @@ void SGDWorker::run() {
             const long x = (t2 - t1).count();
 
             // Give loss to monitor
-            exec.get_monitor()->update(this->network->get_loss(), x, finished_step);
+            exec.get_monitor()->update(local_loss, x, finished_step);
 
 #if MEASURE_STEP_TIME
             /* If we want to print all the measured time samples afterwards, we have to store them. */
@@ -64,10 +66,6 @@ void SGDWorker::run() {
 
 #if MEASURE_STEP_TIME
     exec.submit_steptimes(steptime_samples);
-    // std::this_thread::sleep_for(std::chrono::milliseconds(this->id * 100)); // Don't all print at once
-    // for (const auto [t1, t2] : steptime_samples) {
-    //     std::cout << "[" << t1 << "," << t2 << "],";
-    // }
 #endif
 }
 
