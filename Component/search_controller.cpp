@@ -47,13 +47,7 @@ void SearchParaController::shrink_bounds() {
 }
 
 void SearchParaController::switch_to_para(const unsigned m) {
-    this->curr_parallelism = m;
-
-    exec.mtx_para_vec.lock();
-    exec.para_mstimes.push_back(exec.elapsed_time());
-    exec.para_values.push_back(m);
-    exec.mtx_para_vec.unlock();
-
+    this->curr_parallelism = this->exec.submit_para_change(m, this->is_searching);
     this->t_stage_start = HRClock::now();
 }
 

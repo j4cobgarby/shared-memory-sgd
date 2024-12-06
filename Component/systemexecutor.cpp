@@ -17,10 +17,11 @@ void MiniDNN::SystemExecutor::start() {
     this->workers->wait_for_all();
 }
 
-long MiniDNN::SystemExecutor::submit_para_change(long m) {
+long MiniDNN::SystemExecutor::submit_para_change(long m, bool is_probing) {
     this->mtx_para_vec.lock();
     this->para_mstimes.push_back(this->elapsed_time());
     this->para_values.push_back(m);
+    this->para_is_probing.push_back(is_probing);
     this->mtx_para_vec.unlock();
     
     return m;

@@ -130,7 +130,7 @@ protected:
     const long ramp_report_interval = 128;
     long last_reported_ramp_m = -1;
 public:
-    PatternController(SystemExecutor &exec, std::string pattern);
+    PatternController(SystemExecutor &exec, const std::string& pattern);
 
     unsigned get_parallelism() override;
     void update(long step) override;

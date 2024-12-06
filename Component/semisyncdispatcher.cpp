@@ -3,19 +3,17 @@
 namespace MiniDNN {
 
 bool SemiSyncDispatcher::try_start_step(long worker_id) {
-    if (this->is_finished()) {
+    if (this->is_finished())
         return false;
-    } else {
-        if (worker_id < this->exec.get_paracontr()->get_parallelism()) {
-            return starts_counter.fetch_add(1) < async_period;
-        } else {
-            return false;
-        }
-    }
+
+    if (worker_id < this->exec.get_paracontr()->get_parallelism())
+        return starts_counter.fetch_add(1) < async_period;
+
+    return false;
 }
 
 long SemiSyncDispatcher::finish_step(long worker_id) {
-    this->steps_done++;
+    const long finished_steps = this->steps_done.fetch_add(1);
 
     if (ends_counter.fetch_add(1) >= async_period - 1) {
         std::cout << "[SEMISYNC] Resetting counter.\n";
@@ -24,7 +22,7 @@ long SemiSyncDispatcher::finish_step(long worker_id) {
         ends_counter = starts_counter = 0;
     }
 
-    return !this->is_finished();
+    return finished_steps;
 }
 
 bool SemiSyncDispatcher::is_finished() {

@@ -33,7 +33,7 @@ void SGDWorker::run() {
             this->network->forward(b_x);
             this->network->backprop(b_x, b_y);
 
-            const long finished_step = exec.get_dispatcher()->finish_step(this->id);
+
 
             // Apply gradient to model interface 
             // TODO: This section should really be delegated to the ModelInterface
@@ -41,6 +41,8 @@ void SGDWorker::run() {
             delete local_param;
 
             this->network->update_cw(this->optim.get());
+
+            const long finished_step = exec.get_dispatcher()->finish_step(this->id);
 
             const auto t2 = HRClock::now();
             const long x = (t2 - t1).count();

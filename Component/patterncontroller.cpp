@@ -51,7 +51,7 @@ void PatternController::show_pattern() {
     }
 }
 
-PatternController::PatternController(SystemExecutor &exec, const std::string pattern_str) 
+PatternController::PatternController(SystemExecutor &exec, const std::string &pattern_str)
     : ParaController(exec), pattern(parse_pattern(pattern_str)) {
     for (const auto pat : pattern) {
         this->period += pat.for_steps;
@@ -75,7 +75,7 @@ unsigned PatternController::get_parallelism() {
                 if (this->last_p_i != p_i) {
                     this->last_p_i = p_i;
                     // std::cout << "Changing to STATIC " << ret << "\n";
-                    exec.submit_para_change(ret);
+                    exec.submit_para_change(ret, false);
                 }
                 return ret;
             case RAMP:
@@ -94,7 +94,7 @@ unsigned PatternController::get_parallelism() {
                     this->last_p_i = p_i;
                     this->last_reported_ramp_m = ret;
                     // std::cout << "RAMP reporting " << ret << "\n";
-                    exec.submit_para_change(ret);
+                    exec.submit_para_change(ret, false);
                 }
                 return ret;
             }

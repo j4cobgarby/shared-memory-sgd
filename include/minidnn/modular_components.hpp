@@ -99,7 +99,7 @@ protected:
     std::atomic_flag *flag;
 public:
     virtual ~Worker() = default;
-    Worker(SystemExecutor &exec, long id, std::atomic_flag *flag) : exec(exec), id(id), flag(flag) { }
+    Worker(SystemExecutor &exec, const long id, std::atomic_flag *flag) : id(id), exec(exec), flag(flag) { }
 
     /* For a thread, this can be the actual function to run. For a distributed
      * node it would do something like sending a message to the correct node. */
@@ -200,6 +200,7 @@ public:
     std::mutex mtx_para_vec;
     std::vector<unsigned> para_values;
     std::vector<long> para_mstimes;
+    std::vector<bool> para_is_probing;
 
     std::mutex mtx_epoch_vec;
     std::vector<double> epoch_losses;
@@ -208,7 +209,7 @@ public:
     std::mutex mtx_steptime_samples;
     std::vector<std::tuple<long, long>> steptime_samples;
 
-    long submit_para_change(long m);
+    long submit_para_change(long m, bool is_probing);
     void submit_steptimes(std::vector<std::tuple<long, long>>&);
 
     std::shared_ptr<BatchController> get_batcher() const { return this->batcher; }
