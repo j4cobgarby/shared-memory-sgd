@@ -13,7 +13,7 @@ bool SemiSyncDispatcher::try_start_step(long worker_id) {
 }
 
 long SemiSyncDispatcher::finish_step(long worker_id) {
-    const long finished_steps = this->steps_done.fetch_add(1);
+    const long ret = this->steps_done.fetch_add(1);
 
     if (ends_counter.fetch_add(1) >= async_period - 1) {
         std::cout << "[SEMISYNC] Resetting counter.\n";
@@ -22,11 +22,12 @@ long SemiSyncDispatcher::finish_step(long worker_id) {
         ends_counter = starts_counter = 0;
     }
 
-    return finished_steps;
+    return ret;
 }
 
 bool SemiSyncDispatcher::is_finished() {
-    return this->steps_done >= exec.epoch_target * exec.steps_per_epoch;
+    return this->exec.elapsed_time() >= 1000 * 120;
+    // return this->steps_done >= exec.epoch_target * exec.steps_per_epoch;
 }
 
 }

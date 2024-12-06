@@ -124,7 +124,7 @@ int main(int argc, char *argv[]) {
     network.init(0, 0.01, seed);
 
     auto *model = new StandardModelInterface(exec, network, o_lrate, o_momentum, seed);
-    // auto *dispatcher = new SemiSyncDispatcher(exec, 450);
+    // auto *dispatcher = new SemiSyncDispatcher(exec, 6000);
     auto *dispatcher = new AsyncDispatcher(exec);
 
     if (o_para_controller == "ternary") {

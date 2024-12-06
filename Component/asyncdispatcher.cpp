@@ -15,7 +15,8 @@ long AsyncDispatcher::finish_step(long worker_id) {
 }
 
 bool AsyncDispatcher::is_finished() {
-    return this->steps_done >= exec.epoch_target * exec.steps_per_epoch;
+    return this->exec.elapsed_time() > 1000 * 120;
+    // return this->steps_done >= exec.epoch_target * exec.steps_per_epoch;
 }
 
 }
