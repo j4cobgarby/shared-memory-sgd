@@ -17,7 +17,7 @@ protected:
     std::unique_ptr<NetworkTopology> network;
     std::unique_ptr<Optimizer> optim;
 
-    bool hogwild = false;
+    bool hogwild = true;
     std::mutex mtx_update;
 
 #if MEASURE_STEP_TIME
