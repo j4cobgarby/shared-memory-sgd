@@ -35,6 +35,18 @@ public:
     bool is_finished() override;
 };
 
+class ResettingDispatcher : public Dispatcher {
+public:
+    explicit ResettingDispatcher(SystemExecutor& exec)
+        : Dispatcher(exec)
+    {
+    }
+
+    bool try_start_step(long worker_id) override;
+    long finish_step(long worker_id) override;
+    bool is_finished() override;
+};
+
 }
 
 #endif /* COMPONENT_DISPATCHER_HPP */

@@ -8,10 +8,8 @@
 
 namespace MiniDNN {
 
-SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string dataset,
-                                             int batch_size)
-    : BatchController(exec), rng(1), bs(batch_size) {
-
+ElasticBatchController::ElasticBatchController(SystemExecutor &exec, std::string dataset, const int initial_batch_size)
+    : BatchController(exec), current_bs(initial_batch_size), rng(1) {
     this->dataset_name = dataset;
 
     Matrix x, y;
@@ -101,9 +99,10 @@ SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string d
     }
 
     const int nbatch =
-        internal::create_shuffled_batches(x, y, batch_size, rng, x_batches, y_batches);
+        internal::create_shuffled_batches(x, y, this->min_bs, rng, x_batches, y_batches);
 
-    std::cout << "[batch] Created " << nbatch << " batches.\n";
+    std::cout << "[el_batch] Created " << nbatch << " batches of unit size " << this->min_bs << "\n";
 }
 
-} // namespace MiniDNN
+
+}

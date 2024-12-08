@@ -39,6 +39,7 @@ add_executable(mininn
     Component/systemexecutor.cpp
     Component/window_controller.cpp
     Component/patterncontroller.cpp
+        Component/elasticbatchcontroller.cpp
 )
 
 TARGET_LINK_LIBRARIES(mininn pthread)

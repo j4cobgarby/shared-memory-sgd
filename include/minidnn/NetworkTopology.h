@@ -363,7 +363,6 @@ namespace MiniDNN {
             return res;
         }
 
-
         ///
         /// Get the serialized layer parameters
         ///

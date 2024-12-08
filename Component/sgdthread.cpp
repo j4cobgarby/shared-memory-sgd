@@ -7,7 +7,7 @@
 namespace MiniDNN {
 
 void SGDWorker::run() {
-    auto global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
+
 
     /* Delay thread execution until flag is tripped */
     this->flag->wait(true);
@@ -22,11 +22,14 @@ void SGDWorker::run() {
             const auto t1 = HRClock::now();
 
             // Get batch from batch controller
-            const int batch_id = exec.get_batcher()->get_batch_ind(this->id);
-            const Matrix &b_x = exec.get_batcher()->get_batch_data(batch_id);
-            const Matrix &b_y = exec.get_batcher()->get_batch_labels(batch_id);
+            int batch_sz;
+            const auto batch_id = exec.get_batcher()->get_batch_ind(this->id,
+                std::make_unique<int>(batch_sz));
+            const Matrix &b_x = exec.get_batcher()->get_batch_data(batch_id, batch_sz);
+            const Matrix &b_y = exec.get_batcher()->get_batch_labels(batch_id, batch_sz);
 
             // Calculate a gradient based on this batch (getting loss)
+            auto global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
             auto *local_param = new ParameterContainer(*global_param_ptr);
 
             this->network->set_pointer(local_param);

@@ -58,9 +58,10 @@ double EvalMonitor::get_loss_accur() {
     auto* network = new NetworkTopology(*exec.get_model()->get_network());
     network->set_pointer(global_param_ptr);
 
-    const int bid = this->local_batcher.get_batch_ind(-1);
-    const Matrix &b_x = this->local_batcher.get_batch_data(bid);
-    const Matrix &b_y = this->local_batcher.get_batch_labels(bid);
+    int batch_sz;
+    const auto bid = this->local_batcher.get_batch_ind(-1, std::make_unique<int>(batch_sz));
+    const Matrix &b_x = this->local_batcher.get_batch_data(bid, batch_sz);
+    const Matrix &b_y = this->local_batcher.get_batch_labels(bid, batch_sz);
 
     network->forward(b_x);
 

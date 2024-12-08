@@ -23,23 +23,24 @@ protected:
 
     std::string dataset_name;
 
-    int x_dim, y_dim;
+    // y_dim: Dimension of output, i.e. number of categories
+    // x_dim: Dimension of input. For img, it's rows * cols * channels
+    int x_dim = 0, y_dim = 0;
 public:
     virtual ~BatchController() = default;
-    /* Create controller, load training dataset */
-    BatchController(SystemExecutor &exec, int batch_size) : exec(exec) {};
+    BatchController(SystemExecutor &exec) : exec(exec) {}
 
     /* Worker calls this to reserve itself a batch ID. It then uses that ID to
      * get a constant reference to a batch data.
      * This may block, under certain implementations. */
-    virtual int get_batch_ind(long worker_id) = 0;
+    virtual unsigned long get_batch_ind(long worker_id, std::unique_ptr<int> batch_size_out) = 0;
 
     /* Retrieves the data associated with a batch ID. */
-    const Matrix &get_batch_data(int id) { return x_batches.at(id); }
-    const Matrix &get_batch_labels(int id) { return y_batches.at(id); }
+    virtual Matrix get_batch_data(const unsigned long id, int batch_size) { return x_batches.at(id); }
+    virtual Matrix get_batch_labels(const unsigned long id, int batch_size) { return y_batches.at(id); }
 
-    int get_x_dimension() const { return this->x_dim; }
-    int get_y_dimension() const { return this->y_dim; }
+    virtual int get_x_dimension() const { return this->x_dim; }
+    virtual int get_y_dimension() const { return this->y_dim; }
 
     const std::string &get_dataset_name() { return this->dataset_name; }
 };
@@ -131,6 +132,8 @@ protected:
     NetworkTopology network;
 
     SystemExecutor &exec;
+
+    std::vector<std::vector<double>> saved_params;
 public:
     virtual ~ModelInterface() = default;
     explicit ModelInterface(SystemExecutor &exec) : exec(exec) {}
@@ -140,6 +143,12 @@ public:
     }
 
     virtual std::shared_ptr<Optimizer> get_optimizer() = 0;
+
+    void save_network_params(std::vector<std::vector<double>> &p) {p = this->network.get_parameters();}
+    void save_network_params() {saved_params = this->network.get_parameters();}
+
+    void load_network_params(const std::vector<std::vector<double>> &p) {this->network.set_parameters(p);}
+    void load_network_params() {this->network.set_parameters(saved_params);}
 };
 
 class SystemExecutor {
