@@ -48,6 +48,7 @@ void SearchParaController::shrink_bounds() {
 
 void SearchParaController::switch_to_para(const unsigned m) {
     this->curr_parallelism = this->exec.submit_para_change(m, this->is_searching);
+    if (!this->is_searching) this->latest_exec_parallelism = m;
     this->t_stage_start = HRClock::now();
 }
 

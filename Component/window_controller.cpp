@@ -27,6 +27,7 @@ unsigned WindowParaController::get_parallelism() {
 void WindowParaController::switch_to_para(const unsigned m) {
     // Report the new m value to the executor, for recording data
     this->curr_parallelism = this->exec.submit_para_change(m, this->is_probing);
+    if (!this->is_probing) this->latest_exec_parallelism = m;
     this->t_stage_start = HRClock::now();
 }
 

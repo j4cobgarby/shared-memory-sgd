@@ -3,6 +3,7 @@
 
 #include "modular_components.hpp"
 #include <atomic>
+#include <condition_variable>
 
 namespace MiniDNN {
 
@@ -18,13 +19,16 @@ public:
 class SemiSyncDispatcher : public Dispatcher {
 private:
     /* Number of steps to complete before synchronising */
-    const long async_period;
+    long async_period;
 
     /* Counts how many steps have been started in this async period */
     std::atomic<long> starts_counter{0};
 
     /* Counts how many steps have concluded in this period */
     std::atomic<long> ends_counter{0};
+
+    std::condition_variable cv;
+    std::mutex cv_mtx;
 public:
     SemiSyncDispatcher(SystemExecutor &exec, long P) :
         Dispatcher(exec),

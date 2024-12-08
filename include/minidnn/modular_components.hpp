@@ -53,6 +53,7 @@ public:
     virtual ~ParaController() = default;
     ParaController(SystemExecutor &exec) : exec(exec) {}
     virtual unsigned get_parallelism() = 0;
+    virtual unsigned get_latest_exec_parallelism() = 0;
 
     /* This is called whenever the monitor gets a new update. This allows the dispatcher to update
      * its parallelism in whatever way it wants to then. */

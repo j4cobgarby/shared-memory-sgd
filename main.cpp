@@ -35,6 +35,7 @@ int main(int argc, char *argv[]) {
 
     std::string o_para_controller = "static";
     std::string o_monitor = "ema";
+    std::string o_dispatcher = "async";
 
     // Parameters for if we make a search controller
     // (o_*_steps also used for window controller)
@@ -48,7 +49,7 @@ int main(int argc, char *argv[]) {
     SystemExecutor exec(500, 3125);
 
     int c;
-    while ((c = getopt(argc, argv, "n:l:u:b:e:s:P:M:p:x:d:w:F:y:")) != -1) {
+    while ((c = getopt(argc, argv, "n:l:u:b:e:s:P:M:D:p:x:d:w:F:y:")) != -1) {
         switch (c) {
         case 'n':
             o_parallelism_limit = std::stoi(optarg);
@@ -73,6 +74,9 @@ int main(int argc, char *argv[]) {
             break;
         case 'M':
             o_monitor = std::string(optarg);
+            break;
+        case 'D':
+            o_dispatcher = std::string(optarg);
             break;
         case 'p': // probing steps
             o_probe_steps = std::stoi(optarg);
@@ -129,6 +133,13 @@ int main(int argc, char *argv[]) {
     network.init(0, 0.01, seed);
 
     auto *model = new StandardModelInterface(exec, network, o_lrate, o_momentum, seed);
+    if (o_dispatcher == "async") {
+        exec.set_dispatcher(std::make_shared<AsyncDispatcher>(exec));
+    } else if (o_dispatcher == "semisync") {
+        exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(exec, o_semisync_period));
+    } else {
+        throw std::runtime_error("Unrecognised dispatcher name (-D)");
+    }
     // auto *dispatcher = new SemiSyncDispatcher(exec, o_semisync_period);
     auto *dispatcher = new AsyncDispatcher(exec);
 
@@ -148,8 +159,7 @@ int main(int argc, char *argv[]) {
         exec.set_parallelism(std::make_shared<PatternController>
                              (exec, "s 4096 200 s 4096 50 s 2048 10 s 512 200 s 512 50 s 512 200 s 512 50"));
     } else {
-        std::cerr << "parallelism controller name unrecognised.\n";
-        return -1;
+        throw std::runtime_error("Unrecognised parallelism controller name (-P)");
     }
 
     exec.set_model(std::shared_ptr<ModelInterface>(model));
@@ -163,8 +173,7 @@ int main(int argc, char *argv[]) {
     } else if ("eval" == o_monitor) {
         exec.set_monitor(std::make_shared<EvalMonitor>(exec, 0.7, -1, 512, false));
     } else {
-        std::cerr << "Unrecognised monitor name: " << o_monitor << "\n";
-        return -1;
+        throw std::runtime_error("Unrecognised monitor name (-M)");
     }
 
     /* This is created after the rest of the executor components are in place because
@@ -200,7 +209,7 @@ int main(int argc, char *argv[]) {
     results["meta"] = meta;
 
     const std::filesystem::path exp_dir = output_folder;
-    std::filesystem::create_directory(exp_dir);
+    create_directory(exp_dir);
 
     auto t = std::time(nullptr);
     auto tm = *std::localtime(&t);

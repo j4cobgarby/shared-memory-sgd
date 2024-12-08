@@ -13,14 +13,15 @@ private:
 public:
     StaticParaController(SystemExecutor &exec, unsigned m) : ParaController(exec), m(m) {}
     unsigned get_parallelism() override { return m; }
+    unsigned get_latest_exec_parallelism() override { return m; }
     void update(long step) override {}
 };
 
 class WindowParaController : public ParaController {
-private:
     /* Probing logic */
     bool is_probing = true;
     unsigned curr_parallelism;
+    unsigned latest_exec_parallelism;
     long phase_start_step = -1;
     int window_btm;
     unsigned best_probe_m;
@@ -40,6 +41,7 @@ public:
     WindowParaController(SystemExecutor &exec, int num_threads, int window_size, long probe_steps, long exec_steps);
 
     unsigned get_parallelism() override;
+    unsigned get_latest_exec_parallelism() override { return latest_exec_parallelism; }
     void update(long step) override;
 };
 
@@ -76,6 +78,7 @@ private:
     double loss_start_of_stage;
 
     unsigned curr_parallelism = 0;
+    unsigned latest_exec_parallelism;
 
     void shrink_bounds();
     void switch_to_para(unsigned m);
@@ -85,6 +88,7 @@ public:
         long probe_steps, long exec_steps, int window_size);
 
     unsigned get_parallelism() override;
+    unsigned get_latest_exec_parallelism() override { return latest_exec_parallelism; }
 
     void update(long step) override;
 };
@@ -133,6 +137,7 @@ public:
     PatternController(SystemExecutor &exec, const std::string& pattern);
 
     unsigned get_parallelism() override;
+    unsigned get_latest_exec_parallelism() override { return 1; }
     void update(long step) override;
 };
 
