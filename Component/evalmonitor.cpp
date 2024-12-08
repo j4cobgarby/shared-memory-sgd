@@ -30,7 +30,7 @@ void EvalMonitor::update(double loss, long duration_ns, long step) {
     this->exec.get_paracontr()->update(step);
     if (use_mtx) update_mtx.unlock();
 
-    if (step % exec.steps_per_epoch == 0) {
+    if (step > 0 && step % exec.steps_per_epoch == 0) {
         const double avg_loss = this->get_loss_accur();
 
         std::cout << "[monitor] Completed epoch " << step / exec.steps_per_epoch

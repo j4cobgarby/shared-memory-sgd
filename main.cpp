@@ -133,15 +133,8 @@ int main(int argc, char *argv[]) {
     network.init(0, 0.01, seed);
 
     auto *model = new StandardModelInterface(exec, network, o_lrate, o_momentum, seed);
-    if (o_dispatcher == "async") {
-        exec.set_dispatcher(std::make_shared<AsyncDispatcher>(exec));
-    } else if (o_dispatcher == "semisync") {
-        exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(exec, o_semisync_period));
-    } else {
-        throw std::runtime_error("Unrecognised dispatcher name (-D)");
-    }
     // auto *dispatcher = new SemiSyncDispatcher(exec, o_semisync_period);
-    auto *dispatcher = new AsyncDispatcher(exec);
+    // auto *dispatcher = new AsyncDispatcher(exec);
 
     if (o_para_controller == "ternary") {
         exec.set_parallelism(std::make_shared<SearchParaController>
@@ -164,7 +157,16 @@ int main(int argc, char *argv[]) {
 
     exec.set_model(std::shared_ptr<ModelInterface>(model));
     exec.set_batcher(std::shared_ptr<BatchController>(batcher));
-    exec.set_dispatcher(std::shared_ptr<Dispatcher>(dispatcher));
+
+    if (o_dispatcher == "async") {
+        exec.set_dispatcher(std::make_shared<AsyncDispatcher>(exec));
+        std::cout << "Async dispatcher made\n";
+    } else if (o_dispatcher == "semisync") {
+        exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(exec, o_semisync_period));
+        std::cout << "Semi sync dispatcher made\n";
+    } else {
+        throw std::runtime_error("Unrecognised dispatcher name (-D)");
+    }
 
     if ("window" == o_monitor) {
         exec.set_monitor(std::make_shared<SlidingWindowMonitor>(exec, 16));

@@ -29,13 +29,13 @@ bool SemiSyncDispatcher::try_start_step(long worker_id) {
 long SemiSyncDispatcher::finish_step(long worker_id) {
     const long ret = this->steps_done.fetch_add(1);
 
-    if (ends_counter.fetch_add(1) == async_period) {
+    if (ends_counter.fetch_add(1) == async_period - 1) {
         /* Only once all of the allowed steps in this period have completed do
          * we reset the counters so that new ones may start */
         ends_counter = starts_counter = 0;
 
         // Heuristic for a good period
-        async_period = this->exec.get_paracontr()->get_parallelism() / 2;
+        // async_period = this->exec.get_paracontr()->get_parallelism() / 2;
     }
 
     return ret;
