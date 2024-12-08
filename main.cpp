@@ -43,10 +43,12 @@ int main(int argc, char *argv[]) {
     // Parameters for window controller
     int o_searchwindow_size = 8;
 
+    int o_semisync_period = 8000;
+
     SystemExecutor exec(500, 3125);
 
     int c;
-    while ((c = getopt(argc, argv, "n:l:u:b:e:s:P:M:p:x:d:w:F:")) != -1) {
+    while ((c = getopt(argc, argv, "n:l:u:b:e:s:P:M:p:x:d:w:F:y:")) != -1) {
         switch (c) {
         case 'n':
             o_parallelism_limit = std::stoi(optarg);
@@ -87,6 +89,9 @@ int main(int argc, char *argv[]) {
         case 'F':
             output_folder = std::string(optarg);
             break;
+        case 'y':
+            o_semisync_period = std::stoi(optarg);
+            break;
         case '?':
             std::cout << "Unknown option: " << optopt << std::endl;
             std::exit(-1);
@@ -124,7 +129,7 @@ int main(int argc, char *argv[]) {
     network.init(0, 0.01, seed);
 
     auto *model = new StandardModelInterface(exec, network, o_lrate, o_momentum, seed);
-    // auto *dispatcher = new SemiSyncDispatcher(exec, 6000);
+    // auto *dispatcher = new SemiSyncDispatcher(exec, o_semisync_period);
     auto *dispatcher = new AsyncDispatcher(exec);
 
     if (o_para_controller == "ternary") {
@@ -190,6 +195,7 @@ int main(int argc, char *argv[]) {
     meta["para_ctrl"] = o_para_controller;
     meta["monitor"] = o_monitor;
     meta["window_size"] = o_searchwindow_size;
+    meta["semisync_period"] = o_semisync_period;
 
     results["meta"] = meta;
 
