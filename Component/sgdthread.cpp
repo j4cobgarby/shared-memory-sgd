@@ -43,9 +43,7 @@ void SGDWorker::run() {
             this->network->set_pointer(global_param_ptr);
             delete local_param;
 
-            if (!hogwild) mtx_update.lock();
-                this->network->update_cw(this->optim.get());
-            if (!hogwild) mtx_update.unlock();
+            this->network->update_cw(this->optim.get());
 
             const long finished_step = exec.get_dispatcher()->finish_step(this->id);
 
