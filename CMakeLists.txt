@@ -41,6 +41,7 @@ add_executable(mininn
     Component/patterncontroller.cpp
     Component/elasticbatchcontroller.cpp
     cifar.cpp
+        Component/modelling_controller.cpp
 )
 
 TARGET_LINK_LIBRARIES(mininn pthread)

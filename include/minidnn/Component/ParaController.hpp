@@ -93,10 +93,37 @@ public:
     void update(long step) override;
 };
 
-// TODO: A ParaController which replays some recorded data of parallelism generated
-// by a different ParaController, with the intention of allowing averaging of runs
-class ReplayParaController : public ParaController {
+class ModellingParaController : public ParaController {
+    bool is_probing = true;
+    long phase_start_step = 0;
+    int current_probe_number = 1;
 
+    unsigned curr_parallelism = -1;
+    unsigned latest_exec_parallelism = -1;
+
+    std::chrono::time_point<HRClock> t_stage_start;
+    double loss_start_of_stage = 0;
+
+    const long probe_steps, exec_steps;
+    const int num_probes;
+    const int total_workers;
+    const int window_size;
+
+    std::vector<double> probed_rates;
+    std::vector<double> probed_m_values;
+
+    void clip_window();
+    void switch_to_para(unsigned m);
+    double estimate_min(std::vector<double> &xs, std::vector<double> &ys, int degree, double min_x, double max_x);
+    std::pair<double, double> find_polynomial_min(const std::vector<double>& coeffs, double min_x, double max_x);
+    double eval_polynomial(const std::vector<double>& coeffs, double at_x);
+public:
+    ModellingParaController(SystemExecutor &exec, int num_threads, int num_probes, int window_size,
+        long probe_steps, long exec_steps);
+
+    unsigned get_parallelism() override { return curr_parallelism; }
+    unsigned get_latest_exec_parallelism() override { return latest_exec_parallelism; }
+    void update(long step) override;
 };
 
 class PatternController : public ParaController {

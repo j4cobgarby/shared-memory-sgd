@@ -148,9 +148,11 @@ int main(int argc, char *argv[]) {
                              (exec, o_parallelism_limit, o_searchwindow_size,
                               o_probe_steps, o_exec_steps));
     } else if (o_para_controller == "pattern") {
-        std::cout << "Constructing pattern controller\n";
         exec.set_parallelism(std::make_shared<PatternController>
                              (exec, "s 4096 200 s 4096 50 s 2048 10 s 512 200 s 512 50 s 512 200 s 512 50"));
+    } else if (o_para_controller == "model") {
+        exec.set_parallelism(std::make_shared<ModellingParaController>
+                             (exec, o_parallelism_limit, 5, -1, 500, 8000));
     } else {
         throw std::runtime_error("Unrecognised parallelism controller name (-P)");
     }
