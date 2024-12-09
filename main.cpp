@@ -205,6 +205,7 @@ int main(int argc, char *argv[]) {
     meta["search_degree"] = o_search_degree;
     meta["para_ctrl"] = o_para_controller;
     meta["monitor"] = o_monitor;
+    meta["dispatcher"] = o_dispatcher;
     meta["window_size"] = o_searchwindow_size;
     meta["semisync_period"] = o_semisync_period;
 
