@@ -18,7 +18,7 @@ protected:
     std::unique_ptr<Optimizer> optim;
 
 #if MEASURE_STEP_TIME
-    std::vector<std::tuple<long, long>> steptime_samples;
+    std::vector<std::tuple<long, long, long>> steptime_samples;
 #endif
 public:
     /* pin: hw thread to pin to, or -1 to not pin */

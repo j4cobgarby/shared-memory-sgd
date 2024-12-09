@@ -27,7 +27,7 @@ long MiniDNN::SystemExecutor::submit_para_change(long m, bool is_probing) {
     return m;
 }
 
-void MiniDNN::SystemExecutor::submit_steptimes(std::vector<std::tuple<long, long>>& ts) {
+void MiniDNN::SystemExecutor::submit_steptimes(std::vector<std::tuple<long, long, long>>& ts) {
     this->mtx_steptime_samples.lock();
     std::cout << "[exec] Thread submitting " << ts.size() << " step times." << std::endl;
     this->steptime_samples.insert(this->steptime_samples.end(), ts.begin(), ts.end());

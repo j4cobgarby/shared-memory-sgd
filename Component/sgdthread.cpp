@@ -59,7 +59,7 @@ void SGDWorker::run() {
             // Append new samples, up to vector's reserved size
             if (steptime_samples.size() < N_STEP_TIME_SAMPLES) {
                 const auto t_start = exec.start_time_hr;
-                steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count());
+                steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count(), this->id);
             }
 #endif
         }
