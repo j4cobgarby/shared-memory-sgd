@@ -112,10 +112,10 @@ double ModellingParaController::eval_polynomial(const std::vector<double> &coeff
     return ret;
 }
 
-//TODO: This whole set of polynomial stuff can be optimised a bit by doing everything with linear algebra
-// (but it's fast enough for now, it's only called once before each execution phase)
+/* TODO: This whole set of polynomial stuff can be optimised a bit by doing everything with linear
+ * algebra (but it's fast enough for now; it's only called once before each execution phase) */
 std::pair<double, double> ModellingParaController::find_polynomial_min(
-    const std::vector<double> &coeffs, double min_x, double max_x) {
+    const std::vector<double> &coeffs, const double min_x, const double max_x) {
     Eigen::VectorXd gradient_coeffs(coeffs.size() - 1);
 
     for (int i = 0; i < coeffs.size() - 1; i++) {
