@@ -5,10 +5,10 @@
 namespace MiniDNN {
 
 template <typename WorkerType>
-ThreadWorkerPool<WorkerType>::ThreadWorkerPool(SystemExecutor &exec, int n_workers, bool pin)
-    : WorkerPool(exec, n_workers)
-{
-    static_assert(std::is_base_of<Worker, WorkerType>::value, "WorkerType of ThreadWorkerPool _must_ be a subclass of Worker.");
+ThreadWorkerPoolAsync<WorkerType>::ThreadWorkerPoolAsync(SystemExecutor &exec, int n_workers, bool pin)
+    : WorkerPool(exec, n_workers), loop_sync(n_workers) {
+    static_assert(std::is_base_of_v<Worker, WorkerType>,
+                  "WorkerType of ThreadWorkerPool _must_ be a subclass of Worker.");
 
     workers_flag.test_and_set();
 
@@ -19,37 +19,40 @@ ThreadWorkerPool<WorkerType>::ThreadWorkerPool(SystemExecutor &exec, int n_worke
 
     for (int i = 0; i < n_workers; i++) {
         workers.push_back(WorkerType(exec, i, &workers_flag));
-        worker_threads.push_back(new std::thread(&WorkerType::run, &workers.at(i)));
+        // worker_threads.push_back(new std::thread(&WorkerType::run, &workers.at(i)));
+        worker_threads.push_back(new std::thread([this, i] {
+            this->workers_flag.wait(true); // Wait for flag to lower, for exec start
 
-        if (pin) {
-            // cpu_set_t cpuset;
-            // CPU_ZERO(&cpuset);
-            // CPU_SET(i, &cpuset);
-            //
-            // if (pthread_setaffinity_np(worker_threads.at(i)->native_handle(), sizeof(cpu_set_t), &cpuset) != 0) {
-            //     std::cerr << "Failed to pin thread " << i << std::endl;
-            // }
-        }
+            while (!this->exec.get_dispatcher()->is_finished()) {
+                this->workers.at(i).run();
+                this->loop_sync.arrive_and_wait();
+            }
+        }));
     }
 
     std::cout << "Created all workers.\n";
 }
 
 template<typename WorkerType>
-void ThreadWorkerPool<WorkerType>::wait_for_all() {
+void ThreadWorkerPoolAsync<WorkerType>::wait_for_all() {
+    std::cout << "Joining all threads.\n";
     for (auto p : worker_threads) {
         if (p->joinable()) {
             p->join();
         }
     }
+    std::cout << "Joined all threads.\n";
 }
 
 template<typename WorkerType>
-void ThreadWorkerPool<WorkerType>::start_all() {
+void ThreadWorkerPoolAsync<WorkerType>::start_all() {
+    std::cout << "Invoking all threads.\n";
     workers_flag.clear();
     workers_flag.notify_all();
 }
 
-template class ThreadWorkerPool<SGDWorker>;
+// Instantiate the types of worker we'll use, for the benefit of the linker
+template class ThreadWorkerPoolAsync<SGDWorkerAsync>;
+template class ThreadWorkerPoolAsync<SGDWorkerSynchronous>;
 
 }

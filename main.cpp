@@ -166,6 +166,9 @@ int main(int argc, char *argv[]) {
     } else if (o_dispatcher == "semisync") {
         exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(exec, o_semisync_period));
         std::cout << "Semi sync dispatcher made\n";
+    } else if (o_dispatcher == "fully_sync") {
+        std::cout << "For fully sync we don't use a special dispatcher. Sync worker pool is made soon\n";
+        exec.set_dispatcher(std::make_shared<AsyncDispatcher>(exec));
     } else {
         throw std::runtime_error("Unrecognised dispatcher name (-D)");
     }
@@ -183,8 +186,16 @@ int main(int argc, char *argv[]) {
     /* This is created after the rest of the executor components are in place because
      * it uses the model interface when initialising the workers.
      * TODO: There must be a better way? */
-    auto *workerpool = new ThreadWorkerPool<SGDWorker>(exec, o_parallelism_limit, false);
-    exec.set_workers(std::shared_ptr<WorkerPool>(workerpool));
+
+    if (o_dispatcher == "fully_sync") {
+        std::cout << "Creating synchronous workers.\n";
+        auto *workerpool = new ThreadWorkerPoolAsync<SGDWorkerSynchronous>(exec, o_parallelism_limit, false);
+        exec.set_workers(std::shared_ptr<WorkerPool>(workerpool));
+    } else {
+        std::cout << "Creating asynchronous workers.\n";
+        auto *workerpool = new ThreadWorkerPoolAsync<SGDWorkerAsync>(exec, o_parallelism_limit, false);
+        exec.set_workers(std::shared_ptr<WorkerPool>(workerpool));
+    }
 
     exec.start();
 

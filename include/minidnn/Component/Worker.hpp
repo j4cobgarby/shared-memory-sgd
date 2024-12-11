@@ -3,6 +3,8 @@
 #include "NetworkTopology.h"
 #include "Optimizer.h"
 #include "modular_components.hpp"
+
+#include <barrier>
 #include <chrono>
 #include <memory>
 
@@ -11,7 +13,7 @@
 
 namespace MiniDNN {
 
-class SGDWorker : public Worker {
+class SGDWorkerAsync : public Worker {
     typedef std::chrono::high_resolution_clock HRClock;
 protected:
     std::unique_ptr<NetworkTopology> network;
@@ -22,24 +24,44 @@ protected:
 #endif
 public:
     /* pin: hw thread to pin to, or -1 to not pin */
-    SGDWorker(SystemExecutor &exec, long id, std::atomic_flag *flag) : Worker(exec, id, flag) {
+    SGDWorkerAsync(SystemExecutor &exec, long id, std::atomic_flag *flag) : Worker(exec, id, flag) {
         this->network = std::make_unique<NetworkTopology>(*exec.get_model()->get_network());
         this->optim = std::unique_ptr<Optimizer>(exec.get_model()->get_optimizer()->clone());
-
+        set_cpu(id);
 #if MEASURE_STEP_TIME
-        /* Tuples are (start,end) time of each step */
-
+        /* Tuples are (start,end,thread_id) for each step */
         steptime_samples.reserve(N_STEP_TIME_SAMPLES);
 #endif
-        set_cpu(id);
     }
 
     void run() override;
 };
 
-/* Simple WorkerPool that specifically makes threads for its workers */
+class SGDWorkerSynchronous : public Worker {
+protected:
+    std::unique_ptr<NetworkTopology> network;
+    std::unique_ptr<Optimizer> optim;
+#if MEASURE_STEP_TIME
+    std::vector<std::tuple<long, long, long>> steptime_samples;
+#endif
+public:
+    SGDWorkerSynchronous(SystemExecutor &exec, long id, std::atomic_flag *flag) : Worker(exec, id, flag) {
+        this->network = std::make_unique<NetworkTopology>(*exec.get_model()->get_network());
+        this->optim = std::unique_ptr<Optimizer>(exec.get_model()->get_optimizer()->clone());
+        set_cpu(id);
+#if MEASURE_STEP_TIME
+        steptime_samples.reserve(N_STEP_TIME_SAMPLES);
+#endif
+    }
+
+    void run() override;
+};
+
+/* Simple WorkerPool that repeatedly (synchronously) runs all the workers, until the dispatcher is done.
+ * Asynchrony is achieved via having the worker's run method performing repetion asynchronously.
+ */
 template <typename WorkerType>
-class ThreadWorkerPool : public WorkerPool {
+class ThreadWorkerPoolAsync : public WorkerPool {
 protected:
     /* Each one of these workers has a corresponding thread at the same index in
      * worker_threads, which runs that worker's run() method with that worker as
@@ -47,11 +69,13 @@ protected:
     std::vector<WorkerType> workers;
     std::vector<std::thread *> worker_threads;
     std::atomic_flag workers_flag;
+    std::barrier<> loop_sync;
 public:
-    ThreadWorkerPool(SystemExecutor &exec, int n_workers, bool pin);
+    ThreadWorkerPoolAsync(SystemExecutor &exec, int n_workers, bool pin);
 
     void wait_for_all() override;
     void start_all() override;
 };
 
 }
+
