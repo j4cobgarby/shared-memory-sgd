@@ -35,7 +35,7 @@ long SemiSyncDispatcher::finish_step(long worker_id) {
         ends_counter = starts_counter = 0;
 
         // Heuristic for a good period
-        async_period = this->exec.get_paracontr()->get_parallelism() / 2;
+        // async_period = this->exec.get_paracontr()->get_parallelism() / 2;
     }
 
     return ret;

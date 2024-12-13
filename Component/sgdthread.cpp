@@ -7,8 +7,6 @@
 namespace MiniDNN {
 
 void SGDWorkerAsync::run() {
-    std::cout << "Async worker running.\n";
-
     /* Delay thread execution until flag is tripped */
     //this->flag->wait(true); // Nowadays, this is handled by the worker pool
 
@@ -72,6 +70,7 @@ void SGDWorkerAsync::run() {
 
 void SGDWorkerSynchronous::run() {
     // Perform just 1 (one) SGD step
+
     const auto t1 = HRClock::now();
     int batch_sz;
     const auto batch_id = exec.get_batcher()->get_batch_ind(this->id,

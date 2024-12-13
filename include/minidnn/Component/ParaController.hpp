@@ -38,7 +38,7 @@ class WindowParaController : public ParaController {
     void switch_to_para(unsigned m);
     void clip_window();
 public:
-    WindowParaController(SystemExecutor &exec, int num_threads, int window_size, long probe_steps, long exec_steps);
+    WindowParaController(SystemExecutor &exec, int num_threads, int window_size, long probe_steps, long exec_steps, int m_0);
 
     unsigned get_parallelism() override;
     unsigned get_latest_exec_parallelism() override { return latest_exec_parallelism; }

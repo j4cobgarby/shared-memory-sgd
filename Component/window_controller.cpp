@@ -7,7 +7,7 @@ namespace MiniDNN {
 
 WindowParaController::WindowParaController(SystemExecutor &exec, const int num_threads,
                                            const int window_size,
-                                           long probe_steps, long exec_steps) :
+                                           long probe_steps, long exec_steps, int m_0) :
     ParaController(exec),
     window_size(window_size),
     probe_steps(probe_steps),
@@ -15,7 +15,8 @@ WindowParaController::WindowParaController(SystemExecutor &exec, const int num_t
     total_workers(num_threads),
     phase_start_step(0),
     best_convrate(std::numeric_limits<double>::infinity()),
-    window_btm(num_threads/2 - window_size/2) {
+    window_btm(m_0 - window_size/2) {
+    std::cout << "Initial m = " << m_0 << "\n";
     clip_window();
     switch_to_para(this->window_btm);
 }
