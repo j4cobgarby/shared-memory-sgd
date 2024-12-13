@@ -54,6 +54,7 @@ void MiniDNN::NetworkExecutor::run_parallel_async(int batch_size, int num_epochs
 
 
     auto f = [&](int id) {
+        set_cpu(id);
         while (true) {
             long local_step = step.fetch_add(1);
             //std::cout << "thread " << id << " step " << local_step << std::endl;
@@ -124,6 +125,7 @@ void MiniDNN::NetworkExecutor::run_parallel_async(int batch_size, int num_epochs
             }
 
             if (epoch_step == rounds_per_epoch - 1) {
+                std::cout << "Finishing epoch" << epoch << ", loss of step = " << loss << "\n";
                 struct timeval now;
                 gettimeofday(&now, NULL);
 
