@@ -130,7 +130,8 @@ void MiniDNN::NetworkExecutor::run_parallel_async(int batch_size, int num_epochs
                 gettimeofday(&now, NULL);
 
                 epoch_time_vector_lock.lock();
-                time_per_epoch.push_back(now.tv_sec - start_time.tv_sec);
+                time_per_epoch.push_back(now.tv_sec - start_time.tv_sec +
+                                         (double)(now.tv_usec - start_time.tv_usec) / 1000000);
                 epoch_time_vector_lock.unlock();
             }
         }
