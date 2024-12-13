@@ -7,22 +7,22 @@ namespace MiniDNN {
 
 SlidingWindowMonitor::SlidingWindowMonitor(SystemExecutor &exec, const int window_size) : Monitor(exec),
                                                                                           window_size(window_size) {
-    window.reserve(window_size);
+    window.resize(window_size);
 }
 
 // TODO: This sliding window is so badly implemented, needs changing. Use ring buffer.
 void SlidingWindowMonitor::update(double loss, long duration_ns, long step) {
     mtx.lock(); // Wide mutex here, because otherwise segfault can happen with concurrent vector modification
-    this->window.emplace_back(
+
+    this->window.at(next_window_ins) = {
         loss,
         last_reported_loss >= 0 ? loss - last_reported_loss : 0.0,
         duration_ns
-    );
+    };
 
-    /* Pop first element if the window is full */
-    if (this->window.size() > this->window_size) {
-        this->window.erase(this->window.begin());
-    }
+    next_window_ins = (next_window_ins + 1) % window.size();
+    window_filled++;
+    if (window_filled > window.size()) window_filled = window.size();
 
     /* Allow the parallelism controller to update now */
     this->exec.get_paracontr()->update(step);
@@ -43,18 +43,20 @@ void SlidingWindowMonitor::update(double loss, long duration_ns, long step) {
 
 double SlidingWindowMonitor::get_loss_estim() {
     double sum = 0;
-    for (const auto [loss, delta, dur] : window) {
+    for (size_t i = 0; i < window_filled; i++) {
+        const auto [loss, delta, dur] = window.at(i);
         sum += loss;
     }
-    return sum / static_cast<double>(this->window.size());
+    return sum / static_cast<double>(window_filled);
 }
 
 double SlidingWindowMonitor::get_rate_estim() {
     double rate = 0;
-    for (const auto [loss, delta, dur] : window) {
+    for (size_t i = 0; i < window_filled; i++) {
+        const auto [loss, delta, dur] = window.at(i);
         rate += delta / (static_cast<double>(dur) / 1e9);
     }
-    return rate / static_cast<double>(this->window.size());
+    return rate / window_filled;
 }
 
 
