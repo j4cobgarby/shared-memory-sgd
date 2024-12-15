@@ -2,21 +2,11 @@
 
 namespace MiniDNN {
 
-bool SemiSyncDispatcher::try_start_step(long worker_id) {
+std::pair<bool, long> SemiSyncDispatcher::try_start_step(long worker_id) {
     if (this->is_finished())
-        return false;
+        return {false, 0};
 
-    if (worker_id < this->exec.get_paracontr()->get_parallelism()) {
-        long curr = starts_counter.load();
-        while (curr < async_period) {
-            if (starts_counter.compare_exchange_weak(curr, curr + 1)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    return false;
+    return {worker_id < this->exec.get_paracontr()->get_parallelism(), steps_started.fetch_add(1)};
 
     // std::unique_lock lock(cv_mtx);
     // cv.wait(lock, [&] { return worker_id < this->exec.get_paracontr()->get_parallelism() && star } );
@@ -26,19 +16,16 @@ bool SemiSyncDispatcher::try_start_step(long worker_id) {
     // return true;
 }
 
-long SemiSyncDispatcher::finish_step(long worker_id) {
-    const long ret = this->steps_done.fetch_add(1);
+bool SemiSyncDispatcher::finish_step(long worker_id, long step_ind) {
+    if (step_ind < period_start_step) return false;
 
-    if (ends_counter.fetch_add(1) == async_period - 1) {
-        /* Only once all of the allowed steps in this period have completed do
-         * we reset the counters so that new ones may start */
-        ends_counter = starts_counter = 0;
-
-        // Heuristic for a good period
-        async_period = this->exec.get_paracontr()->get_parallelism() / 2;
+    if (step_ind == period_last_step) {
+        period_start_step = step_ind;
+        period_last_step = period_start_step + (async_period - 1);
     }
 
-    return ret;
+    steps_done.fetch_add(1);
+    return true;
 }
 
 bool SemiSyncDispatcher::is_finished() {

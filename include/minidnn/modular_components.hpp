@@ -66,12 +66,13 @@ class Dispatcher {
 protected:
     SystemExecutor &exec;
     std::atomic<long> steps_done = 0;
+    std::atomic<long> steps_started = 0;
 public:
     virtual ~Dispatcher() = default;
     Dispatcher(SystemExecutor &exec) : exec(exec) {}
 
-    virtual bool try_start_step(long worker_id) = 0;
-    virtual long finish_step(long worker_id) = 0;
+    virtual std::pair<bool, long> try_start_step(long worker_id) = 0;
+    virtual bool finish_step(long worker_id, long step_ind) = 0;
     virtual bool is_finished() = 0;
 
     long get_steps_done() const { return steps_done; }

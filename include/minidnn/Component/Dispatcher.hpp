@@ -11,8 +11,8 @@ class AsyncDispatcher : public Dispatcher {
 public:
     AsyncDispatcher(SystemExecutor &exec) : Dispatcher(exec) {}
 
-    bool try_start_step(long worker_id) override;
-    long finish_step(long worker_id) override;
+    std::pair<bool, long> try_start_step(long worker_id) override;
+    bool finish_step(long worker_id, long step_ind) override;
     bool is_finished() override;
 };
 
@@ -21,21 +21,19 @@ private:
     /* Number of steps to complete before synchronising */
     long async_period;
 
-    /* Counts how many steps have been started in this async period */
-    std::atomic<long> starts_counter{0};
-
-    /* Counts how many steps have concluded in this period */
-    std::atomic<long> ends_counter{0};
+    long period_start_step = 0;
+    long period_last_step;
 
     std::condition_variable cv;
     std::mutex cv_mtx;
 public:
     SemiSyncDispatcher(SystemExecutor &exec, long P) :
         Dispatcher(exec),
-        async_period(P) {}
+        async_period(P),
+        period_last_step(P - 1) {}
 
-    bool try_start_step(long worker_id) override;
-    long finish_step(long worker_id) override;
+    std::pair<bool, long> try_start_step(long worker_id) override;
+    bool finish_step(long worker_id, long step_ind) override;
     bool is_finished() override;
 };
 
@@ -46,8 +44,8 @@ public:
     {
     }
 
-    bool try_start_step(long worker_id) override;
-    long finish_step(long worker_id) override;
+    std::pair<bool, long> try_start_step(long worker_id) override;
+    bool finish_step(long worker_id, long step_ind) override;
     bool is_finished() override;
 };
 

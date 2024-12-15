@@ -2,16 +2,17 @@
 
 namespace MiniDNN {
 
-bool AsyncDispatcher::try_start_step(long worker_id) {
+std::pair<bool, long> AsyncDispatcher::try_start_step(long worker_id) {
     if (this->is_finished()) {
-        return false;
+        return {false, 0};
     } else {
-        return worker_id < this->exec.get_paracontr()->get_parallelism();
+        return {worker_id < this->exec.get_paracontr()->get_parallelism(), steps_started.load()};
     }
 }
 
-long AsyncDispatcher::finish_step(long worker_id) {
-    return this->steps_done.fetch_add(1);
+bool AsyncDispatcher::finish_step(long worker_id, long step_ind) {
+    this->steps_done.fetch_add(1);
+    return true;
 }
 
 bool AsyncDispatcher::is_finished() {
