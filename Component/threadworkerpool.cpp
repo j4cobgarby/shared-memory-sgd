@@ -24,14 +24,13 @@ ThreadWorkerPoolAsync<WorkerType>::ThreadWorkerPoolAsync(SystemExecutor &exec, i
             this->workers_flag.wait(true); // Wait for flag to lower, for exec start
 
             while (!this->exec.get_dispatcher()->is_finished()) {
+                // while (true)
                 this->workers.at(i).run();
 
                 this->loop_sync.arrive_and_wait();
             }
         }));
     }
-
-    std::cout << "Created all workers.\n";
 }
 
 template<typename WorkerType>
@@ -42,12 +41,10 @@ void ThreadWorkerPoolAsync<WorkerType>::wait_for_all() {
             p->join();
         }
     }
-    std::cout << "Joined all threads.\n";
 }
 
 template<typename WorkerType>
 void ThreadWorkerPoolAsync<WorkerType>::start_all() {
-    std::cout << "Invoking all threads.\n";
     workers_flag.clear();
     workers_flag.notify_all();
 }

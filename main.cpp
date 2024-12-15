@@ -44,12 +44,14 @@ int main(int argc, char *argv[]) {
     // Parameters for window controller
     int o_searchwindow_size = 8;
 
+    int o_windowsearch_m0 = -1;
+
     int o_semisync_period = 8000;
 
     SystemExecutor exec(500, 3125);
 
     int c;
-    while ((c = getopt(argc, argv, "n:l:u:b:e:s:P:M:D:p:x:d:w:F:y:")) != -1) {
+    while ((c = getopt(argc, argv, "n:l:u:b:e:s:P:M:D:p:x:d:w:F:y:0:")) != -1) {
         switch (c) {
         case 'n':
             o_parallelism_limit = std::stoi(optarg);
@@ -96,6 +98,9 @@ int main(int argc, char *argv[]) {
         case 'y':
             o_semisync_period = std::stoi(optarg);
             break;
+        case '0':
+            o_windowsearch_m0 = std::stoi(optarg);
+            break;
         case '?':
             std::cout << "Unknown option: " << optopt << std::endl;
             std::exit(-1);
@@ -105,6 +110,8 @@ int main(int argc, char *argv[]) {
             std::exit(-1);
         }
     }
+
+    if (o_windowsearch_m0 <= 0) o_windowsearch_m0 = o_parallelism_limit / 2;
 
     NetworkTopology network(new ParameterContainer());
     auto *batcher = new SimpleBatchController(exec, dataset_name, o_batch_size);
@@ -133,8 +140,6 @@ int main(int argc, char *argv[]) {
     network.init(0, 0.01, seed);
 
     auto *model = new StandardModelInterface(exec, network, o_lrate, o_momentum, seed);
-    // auto *dispatcher = new SemiSyncDispatcher(exec, o_semisync_period);
-    // auto *dispatcher = new AsyncDispatcher(exec);
 
     if (o_para_controller == "ternary") {
         exec.set_parallelism(std::make_shared<SearchParaController>
@@ -146,13 +151,13 @@ int main(int argc, char *argv[]) {
     } else if (o_para_controller == "window") {
         exec.set_parallelism(std::make_shared<WindowParaController>
                              (exec, o_parallelism_limit, o_searchwindow_size,
-                              o_probe_steps, o_exec_steps));
+                              o_probe_steps, o_exec_steps, o_windowsearch_m0));
     } else if (o_para_controller == "pattern") {
         exec.set_parallelism(std::make_shared<PatternController>
                              (exec, "s 4096 200 s 4096 50 s 2048 10 s 512 200 s 512 50 s 512 200 s 512 50"));
     } else if (o_para_controller == "model") {
         exec.set_parallelism(std::make_shared<ModellingParaController>
-                             (exec, o_parallelism_limit, 5, -1, 500, 8000));
+                             (exec, o_parallelism_limit, 15, -1, 500, 8000));
     } else {
         throw std::runtime_error("Unrecognised parallelism controller name (-P)");
     }
@@ -174,7 +179,7 @@ int main(int argc, char *argv[]) {
     }
 
     if ("window" == o_monitor) {
-        exec.set_monitor(std::make_shared<SlidingWindowMonitor>(exec, 16));
+        exec.set_monitor(std::make_shared<SlidingWindowMonitor>(exec, 3125));
     } else if ("ema" == o_monitor) {
         exec.set_monitor(std::make_shared<EMAMonitor>(exec, 0.7, false));
     } else if ("eval" == o_monitor) {
