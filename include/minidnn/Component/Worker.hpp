@@ -19,8 +19,10 @@ protected:
     std::unique_ptr<NetworkTopology> network;
     std::unique_ptr<Optimizer> optim;
 
+    std::array<long, MAX_TAU_DIST> _tau_distr = {0};
 #if MEASURE_STEP_TIME
-    std::vector<std::tuple<long, long, long>> steptime_samples;
+    // t_start, t_end, thread_id, tau
+    std::vector<std::tuple<long, long, long, long>> steptime_samples;
 #endif
 public:
     /* pin: hw thread to pin to, or -1 to not pin */
@@ -42,7 +44,8 @@ protected:
     std::unique_ptr<NetworkTopology> network;
     std::unique_ptr<Optimizer> optim;
 #if MEASURE_STEP_TIME
-    std::vector<std::tuple<long, long, long>> steptime_samples;
+    // t_start, t_end, thread_id, tau
+    std::vector<std::tuple<long, long, long, long>> steptime_samples;
 #endif
 public:
     SGDWorkerSynchronous(SystemExecutor &exec, long id, std::atomic_flag *flag) : Worker(exec, id, flag) {

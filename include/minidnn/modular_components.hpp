@@ -10,6 +10,8 @@
 #include <utils.h> /* Matrix typedef */
 #include <atomic>
 
+#define MAX_TAU_DIST 512
+
 namespace MiniDNN {
 
 class SystemExecutor;
@@ -217,10 +219,14 @@ public:
     std::vector<long> epoch_mstimes;
 
     std::mutex mtx_steptime_samples;
-    std::vector<std::tuple<long, long, long>> steptime_samples;
+    std::vector<std::tuple<long, long, long, long>> steptime_samples;
+
+    std::mutex _mtx_tau_dist;
+    std::array<long, MAX_TAU_DIST> _tau_dist;
 
     long submit_para_change(long m, bool is_probing);
-    void submit_steptimes(std::vector<std::tuple<long, long, long>>&);
+    void submit_steptimes(std::vector<std::tuple<long, long, long, long>> &);
+    void submit_tau_dist(const std::array<long, MAX_TAU_DIST> &);
 
     std::shared_ptr<BatchController> get_batcher() const { return this->batcher; }
     std::shared_ptr<ParaController> get_paracontr() const { return this->parallelism; }

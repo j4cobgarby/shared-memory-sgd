@@ -32,6 +32,8 @@ void SGDWorkerAsync::run() {
             auto global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
             auto *local_param = new ParameterContainer(*global_param_ptr);
 
+            long param_version_start = local_param->timestamp;
+
             this->network->set_pointer(local_param);
             this->network->forward(b_x);
             this->network->backprop(b_x, b_y);
@@ -43,6 +45,9 @@ void SGDWorkerAsync::run() {
             this->network->set_pointer(global_param_ptr);
             delete local_param;
 
+            long param_version_end = global_param_ptr->timestamp;
+            long tau = param_version_end - param_version_start;
+
             this->network->update_cw(this->optim.get());
 
             const long finished_step = exec.get_dispatcher()->finish_step(this->id);
@@ -53,13 +58,17 @@ void SGDWorkerAsync::run() {
             // Give loss to monitor
             exec.get_monitor()->update(local_loss, x, finished_step);
 
+            if (tau < MAX_TAU_DIST) {
+                _tau_distr.at(tau) += 1;
+            }
+
 #if MEASURE_STEP_TIME
             /* If we want to print all the measured time samples afterwards, we have to store them. */
 
             // Append new samples, up to vector's reserved size
             if (steptime_samples.size() < N_STEP_TIME_SAMPLES) {
                 const auto t_start = exec.start_time_hr;
-                steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count(), this->id);
+                steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count(), this->id, tau);
             }
 #endif
         }
@@ -83,6 +92,8 @@ void SGDWorkerSynchronous::run() {
     auto global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
     auto *local_param = new ParameterContainer(*global_param_ptr);
 
+    long param_version_start = global_param_ptr->timestamp;
+
     this->network->set_pointer(local_param);
     this->network->forward(b_x);
     this->network->backprop(b_x, b_y);
@@ -94,6 +105,9 @@ void SGDWorkerSynchronous::run() {
     this->network->set_pointer(global_param_ptr);
     delete local_param;
 
+    long param_version_end = global_param_ptr->timestamp;
+    long tau = param_version_end - param_version_start;
+
     this->network->update_cw(this->optim.get());
 
     const long finished_step = exec.get_dispatcher()->finish_step(this->id);
@@ -104,13 +118,17 @@ void SGDWorkerSynchronous::run() {
     // Give loss to monitor
     exec.get_monitor()->update(local_loss, x, finished_step);
 
+    if (tau < MAX_TAU_DIST) {
+        // ...
+    }
+    
 #if MEASURE_STEP_TIME
     /* If we want to print all the measured time samples afterwards, we have to store them. */
 
     // Append new samples, up to vector's reserved size
     if (steptime_samples.size() < N_STEP_TIME_SAMPLES) {
         const auto t_start = exec.start_time_hr;
-        steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count(), this->id);
+        steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count(), this->id, tau);
     }
 #endif
 }

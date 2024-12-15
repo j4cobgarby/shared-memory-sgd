@@ -22,9 +22,15 @@ long MiniDNN::SystemExecutor::submit_para_change(long m, bool is_probing) {
     return m;
 }
 
-void MiniDNN::SystemExecutor::submit_steptimes(std::vector<std::tuple<long, long, long>>& ts) {
+void MiniDNN::SystemExecutor::submit_steptimes(std::vector<std::tuple<long, long, long, long>>& ts) {
     this->mtx_steptime_samples.lock();
-    std::cout << "[exec] Thread submitting " << ts.size() << " step times." << std::endl;
     this->steptime_samples.insert(this->steptime_samples.end(), ts.begin(), ts.end());
     this->mtx_steptime_samples.unlock();
+}
+
+void MiniDNN::SystemExecutor::submit_tau_dist(const std::array<long, MAX_TAU_DIST> &) {
+    _mtx_tau_dist.lock();
+    for (int tau = 0; tau < MAX_TAU_DIST; tau++) {
+
+    }
 }
