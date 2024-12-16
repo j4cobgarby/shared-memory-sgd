@@ -28,7 +28,7 @@ bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind) 
         old_val = steps_done.load(std::memory_order_relaxed);
 
         // Reject any more steps than the period allows
-        if (old_val >= async_period) {
+        if (old_val >= async_period || step_ind < period_start_step.load(std::memory_order_acquire)) {
             return false;
         }
 
