@@ -16,16 +16,29 @@ std::pair<bool, long> SemiSyncDispatcher::try_start_step(long worker_id) {
     // return true;
 }
 
-bool SemiSyncDispatcher::finish_step(long worker_id, long step_ind) {
-    const long finish_ind = steps_done.fetch_add(1);
+bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind) {
 
-    if (finish_ind < period_start_step || finish_ind > period_last_step) {
+    // If this step begun before this period, reject it
+    if (step_ind < period_start_step.load(std::memory_order_acquire)) {
         return false;
     }
 
-    if (finish_ind == period_last_step) {
-        period_start_step = finish_ind;
-        period_last_step = period_start_step + (async_period - 1);
+    long old_val, new_val;
+    do {
+        old_val = steps_done.load(std::memory_order_relaxed);
+
+        // Reject any more steps than the period allows
+        if (old_val >= async_period) {
+            return false;
+        }
+
+        new_val = old_val + 1;
+    } while (!steps_done.compare_exchange_weak(old_val, new_val,
+            std::memory_order::acquire, std::memory_order::relaxed));
+
+    if (new_val == async_period) {
+        period_start_step.store(new_val, std::memory_order::release);
+        steps_done.store(0, std::memory_order::release);
     }
 
     return true;

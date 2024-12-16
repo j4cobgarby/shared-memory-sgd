@@ -21,16 +21,14 @@ private:
     /* Number of steps to complete before synchronising */
     long async_period;
 
-    long period_start_step = 0;
-    long period_last_step;
+    std::atomic<long> period_start_step = 0;
 
     std::condition_variable cv;
     std::mutex cv_mtx;
 public:
     SemiSyncDispatcher(SystemExecutor &exec, long P) :
         Dispatcher(exec),
-        async_period(P),
-        period_last_step(P - 1) {}
+        async_period(P) {}
 
     std::pair<bool, long> try_start_step(long worker_id) override;
     bool finish_step(long worker_id, long step_ind) override;
