@@ -17,14 +17,17 @@ std::pair<bool, long> SemiSyncDispatcher::try_start_step(long worker_id) {
 }
 
 bool SemiSyncDispatcher::finish_step(long worker_id, long step_ind) {
-    if (step_ind < period_start_step) return false;
+    const long finish_ind = steps_done.fetch_add(1);
 
-    if (step_ind == period_last_step) {
-        period_start_step = step_ind;
+    if (finish_ind < period_start_step || finish_ind > period_last_step) {
+        return false;
+    }
+
+    if (finish_ind == period_last_step) {
+        period_start_step = finish_ind;
         period_last_step = period_start_step + (async_period - 1);
     }
 
-    steps_done.fetch_add(1);
     return true;
 }
 
