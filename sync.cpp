@@ -95,7 +95,7 @@ void MiniDNN::NetworkExecutor::run_parallel_sync(int batch_size, int epoch, int 
         gettimeofday(&now, NULL);
         time_per_epoch.push_back(now.tv_sec);
 
-        //std::cerr << "[Epoch " << k << "] Loss = " << epoch_loss << std::endl;
+        std::cerr << "[Epoch " << k << "] Loss = " << epoch_loss << std::endl;
 
     }
 

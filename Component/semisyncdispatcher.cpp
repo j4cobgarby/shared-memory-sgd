@@ -25,7 +25,7 @@ bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind) 
 
     long old_val, new_val;
     do {
-        old_val = steps_done.load(std::memory_order_relaxed);
+        old_val = steps_done_in_period.load(std::memory_order_relaxed);
 
         // Reject any more steps than the period allows
         if (old_val >= async_period) {
@@ -33,14 +33,15 @@ bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind) 
         }
 
         new_val = old_val + 1;
-    } while (!steps_done.compare_exchange_weak(old_val, new_val,
+    } while (!steps_done_in_period.compare_exchange_weak(old_val, new_val,
             std::memory_order::acquire, std::memory_order::relaxed));
 
     if (new_val == async_period) {
         period_start_step.store(new_val, std::memory_order::release);
-        steps_done.store(0, std::memory_order::release);
+        steps_done_in_period.store(0, std::memory_order::release);
     }
 
+    this->steps_done.fetch_add(1);
     return true;
 }
 

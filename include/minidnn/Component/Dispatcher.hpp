@@ -22,6 +22,7 @@ private:
     long async_period;
 
     std::atomic<long> period_start_step = 0;
+    std::atomic<long> steps_done_in_period = 0;
 
     std::condition_variable cv;
     std::mutex cv_mtx;
