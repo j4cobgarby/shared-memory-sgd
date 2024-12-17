@@ -46,8 +46,9 @@ void SGDWorkerAsync::run() {
             this->network->backprop(b_x, b_y);
 
             const double local_loss = this->network->get_loss();
+            long step_end_ind;
 
-            if (exec.get_dispatcher()->finish_step(this->id, step_ind)) {
+            if (exec.get_dispatcher()->finish_step(this->id, step_ind, step_end_ind)) {
                 // Apply gradient to model interface
                 // TODO: This section should really be delegated to the ModelInterface
                 this->network->set_pointer(global_param_ptr);
@@ -62,7 +63,7 @@ void SGDWorkerAsync::run() {
                 const long x = (t2 - t1).count();
 
                 // Give loss to monitor
-                exec.get_monitor()->update(local_loss, x, step_ind);
+                exec.get_monitor()->update(local_loss, x, step_end_ind);
 
                 if (tau < MAX_TAU_DIST) {
                     _tau_distr.at(tau) += 1;
@@ -121,7 +122,8 @@ void SGDWorkerSynchronous::run() {
 
     this->network->update_cw(this->optim.get());
 
-    const long finished_step = exec.get_dispatcher()->finish_step(this->id, step_ind);
+    long end = step_ind;
+    const long finished_step = exec.get_dispatcher()->finish_step(this->id, step_ind, end);
 
     const auto t2 = HRClock::now();
     const long x = (t2 - t1).count();

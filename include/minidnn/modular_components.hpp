@@ -74,7 +74,7 @@ public:
     Dispatcher(SystemExecutor &exec) : exec(exec) {}
 
     virtual std::pair<bool, long> try_start_step(long worker_id) = 0;
-    virtual bool finish_step(long worker_id, long step_ind) = 0;
+    virtual bool finish_step(long worker_id, long step_ind, long &end_step_out) = 0;
     virtual bool is_finished() = 0;
 
     long get_steps_done() const { return steps_done; }

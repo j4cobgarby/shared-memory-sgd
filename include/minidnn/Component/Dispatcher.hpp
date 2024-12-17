@@ -12,7 +12,7 @@ public:
     AsyncDispatcher(SystemExecutor &exec) : Dispatcher(exec) {}
 
     std::pair<bool, long> try_start_step(long worker_id) override;
-    bool finish_step(long worker_id, long step_ind) override;
+    bool finish_step(long worker_id, long step_ind, long &end_step_ind) override;
     bool is_finished() override;
 };
 
@@ -32,7 +32,7 @@ public:
         async_period(P) {}
 
     std::pair<bool, long> try_start_step(long worker_id) override;
-    bool finish_step(long worker_id, long step_ind) override;
+    bool finish_step(long worker_id, long step_ind, long &end_step_ind) override;
     bool is_finished() override;
 };
 
@@ -44,7 +44,7 @@ public:
     }
 
     std::pair<bool, long> try_start_step(long worker_id) override;
-    bool finish_step(long worker_id, long step_ind) override;
+    bool finish_step(long worker_id, long step_ind, long &end_step_ind) override;
     bool is_finished() override;
 };
 
