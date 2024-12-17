@@ -26,7 +26,6 @@ ThreadWorkerPoolAsync<WorkerType>::ThreadWorkerPoolAsync(SystemExecutor &exec, i
             while (!this->exec.get_dispatcher()->is_finished()) {
                 // while (true)
                 this->workers.at(i).run();
-
                 this->loop_sync.arrive_and_wait();
             }
         }));

@@ -7,6 +7,7 @@
 #include <barrier>
 #include <chrono>
 #include <memory>
+#include <random>
 
 #define MEASURE_STEP_TIME 1
 #define N_STEP_TIME_SAMPLES 30000
@@ -16,6 +17,8 @@ namespace MiniDNN {
 class SGDWorkerAsync : public Worker {
     typedef std::chrono::high_resolution_clock HRClock;
 protected:
+    std::mt19937 _rng;
+
     std::unique_ptr<NetworkTopology> network;
     std::unique_ptr<Optimizer> optim;
 
@@ -26,7 +29,7 @@ protected:
 #endif
 public:
     /* pin: hw thread to pin to, or -1 to not pin */
-    SGDWorkerAsync(SystemExecutor &exec, long id, std::atomic_flag *flag) : Worker(exec, id, flag) {
+    SGDWorkerAsync(SystemExecutor &exec, long id, std::atomic_flag *flag) : Worker(exec, id, flag), _rng(id) {
         this->network = std::make_unique<NetworkTopology>(*exec.get_model()->get_network());
         this->optim = std::unique_ptr<Optimizer>(exec.get_model()->get_optimizer()->clone());
         set_cpu(id);

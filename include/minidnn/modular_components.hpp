@@ -67,6 +67,8 @@ protected:
     SystemExecutor &exec;
     std::atomic<long> steps_done = 0;
     std::atomic<long> steps_started = 0;
+
+
 public:
     virtual ~Dispatcher() = default;
     Dispatcher(SystemExecutor &exec) : exec(exec) {}
@@ -76,6 +78,9 @@ public:
     virtual bool is_finished() = 0;
 
     long get_steps_done() const { return steps_done; }
+
+    // temporary
+    std::atomic_flag should_sync;
 };
 
 class Monitor {

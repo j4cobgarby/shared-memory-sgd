@@ -2,7 +2,10 @@
 #include "jsoncons/basic_json.hpp"
 #include "minidnn/Component/Worker.hpp"
 #include <chrono>
+#include <random>
 #include <thread>
+
+//#define DUMMY
 
 namespace MiniDNN {
 
@@ -32,6 +35,11 @@ void SGDWorkerAsync::run() {
             auto *local_param = new ParameterContainer(*global_param_ptr);
 
             const long param_version_start = local_param->timestamp;
+
+            #ifdef DUMMY // Simulate larger variance in time
+            auto dist = std::normal_distribution<double>(1, 0.23);
+            std::this_thread::sleep_for(std::chrono::duration<double>(dist(_rng)));
+            #endif
 
             this->network->set_pointer(local_param);
             this->network->forward(b_x);

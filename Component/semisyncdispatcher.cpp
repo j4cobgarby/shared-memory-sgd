@@ -37,11 +37,12 @@ bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind) 
             std::memory_order::acquire, std::memory_order::relaxed));
 
     if (new_val == async_period) {
-        period_start_step.store(new_val, std::memory_order::release);
+        period_start_step.store(steps_started, std::memory_order::release);
         steps_done_in_period.store(0, std::memory_order::release);
     }
 
     this->steps_done.fetch_add(1);
+
     return true;
 }
 
