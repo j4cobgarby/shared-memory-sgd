@@ -14,8 +14,8 @@ void MiniDNN::SystemExecutor::start() {
 
 long MiniDNN::SystemExecutor::submit_para_change(long m, bool is_probing) {
     this->mtx_para_vec.lock();
-    this->para_mstimes.push_back(this->elapsed_time());
-    this->para_values.push_back(m);
+    this->_para_mstimes.push_back(this->elapsed_time());
+    this->_para_values.push_back(m);
     this->para_is_probing.push_back(is_probing);
     this->mtx_para_vec.unlock();
     
@@ -24,13 +24,21 @@ long MiniDNN::SystemExecutor::submit_para_change(long m, bool is_probing) {
 
 void MiniDNN::SystemExecutor::submit_steptimes(std::vector<std::tuple<long, long, long, long>>& ts) {
     this->mtx_steptime_samples.lock();
-    this->steptime_samples.insert(this->steptime_samples.end(), ts.begin(), ts.end());
+    this->_steptime_samples.insert(this->_steptime_samples.end(), ts.begin(), ts.end());
     this->mtx_steptime_samples.unlock();
 }
 
-void MiniDNN::SystemExecutor::submit_tau_dist(const std::array<long, MAX_TAU_DIST> &) {
+void MiniDNN::SystemExecutor::submit_tau_dist(const std::array<long, MAX_TAU_DIST> &new_dist) {
     _mtx_tau_dist.lock();
     for (int tau = 0; tau < MAX_TAU_DIST; tau++) {
-
+        _tau_dist.at(tau) += new_dist.at(tau);
     }
+    _mtx_tau_dist.unlock();
+}
+
+void MiniDNN::SystemExecutor::submit_acceptance_rate(const long accepted, const long rejected) {
+    _mtx_accept_rate.lock();
+    _accepted_steps += accepted;
+    _rejected_steps += rejected;
+    _mtx_accept_rate.unlock();
 }

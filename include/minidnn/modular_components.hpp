@@ -169,8 +169,8 @@ protected:
     std::shared_ptr<WorkerPool> workers = nullptr;
     std::shared_ptr<ModelInterface> model = nullptr;
 public:
-    SystemExecutor(const long epoch_target, const long steps_per_epoch) : epoch_target(epoch_target),
-                                                                          steps_per_epoch(steps_per_epoch) {
+    SystemExecutor(const long epoch_target, const long steps_per_epoch) : _epoch_target(epoch_target),
+                                                                          _steps_per_epoch(steps_per_epoch) {
         this->start_time_ms = std::chrono::duration_cast<std::chrono::milliseconds>(
             std::chrono::system_clock::now()
             .time_since_epoch()
@@ -209,30 +209,34 @@ public:
     void start();
     long elapsed_time() const;
 
-    long epoch_target;
-    long steps_per_epoch;
+    long _epoch_target;
+    long _steps_per_epoch;
 
     long start_time_ms = -1;
     HRClock::time_point start_time_hr;
 
     std::mutex mtx_para_vec;
-    std::vector<unsigned> para_values;
-    std::vector<long> para_mstimes;
+    std::vector<unsigned> _para_values;
+    std::vector<long> _para_mstimes;
     std::vector<bool> para_is_probing;
 
     std::mutex mtx_epoch_vec;
-    std::vector<double> epoch_losses;
-    std::vector<long> epoch_mstimes;
+    std::vector<double> _epoch_losses;
+    std::vector<long> _epoch_mstimes;
 
     std::mutex mtx_steptime_samples;
-    std::vector<std::tuple<long, long, long, long>> steptime_samples;
+    std::vector<std::tuple<long, long, long, long>> _steptime_samples;
 
     std::mutex _mtx_tau_dist;
-    std::array<long, MAX_TAU_DIST> _tau_dist;
+    std::array<long, MAX_TAU_DIST> _tau_dist = {0};
+
+    std::mutex _mtx_accept_rate;
+    long _accepted_steps = 0, _rejected_steps = 0;
 
     long submit_para_change(long m, bool is_probing);
     void submit_steptimes(std::vector<std::tuple<long, long, long, long>> &);
     void submit_tau_dist(const std::array<long, MAX_TAU_DIST> &);
+    void submit_acceptance_rate(const long accepted, const long rejected);
 
     std::shared_ptr<BatchController> get_batcher() const { return this->batcher; }
     std::shared_ptr<ParaController> get_paracontr() const { return this->parallelism; }

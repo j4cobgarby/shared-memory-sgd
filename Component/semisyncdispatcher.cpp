@@ -48,7 +48,7 @@ bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind) 
 
 bool SemiSyncDispatcher::is_finished() {
     // return this->exec.elapsed_time() >= 1000 * 180;
-    return this->steps_done >= exec.epoch_target * exec.steps_per_epoch;
+    return this->steps_done >= exec._epoch_target * exec._steps_per_epoch;
 }
 
 }

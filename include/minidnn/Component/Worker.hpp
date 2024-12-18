@@ -9,7 +9,7 @@
 #include <memory>
 #include <random>
 
-#define MEASURE_STEP_TIME 1
+// #define MEASURE_STEP_TIME 1
 #define N_STEP_TIME_SAMPLES 30000
 
 namespace MiniDNN {
@@ -23,6 +23,7 @@ protected:
     std::unique_ptr<Optimizer> optim;
 
     std::array<long, MAX_TAU_DIST> _tau_distr = {0};
+    long accepted_steps = 0, rejected_steps = 0;
 #if MEASURE_STEP_TIME
     // t_start, t_end, thread_id, tau
     std::vector<std::tuple<long, long, long, long>> steptime_samples;

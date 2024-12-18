@@ -66,10 +66,10 @@ int main(int argc, char *argv[]) {
             o_batch_size = std::stoi(optarg);
             break;
         case 'e':
-            exec.epoch_target = std::stol(optarg);
+            exec._epoch_target = std::stol(optarg);
             break;
         case 's':
-            exec.steps_per_epoch = std::stol(optarg);
+            exec._steps_per_epoch = std::stol(optarg);
             break;
         case 'P': // Parallelism strategy
             o_para_controller = std::string(optarg);
@@ -205,19 +205,21 @@ int main(int argc, char *argv[]) {
     exec.start();
 
     json results;
-    results["epoch_loss"] = exec.epoch_losses;
-    results["para_values"] = exec.para_values;
-    results["para_mstimes"] = exec.para_mstimes;
-    results["epoch_mstimes"] = exec.epoch_mstimes;
-    results["steptimes"] = exec.steptime_samples;
+    results["epoch_loss"] = exec._epoch_losses;
+    results["para_values"] = exec._para_values;
+    results["para_mstimes"] = exec._para_mstimes;
+    results["epoch_mstimes"] = exec._epoch_mstimes;
+    results["steptimes"] = exec._steptime_samples;
+    results["tau_dist"] = exec._tau_dist;
+    results["step_acceptance_rate"] = (double)exec._accepted_steps / (double)(exec._accepted_steps + exec._rejected_steps);
 
     json meta;
     meta["learning_rate"] = o_lrate;
     meta["momentum"] = o_momentum;
     meta["num_threads"] = o_parallelism_limit;
     meta["batch_size"] = o_batch_size;
-    meta["num_epochs"] = exec.epoch_target;
-    meta["epoch_steps"] = exec.steps_per_epoch;
+    meta["num_epochs"] = exec._epoch_target;
+    meta["epoch_steps"] = exec._steps_per_epoch;
     meta["probe_steps"] = o_probe_steps;
     meta["exec_steps"] = o_exec_steps;
     meta["search_degree"] = o_search_degree;

@@ -48,6 +48,7 @@ void SGDWorkerAsync::run() {
             const double local_loss = this->network->get_loss();
 
             if (exec.get_dispatcher()->finish_step(this->id, step_ind)) {
+                accepted_steps++;
                 // Apply gradient to model interface
                 // TODO: This section should really be delegated to the ModelInterface
                 this->network->set_pointer(global_param_ptr);
@@ -77,6 +78,8 @@ void SGDWorkerAsync::run() {
                     steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count(), this->id, tau);
                 }
 #endif
+            } else {
+                rejected_steps++;
             }
         }
     }
@@ -84,6 +87,9 @@ void SGDWorkerAsync::run() {
 #if MEASURE_STEP_TIME
     exec.submit_steptimes(steptime_samples);
 #endif
+
+    exec.submit_tau_dist(_tau_distr);
+    exec.submit_acceptance_rate(accepted_steps, rejected_steps);
 }
 
 void SGDWorkerSynchronous::run() {
