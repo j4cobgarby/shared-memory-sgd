@@ -16,7 +16,7 @@ std::pair<bool, long> SemiSyncDispatcher::try_start_step(long worker_id) {
     // return true;
 }
 
-bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind) {
+bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind, long &end_step_ind) {
 
     // If this step begun before this period, reject it
     if (step_ind < period_start_step.load(std::memory_order_acquire)) {
@@ -41,7 +41,7 @@ bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind) 
         steps_done_in_period.store(0, std::memory_order::release);
     }
 
-    this->steps_done.fetch_add(1);
+    end_step_ind = this->steps_done.fetch_add(1);
 
     return true;
 }

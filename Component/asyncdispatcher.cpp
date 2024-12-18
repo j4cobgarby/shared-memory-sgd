@@ -10,8 +10,8 @@ std::pair<bool, long> AsyncDispatcher::try_start_step(long worker_id) {
     }
 }
 
-bool AsyncDispatcher::finish_step(long worker_id, long step_ind) {
-    this->steps_done.fetch_add(1);
+bool AsyncDispatcher::finish_step(long worker_id, long step_ind, long &end_step_ind) {
+    end_step_ind = this->steps_done.fetch_add(1);
     return true;
 }
 
