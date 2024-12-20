@@ -23,6 +23,7 @@ protected:
     std::vector<Matrix> x_batches;
     std::vector<Matrix> y_batches;
 
+
     std::string dataset_name;
 
     // y_dim: Dimension of output, i.e. number of categories
@@ -45,6 +46,8 @@ public:
     virtual int get_y_dimension() const { return this->y_dim; }
 
     const std::string &get_dataset_name() { return this->dataset_name; }
+
+    Matrix _test_x, _test_y;
 };
 
 class ParaController {
@@ -204,7 +207,6 @@ public:
 
     void set_model(std::shared_ptr<ModelInterface> model)
         { this->model = std::move(model); }
-
 
     void start();
     long elapsed_time() const;

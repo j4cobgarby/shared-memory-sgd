@@ -2,6 +2,7 @@
 #include "NetworkTopology.h"
 #include "ParameterContainer.h"
 #include "modular_components.hpp"
+#include "utils.h"
 
 namespace MiniDNN {
 
@@ -53,26 +54,29 @@ double EvalMonitor::get_rate_estim() {
 }
 
 double EvalMonitor::get_loss_accur() {
-
-    ParameterContainer* global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
+    // ParameterContainer* global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
     auto* network = new NetworkTopology(*exec.get_model()->get_network());
-    network->set_pointer(global_param_ptr);
+    // network->set_pointer(global_param_ptr);
 
-    int batch_sz;
-    const auto bid = this->local_batcher.get_batch_ind(-1, std::make_unique<int>(batch_sz));
-    const Matrix &b_x = this->local_batcher.get_batch_data(bid, batch_sz);
-    const Matrix &b_y = this->local_batcher.get_batch_labels(bid, batch_sz);
-
-    network->forward(b_x);
-
-    // Evaluate how well the last layer outputs match the labels.
-    network->get_output()->check_target_data(b_y);
-    network->get_output()->evaluate(network->get_last_layer()->output(), b_y);
-
-    const double loss = network->get_loss();
+    network->forward(this->exec.get_batcher()->_test_x);
+    const Matrix &preds = network->get_last_layer()->output();
+    double accur = compute_accuracy(preds, this->exec.get_batcher()->_test_y);
+    //
+    // int batch_sz;
+    // const auto bid = this->local_batcher.get_batch_ind(-1, std::make_unique<int>(batch_sz));
+    // const Matrix &b_x = this->local_batcher.get_batch_data(bid, batch_sz);
+    // const Matrix &b_y = this->local_batcher.get_batch_labels(bid, batch_sz);
+    //
+    // network->forward(b_x);
+    //
+    // // Evaluate how well the last layer outputs match the labels.
+    // network->get_output()->check_target_data(b_y);
+    // network->get_output()->evaluate(network->get_last_layer()->output(), b_y);
+    //
+    // const double loss = network->get_loss();
 
     delete network;
-    return loss;
+    return accur;
 }
 
 }
