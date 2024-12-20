@@ -7,10 +7,6 @@
 #include <sys/select.h>
 #include <atomic>
 
-enum semisync_state {
-    
-};
-
 void MiniDNN::NetworkExecutor::run_semisync(int batch_size, int num_epochs, int rounds_per_epoch, struct timeval start_time, int sync_interval, int seed) {
     opt->reset();
     if (seed > 0) m_rng.seed(seed);

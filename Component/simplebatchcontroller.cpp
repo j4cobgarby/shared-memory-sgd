@@ -22,6 +22,7 @@ SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string d
 
         auto dset = cifar::read_dataset<std::vector, std::vector, double, double>();
         long n_training = (long)dset.training_images.size();
+        long n_test = (long)dset.test_images.size();
 
         /* image rows * image columns * colour channels */
         this->x_dim = (int)dset.training_images.at(0).size();
@@ -45,13 +46,37 @@ SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string d
             }
         }
 
+        _test_x = Matrix::Zero(dset.test_images.at(0).size(), n_test);
+        _test_y = Matrix::Zero(y_dim, n_test);
+
+        for (int i = 0; i < n_test; i++) {
+            _test_x.col(i) = Vector::Map(
+                &dset.test_images.at(i).at(0),
+                dset.test_images.at(i).size()
+            );
+
+            int lbl = dset.test_labels.at(i);
+
+            if (0 <= lbl && lbl < y_dim) {
+                _test_y(lbl, i) = 1.0;
+            } else {
+                std::cerr << "[CIFAR10] Label value error. Got: " << lbl << std::endl;
+                std::exit(-1);
+            }
+        }
+
         /* normalise pixel values to 0.0-1.0 */
         x /= 255;
+        _test_x /= 255;
 
         std::cout << "[CIFAR10] Successfully loaded samples and labels.\n";
         std::cout << "\tn_training = " << n_training << std::endl;
+        std::cout << "\tn_test = " << n_test << std::endl;
         std::cout << "\tx columns = " << x.cols() << std::endl;
+        std::cout << "\ttest_x columns = " << _test_x.cols() << std::endl;
     } else if (dataset == "CIFAR100") {
+        std::cerr << "Haven't implemented reading test dataset for CIFAR100 yet. Quitting.\n";
+        exit(-1);
         /* num categories */
         this->y_dim = 100;
 
