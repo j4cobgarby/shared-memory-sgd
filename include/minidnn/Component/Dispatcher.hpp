@@ -26,6 +26,8 @@ private:
 
     std::condition_variable cv;
     std::mutex cv_mtx;
+
+    bool switched = false;
 public:
     SemiSyncDispatcher(SystemExecutor &exec, long P) :
         Dispatcher(exec),

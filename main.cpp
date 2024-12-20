@@ -111,6 +111,8 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    std::cout << "m = " << o_parallelism_limit << ", y = " << o_semisync_period << "\n";
+
     if (o_windowsearch_m0 <= 0) o_windowsearch_m0 = o_parallelism_limit / 2;
 
     NetworkTopology network(new ParameterContainer());
@@ -179,11 +181,11 @@ int main(int argc, char *argv[]) {
     }
 
     if ("window" == o_monitor) {
-        exec.set_monitor(std::make_shared<SlidingWindowMonitor>(exec, 2000));
+        exec.set_monitor(std::make_shared<SlidingWindowMonitor>(exec, 4096));
     } else if ("ema" == o_monitor) {
         exec.set_monitor(std::make_shared<EMAMonitor>(exec, 0.7, false));
     } else if ("eval" == o_monitor) {
-        exec.set_monitor(std::make_shared<EvalMonitor>(exec, 0.7, -1, 512, false));
+        exec.set_monitor(std::make_shared<EvalMonitor>(exec, 0.7, -1, 3125, false));
     } else {
         throw std::runtime_error("Unrecognised monitor name (-M)");
     }
