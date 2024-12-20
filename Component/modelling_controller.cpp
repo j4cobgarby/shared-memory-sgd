@@ -22,7 +22,7 @@ void ModellingParaController::clip_window() {
 }
 
 void ModellingParaController::switch_to_para(unsigned m) {
-    this->curr_parallelism = this->exec.submit_para_change(m, this->is_probing);
+    this->curr_parallelism = this->_exec.submit_para_change(m, this->is_probing);
     if (!this->is_probing) this->latest_exec_parallelism = m;
     this->t_stage_start = HRClock::now();
 }
@@ -32,18 +32,18 @@ void ModellingParaController::update(long step) {
         this->is_probing = true;
         this->current_probe_number = 1;
         this->phase_start_step = step;
-        this->loss_start_of_stage = this->exec.get_monitor()->get_loss_accur();
+        this->loss_start_of_stage = this->_exec.get_monitor()->get_loss_accur();
         switch_to_para(this->total_workers / this->num_probes);
     }
 
     if (this->is_probing) {
-        this->mtx.lock();
+        this->_mtx.lock();
         const bool should_progress = step - this->phase_start_step >= this->probe_steps;
         if (should_progress) this->phase_start_step = step;
-        this->mtx.unlock();
+        this->_mtx.unlock();
 
         if (should_progress) {
-            const double loss = exec.get_monitor()->get_loss_accur();
+            const double loss = _exec.get_monitor()->get_loss_accur();
             const double stage_dur_s = (double)(HRClock::now() - this->t_stage_start)
                 .count() * 1e-9;
             const double stage_convrate = (loss - this->loss_start_of_stage) / stage_dur_s;

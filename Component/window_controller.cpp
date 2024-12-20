@@ -27,7 +27,7 @@ unsigned WindowParaController::get_parallelism() {
 
 void WindowParaController::switch_to_para(const unsigned m) {
     // Report the new m value to the executor, for recording data
-    this->curr_parallelism = this->exec.submit_para_change(m, this->is_probing);
+    this->curr_parallelism = this->_exec.submit_para_change(m, this->is_probing);
     if (!this->is_probing) this->latest_exec_parallelism = m;
     this->t_stage_start = HRClock::now();
 }
@@ -49,7 +49,7 @@ void WindowParaController::update(const long step) {
         this->window_btm = this->curr_parallelism - (this->window_size / 2);
 
         /* Compute the loss at the start of the first probing stage of this phase */
-        this->loss_start_of_stage = exec.get_monitor()->get_loss_accur();
+        this->loss_start_of_stage = _exec.get_monitor()->get_loss_accur();
 
         clip_window();
 
@@ -61,16 +61,16 @@ void WindowParaController::update(const long step) {
 
     if (this->is_probing) {
 
-        this->mtx.lock();
+        this->_mtx.lock();
         const bool should_progress = step - this->phase_start_step >= this->probe_steps;
         if (should_progress) this->phase_start_step = step;
-        this->mtx.unlock();
+        this->_mtx.unlock();
 
         /*  Have we just finished a probing stage? */
         if (should_progress) {
             // const double loss_compd = exec.get_monitor()->get_loss_estim();
             // const double stage_convrate = loss_compd;
-            const double loss_compd = exec.get_monitor()->get_loss_accur();
+            const double loss_compd = _exec.get_monitor()->get_loss_accur();
             /* Now we have an accurate idea of the current loss, but we want to know how this
              * compares to the loss at the start of the probing stage, AND then divide that
              * by how long the stage took! */

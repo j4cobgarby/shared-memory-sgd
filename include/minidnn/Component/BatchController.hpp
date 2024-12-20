@@ -17,7 +17,7 @@ public:
     {
         const unsigned long ret = next_batch.fetch_add(1);
         *batch_size_out = bs;
-        return ret % this->x_batches.size();
+        return ret % this->_x_batches.size();
     }
 };
 
@@ -51,21 +51,21 @@ public:
 
         const unsigned long ret = next_batch_start.fetch_add(num_units);
         *batch_size_out = bs;
-        return ret % this->x_batches.size();
+        return ret % this->_x_batches.size();
     }
 
     Matrix get_batch_data(const unsigned long id, const int batch_size) override {
         if (batch_size % min_bs != 0) {
             throw std::runtime_error("Requested batch of size not divisible by unit batch size.");
         }
-        return std::move(merge_batches(x_batches, id, batch_size / min_bs));
+        return std::move(merge_batches(_x_batches, id, batch_size / min_bs));
     }
 
     Matrix get_batch_labels(const unsigned long id, const int batch_size) override {
         if (batch_size % min_bs != 0) {
             throw std::runtime_error("Requested batch of size not divisible by unit batch size.");
         }
-        return std::move(merge_batches(y_batches, id, batch_size / min_bs));
+        return std::move(merge_batches(_y_batches, id, batch_size / min_bs));
     }
 };
 

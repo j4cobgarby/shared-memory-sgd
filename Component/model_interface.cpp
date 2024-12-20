@@ -37,7 +37,7 @@ StandardModelInterface::StandardModelInterface(SystemExecutor &exec, NetworkTopo
 
     // Create optimizer
     this->optimizer = std::shared_ptr<SGDM>(new SGDM());
-    this->optimizer->initialize_state(network.current_param_container_ptr->param_list.size());
+    this->optimizer->initialize_state(_network.current_param_container_ptr->param_list.size());
     this->optimizer->m_lrate = lrate;
     this->optimizer->mu = mu;
 }
