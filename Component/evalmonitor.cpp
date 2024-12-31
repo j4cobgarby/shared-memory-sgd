@@ -6,6 +6,24 @@
 
 namespace MiniDNN {
 
+// Generic definition for computing accuracy, shared by other monitors
+
+double Monitor::eval_accuracy(bool training_set) {
+    auto *netw = new NetworkTopology(*_exec.get_model()->get_network());
+
+    netw->forward(training_set 
+                  ? this->_exec.get_batcher()->_train_x 
+                  : this->_exec.get_batcher()->_test_x);
+
+    const Matrix &preds = netw->get_last_layer()->output();
+    double accur = compute_accuracy(preds, training_set 
+                                    ? this->_exec.get_batcher()->_train_y 
+                                    : this->_exec.get_batcher()->_test_y);
+
+    delete netw;
+    return accur;
+}
+
 EvalMonitor::EvalMonitor(SystemExecutor &exec, double alpha, long eval_interval,
                          int eval_batch_size, bool use_mtx)
     : Monitor(exec), use_mtx(use_mtx), local_batcher(exec, "CIFAR10", eval_batch_size),
@@ -54,29 +72,22 @@ double EvalMonitor::get_rate_estim() {
 }
 
 double EvalMonitor::get_loss_accur() {
-    // ParameterContainer* global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
     auto* network = new NetworkTopology(*_exec.get_model()->get_network());
-    // network->set_pointer(global_param_ptr);
+    int batch_sz;
+    const auto bid = this->local_batcher.get_batch_ind(-1, std::make_unique<int>(batch_sz));
+    const Matrix &b_x = this->local_batcher.get_batch_data(bid, batch_sz);
+    const Matrix &b_y = this->local_batcher.get_batch_labels(bid, batch_sz);
 
-    network->forward(this->_exec.get_batcher()->_test_x);
-    const Matrix &preds = network->get_last_layer()->output();
-    double accur = compute_accuracy(preds, this->_exec.get_batcher()->_test_y);
-    //
-    // int batch_sz;
-    // const auto bid = this->local_batcher.get_batch_ind(-1, std::make_unique<int>(batch_sz));
-    // const Matrix &b_x = this->local_batcher.get_batch_data(bid, batch_sz);
-    // const Matrix &b_y = this->local_batcher.get_batch_labels(bid, batch_sz);
-    //
-    // network->forward(b_x);
-    //
-    // // Evaluate how well the last layer outputs match the labels.
-    // network->get_output()->check_target_data(b_y);
-    // network->get_output()->evaluate(network->get_last_layer()->output(), b_y);
-    //
-    // const double loss = network->get_loss();
+    network->forward(b_x);
+
+    // Evaluate how well the last layer outputs match the labels.
+    network->get_output()->check_target_data(b_y);
+    network->get_output()->evaluate(network->get_last_layer()->output(), b_y);
+
+    const double loss = network->get_loss();
 
     delete network;
-    return accur;
+    return loss;
 }
 
 }

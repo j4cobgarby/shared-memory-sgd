@@ -101,6 +101,8 @@ public:
 
     /* Compute (maybe blocking) a more accurate estimate of absolute model loss */
     virtual double get_loss_accur() = 0;
+
+    virtual double eval_accuracy(bool training_set = true);
 };
 
 class Worker {
@@ -222,6 +224,7 @@ public:
 
     std::mutex mtx_epoch_vec;
     std::vector<double> _epoch_losses;
+    std::vector<double> _epoch_accur;
     std::vector<long> _epoch_mstimes;
 
     std::mutex mtx_steptime_samples;

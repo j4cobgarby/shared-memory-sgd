@@ -6,6 +6,7 @@ std::pair<bool, long> SemiSyncDispatcher::try_start_step(long worker_id) {
     if (this->is_finished())
         return {false, 0};
 
+    // TODO: We can perform a big optimisation here by preventing threads starting if we have completed a period and are waiting.
     return {worker_id < this->_exec.get_paracontr()->get_parallelism(), _steps_started.fetch_add(1)};
 
     // std::unique_lock lock(cv_mtx);
