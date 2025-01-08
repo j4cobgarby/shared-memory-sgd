@@ -51,8 +51,11 @@ int main(int argc, char *argv[]) {
     SystemExecutor exec(500, 3125);
 
     int c;
-    while ((c = getopt(argc, argv, "n:l:u:b:e:s:P:M:D:p:x:d:w:F:y:0:")) != -1) {
+    while ((c = getopt(argc, argv, "A:n:l:u:b:e:s:P:M:D:p:x:d:w:F:y:0:")) != -1) {
         switch (c) {
+        case 'A':
+            dataset_name = std::string(optarg);
+            break;
         case 'n':
             o_parallelism_limit = std::stoi(optarg);
             break;
@@ -136,6 +139,7 @@ int main(int argc, char *argv[]) {
         network.add_layer(new FullyConnected<ReLU>(4 * 4 * 16, 120));
     }
 
+    std::cout << "Final layer has " << batcher->get_y_dimension() << " neurons\n";
     network.add_layer(new FullyConnected<Softmax>(120, batcher->get_y_dimension()));
 
     network.set_output(new MultiClassEntropy());
@@ -206,6 +210,10 @@ int main(int argc, char *argv[]) {
 
     exec.start();
 
+    std::cout << "[main] Executor finished.\n";
+
+    double end_accuracy = exec.get_monitor()->eval_accuracy(false);
+
     json results;
     results["epoch_loss"] = exec._epoch_losses;
     results["para_values"] = exec._para_values;
@@ -214,13 +222,14 @@ int main(int argc, char *argv[]) {
     results["steptimes"] = exec._steptime_samples;
     results["tau_dist"] = exec._tau_dist;
     results["step_acceptance_rate"] = (double)exec._accepted_steps / (double)(exec._accepted_steps + exec._rejected_steps);
+    results["end_accuracy"] = end_accuracy;
 
     json meta;
     meta["learning_rate"] = o_lrate;
     meta["momentum"] = o_momentum;
     meta["num_threads"] = o_parallelism_limit;
     meta["batch_size"] = o_batch_size;
-    meta["num_epochs"] = exec._epoch_target;
+    meta["num_epochs"] = exec._epoch_losses.size();
     meta["epoch_steps"] = exec._steps_per_epoch;
     meta["probe_steps"] = o_probe_steps;
     meta["exec_steps"] = o_exec_steps;
@@ -230,6 +239,7 @@ int main(int argc, char *argv[]) {
     meta["dispatcher"] = o_dispatcher;
     meta["window_size"] = o_searchwindow_size;
     meta["semisync_period"] = o_semisync_period;
+    meta["dataset"] = dataset_name;
 
     results["meta"] = meta;
 

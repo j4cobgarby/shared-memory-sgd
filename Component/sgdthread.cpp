@@ -18,20 +18,20 @@ void SGDWorkerAsync::run() {
     // as long as Dispatcher.is_finished() is not true.
     // Since try_start_step could initially block until the Dispatcher is ready,
     // this therefore doesn't have to involve busy waiting.
-    while (!exec.get_dispatcher()->is_finished()) {
-        const auto [can_start, step_ind] = exec.get_dispatcher()->try_start_step(this->id);
+    while (!_exec.get_dispatcher()->is_finished()) {
+        const auto [can_start, step_ind] = _exec.get_dispatcher()->try_start_step(this->_id);
         if (can_start) {
             const auto t1 = HRClock::now();
 
             // Get batch from batch controller
             int batch_sz;
-            const auto batch_id = exec.get_batcher()->get_batch_ind(this->id,
+            const auto batch_id = _exec.get_batcher()->get_batch_ind(this->_id,
                 std::make_unique<int>(batch_sz));
-            const Matrix &b_x = exec.get_batcher()->get_batch_data(batch_id, batch_sz);
-            const Matrix &b_y = exec.get_batcher()->get_batch_labels(batch_id, batch_sz);
+            const Matrix &b_x = _exec.get_batcher()->get_batch_data(batch_id, batch_sz);
+            const Matrix &b_y = _exec.get_batcher()->get_batch_labels(batch_id, batch_sz);
 
             // Calculate a gradient based on this batch (getting loss)
-            auto global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
+            auto global_param_ptr = _exec.get_model()->get_network()->current_param_container_ptr;
             auto *local_param = new ParameterContainer(*global_param_ptr);
 
             const long param_version_start = local_param->timestamp;
@@ -48,7 +48,7 @@ void SGDWorkerAsync::run() {
             const double local_loss = this->network->get_loss();
             long step_end_ind;
 
-            if (exec.get_dispatcher()->finish_step(this->id, step_ind, step_end_ind)) {
+            if (_exec.get_dispatcher()->finish_step(this->_id, step_ind, step_end_ind)) {
                 accepted_steps++;
                 // Apply gradient to model interface
                 // TODO: This section should really be delegated to the ModelInterface
@@ -64,7 +64,7 @@ void SGDWorkerAsync::run() {
                 const long x = (t2 - t1).count();
 
                 // Give loss to monitor
-                exec.get_monitor()->update(local_loss, x, step_end_ind);
+                _exec.get_monitor()->update(local_loss, x, step_end_ind);
 
                 if (tau < MAX_TAU_DIST) {
                     _tau_distr.at(tau) += 1;
@@ -81,6 +81,7 @@ void SGDWorkerAsync::run() {
 #endif
             } else {
                 rejected_steps++;
+                delete local_param;
             }
         }
     }
@@ -89,25 +90,25 @@ void SGDWorkerAsync::run() {
     exec.submit_steptimes(steptime_samples);
 #endif
 
-    exec.submit_tau_dist(_tau_distr);
-    exec.submit_acceptance_rate(accepted_steps, rejected_steps);
+    _exec.submit_tau_dist(_tau_distr);
+    _exec.submit_acceptance_rate(accepted_steps, rejected_steps);
 }
 
 void SGDWorkerSynchronous::run() {
-    const auto [can_start, step_ind] = exec.get_dispatcher()->try_start_step(this->id);
+    const auto [can_start, step_ind] = _exec.get_dispatcher()->try_start_step(this->_id);
     if (!can_start) return;
 
     // Perform just 1 (one) SGD step
 
     const auto t1 = HRClock::now();
     int batch_sz;
-    const auto batch_id = exec.get_batcher()->get_batch_ind(this->id,
+    const auto batch_id = _exec.get_batcher()->get_batch_ind(this->_id,
                 std::make_unique<int>(batch_sz));
-    const Matrix &b_x = exec.get_batcher()->get_batch_data(batch_id, batch_sz);
-    const Matrix &b_y = exec.get_batcher()->get_batch_labels(batch_id, batch_sz);
+    const Matrix &b_x = _exec.get_batcher()->get_batch_data(batch_id, batch_sz);
+    const Matrix &b_y = _exec.get_batcher()->get_batch_labels(batch_id, batch_sz);
 
     // Calculate a gradient based on this batch (getting loss)
-    auto global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
+    auto global_param_ptr = _exec.get_model()->get_network()->current_param_container_ptr;
     auto *local_param = new ParameterContainer(*global_param_ptr);
 
     const long param_version_start = global_param_ptr->timestamp;
@@ -129,13 +130,13 @@ void SGDWorkerSynchronous::run() {
     this->network->update_cw(this->optim.get());
 
     long end = step_ind;
-    const long finished_step = exec.get_dispatcher()->finish_step(this->id, step_ind, end);
+    const long finished_step = _exec.get_dispatcher()->finish_step(this->_id, step_ind, end);
 
     const auto t2 = HRClock::now();
     const long x = (t2 - t1).count();
 
     // Give loss to monitor
-    exec.get_monitor()->update(local_loss, x, finished_step);
+    _exec.get_monitor()->update(local_loss, x, finished_step);
 
     if (tau < MAX_TAU_DIST) {
         // ... TODO: Make an array for tau distribution, and update it from here

@@ -6,6 +6,24 @@
 
 namespace MiniDNN {
 
+// Generic definition for computing accuracy, shared by other monitors
+
+double Monitor::eval_accuracy(bool training_set) {
+    auto *netw = new NetworkTopology(*_exec.get_model()->get_network());
+
+    netw->forward(training_set 
+                  ? this->_exec.get_batcher()->_train_x 
+                  : this->_exec.get_batcher()->_test_x);
+
+    const Matrix &preds = netw->get_last_layer()->output();
+    double accur = compute_accuracy(preds, training_set 
+                                    ? this->_exec.get_batcher()->_train_y 
+                                    : this->_exec.get_batcher()->_test_y);
+
+    delete netw;
+    return accur;
+}
+
 EvalMonitor::EvalMonitor(SystemExecutor &exec, double alpha, long eval_interval,
                          int eval_batch_size, bool use_mtx)
     : Monitor(exec), use_mtx(use_mtx), local_batcher(exec, "CIFAR10", eval_batch_size),
@@ -13,7 +31,7 @@ EvalMonitor::EvalMonitor(SystemExecutor &exec, double alpha, long eval_interval,
 }
 
 void EvalMonitor::update(double loss, long duration_ns, long step) {
-    if (exec.get_dispatcher()->is_finished()) return;
+    if (_exec.get_dispatcher()->is_finished()) return;
     double rate = last_reported_loss >= 0 ? loss - last_reported_loss : 0.0;
     rate /= static_cast<double>(duration_ns) / 1e9;
 
@@ -28,20 +46,20 @@ void EvalMonitor::update(double loss, long duration_ns, long step) {
 
     /* Allow the parallelism controller to update now */
     if (use_mtx) update_mtx.lock();
-    this->exec.get_paracontr()->update(step);
+    this->_exec.get_paracontr()->update(step);
     if (use_mtx) update_mtx.unlock();
 
-    if (step > 0 && step % exec._steps_per_epoch == 0) {
+    if (step > 0 && step % _exec._steps_per_epoch == 0) {
         const double avg_loss = this->get_loss_accur();
 
-        std::cout << "[monitor] Completed epoch " << step / exec._steps_per_epoch
+        std::cout << "[monitor] Completed epoch " << step / _exec._steps_per_epoch
                   << ". Evaluated Loss = " << avg_loss
                   << ". EMA Loss = " << ema_loss << std::endl;
 
-        exec.mtx_epoch_vec.lock();
-        exec._epoch_losses.push_back(avg_loss);
-        exec._epoch_mstimes.push_back(exec.elapsed_time());
-        exec.mtx_epoch_vec.unlock();
+        _exec.mtx_epoch_vec.lock();
+        _exec._epoch_losses.push_back(avg_loss);
+        _exec._epoch_mstimes.push_back(_exec.elapsed_time());
+        _exec.mtx_epoch_vec.unlock();
     }
 }
 
@@ -54,29 +72,22 @@ double EvalMonitor::get_rate_estim() {
 }
 
 double EvalMonitor::get_loss_accur() {
-    // ParameterContainer* global_param_ptr = exec.get_model()->get_network()->current_param_container_ptr;
-    auto* network = new NetworkTopology(*exec.get_model()->get_network());
-    // network->set_pointer(global_param_ptr);
+    auto* network = new NetworkTopology(*_exec.get_model()->get_network());
+    int batch_sz;
+    const auto bid = this->local_batcher.get_batch_ind(-1, std::make_unique<int>(batch_sz));
+    const Matrix &b_x = this->local_batcher.get_batch_data(bid, batch_sz);
+    const Matrix &b_y = this->local_batcher.get_batch_labels(bid, batch_sz);
 
-    network->forward(this->exec.get_batcher()->_test_x);
-    const Matrix &preds = network->get_last_layer()->output();
-    double accur = compute_accuracy(preds, this->exec.get_batcher()->_test_y);
-    //
-    // int batch_sz;
-    // const auto bid = this->local_batcher.get_batch_ind(-1, std::make_unique<int>(batch_sz));
-    // const Matrix &b_x = this->local_batcher.get_batch_data(bid, batch_sz);
-    // const Matrix &b_y = this->local_batcher.get_batch_labels(bid, batch_sz);
-    //
-    // network->forward(b_x);
-    //
-    // // Evaluate how well the last layer outputs match the labels.
-    // network->get_output()->check_target_data(b_y);
-    // network->get_output()->evaluate(network->get_last_layer()->output(), b_y);
-    //
-    // const double loss = network->get_loss();
+    network->forward(b_x);
+
+    // Evaluate how well the last layer outputs match the labels.
+    network->get_output()->check_target_data(b_y);
+    network->get_output()->evaluate(network->get_last_layer()->output(), b_y);
+
+    const double loss = network->get_loss();
 
     delete network;
-    return accur;
+    return loss;
 }
 
 }

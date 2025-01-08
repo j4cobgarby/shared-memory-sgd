@@ -47,7 +47,7 @@ void SearchParaController::shrink_bounds() {
 }
 
 void SearchParaController::switch_to_para(const unsigned m) {
-    this->curr_parallelism = this->exec.submit_para_change(m, this->is_searching);
+    this->curr_parallelism = this->_exec.submit_para_change(m, this->is_searching);
     if (!this->is_searching) this->latest_exec_parallelism = m;
     this->t_stage_start = HRClock::now();
 }
@@ -89,15 +89,15 @@ void SearchParaController::update(const long step) {
     if (is_searching) {
         // We need only one thread at a time to check if the stage should progress, otherwise
         // consecutive steps (all > stage duration) can trigger individual progressions.
-        this->mtx.lock();
+        this->_mtx.lock();
         const bool should_progress = step - this->phase_start_step >= this->probe_steps;
         if (should_progress) this->phase_start_step = step;
-        this->mtx.unlock();
+        this->_mtx.unlock();
 
         if (should_progress) {
             std::cout << "[search] At step " << step << " we are finshing a probe.\n";
             // We've got to the end of one of the probes
-            const double loss_compd = exec.get_monitor()->get_loss_accur();
+            const double loss_compd = _exec.get_monitor()->get_loss_accur();
             const double stage_dur_s = (double)(HRClock::now() - this->t_stage_start)
                 .count()
                 * 1e-9;

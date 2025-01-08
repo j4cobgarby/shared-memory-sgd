@@ -10,22 +10,22 @@ namespace MiniDNN {
 
 ElasticBatchController::ElasticBatchController(SystemExecutor &exec, std::string dataset, const int initial_batch_size)
     : BatchController(exec), current_bs(initial_batch_size), rng(1) {
-    this->dataset_name = dataset;
+    this->_dataset_name = dataset;
 
     Matrix x, y;
 
     if (dataset == "CIFAR10") {
         /* num categories */
-        this->y_dim = 10;
+        this->_y_dim = 10;
 
         auto dset = cifar::read_dataset<std::vector, std::vector, double, double>();
         long n_training = (long)dset.training_images.size();
 
         /* image rows * image columns * colour channels */
-        this->x_dim = (int)dset.training_images.at(0).size();
+        this->_x_dim = (int)dset.training_images.at(0).size();
 
-        x = Matrix::Zero(this->x_dim, n_training);
-        y = Matrix::Zero(this->y_dim, n_training);
+        x = Matrix::Zero(this->_x_dim, n_training);
+        y = Matrix::Zero(this->_y_dim, n_training);
 
         for (int i = 0; i < n_training; i++) {
             x.col(i) = Vector::Map(
@@ -35,7 +35,7 @@ ElasticBatchController::ElasticBatchController(SystemExecutor &exec, std::string
 
             int lbl = (int)dset.training_labels.at(i);
 
-            if (0 <= lbl && lbl < this->y_dim) {
+            if (0 <= lbl && lbl < this->_y_dim) {
                 y(lbl, i) = 1.0;
             } else {
                 std::cerr << "[CIFAR10] Label value error. Got: " << lbl << std::endl;
@@ -51,7 +51,7 @@ ElasticBatchController::ElasticBatchController(SystemExecutor &exec, std::string
         std::cout << "\tx columns = " << x.cols() << std::endl;
     } else if (dataset == "CIFAR100") {
         /* num categories */
-        this->y_dim = 100;
+        this->_y_dim = 100;
 
         cifar::CIFAR100_dataset dset;
         cifar::read_cifar100_file(dset.training_images, dset.training_labels, "data/cifar-100/train.bin", true);
@@ -60,10 +60,10 @@ ElasticBatchController::ElasticBatchController(SystemExecutor &exec, std::string
         long n_training = dset.training_images.size();
 
         /* image rows * image columns * colour channels */
-        this->x_dim = dset.training_images.at(0).size();
+        this->_x_dim = dset.training_images.at(0).size();
 
-        x = Matrix::Zero(this->x_dim, n_training);
-        y = Matrix::Zero(this->y_dim, n_training);
+        x = Matrix::Zero(this->_x_dim, n_training);
+        y = Matrix::Zero(this->_y_dim, n_training);
 
         for (int i = 0; i < n_training; i++) {
             x.col(i) = Vector::Map(
@@ -73,7 +73,7 @@ ElasticBatchController::ElasticBatchController(SystemExecutor &exec, std::string
 
             int lbl = dset.training_labels.at(i);
 
-            if (0 <= lbl && lbl < this->y_dim) {
+            if (0 <= lbl && lbl < this->_y_dim) {
                 y(lbl, i) = 1.0;
             } else {
                 std::cerr << "[CIFAR10] Label value error. Got: " << lbl << std::endl;
@@ -99,7 +99,7 @@ ElasticBatchController::ElasticBatchController(SystemExecutor &exec, std::string
     }
 
     const int nbatch =
-        internal::create_shuffled_batches(x, y, this->min_bs, rng, x_batches, y_batches);
+        internal::create_shuffled_batches(x, y, this->min_bs, rng, _x_batches, _y_batches);
 
     std::cout << "[el_batch] Created " << nbatch << " batches of unit size " << this->min_bs << "\n";
 }

@@ -66,7 +66,6 @@ inline MiniDNN::Scalar compute_accuracy(const Matrix &predictions, const Matrix 
         MiniDNN::Scalar lbl_max_value = labels.col(i).maxCoeff(&lbl_max_index);
         acc += int(max_index) == int(lbl_max_index);
     }
-    std::cout << "Got " << acc << "/" << n << " correct.\n";
     return (double)acc / (double)n;
 }
 

@@ -18,20 +18,20 @@ class SystemExecutor;
 
 class BatchController {
 protected:
-    SystemExecutor &exec;
+    SystemExecutor &_exec;
 
-    std::vector<Matrix> x_batches;
-    std::vector<Matrix> y_batches;
+    std::vector<Matrix> _x_batches;
+    std::vector<Matrix> _y_batches;
 
 
-    std::string dataset_name;
+    std::string _dataset_name;
 
     // y_dim: Dimension of output, i.e. number of categories
     // x_dim: Dimension of input. For img, it's rows * cols * channels
-    int x_dim = 0, y_dim = 0;
+    int _x_dim = 0, _y_dim = 0;
 public:
     virtual ~BatchController() = default;
-    BatchController(SystemExecutor &exec) : exec(exec) {}
+    BatchController(SystemExecutor &exec) : _exec(exec) {}
 
     /* Worker calls this to reserve itself a batch ID. It then uses that ID to
      * get a constant reference to a batch data.
@@ -39,24 +39,25 @@ public:
     virtual unsigned long get_batch_ind(long worker_id, std::unique_ptr<int> batch_size_out) = 0;
 
     /* Retrieves the data associated with a batch ID. */
-    virtual Matrix get_batch_data(const unsigned long id, int batch_size) { return x_batches.at(id); }
-    virtual Matrix get_batch_labels(const unsigned long id, int batch_size) { return y_batches.at(id); }
+    virtual Matrix get_batch_data(const unsigned long id, int batch_size) { return _x_batches.at(id); }
+    virtual Matrix get_batch_labels(const unsigned long id, int batch_size) { return _y_batches.at(id); }
 
-    virtual int get_x_dimension() const { return this->x_dim; }
-    virtual int get_y_dimension() const { return this->y_dim; }
+    virtual int get_x_dimension() const { return this->_x_dim; }
+    virtual int get_y_dimension() const { return this->_y_dim; }
 
-    const std::string &get_dataset_name() { return this->dataset_name; }
+    const std::string &get_dataset_name() { return this->_dataset_name; }
 
     Matrix _test_x, _test_y;
+    Matrix _train_x, _train_y;
 };
 
 class ParaController {
 protected:
-    SystemExecutor &exec;
-    std::mutex mtx;
+    SystemExecutor &_exec;
+    std::mutex _mtx;
 public:
     virtual ~ParaController() = default;
-    ParaController(SystemExecutor &exec) : exec(exec) {}
+    ParaController(SystemExecutor &exec) : _exec(exec) {}
     virtual unsigned get_parallelism() = 0;
     virtual unsigned get_latest_exec_parallelism() = 0;
 
@@ -67,31 +68,28 @@ public:
 
 class Dispatcher {
 protected:
-    SystemExecutor &exec;
-    std::atomic<long> steps_done = 0;
-    std::atomic<long> steps_started = 0;
+    SystemExecutor &_exec;
+    std::atomic<long> _steps_done = 0;
+    std::atomic<long> _steps_started = 0;
 
 
 public:
     virtual ~Dispatcher() = default;
-    Dispatcher(SystemExecutor &exec) : exec(exec) {}
+    Dispatcher(SystemExecutor &exec) : _exec(exec) {}
 
     virtual std::pair<bool, long> try_start_step(long worker_id) = 0;
     virtual bool finish_step(long worker_id, long step_ind, long &end_step_out) = 0;
     virtual bool is_finished() = 0;
 
-    long get_steps_done() const { return steps_done; }
-
-    // temporary
-    std::atomic_flag should_sync;
+    long get_steps_done() const { return _steps_done; }
 };
 
 class Monitor {
 protected:
-    SystemExecutor &exec;
+    SystemExecutor &_exec;
 public:
     virtual ~Monitor() = default;
-    Monitor(SystemExecutor &exec) : exec(exec) {}
+    Monitor(SystemExecutor &exec) : _exec(exec) {}
 
     virtual void update(double loss, long duration_ns, long step) = 0;
 
@@ -103,16 +101,18 @@ public:
 
     /* Compute (maybe blocking) a more accurate estimate of absolute model loss */
     virtual double get_loss_accur() = 0;
+
+    virtual double eval_accuracy(bool training_set = true);
 };
 
 class Worker {
 protected:
-    long id;
-    SystemExecutor &exec;
-    std::atomic_flag *flag;
+    long _id;
+    SystemExecutor &_exec;
+    std::atomic_flag *_flag;
 public:
     virtual ~Worker() = default;
-    Worker(SystemExecutor &exec, const long id, std::atomic_flag *flag) : id(id), exec(exec), flag(flag) { }
+    Worker(SystemExecutor &exec, const long id, std::atomic_flag *flag) : _id(id), _exec(exec), _flag(flag) { }
 
     /* For a thread, this can be the actual function to run. For a distributed
      * node it would do something like sending a message to the correct node. */
@@ -128,10 +128,10 @@ public:
  */
 class WorkerPool {
 protected:
-    SystemExecutor &exec;
+    SystemExecutor &_exec;
 public:
     virtual ~WorkerPool() = default;
-    WorkerPool(SystemExecutor &exec, int n_workers) : exec(exec) {};
+    WorkerPool(SystemExecutor &exec, int n_workers) : _exec(exec) {};
 
     virtual void wait_for_all() = 0;
     virtual void start_all() = 0;
@@ -141,26 +141,26 @@ public:
  * network. */
 class ModelInterface {
 protected:
-    NetworkTopology network;
+    NetworkTopology _network;
 
-    SystemExecutor &exec;
+    SystemExecutor &_exec;
 
-    std::vector<std::vector<double>> saved_params;
+    std::vector<std::vector<double>> _saved_params;
 public:
     virtual ~ModelInterface() = default;
-    explicit ModelInterface(SystemExecutor &exec) : exec(exec) {}
-    ModelInterface(SystemExecutor &exec, NetworkTopology network) : network(network), exec(exec) {}
+    explicit ModelInterface(SystemExecutor &exec) : _exec(exec) {}
+    ModelInterface(SystemExecutor &exec, NetworkTopology network) : _network(network), _exec(exec) {}
     std::shared_ptr<NetworkTopology> get_network() {
-        return std::make_shared<NetworkTopology>(this->network);
+        return std::make_shared<NetworkTopology>(this->_network);
     }
 
     virtual std::shared_ptr<Optimizer> get_optimizer() = 0;
 
-    void save_network_params(std::vector<std::vector<double>> &p) {p = this->network.get_parameters();}
-    void save_network_params() {saved_params = this->network.get_parameters();}
+    void save_network_params(std::vector<std::vector<double>> &p) {p = this->_network.get_parameters();}
+    void save_network_params() {_saved_params = this->_network.get_parameters();}
 
-    void load_network_params(const std::vector<std::vector<double>> &p) {this->network.set_parameters(p);}
-    void load_network_params() {this->network.set_parameters(saved_params);}
+    void load_network_params(const std::vector<std::vector<double>> &p) {this->_network.set_parameters(p);}
+    void load_network_params() {this->_network.set_parameters(_saved_params);}
 };
 
 class SystemExecutor {
@@ -224,6 +224,7 @@ public:
 
     std::mutex mtx_epoch_vec;
     std::vector<double> _epoch_losses;
+    std::vector<double> _epoch_accur;
     std::vector<long> _epoch_mstimes;
 
     std::mutex mtx_steptime_samples;

@@ -60,7 +60,7 @@ PatternController::PatternController(SystemExecutor &exec, const std::string &pa
 }
 
 unsigned PatternController::get_parallelism() {
-    long step_in_pattern = exec.get_dispatcher()->get_steps_done() % this->period;
+    long step_in_pattern = _exec.get_dispatcher()->get_steps_done() % this->period;
     long ret;
     double grad;
 
@@ -75,7 +75,7 @@ unsigned PatternController::get_parallelism() {
                 if (this->last_p_i != p_i) {
                     this->last_p_i = p_i;
                     // std::cout << "Changing to STATIC " << ret << "\n";
-                    exec.submit_para_change(ret, false);
+                    _exec.submit_para_change(ret, false);
                 }
                 return ret;
             case RAMP:
@@ -94,7 +94,7 @@ unsigned PatternController::get_parallelism() {
                     this->last_p_i = p_i;
                     this->last_reported_ramp_m = ret;
                     // std::cout << "RAMP reporting " << ret << "\n";
-                    exec.submit_para_change(ret, false);
+                    _exec.submit_para_change(ret, false);
                 }
                 return ret;
             }
