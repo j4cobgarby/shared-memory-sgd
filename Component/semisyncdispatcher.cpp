@@ -40,12 +40,7 @@ bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind, 
     if (new_val == async_period) {
         // Start a new period
 
-        // if (this->exec.elapsed_time() >= 1000 * 10 && !switched) {
-        //     // Note, _shrinking_ a period is easier than growing it.
-        //     std::cout << "Switched async period := 64\n";
-        //     async_period = 64;
-        //     switched = true;
-        // }
+        // async_period = _exec.get_paracontr()->get_parallelism() / 2;
 
         period_start_step.store(_steps_started, std::memory_order::release);
         steps_done_in_period.store(0, std::memory_order::release);
