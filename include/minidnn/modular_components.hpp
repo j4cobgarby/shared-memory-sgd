@@ -224,8 +224,11 @@ public:
 
     std::mutex mtx_epoch_vec;
     std::vector<double> _epoch_losses;
-    std::vector<double> _epoch_accur;
     std::vector<long> _epoch_mstimes;
+
+    std::mutex mtx_async_period_vec;
+    std::vector<double> _async_period_values;
+    std::vector<long> _async_period_mstimes;
 
     std::mutex mtx_steptime_samples;
     std::vector<std::tuple<long, long, long, long>> _steptime_samples;

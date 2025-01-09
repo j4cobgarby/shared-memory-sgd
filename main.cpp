@@ -215,6 +215,8 @@ int main(int argc, char *argv[]) {
     double end_accuracy = exec.get_monitor()->eval_accuracy(false);
 
     json results;
+    results["async_period_mstimes"] = exec._async_period_mstimes;
+    results["async_period_values"] = exec._async_period_values;
     results["epoch_loss"] = exec._epoch_losses;
     results["para_values"] = exec._para_values;
     results["para_mstimes"] = exec._para_mstimes;

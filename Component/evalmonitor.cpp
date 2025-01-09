@@ -11,6 +11,8 @@ namespace MiniDNN {
 double Monitor::eval_accuracy(bool training_set) {
     auto *netw = new NetworkTopology(*_exec.get_model()->get_network());
 
+    std::cout << "Forward pass on evaluation set\n";
+
     netw->forward(training_set 
                   ? this->_exec.get_batcher()->_train_x 
                   : this->_exec.get_batcher()->_test_x);
@@ -59,7 +61,6 @@ void EvalMonitor::update(double loss, long duration_ns, long step) {
         _exec.mtx_epoch_vec.lock();
         _exec._epoch_losses.push_back(avg_loss);
         _exec._epoch_mstimes.push_back(_exec.elapsed_time());
-        _exec._epoch_accur.push_back(_exec.get_monitor()->eval_accuracy());
         _exec.mtx_epoch_vec.unlock();
     }
 }

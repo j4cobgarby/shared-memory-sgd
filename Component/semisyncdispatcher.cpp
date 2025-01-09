@@ -38,9 +38,19 @@ bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind, 
             std::memory_order::acquire, std::memory_order::relaxed));
 
     if (new_val == async_period) {
+        period_reduce_counter += async_period;
         // Start a new period
 
-        // async_period = _exec.get_paracontr()->get_parallelism() / 2;
+        // Reduce period size by 1 if we completed 8192 steps in this period so far
+        if (period_reduce_counter > 4096 && async_period > 4) {
+            period_reduce_counter = 0;
+            async_period -= 1;
+
+            this->_exec.mtx_async_period_vec.lock();
+            this->_exec._async_period_mstimes.push_back(this->_exec.elapsed_time());
+            this->_exec._async_period_values.push_back(async_period);
+            this->_exec.mtx_async_period_vec.unlock();
+        }
 
         period_start_step.store(_steps_started, std::memory_order::release);
         steps_done_in_period.store(0, std::memory_order::release);
@@ -52,7 +62,7 @@ bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind, 
 }
 
 bool SemiSyncDispatcher::is_finished() {
-    return this->_exec.elapsed_time() >= 1000 * 300;
+    return this->_exec.elapsed_time() >= 1000 * 600;
     // return this->_steps_done >= _exec._epoch_target * _exec._steps_per_epoch;
 }
 

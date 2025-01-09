@@ -83,8 +83,12 @@ void SGDWorkerAsync::run() {
                 rejected_steps++;
                 delete local_param;
             }
+        } else {
+            std::cout << "Thread " << this->_id << " could not start. m = " << _exec.get_paracontr()->get_parallelism() << "\n";
         }
     }
+
+    std::cout << "Thread " << this->_id << " finished loop.\n";
 
 #if MEASURE_STEP_TIME
     exec.submit_steptimes(steptime_samples);

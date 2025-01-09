@@ -21,6 +21,8 @@ private:
     /* Number of steps to complete before synchronising */
     long async_period;
 
+    int period_reduce_counter = 0;
+
     std::atomic<long> period_start_step = 0;
     std::atomic<long> steps_done_in_period = 0;
 
