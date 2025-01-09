@@ -137,22 +137,24 @@ int main(int argc, char *argv[]) {
     }
     else if (dataset_name == "CIFAR100")
     {
-        std::cout << "Making CIFAR100 layers\n";
-        network.add_layer(new Convolutional<ReLU>(32, 32, 3, 32, 3, 3));
-        network.add_layer(new MaxPooling<ReLU>(30, 30, 32, 2, 2));
+        network.add_layer(new Convolutional<ReLU>(32, 32, 3, 32, 5, 5));
+        network.add_layer(new MaxPooling<ReLU>(28, 28, 32, 2, 2));
 
-        std::cout << "Making CIFAR100 layers\n";
-        network.add_layer(new Convolutional<ReLU>(15, 15, 32, 64, 3, 3));
-        network.add_layer(new MaxPooling<ReLU>(13, 13, 64, 2, 2)); // -> Makes a 6x6
-        
-        std::cout << "Making CIFAR100 layers\n";
-        network.add_layer(new Convolutional<ReLU>(6, 6, 64, 128, 3, 3));
-        network.add_layer(new MaxPooling<ReLU>(4, 4, 128, 2, 2));
+        network.add_layer(new Convolutional<ReLU>(14, 14, 32, 64, 5, 5));
+        network.add_layer(new MaxPooling<ReLU>(10, 10, 64, 2, 2));
 
-        std::cout << "Making CIFAR100 layers\n";
-        network.add_layer(new FullyConnected<ReLU>(2 * 2 * 128, 256));
-        network.add_layer(new FullyConnected<ReLU>(256, 120));
-        std::cout << "Done!\n";
+        network.add_layer(new FullyConnected<ReLU>(5 * 5 * 64, 120));
+        // network.add_layer(new Convolutional<ReLU>(32, 32, 3, 32, 3, 3));
+        // network.add_layer(new MaxPooling<ReLU>(30, 30, 32, 2, 2));
+        //
+        // network.add_layer(new Convolutional<ReLU>(15, 15, 32, 64, 3, 3));
+        // network.add_layer(new MaxPooling<ReLU>(13, 13, 64, 2, 2)); // -> Makes a 6x6
+        //
+        // network.add_layer(new Convolutional<ReLU>(6, 6, 64, 128, 3, 3));
+        // network.add_layer(new MaxPooling<ReLU>(4, 4, 128, 2, 2));
+        //
+        // network.add_layer(new FullyConnected<ReLU>(2 * 2 * 128, 256));
+        // network.add_layer(new FullyConnected<ReLU>(256, 120));
     }
     else if (dataset_name == "MNIST" || dataset_name == "FASHION-MNIST")
     {
