@@ -76,7 +76,7 @@ ElasticBatchController::ElasticBatchController(SystemExecutor &exec, std::string
             if (0 <= lbl && lbl < this->_y_dim) {
                 y(lbl, i) = 1.0;
             } else {
-                std::cerr << "[CIFAR10] Label value error. Got: " << lbl << std::endl;
+                std::cerr << "[CIFAR100] Label value error. Got: " << lbl << std::endl;
                 std::exit(-1);
             }
         }
@@ -84,7 +84,7 @@ ElasticBatchController::ElasticBatchController(SystemExecutor &exec, std::string
         /* normalise pixel values to 0.0-1.0 */
         x /= 255;
 
-        std::cout << "[CIFAR10] Successfully loaded samples and labels.\n";
+        std::cout << "[CIFAR100] Successfully loaded samples and labels.\n";
         std::cout << "\tn_training = " << n_training << std::endl;
         std::cout << "\tx columns = " << x.cols() << std::endl;
     } else if (dataset == "MNIST") {

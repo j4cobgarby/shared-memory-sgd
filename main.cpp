@@ -1,5 +1,9 @@
 #include <MiniDNN.h>
 
+#include "Activation/ReLU.h"
+#include "Layer/Convolutional.h"
+#include "Layer/FullyConnected.h"
+#include "Layer/MaxPooling.h"
 #include "NetworkTopology.h"
 #include "ParameterContainer.h"
 #include "modular_components.hpp"
@@ -121,7 +125,8 @@ int main(int argc, char *argv[]) {
     NetworkTopology network(new ParameterContainer());
     auto *batcher = new SimpleBatchController(exec, dataset_name, o_batch_size);
 
-    if (dataset_name == "CIFAR10" || dataset_name == "CIFAR100") {
+    if (dataset_name == "CIFAR10")
+    {
         network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
         network.add_layer(new MaxPooling<ReLU>(28, 28, 6, 2, 2));
 
@@ -129,7 +134,28 @@ int main(int argc, char *argv[]) {
         network.add_layer(new MaxPooling<ReLU>(10, 10, 16, 2, 2));
 
         network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
-    } else if (dataset_name == "MNIST" || dataset_name == "FASHION-MNIST") {
+    }
+    else if (dataset_name == "CIFAR100")
+    {
+        std::cout << "Making CIFAR100 layers\n";
+        network.add_layer(new Convolutional<ReLU>(32, 32, 3, 32, 3, 3));
+        network.add_layer(new MaxPooling<ReLU>(30, 30, 32, 2, 2));
+
+        std::cout << "Making CIFAR100 layers\n";
+        network.add_layer(new Convolutional<ReLU>(15, 15, 32, 64, 3, 3));
+        network.add_layer(new MaxPooling<ReLU>(13, 13, 64, 2, 2)); // -> Makes a 6x6
+        
+        std::cout << "Making CIFAR100 layers\n";
+        network.add_layer(new Convolutional<ReLU>(6, 6, 64, 128, 3, 3));
+        network.add_layer(new MaxPooling<ReLU>(4, 4, 128, 2, 2));
+
+        std::cout << "Making CIFAR100 layers\n";
+        network.add_layer(new FullyConnected<ReLU>(2 * 2 * 128, 256));
+        network.add_layer(new FullyConnected<ReLU>(256, 120));
+        std::cout << "Done!\n";
+    }
+    else if (dataset_name == "MNIST" || dataset_name == "FASHION-MNIST")
+    {
         network.add_layer(new Convolutional<ReLU>(28, 28, 1, 6, 5, 5));
         network.add_layer(new MaxPooling<ReLU>(24, 24, 6, 2, 2));
 
@@ -139,11 +165,16 @@ int main(int argc, char *argv[]) {
         network.add_layer(new FullyConnected<ReLU>(4 * 4 * 16, 120));
     }
 
-    std::cout << "Final layer has " << batcher->get_y_dimension() << " neurons\n";
     network.add_layer(new FullyConnected<Softmax>(120, batcher->get_y_dimension()));
 
     network.set_output(new MultiClassEntropy());
     network.init(0, 0.01, seed);
+
+    int num_params = 0;
+    for (auto &vec : network.get_parameters()) {
+        num_params += vec.size();
+    }
+    std::cout << "Parameter count = " << num_params << "\n";
 
     auto *model = new StandardModelInterface(exec, network, o_lrate, o_momentum, seed);
 
