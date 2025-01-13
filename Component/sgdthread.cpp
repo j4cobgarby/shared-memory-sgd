@@ -75,8 +75,8 @@ void SGDWorkerAsync::run() {
 
                 // Append new samples, up to vector's reserved size
                 if (steptime_samples.size() < N_STEP_TIME_SAMPLES) {
-                    const auto t_start = exec.start_time_hr;
-                    steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count(), this->id, tau);
+                    const auto t_start = _exec.start_time_hr;
+                    steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count(), this->_id, tau);
                 }
 #endif
             } else {
@@ -91,7 +91,7 @@ void SGDWorkerAsync::run() {
     std::cout << "Thread " << this->_id << " finished loop.\n";
 
 #if MEASURE_STEP_TIME
-    exec.submit_steptimes(steptime_samples);
+    _exec.submit_steptimes(steptime_samples);
 #endif
 
     _exec.submit_tau_dist(_tau_distr);
@@ -151,8 +151,8 @@ void SGDWorkerSynchronous::run() {
 
     // Append new samples, up to vector's reserved size
     if (steptime_samples.size() < N_STEP_TIME_SAMPLES) {
-        const auto t_start = exec.start_time_hr;
-        steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count(), this->id, tau);
+        const auto t_start = _exec.start_time_hr;
+        steptime_samples.emplace_back((t1-t_start).count(), (t2-t_start).count(), this->_id, tau);
     }
 #endif
 }
