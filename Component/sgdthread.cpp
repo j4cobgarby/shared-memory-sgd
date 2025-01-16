@@ -21,6 +21,11 @@ void SGDWorkerAsync::run() {
     while (!_exec.get_dispatcher()->is_finished()) {
         const auto [can_start, step_ind] = _exec.get_dispatcher()->try_start_step(this->_id);
         if (can_start) {
+            // if (!outstanding_step) {
+            //     outstanding_step = true;
+            //     t0 = HRClock::now();
+            // }
+
             const auto t1 = HRClock::now();
 
             // Get batch from batch controller
@@ -34,22 +39,22 @@ void SGDWorkerAsync::run() {
             auto global_param_ptr = _exec.get_model()->get_network()->current_param_container_ptr;
             auto *local_param = new ParameterContainer(*global_param_ptr);
 
-            const long param_version_start = local_param->timestamp;
 
-            #ifdef DUMMY // Simulate larger variance in time
-            auto dist = std::normal_distribution<double>(1, 0.23);
-            std::this_thread::sleep_for(std::chrono::duration<double>(dist(_rng)));
-            #endif
+            const long param_version_start = local_param->timestamp;
 
             this->network->set_pointer(local_param);
             this->network->forward(b_x);
             this->network->backprop(b_x, b_y);
 
+
             const double local_loss = this->network->get_loss();
             long step_end_ind;
 
             if (_exec.get_dispatcher()->finish_step(this->_id, step_ind, step_end_ind)) {
+                // outstanding_step = false;
+
                 accepted_steps++;
+                
                 // Apply gradient to model interface
                 // TODO: This section should really be delegated to the ModelInterface
                 this->network->set_pointer(global_param_ptr);
@@ -61,6 +66,7 @@ void SGDWorkerAsync::run() {
                 this->network->update_cw(this->optim.get());
 
                 const auto t2 = HRClock::now();
+
                 const long x = (t2 - t1).count();
 
                 // Give loss to monitor
@@ -87,8 +93,6 @@ void SGDWorkerAsync::run() {
             std::cout << "Thread " << this->_id << " could not start. m = " << _exec.get_paracontr()->get_parallelism() << "\n";
         }
     }
-
-    std::cout << "Thread " << this->_id << " finished loop.\n";
 
 #if MEASURE_STEP_TIME
     _exec.submit_steptimes(steptime_samples);

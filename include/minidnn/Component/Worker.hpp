@@ -24,6 +24,15 @@ protected:
 
     std::array<long, MAX_TAU_DIST> _tau_distr = {0};
     long accepted_steps = 0, rejected_steps = 0;
+
+    /* Is there currently an oustanding step? i.e., a step has begun (batch taken, etc.), but has not yet
+     * been completed AND ACCEPTED. */
+    // bool outstanding_step = false;
+
+    /* When was the outstanding step started? There can be several _attempted_ steps between this one, but
+     * once a step is accepted this gets reset */
+    // HRClock::time_point t0;
+
 #if MEASURE_STEP_TIME
     // t_start, t_end, thread_id, tau
     std::vector<std::tuple<long, long, long, long>> steptime_samples;
@@ -33,7 +42,13 @@ public:
     SGDWorkerAsync(SystemExecutor &exec, long id, std::atomic_flag *flag) : Worker(exec, id, flag), _rng(id) {
         this->network = std::make_unique<NetworkTopology>(*exec.get_model()->get_network());
         this->optim = std::unique_ptr<Optimizer>(exec.get_model()->get_optimizer()->clone());
-        set_cpu(id);
+
+        // Pin the first 256 threads to regular and hyperthread cores in first socket
+        set_cpu(id < 128 ? id : 256 + (id - 128));
+        
+        // Pin first 256 threads to regular and hyperthread in second socket
+        // set_cpu(128 + (id < 128 ? id : 256 + (id - 128)));
+
 #if MEASURE_STEP_TIME
         /* Tuples are (start,end,thread_id) for each step */
         steptime_samples.reserve(N_STEP_TIME_SAMPLES);
