@@ -5,7 +5,7 @@
 #include <random>
 #include <thread>
 
-//#define DUMMY
+#define DUMMY
 
 namespace MiniDNN {
 
@@ -28,6 +28,16 @@ void SGDWorkerAsync::run() {
 
             const auto t1 = HRClock::now();
 
+            // Calculate a gradient based on this batch (getting loss)
+            auto global_param_ptr = _exec.get_model()->get_network()->current_param_container_ptr;
+            auto *local_param = new ParameterContainer(*global_param_ptr);
+
+            const long param_version_start = local_param->timestamp;
+
+            #ifdef DUMMY // Simulate larger variance in time
+            auto dist = std::normal_distribution<double>(20, 0.25);
+            std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(dist(_rng)));
+            #else // Do actual work
             // Get batch from batch controller
             int batch_sz;
             const auto batch_id = _exec.get_batcher()->get_batch_ind(this->_id,
@@ -35,16 +45,10 @@ void SGDWorkerAsync::run() {
             const Matrix &b_x = _exec.get_batcher()->get_batch_data(batch_id, batch_sz);
             const Matrix &b_y = _exec.get_batcher()->get_batch_labels(batch_id, batch_sz);
 
-            // Calculate a gradient based on this batch (getting loss)
-            auto global_param_ptr = _exec.get_model()->get_network()->current_param_container_ptr;
-            auto *local_param = new ParameterContainer(*global_param_ptr);
-
-
-            const long param_version_start = local_param->timestamp;
-
             this->network->set_pointer(local_param);
             this->network->forward(b_x);
             this->network->backprop(b_x, b_y);
+            #endif
 
 
             const double local_loss = this->network->get_loss();
