@@ -1,11 +1,8 @@
 #include "ParameterContainer.h"
-#include "jsoncons/basic_json.hpp"
 #include "minidnn/Component/Worker.hpp"
 #include <chrono>
-#include <random>
-#include <thread>
 
-#define DUMMY
+// #define DUMMY
 
 namespace MiniDNN {
 

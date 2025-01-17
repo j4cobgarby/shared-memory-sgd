@@ -9,7 +9,7 @@
 #include <memory>
 #include <random>
 
-#define MEASURE_STEP_TIME 1
+// #define MEASURE_STEP_TIME 1
 #define N_STEP_TIME_SAMPLES 30000
 
 namespace MiniDNN {
