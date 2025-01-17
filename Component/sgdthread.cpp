@@ -35,7 +35,10 @@ void SGDWorkerAsync::run() {
             const long param_version_start = local_param->timestamp;
 
             #ifdef DUMMY // Simulate larger variance in time
-            auto dist = std::normal_distribution<double>(20, 0.25);
+            // auto dist = std::normal_distribution<double>(20, 0.25);
+            // auto dist = std::normal_distribution<double>(20, 1);
+            // auto dist = std::normal_distribution<double>(20, 2);
+            auto dist = std::normal_distribution<double>(20, 5);
             std::this_thread::sleep_for(std::chrono::duration<double, std::milli>(dist(_rng)));
             #else // Do actual work
             // Get batch from batch controller

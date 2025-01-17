@@ -38,7 +38,7 @@ int main(int argc, char *argv[]) {
     // o_ variables are option parsing related.
 
     std::string o_para_controller = "static";
-    std::string o_monitor = "ema";
+    std::string o_monitor = "window";
     std::string o_dispatcher = "async";
 
     // Parameters for if we make a search controller
