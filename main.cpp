@@ -51,11 +51,13 @@ int main(int argc, char *argv[]) {
     int o_windowsearch_m0 = -1;
 
     int o_semisync_period = 8000;
+    int o_semisync_reduce_period = 4096;
+    int o_semisync_reduce_step = 1;
 
     SystemExecutor exec(500, 3125);
 
     int c;
-    while ((c = getopt(argc, argv, "A:n:l:u:b:e:s:P:M:D:p:x:d:w:F:y:0:")) != -1) {
+    while ((c = getopt(argc, argv, "A:n:l:u:b:e:s:P:M:D:p:x:d:w:F:y:0:q:z:")) != -1) {
         switch (c) {
         case 'A':
             dataset_name = std::string(optarg);
@@ -104,6 +106,12 @@ int main(int argc, char *argv[]) {
             break;
         case 'y':
             o_semisync_period = std::stoi(optarg);
+            break;
+        case 'q':
+            o_semisync_reduce_period = std::stoi(optarg);
+            break;
+        case 'z':
+            o_semisync_reduce_step = std::stoi(optarg);
             break;
         case '0':
             o_windowsearch_m0 = std::stoi(optarg);
@@ -208,7 +216,10 @@ int main(int argc, char *argv[]) {
         exec.set_dispatcher(std::make_shared<AsyncDispatcher>(exec));
         std::cout << "Async dispatcher made\n";
     } else if (o_dispatcher == "semisync") {
-        exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(exec, o_semisync_period));
+        exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(
+            exec, o_semisync_period, 4,
+            o_semisync_reduce_period, o_semisync_reduce_step
+        ));
         std::cout << "Semi sync dispatcher made\n";
     } else if (o_dispatcher == "fully_sync") {
         std::cout << "For fully sync we don't use a special dispatcher. Sync worker pool is made soon\n";

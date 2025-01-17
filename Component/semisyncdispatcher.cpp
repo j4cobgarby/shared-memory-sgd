@@ -42,9 +42,12 @@ bool SemiSyncDispatcher::finish_step(const long worker_id, const long step_ind, 
         // Start a new period
 
         // Reduce period size by 1 if we completed 8192 steps in this period so far
-        if (period_reduce_counter > 4096 && async_period > 4) {
+        if (period_reduce_counter > period_reduce_period) {
             period_reduce_counter = 0;
-            // async_period -= 1;
+            async_period -= period_reduce_step;
+            if (async_period < async_period_min) {
+                async_period = async_period_min;
+            }
 
             this->_exec.mtx_async_period_vec.lock();
             this->_exec._async_period_mstimes.push_back(this->_exec.elapsed_time());
