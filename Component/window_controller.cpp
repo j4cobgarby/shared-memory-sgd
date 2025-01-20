@@ -107,7 +107,7 @@ void WindowParaController::update(const long step) {
                 return;
             }
 
-            switch_to_para(this->curr_parallelism - 1);
+            switch_to_para(this->curr_parallelism - 1 < 1 ? 1 : this->curr_parallelism - 1);
             std::cout << "[window_probe] PROBE_START m=" <<
                 this->curr_parallelism << std::endl;
         }

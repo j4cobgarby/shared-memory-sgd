@@ -93,8 +93,6 @@ void SGDWorkerAsync::run() {
                 rejected_steps++;
                 delete local_param;
             }
-        } else {
-            std::cout << "Thread " << this->_id << " could not start. m = " << _exec.get_paracontr()->get_parallelism() << "\n";
         }
     }
 
