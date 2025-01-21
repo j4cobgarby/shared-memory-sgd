@@ -256,7 +256,7 @@ int main(int argc, char *argv[]) {
 
     std::cout << "[main] Executor finished.\n";
 
-    double end_accuracy = exec.get_monitor()->eval_accuracy(false);
+    // double end_accuracy = exec.get_monitor()->eval_accuracy(false);
 
     json results;
     results["async_period_mstimes"] = exec._async_period_mstimes;
@@ -267,8 +267,10 @@ int main(int argc, char *argv[]) {
     results["epoch_mstimes"] = exec._epoch_mstimes;
     results["steptimes"] = exec._steptime_samples;
     results["tau_dist"] = exec._tau_dist;
+    results["epoch_tau_dist"] = exec._epoch_tau_dist;
     results["step_acceptance_rate"] = (double)exec._accepted_steps / (double)(exec._accepted_steps + exec._rejected_steps);
-    results["end_accuracy"] = end_accuracy;
+    // results["end_accuracy"] = end_accuracy;
+    results["end_accuracy"] = -1;
 
     json meta;
     meta["learning_rate"] = o_lrate;

@@ -12,6 +12,8 @@
 // #define MEASURE_STEP_TIME 1
 #define N_STEP_TIME_SAMPLES 30000
 
+#define MEASURE_TAU_PER_EPOCH
+
 namespace MiniDNN {
 
 class SGDWorkerAsync : public Worker {
@@ -23,6 +25,11 @@ protected:
     std::unique_ptr<Optimizer> optim;
 
     std::array<long, MAX_TAU_DIST> _tau_distr = {0};
+
+#ifdef MEASURE_TAU_PER_EPOCH
+    std::vector<std::array<long, MAX_MEASURE_TAU_PER_EPOCH>> _epoch_tau_distr;
+#endif
+
     long accepted_steps = 0, rejected_steps = 0;
 
     /* Is there currently an oustanding step? i.e., a step has begun (batch taken, etc.), but has not yet
@@ -52,6 +59,10 @@ public:
 #if MEASURE_STEP_TIME
         /* Tuples are (start,end,thread_id) for each step */
         steptime_samples.reserve(N_STEP_TIME_SAMPLES);
+#endif
+
+#ifdef MEASURE_TAU_PER_EPOCH
+        _epoch_tau_distr.resize(_exec._epoch_target);
 #endif
     }
 

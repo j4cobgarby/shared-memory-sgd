@@ -80,6 +80,16 @@ void SGDWorkerAsync::run() {
                     _tau_distr.at(tau) += 1;
                 }
 
+#ifdef MEASURE_TAU_PER_EPOCH
+                if (tau < MAX_MEASURE_TAU_PER_EPOCH) {
+                    int epoch_now = _exec.get_dispatcher()->get_steps_done() / _exec._steps_per_epoch;
+                    if (epoch_now >= _epoch_tau_distr.size()) {
+                        _epoch_tau_distr.resize(epoch_now);
+                    }
+                    _epoch_tau_distr.at(epoch_now).at(tau) += 1;
+                }
+#endif
+
 #if MEASURE_STEP_TIME
                 /* If we want to print all the measured time samples afterwards, we have to store them. */
 
@@ -102,6 +112,7 @@ void SGDWorkerAsync::run() {
 
     _exec.submit_tau_dist(_tau_distr);
     _exec.submit_acceptance_rate(accepted_steps, rejected_steps);
+    _exec.submit_epoch_tau_dist(_epoch_tau_distr);
 }
 
 void SGDWorkerSynchronous::run() {

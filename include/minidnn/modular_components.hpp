@@ -11,6 +11,7 @@
 #include <atomic>
 
 #define MAX_TAU_DIST 512
+#define MAX_MEASURE_TAU_PER_EPOCH 256
 
 namespace MiniDNN {
 
@@ -236,12 +237,16 @@ public:
     std::mutex _mtx_tau_dist;
     std::array<long, MAX_TAU_DIST> _tau_dist = {0};
 
+    std::mutex _mtx_epoch_tau_dist;
+    std::vector<std::array<long, MAX_MEASURE_TAU_PER_EPOCH>> _epoch_tau_dist;
+
     std::mutex _mtx_accept_rate;
     long _accepted_steps = 0, _rejected_steps = 0;
 
     long submit_para_change(long m, bool is_probing);
     void submit_steptimes(std::vector<std::tuple<long, long, long, long>> &);
     void submit_tau_dist(const std::array<long, MAX_TAU_DIST> &);
+    void submit_epoch_tau_dist(const std::vector<std::array<long, MAX_MEASURE_TAU_PER_EPOCH>> &);
     void submit_acceptance_rate(const long accepted, const long rejected);
 
     std::shared_ptr<BatchController> get_batcher() const { return this->batcher; }
