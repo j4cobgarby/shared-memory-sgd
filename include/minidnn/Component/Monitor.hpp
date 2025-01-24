@@ -18,7 +18,11 @@ private:
     //  2: Time taken to complete this step
     std::vector<std::tuple<double, double, long>> window;
     size_t window_filled = 0;
-    size_t next_window_ins = 0;
+    // size_t next_window_ins = 0;
+
+    // Monotonically increasing insertion counter
+    std::atomic<unsigned long> ins_count = 0;
+
     double last_reported_loss = -1;
 
     std::mutex mtx;

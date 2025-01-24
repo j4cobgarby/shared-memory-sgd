@@ -21,9 +21,7 @@ void EMAMonitor::update(double loss, long duration_ns, long step) {
     }
 
     /* Allow the parallelism controller to update now */
-    if (use_mtx) mtx.lock();
     this->_exec.get_paracontr()->update(step);
-    if (use_mtx) mtx.unlock();
 
     if (step > 0 && step % _exec._steps_per_epoch == 0) {
         const double avg_loss = this->get_loss_estim();
