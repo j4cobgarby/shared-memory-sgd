@@ -12,7 +12,7 @@
 // #define MEASURE_STEP_TIME 1
 #define N_STEP_TIME_SAMPLES 30000
 
-#define MEASURE_TAU_PER_EPOCH
+// #define MEASURE_TAU_PER_EPOCH
 
 namespace MiniDNN {
 
@@ -26,9 +26,7 @@ protected:
 
     std::array<long, MAX_TAU_DIST> _tau_distr = {0};
 
-#ifdef MEASURE_TAU_PER_EPOCH
     std::vector<std::array<long, MAX_MEASURE_TAU_PER_EPOCH>> _epoch_tau_distr;
-#endif
 
     long accepted_steps = 0, rejected_steps = 0;
 

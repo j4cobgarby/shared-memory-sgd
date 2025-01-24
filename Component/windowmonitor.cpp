@@ -10,7 +10,6 @@ SlidingWindowMonitor::SlidingWindowMonitor(SystemExecutor &exec, const int windo
     window.resize(window_size);
 }
 
-// TODO: This sliding window is so badly implemented, needs changing. Use ring buffer.
 void SlidingWindowMonitor::update(double loss, long duration_ns, long step) {
     mtx.lock(); // Wide mutex here, because otherwise segfault can happen with concurrent vector modification
 

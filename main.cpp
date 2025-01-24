@@ -53,11 +53,12 @@ int main(int argc, char *argv[]) {
     int o_semisync_period = 8000;
     int o_semisync_reduce_period = 4096;
     int o_semisync_reduce_step = 1;
+    int o_semisync_period_min = 4;
 
     SystemExecutor exec(500, 3125);
 
     int c;
-    while ((c = getopt(argc, argv, "A:n:l:u:b:e:s:P:M:D:p:x:d:w:F:y:0:q:z:")) != -1) {
+    while ((c = getopt(argc, argv, "A:n:l:u:b:e:s:P:M:D:p:x:d:w:F:y:0:q:z:m:")) != -1) {
         switch (c) {
         case 'A':
             dataset_name = std::string(optarg);
@@ -112,6 +113,9 @@ int main(int argc, char *argv[]) {
             break;
         case 'z':
             o_semisync_reduce_step = std::stoi(optarg);
+            break;
+        case 'm':
+            o_semisync_period_min = std::stoi(optarg);
             break;
         case '0':
             o_windowsearch_m0 = std::stoi(optarg);
@@ -217,7 +221,7 @@ int main(int argc, char *argv[]) {
         std::cout << "Async dispatcher made\n";
     } else if (o_dispatcher == "semisync") {
         exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(
-            exec, o_semisync_period, 4,
+            exec, o_semisync_period, o_semisync_period_min,
             o_semisync_reduce_period, o_semisync_reduce_step
         ));
         std::cout << "Semi sync dispatcher made\n";
@@ -229,7 +233,7 @@ int main(int argc, char *argv[]) {
     }
 
     if ("window" == o_monitor) {
-        exec.set_monitor(std::make_shared<SlidingWindowMonitor>(exec, 4096));
+        exec.set_monitor(std::make_shared<SlidingWindowMonitor>(exec, 3125 * 4));
     } else if ("ema" == o_monitor) {
         exec.set_monitor(std::make_shared<EMAMonitor>(exec, 0.7, false));
     } else if ("eval" == o_monitor) {
@@ -256,7 +260,7 @@ int main(int argc, char *argv[]) {
 
     std::cout << "[main] Executor finished.\n";
 
-    // double end_accuracy = exec.get_monitor()->eval_accuracy(false);
+    double end_accuracy = exec.get_monitor()->eval_accuracy(false);
 
     json results;
     results["async_period_mstimes"] = exec._async_period_mstimes;
@@ -269,8 +273,7 @@ int main(int argc, char *argv[]) {
     results["tau_dist"] = exec._tau_dist;
     results["epoch_tau_dist"] = exec._epoch_tau_dist;
     results["step_acceptance_rate"] = (double)exec._accepted_steps / (double)(exec._accepted_steps + exec._rejected_steps);
-    // results["end_accuracy"] = end_accuracy;
-    results["end_accuracy"] = -1;
+    results["end_accuracy"] = end_accuracy;
 
     json meta;
     meta["learning_rate"] = o_lrate;
@@ -286,7 +289,11 @@ int main(int argc, char *argv[]) {
     meta["monitor"] = o_monitor;
     meta["dispatcher"] = o_dispatcher;
     meta["window_size"] = o_searchwindow_size;
+    meta["windowsearch_m0"] = o_windowsearch_m0;
     meta["semisync_period"] = o_semisync_period;
+    meta["semisync_reduce_period"] = o_semisync_reduce_period;
+    meta["semisync_reduce_step"] = o_semisync_reduce_step;
+    meta["semisync_period_min"] = o_semisync_period_min;
     meta["dataset"] = dataset_name;
 
     results["meta"] = meta;

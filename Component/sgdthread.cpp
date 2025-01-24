@@ -84,7 +84,7 @@ void SGDWorkerAsync::run() {
                 if (tau < MAX_MEASURE_TAU_PER_EPOCH) {
                     int epoch_now = _exec.get_dispatcher()->get_steps_done() / _exec._steps_per_epoch;
                     if (epoch_now >= _epoch_tau_distr.size()) {
-                        _epoch_tau_distr.resize(epoch_now);
+                        _epoch_tau_distr.resize(epoch_now + 1);
                     }
                     _epoch_tau_distr.at(epoch_now).at(tau) += 1;
                 }
