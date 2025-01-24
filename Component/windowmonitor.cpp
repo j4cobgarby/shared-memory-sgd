@@ -10,23 +10,22 @@ SlidingWindowMonitor::SlidingWindowMonitor(SystemExecutor &exec, const int windo
     window.resize(window_size);
 }
 
-// TODO: This sliding window is so badly implemented, needs changing. Use ring buffer.
 void SlidingWindowMonitor::update(double loss, long duration_ns, long step) {
-    mtx.lock(); // Wide mutex here, because otherwise segfault can happen with concurrent vector modification
+    unsigned long this_ins = ins_count.fetch_add(1) % window_size;
+    // mtx.lock(); // Wide mutex here, because otherwise segfault can happen with concurrent vector modification
 
-    this->window.at(next_window_ins) = {
+    this->window.at(this_ins) = {
         loss,
         last_reported_loss >= 0 ? loss - last_reported_loss : 0.0,
         duration_ns
     };
 
-    next_window_ins = (next_window_ins + 1) % window.size();
+    // next_window_ins = (next_window_ins + 1) % window.size();
     window_filled++;
-    if (window_filled > window.size()) window_filled = window.size();
+    if (window_filled > window_size) window_filled = window_size;
 
     /* Allow the parallelism controller to update now */
     this->_exec.get_paracontr()->update(step);
-    mtx.unlock();
 
     if (step > 0 && step % _exec._steps_per_epoch == 0) {
         const double avg_loss = this->get_loss_estim();

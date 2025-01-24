@@ -43,7 +43,11 @@ void WindowParaController::clip_window() {
 
 /* This gets called when the monitor receives an update */
 void WindowParaController::update(const long step) {
-    if (!this->is_probing && step - this->phase_start_step >= this->exec_steps) {
+    if (!this->is_probing && step - this->phase_start_step == this->exec_steps) {
+        // This current thread is finishing the execution phase
+        // No mutex needed since it's practically infeasible (but possible) for two
+        // threads to get here at the same time, since one would still have to be in
+        // this function for the entirety of a subsequent probing and execution pair.
         this->is_probing = true;
         this->phase_start_step = step;
         this->window_btm = this->curr_parallelism - (this->window_size / 2);
@@ -57,6 +61,8 @@ void WindowParaController::update(const long step) {
 
         std::cout << "[window_probe] START_PROBING window_btm="
             << this->window_btm << std::endl;
+
+        return;
     }
 
     if (this->is_probing) {

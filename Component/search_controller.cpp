@@ -68,7 +68,7 @@ void SearchParaController::clip_window() {
 
 void SearchParaController::update(const long step) {
     // Should we be switching to searching now?
-    if (!is_searching && step - phase_start_step >= exec_steps) {
+    if (!is_searching && step - phase_start_step == exec_steps) {
         is_searching = true;
         phase_start_step = step;
         probe_counter = 0;
