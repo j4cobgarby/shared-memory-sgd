@@ -17,6 +17,7 @@ long MiniDNN::SystemExecutor::submit_para_change(long m, bool is_probing) {
     this->_para_mstimes.push_back(this->elapsed_time());
     this->_para_values.push_back(m);
     this->para_is_probing.push_back(is_probing);
+    this->_para_stepinds.push_back(dispatcher->get_steps_done());
     this->mtx_para_vec.unlock();
     
     return m;

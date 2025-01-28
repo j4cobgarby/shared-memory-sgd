@@ -222,6 +222,7 @@ public:
     std::vector<unsigned> _para_values;
     std::vector<long> _para_mstimes;
     std::vector<bool> para_is_probing;
+    std::vector<long> _para_stepinds;
 
     std::mutex mtx_epoch_vec;
     std::vector<double> _epoch_losses;

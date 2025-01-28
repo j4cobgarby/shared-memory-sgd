@@ -261,10 +261,15 @@ int main(int argc, char *argv[]) {
     json results;
     results["async_period_mstimes"] = exec._async_period_mstimes;
     results["async_period_values"] = exec._async_period_values;
-    results["epoch_loss"] = exec._epoch_losses;
+
     results["para_values"] = exec._para_values;
     results["para_mstimes"] = exec._para_mstimes;
+    results["para_isprobing"] = exec.para_is_probing;
+    results["para_stepinds"] = exec._para_stepinds;
+
+    results["epoch_loss"] = exec._epoch_losses;
     results["epoch_mstimes"] = exec._epoch_mstimes;
+
     results["steptimes"] = exec._steptime_samples;
     results["tau_dist"] = exec._tau_dist;
     results["epoch_tau_dist"] = exec._epoch_tau_dist;
