@@ -56,3 +56,4 @@ __pycache__
 .ipynb_checkpoints
 data1.json
 final_experiments/
+Session.vim

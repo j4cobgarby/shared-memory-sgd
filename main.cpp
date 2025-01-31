@@ -217,8 +217,9 @@ int main(int argc, char *argv[]) {
         std::cout << "Async dispatcher made\n";
     } else if (o_dispatcher == "semisync") {
         exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(
-            exec, o_semisync_period, 4,
-            o_semisync_reduce_period, o_semisync_reduce_step
+            exec, SemiSyncDispatcher::update_strat::YUPDATE_PROBE, o_semisync_period, 
+            4, o_semisync_reduce_period, o_semisync_reduce_step, // Decay params
+            4096, 1024
         ));
         std::cout << "Semi sync dispatcher made\n";
     } else if (o_dispatcher == "fully_sync") {
