@@ -30,7 +30,7 @@ private:
 
     int win_phase_counter = 0; // Cycles in [0...up+down+1]; last value means execution
     int win_probe_period, win_exec_period;
-    int win_up = 8, win_down = 8, win_step = 4;
+    int win_top_offset = 8, win_n_steps = 9, win_step = 4;
     const int win_step_base = 4;
     const float win_loss_scalar = 0.6;
     int win_best_period;
@@ -74,7 +74,7 @@ public:
             steps_until_period_update = win_probe_period;
             win_phase_start_time = HRClock::now();
             win_phase_start_loss = -1;
-            async_period += win_up; // Start probing from top
+            async_period += win_top_offset; // Start probing from top
             break;
         }
     }
