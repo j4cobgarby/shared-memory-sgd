@@ -1,4 +1,5 @@
 #include "Component/Dispatcher.hpp"
+#include "utils.h"
 #include <atomic>
 #include <limits>
 
@@ -91,10 +92,17 @@ void SemiSyncDispatcher::_window_probe() {
     // This is called when the last "update interval" ended, so we have to either start the next probe,
     // or begin execution.
     
+    double loss_now = _exec.get_monitor()->get_loss_accur();
+    
     /* First: Based on phase in probing cycle, update log(period) */
     if (win_phase_counter < win_up + win_down + 1) { // Just finished a probe
-        double this_rate = _exec.get_monitor()->get_rate_estim();
-        std::cout << "Completed probe at " << 1 << win_log_of_period << " => " << this_rate << "\n";
+        // double this_rate = _exec.get_monitor()->get_rate_estim();
+        const double phase_dur = (double)(HRClock::now() - win_phase_start_time).count() * 1e-9;
+        const double this_rate = win_phase_start_loss >= 0
+            ? (loss_now - win_phase_start_loss) / phase_dur
+            : 0.0; // No change if this was the first ever phase
+        //
+        std::cout << "Completed probe at " << (1 << win_log_of_period) << " => " << this_rate << "\n";
 
         if (this_rate < win_best_rate) {
             win_best_rate = this_rate;
@@ -125,13 +133,16 @@ void SemiSyncDispatcher::_window_probe() {
         std::cerr << "[SemiSyncDispatcher] Bug: We seem to have reached an undefined probing phase number\n";
     }
 
-    /* Second: Set actual period based on log, and report */
+    /* Second: Set actual period based on log, and report change */
     async_period = 1 << win_log_of_period;
-
     this->_exec.mtx_async_period_vec.lock();
     this->_exec._async_period_mstimes.push_back(this->_exec.elapsed_time());
     this->_exec._async_period_values.push_back(async_period);
     this->_exec.mtx_async_period_vec.unlock();
+
+    /* Finally: Record the loss for the beginning of this next phase */
+    win_phase_start_loss = loss_now;
+    win_phase_start_time = HRClock::now();
 }
 
 bool SemiSyncDispatcher::is_finished() {

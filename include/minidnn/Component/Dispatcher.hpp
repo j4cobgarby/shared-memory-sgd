@@ -2,6 +2,7 @@
 #define COMPONENT_DISPATCHER_HPP
 
 #include "modular_components.hpp"
+#include "utils.h"
 #include <atomic>
 #include <cmath>
 #include <limits>
@@ -34,10 +35,11 @@ private:
     int win_log_of_period; // We actually probe powers of two, so this is what we adjust directly
     int win_best_log = -1;
     double win_best_rate = std::numeric_limits<double>::infinity();
+    double win_phase_start_loss;
+    HRClock::time_point win_phase_start_time;
 
     std::atomic<long> period_start_step = 0;
     std::atomic<long> steps_done_in_period = 0;
-
 
     void update_period() {
         switch (strat) {
@@ -71,7 +73,10 @@ public:
             std::cout << "period until update = " << win_probe_period << "\n";
             steps_until_period_update = win_probe_period;
             win_log_of_period = int(log2(P_0));
+            std::cout << "initial log = " << win_log_of_period << " (log2 " << P_0 << ")\n";
             async_period = 1 << win_log_of_period;
+            win_phase_start_time = HRClock::now();
+            win_phase_start_loss = -1;
             break;
         }
     }
@@ -81,7 +86,7 @@ public:
     bool is_finished() override;
 
 private:
-    update_strat strat;
+    const update_strat strat;
 };
 
 class ResettingDispatcher : public Dispatcher {
