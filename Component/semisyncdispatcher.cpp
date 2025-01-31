@@ -95,36 +95,38 @@ void SemiSyncDispatcher::_window_probe() {
     double loss_now = _exec.get_monitor()->get_loss_accur();
     
     /* First: Based on phase in probing cycle, update log(period) */
-    if (win_phase_counter < win_up + win_down + 1) { // Just finished a probe
-        // double this_rate = _exec.get_monitor()->get_rate_estim();
+    if (win_phase_counter < 1+(win_up + win_down)/win_step) { // Just finished a probe
+        std::cout << "Finished probe at y = " << async_period << "\n";
         const double phase_dur = (double)(HRClock::now() - win_phase_start_time).count() * 1e-9;
         const double this_rate = win_phase_start_loss >= 0
             ? (loss_now - win_phase_start_loss) / phase_dur
             : 0.0; // No change if this was the first ever phase
-        //
-        std::cout << "Completed probe at " << (1 << win_log_of_period) << " => " << this_rate << "\n";
 
         if (this_rate < win_best_rate) {
             win_best_rate = this_rate;
-            win_best_log = win_log_of_period;
-            std::cout << "New best rate: log(y)=" << win_best_log << ", rate = " << win_best_rate << "\n";
+            win_best_period = async_period;
+            std::cout << "New best rate: y =" << win_best_period << ", rate = " << win_best_rate << "\n";
         }
 
         win_phase_counter++;
 
-        if (win_phase_counter == win_up + win_down + 1) { // Start exec
-            win_log_of_period = win_best_log;
+        if (win_phase_counter == 1+(win_up + win_down)/win_step) { // Start exec
+            async_period = win_best_period;
             steps_until_period_update = win_exec_period;
-            std::cout << "Exec at log(y)=" << win_best_log << "\n";
+            std::cout << "Exec at y =" << async_period << "\n";
         }
         else { // Start next probe
-            win_log_of_period--;
+            async_period -= win_step;
+            if (async_period < async_period_min) {
+                async_period = async_period_min;
+            }
         }
     }
-    else if (win_phase_counter == win_up + win_down + 1) // Just finished execution
+    else if (win_phase_counter == 1+(win_up + win_down)/win_step) // Just finished execution
     {
+        std::cout << "Finished exec at y = " << async_period << "\n";
         win_phase_counter = 0;
-        win_log_of_period += win_up; // Start probing from top
+        async_period += win_up; // Start probing from top
         win_best_rate = std::numeric_limits<double>::infinity();
         steps_until_period_update = win_probe_period;
         std::cout << "Completed exec\n";
@@ -133,8 +135,6 @@ void SemiSyncDispatcher::_window_probe() {
         std::cerr << "[SemiSyncDispatcher] Bug: We seem to have reached an undefined probing phase number\n";
     }
 
-    /* Second: Set actual period based on log, and report change */
-    async_period = 1 << win_log_of_period;
     this->_exec.mtx_async_period_vec.lock();
     this->_exec._async_period_mstimes.push_back(this->_exec.elapsed_time());
     this->_exec._async_period_values.push_back(async_period);

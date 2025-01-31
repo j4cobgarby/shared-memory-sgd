@@ -30,10 +30,8 @@ private:
 
     int win_phase_counter = 0; // Cycles in [0...up+down+1]; last value means execution
     int win_probe_period, win_exec_period;
-    int win_up = 1, win_down = 3;
-    int win_max_log = 12, win_min_log = 1;
-    int win_log_of_period; // We actually probe powers of two, so this is what we adjust directly
-    int win_best_log = -1;
+    int win_up = 8, win_down = 8, win_step = 4;
+    int win_best_period;
     double win_best_rate = std::numeric_limits<double>::infinity();
     double win_phase_start_loss;
     HRClock::time_point win_phase_start_time;
@@ -72,11 +70,9 @@ public:
         case YUPDATE_PROBE:
             std::cout << "period until update = " << win_probe_period << "\n";
             steps_until_period_update = win_probe_period;
-            win_log_of_period = int(log2(P_0));
-            std::cout << "initial log = " << win_log_of_period << " (log2 " << P_0 << ")\n";
-            async_period = 1 << win_log_of_period;
             win_phase_start_time = HRClock::now();
             win_phase_start_loss = -1;
+            async_period += win_up; // Start probing from top
             break;
         }
     }
