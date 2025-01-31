@@ -215,6 +215,9 @@ public:
     long _epoch_target;
     long _steps_per_epoch;
 
+    double first_loss;
+    bool got_first_loss = false;
+
     long start_time_ms = -1;
     HRClock::time_point start_time_hr;
 
