@@ -221,8 +221,9 @@ int main(int argc, char *argv[]) {
         std::cout << "Async dispatcher made\n";
     } else if (o_dispatcher == "semisync") {
         exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(
-            exec, o_semisync_period, o_semisync_period_min,
-            o_semisync_reduce_period, o_semisync_reduce_step
+            exec, SemiSyncDispatcher::update_strat::YUPDATE_PROBE, o_semisync_period, 
+            o_semisync_period_min, o_semisync_reduce_period, o_semisync_reduce_step, // Decay params
+            4096, 1024 // Window probe params
         ));
         std::cout << "Semi sync dispatcher made\n";
     } else if (o_dispatcher == "fully_sync") {
@@ -265,10 +266,15 @@ int main(int argc, char *argv[]) {
     json results;
     results["async_period_mstimes"] = exec._async_period_mstimes;
     results["async_period_values"] = exec._async_period_values;
-    results["epoch_loss"] = exec._epoch_losses;
+
     results["para_values"] = exec._para_values;
     results["para_mstimes"] = exec._para_mstimes;
+    results["para_isprobing"] = exec.para_is_probing;
+    results["para_stepinds"] = exec._para_stepinds;
+
+    results["epoch_loss"] = exec._epoch_losses;
     results["epoch_mstimes"] = exec._epoch_mstimes;
+
     results["steptimes"] = exec._steptime_samples;
     results["tau_dist"] = exec._tau_dist;
     results["epoch_tau_dist"] = exec._epoch_tau_dist;
