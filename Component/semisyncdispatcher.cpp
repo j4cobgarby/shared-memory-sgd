@@ -95,7 +95,7 @@ void SemiSyncDispatcher::_window_probe() {
     const double loss_now = _exec.get_monitor()->get_loss_accur();
     
     /* First: Based on phase in probing cycle, update log(period) */
-    if (win_phase_counter < 1+(win_up + win_down)/win_step) { // Just finished a probe
+    if (win_phase_counter < win_n_steps) { // Just finished a probe
         std::cout << "Finished probe at y = " << async_period << "\n";
         const double phase_dur = (double)(HRClock::now() - win_phase_start_time).count() * 1e-9;
         const double this_rate = win_phase_start_loss >= 0
@@ -110,7 +110,7 @@ void SemiSyncDispatcher::_window_probe() {
 
         win_phase_counter++;
 
-        if (win_phase_counter == 1+(win_up + win_down)/win_step) { // Start exec
+        if (win_phase_counter == win_n_steps) { // Start exec
             async_period = win_best_period;
             steps_until_period_update = win_exec_period;
             std::cout << "Exec at y =" << async_period << "\n";
@@ -122,7 +122,7 @@ void SemiSyncDispatcher::_window_probe() {
             }
         }
     }
-    else if (win_phase_counter == 1+(win_up + win_down)/win_step) // Just finished execution
+    else if (win_phase_counter == win_n_steps) // Just finished execution
     {
         const double loss_perc = _exec.got_first_loss ? loss_now / _exec.first_loss : 1.0;
         const double scale_factor = loss_perc * win_loss_scalar + (1 - win_loss_scalar);
@@ -130,8 +130,9 @@ void SemiSyncDispatcher::_window_probe() {
         std::cout << "Finished exec at y = " << async_period << "\n";
         std::cout << "Loss % = " << loss_perc << ", scale factor = " << scale_factor << "\n";
         win_phase_counter = 0;
-        async_period += win_up * scale_factor; // Start probing from top
-        win_step = (int)std::round((float)win_step_base * (float)scale_factor);
+        async_period += win_top_offset * scale_factor; // Start probing from top
+        // win_step = (int)std::round((float)win_step_base * (float)scale_factor);
+        win_step = (int)(win_top_offset * scale_factor) / (win_n_steps / 2);
         win_best_rate = std::numeric_limits<double>::infinity();
         steps_until_period_update = win_probe_period;
         std::cout << "Completed exec. New step = " << win_step << "\n";
