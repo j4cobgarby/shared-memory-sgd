@@ -92,7 +92,7 @@ void SemiSyncDispatcher::_window_probe() {
     // This is called when the last "update interval" ended, so we have to either start the next probe,
     // or begin execution.
     
-    double loss_now = _exec.get_monitor()->get_loss_accur();
+    const double loss_now = _exec.get_monitor()->get_loss_accur();
     
     /* First: Based on phase in probing cycle, update log(period) */
     if (win_phase_counter < 1+(win_up + win_down)/win_step) { // Just finished a probe
@@ -124,12 +124,17 @@ void SemiSyncDispatcher::_window_probe() {
     }
     else if (win_phase_counter == 1+(win_up + win_down)/win_step) // Just finished execution
     {
+        const double loss_perc = _exec.got_first_loss ? loss_now / _exec.first_loss : 1.0;
+        const double scale_factor = loss_perc * win_loss_scalar + (1 - win_loss_scalar);
+
         std::cout << "Finished exec at y = " << async_period << "\n";
+        std::cout << "Loss % = " << loss_perc << ", scale factor = " << scale_factor << "\n";
         win_phase_counter = 0;
-        async_period += win_up; // Start probing from top
+        async_period += win_up * scale_factor; // Start probing from top
+        win_step = (int)std::round((float)win_step_base * (float)scale_factor);
         win_best_rate = std::numeric_limits<double>::infinity();
         steps_until_period_update = win_probe_period;
-        std::cout << "Completed exec\n";
+        std::cout << "Completed exec. New step = " << win_step << "\n";
     }
     else {
         std::cerr << "[SemiSyncDispatcher] Bug: We seem to have reached an undefined probing phase number\n";

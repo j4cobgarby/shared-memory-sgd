@@ -31,6 +31,8 @@ private:
     int win_phase_counter = 0; // Cycles in [0...up+down+1]; last value means execution
     int win_probe_period, win_exec_period;
     int win_up = 8, win_down = 8, win_step = 4;
+    const int win_step_base = 4;
+    const float win_loss_scalar = 0.6;
     int win_best_period;
     double win_best_rate = std::numeric_limits<double>::infinity();
     double win_phase_start_loss;
