@@ -233,7 +233,7 @@ int main(int argc, char *argv[]) {
     }
 
     if ("window" == o_monitor) {
-        exec.set_monitor(std::make_shared<SlidingWindowMonitor>(exec, 3125 * 4));
+        exec.set_monitor(std::make_shared<SlidingWindowMonitor>(exec, 3125 * 3));
     } else if ("ema" == o_monitor) {
         exec.set_monitor(std::make_shared<EMAMonitor>(exec, 0.7, false));
     } else if ("eval" == o_monitor) {
