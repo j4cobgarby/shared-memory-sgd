@@ -30,7 +30,8 @@ private:
 
     int win_phase_counter = 0; // Cycles in [0...up+down+1]; last value means execution
     int win_probe_period, win_exec_period;
-    int win_top_offset = 8, win_n_steps = 9, win_step = 4;
+    int win_top_offset = 12, win_n_steps = 7, win_step = 4;
+    // 12, 8, 4, 0, -4, -8, -12
     const int win_step_base = 4;
     const float win_loss_scalar = 0.6;
     int win_best_period;

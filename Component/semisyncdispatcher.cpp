@@ -128,14 +128,15 @@ void SemiSyncDispatcher::_window_probe() {
         const double scale_factor = loss_perc * win_loss_scalar + (1 - win_loss_scalar);
 
         std::cout << "Finished exec at y = " << async_period << "\n";
-        std::cout << "Loss % = " << loss_perc << ", scale factor = " << scale_factor << "\n";
+        std::cout << "Loss % = " << loss_perc << " => scale factor = " << scale_factor << "\n";
+
         win_phase_counter = 0;
+
         async_period += win_top_offset * scale_factor; // Start probing from top
-        // win_step = (int)std::round((float)win_step_base * (float)scale_factor);
-        win_step = (int)(win_top_offset * scale_factor) / (win_n_steps / 2);
+        win_step = win_step_base * scale_factor;
+
         win_best_rate = std::numeric_limits<double>::infinity();
         steps_until_period_update = win_probe_period;
-        std::cout << "Completed exec. New step = " << win_step << "\n";
     }
     else {
         std::cerr << "[SemiSyncDispatcher] Bug: We seem to have reached an undefined probing phase number\n";
