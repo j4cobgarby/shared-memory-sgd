@@ -55,6 +55,8 @@ int main(int argc, char *argv[]) {
     int o_semisync_reduce_step = 1;
     int o_semisync_period_min = 4;
 
+    int o_semisync_win_exec_steps = 8192;
+    int o_semisync_win_probe_steps = 1024;
     int o_semisync_win_offset = 16;
     int o_semisync_win_step = 4;
     float o_semisync_win_loss_scalar = 0.4;
@@ -236,7 +238,7 @@ int main(int argc, char *argv[]) {
         exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(
             exec, SemiSyncDispatcher::update_strat::YUPDATE_PROBE, o_semisync_period, 
             o_semisync_period_min, o_semisync_reduce_period, o_semisync_reduce_step, // Decay params
-            512, 8192, 16, 4, 0.3 // Window params
+            o_semisync_win_probe_steps, o_semisync_win_exec_steps, 16, 4, 0.3 // Window params
         ));
         std::cout << "Semi sync dispatcher made\n";
     } else if (o_dispatcher == "fully_sync") {
