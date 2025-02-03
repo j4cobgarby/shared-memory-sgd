@@ -50,6 +50,7 @@ int main(int argc, char *argv[]) {
 
     int o_windowsearch_m0 = -1;
 
+    std::string o_semisync_y_strat = "decay";
     int o_semisync_period = 8000;
     int o_semisync_reduce_period = 4096;
     int o_semisync_reduce_step = 1;
@@ -61,7 +62,7 @@ int main(int argc, char *argv[]) {
     SystemExecutor exec(500, 3125);
 
     int c;
-    while ((c = getopt(argc, argv, "A:n:l:u:b:e:s:P:M:D:p:x:d:w:F:y:0:q:z:W:S:L:")) != -1) {
+    while ((c = getopt(argc, argv, "A:n:l:u:b:e:s:P:M:D:p:x:d:w:F:y:0:q:z:W:S:L:c:")) != -1) {
         switch (c) {
         case 'A':
             dataset_name = std::string(optarg);
@@ -129,6 +130,13 @@ int main(int argc, char *argv[]) {
         case 'L':
             o_semisync_win_loss_scalar = std::stof(optarg);
             break;
+        case 'c':
+            o_semisync_y_strat = std::string(optarg);
+            if (o_semisync_y_strat != "decay" && o_semisync_y_strat != "probe") {
+                std::cout << "Illegal strategy: " << o_semisync_y_strat << "\n";
+                std::exit(-1);
+            }
+            break;
         case '?':
             std::cout << "Unknown option: " << optopt << std::endl;
             std::exit(-1);
@@ -138,8 +146,6 @@ int main(int argc, char *argv[]) {
             std::exit(-1);
         }
     }
-
-    std::cout << "m = " << o_parallelism_limit << ", y = " << o_semisync_period << "\n";
 
     if (o_windowsearch_m0 <= 0) o_windowsearch_m0 = o_parallelism_limit / 2;
 
@@ -229,8 +235,13 @@ int main(int argc, char *argv[]) {
         exec.set_dispatcher(std::make_shared<AsyncDispatcher>(exec));
         std::cout << "Async dispatcher made\n";
     } else if (o_dispatcher == "semisync") {
+        SemiSyncDispatcher::update_strat ystrat =
+            o_semisync_y_strat == "decay" 
+                ? SemiSyncDispatcher::YUPDATE_DECAY
+                : SemiSyncDispatcher::YUPDATE_PROBE;
+
         exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(
-            exec, SemiSyncDispatcher::update_strat::YUPDATE_PROBE, o_semisync_period, 
+            exec, ystrat, o_semisync_period, 
             4, o_semisync_reduce_period, o_semisync_reduce_step, // Decay params
             512, 8192, 16, 4, 0.3 // Window params
         ));
@@ -305,6 +316,7 @@ int main(int argc, char *argv[]) {
     meta["monitor"] = o_monitor;
     meta["dispatcher"] = o_dispatcher;
     meta["window_size"] = o_searchwindow_size;
+    meta["semisync_strat"] = o_semisync_y_strat;
     meta["semisync_period"] = o_semisync_period;
     meta["semisync_win_offset"] = o_semisync_win_offset;
     meta["semisync_win_step"] = o_semisync_win_step;
