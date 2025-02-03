@@ -30,10 +30,9 @@ private:
 
     int win_phase_counter = 0; // Cycles in [0...up+down+1]; last value means execution
     int win_probe_period, win_exec_period;
-    int win_top_offset = 12, win_n_steps = 7, win_step = 4;
-    // 12, 8, 4, 0, -4, -8, -12
-    const int win_step_base = 4;
-    const float win_loss_scalar = 0.6;
+    int win_top_offset, win_n_steps, win_step;
+    const int win_step_base;
+    const float win_loss_scalar; // Lower values => Slower scaling
     int win_best_period;
     double win_best_rate = std::numeric_limits<double>::infinity();
     double win_phase_start_loss;
@@ -60,11 +59,12 @@ public:
     SemiSyncDispatcher(SystemExecutor &exec,
                        update_strat strat, long P_0,
                        long P_min, int reduce_period, int reduce_step, // Decay params
-                       int win_probe_period, int win_exec_period) :
+                       int win_probe_period, int win_exec_period, int win_offset, int win_step_size, float win_loss_scalar) :
         Dispatcher(exec), strat(strat),
         async_period(P_0), async_period_min(P_min),
         period_reduce_step(reduce_step),
-        win_probe_period(win_probe_period), win_exec_period(win_exec_period) {
+        win_probe_period(win_probe_period), win_exec_period(win_exec_period),
+        win_step_base(win_step_size), win_loss_scalar(win_loss_scalar) {
 
         switch (strat) {
         case YUPDATE_DECAY:
@@ -75,6 +75,13 @@ public:
             steps_until_period_update = win_probe_period;
             win_phase_start_time = HRClock::now();
             win_phase_start_loss = -1;
+
+            win_top_offset = win_offset;
+            win_step = win_step_base;
+            win_n_steps = 2 * (win_top_offset / win_step_size) + 1;
+
+            std::cout << "Y-window [+" << win_top_offset << "..s=" << win_step << ".." << win_top_offset - (win_n_steps - 1) * win_step << "]\n";
+            
             async_period += win_top_offset; // Start probing from top
             break;
         }
