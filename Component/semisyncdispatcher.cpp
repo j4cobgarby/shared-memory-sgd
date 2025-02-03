@@ -119,6 +119,7 @@ void SemiSyncDispatcher::_window_probe() {
             async_period -= win_step;
             if (async_period < async_period_min) {
                 async_period = async_period_min;
+                win_phase_counter = win_n_steps - 1; // Make this the last probe
             }
         }
     }
