@@ -57,3 +57,17 @@ void MiniDNN::SystemExecutor::submit_acceptance_rate(const long accepted, const 
     _rejected_steps += rejected;
     _mtx_accept_rate.unlock();
 }
+
+void MiniDNN::SystemExecutor::submit_thread_epochs(const std::vector<double> L, const std::vector<int> N) {
+    mtx_thread_epoch_sums.lock();
+    if (_thread_epoch_sums.size() < L.size()) {
+        _thread_epoch_sums.resize(L.size());
+        _thread_epoch_counts.resize(L.size());
+    }
+
+    for (int i = 0; i < L.size(); i++) {
+        _thread_epoch_sums.at(i) += L.at(i);
+        _thread_epoch_counts.at(i) += N.at(i);
+    }
+    mtx_thread_epoch_sums.unlock();
+}

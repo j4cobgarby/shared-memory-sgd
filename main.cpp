@@ -281,6 +281,12 @@ int main(int argc, char *argv[]) {
 
     std::cout << "[main] Executor finished.\n";
 
+    std::cout << "Computing epoch loss means...\n";
+    for (int i = 0; i < exec._thread_epoch_sums.size(); i++) {
+        exec._thread_epoch_sums.at(i) /= (double)exec._thread_epoch_counts.at(i);
+    }
+    std::cout << "Done.\n";
+
     // double end_accuracy = exec.get_monitor()->eval_accuracy(false);
 
     json results;
@@ -294,6 +300,8 @@ int main(int argc, char *argv[]) {
 
     results["epoch_loss"] = exec._epoch_losses;
     results["epoch_mstimes"] = exec._epoch_mstimes;
+
+    results["alt_epoch_loss"] = exec._thread_epoch_sums;
 
     results["steptimes"] = exec._steptime_samples;
     results["tau_dist"] = exec._tau_dist;

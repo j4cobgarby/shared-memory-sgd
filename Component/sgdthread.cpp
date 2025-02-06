@@ -76,13 +76,21 @@ void SGDWorkerAsync::run() {
                 // Give loss to monitor
                 _exec.get_monitor()->update(local_loss, x, step_end_ind);
 
+                // Record loss in local epoch bucket
+                int epoch_now = step_end_ind / _exec._steps_per_epoch;
+                if (epoch_now + 1 > _epoch_loss_sums.size()) {
+                    _epoch_loss_sums.resize(epoch_now + 1);
+                    _epoch_recorded_steps.resize(epoch_now + 1);
+                }
+                _epoch_loss_sums.at(epoch_now) += local_loss;
+                _epoch_recorded_steps.at(epoch_now)++;
+
                 if (tau < MAX_TAU_DIST) {
                     _tau_distr.at(tau) += 1;
                 }
 
 #ifdef MEASURE_TAU_PER_EPOCH
                 if (tau < MAX_MEASURE_TAU_PER_EPOCH) {
-                    int epoch_now = _exec.get_dispatcher()->get_steps_done() / _exec._steps_per_epoch;
                     if (epoch_now >= _epoch_tau_distr.size()) {
                         _epoch_tau_distr.resize(epoch_now);
                     }
@@ -113,6 +121,7 @@ void SGDWorkerAsync::run() {
     _exec.submit_tau_dist(_tau_distr);
     _exec.submit_acceptance_rate(accepted_steps, rejected_steps);
     _exec.submit_epoch_tau_dist(_epoch_tau_distr);
+    _exec.submit_thread_epochs(_epoch_loss_sums, _epoch_recorded_steps);
 }
 
 void SGDWorkerSynchronous::run() {

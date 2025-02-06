@@ -24,7 +24,6 @@ ThreadWorkerPoolAsync<WorkerType>::ThreadWorkerPoolAsync(SystemExecutor &exec, i
             this->workers_flag.wait(true); // Wait for flag to lower, for exec start
 
             while (!this->_exec.get_dispatcher()->is_finished()) {
-                // while (true)
                 this->workers.at(i).run();
                 this->loop_sync.arrive_and_wait();
             }

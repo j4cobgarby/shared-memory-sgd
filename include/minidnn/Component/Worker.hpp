@@ -30,6 +30,7 @@ protected:
     std::vector<std::array<long, MAX_MEASURE_TAU_PER_EPOCH>> _epoch_tau_distr;
 #endif
 
+
     long accepted_steps = 0, rejected_steps = 0;
 
     /* Is there currently an oustanding step? i.e., a step has begun (batch taken, etc.), but has not yet
@@ -45,6 +46,9 @@ protected:
     std::vector<std::tuple<long, long, long, long>> steptime_samples;
 #endif
 public:
+    std::vector<double> _epoch_loss_sums;
+    std::vector<int> _epoch_recorded_steps;
+
     /* pin: hw thread to pin to, or -1 to not pin */
     SGDWorkerAsync(SystemExecutor &exec, long id, std::atomic_flag *flag) : Worker(exec, id, flag), _rng(id) {
         this->network = std::make_unique<NetworkTopology>(*exec.get_model()->get_network());
@@ -95,12 +99,13 @@ public:
  */
 template <typename WorkerType>
 class ThreadWorkerPoolAsync : public WorkerPool {
-protected:
+public:
     /* Each one of these workers has a corresponding thread at the same index in
      * worker_threads, which runs that worker's run() method with that worker as
      * the `this` argument */
     std::vector<WorkerType> workers;
     std::vector<std::thread *> worker_threads;
+protected:
     std::atomic_flag workers_flag;
     std::barrier<> loop_sync;
 public:
