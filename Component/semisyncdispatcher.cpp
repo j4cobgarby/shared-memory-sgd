@@ -154,7 +154,7 @@ void SemiSyncDispatcher::_window_probe() {
 }
 
 bool SemiSyncDispatcher::is_finished() {
-    return this->_exec.elapsed_time() >= 1000 * 300;
+    return this->_exec.elapsed_time() >= 1000 * 900;
     // return this->_steps_done >= _exec._epoch_target * _exec._steps_per_epoch;
 }
 
