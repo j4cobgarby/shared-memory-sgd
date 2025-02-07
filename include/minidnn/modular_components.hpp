@@ -231,6 +231,10 @@ public:
     std::vector<double> _epoch_losses;
     std::vector<long> _epoch_mstimes;
 
+    std::mutex mtx_thread_epoch_sums;
+    std::vector<double> _thread_epoch_sums;
+    std::vector<int> _thread_epoch_counts;
+
     std::mutex mtx_async_period_vec;
     std::vector<double> _async_period_values;
     std::vector<long> _async_period_mstimes;
@@ -252,6 +256,7 @@ public:
     void submit_tau_dist(const std::array<long, MAX_TAU_DIST> &);
     void submit_epoch_tau_dist(const std::vector<std::array<long, MAX_MEASURE_TAU_PER_EPOCH>> &);
     void submit_acceptance_rate(const long accepted, const long rejected);
+    void submit_thread_epochs(const std::vector<double>, const std::vector<int>);
 
     std::shared_ptr<BatchController> get_batcher() const { return this->batcher; }
     std::shared_ptr<ParaController> get_paracontr() const { return this->parallelism; }

@@ -287,7 +287,13 @@ int main(int argc, char *argv[]) {
 
     std::cout << "[main] Executor finished.\n";
 
-    double end_accuracy = exec.get_monitor()->eval_accuracy(false);
+    std::cout << "Computing epoch loss means...\n";
+    for (int i = 0; i < exec._thread_epoch_sums.size(); i++) {
+        exec._thread_epoch_sums.at(i) /= (double)exec._thread_epoch_counts.at(i);
+    }
+    std::cout << "Done.\n";
+
+    // double end_accuracy = exec.get_monitor()->eval_accuracy(false);
 
     json results;
     results["async_period_mstimes"] = exec._async_period_mstimes;
@@ -301,11 +307,13 @@ int main(int argc, char *argv[]) {
     results["epoch_loss"] = exec._epoch_losses;
     results["epoch_mstimes"] = exec._epoch_mstimes;
 
+    results["alt_epoch_loss"] = exec._thread_epoch_sums;
+
     results["steptimes"] = exec._steptime_samples;
     results["tau_dist"] = exec._tau_dist;
     results["epoch_tau_dist"] = exec._epoch_tau_dist;
     results["step_acceptance_rate"] = (double)exec._accepted_steps / (double)(exec._accepted_steps + exec._rejected_steps);
-    results["end_accuracy"] = end_accuracy;
+    results["end_accuracy"] = -1;
 
     json meta;
     meta["learning_rate"] = o_lrate;
