@@ -160,25 +160,25 @@ int main(int argc, char *argv[]) {
 
     if (dataset_name == "CIFAR10")
     {
-        // network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
-        // network.add_layer(new MaxPooling<ReLU>(28, 28, 6, 2, 2));
-        //
-        // network.add_layer(new Convolutional<ReLU>(14, 14, 6, 16, 5, 5));
-        // network.add_layer(new MaxPooling<ReLU>(10, 10, 16, 2, 2));
-        //
-        // network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
+        network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
+        network.add_layer(new MaxPooling<ReLU>(28, 28, 6, 2, 2));
+
+        network.add_layer(new Convolutional<ReLU>(14, 14, 6, 16, 5, 5));
+        network.add_layer(new MaxPooling<ReLU>(10, 10, 16, 2, 2));
+
+        network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
 
         //
         
-        network.add_layer(new Convolutional<ReLU>(32, 32, 3, 32, 3, 3));
-        network.add_layer(new Convolutional<ReLU>(30, 30, 32, 32, 3, 3));
-        network.add_layer(new MaxPooling<ReLU>(28, 28, 32, 2, 2));
-        network.add_layer(new Convolutional<ReLU>(14, 14, 32, 64, 3, 3));
-        network.add_layer(new Convolutional<ReLU>(12, 12, 64, 64, 3, 3));
-        network.add_layer(new MaxPooling<ReLU>(10, 10, 64, 2, 2));
-        // network.add_layer(new Convolutional<ReLU>(5, 5, 64, 128, 3, 3));
-        // network.add_layer(new Convolutional<ReLU>(3, 3, 128, 128, 3, 3));
-        network.add_layer(new FullyConnected<ReLU>(5 * 5 * 64, 120));
+        // network.add_layer(new Convolutional<ReLU>(32, 32, 3, 32, 3, 3));
+        // network.add_layer(new Convolutional<ReLU>(30, 30, 32, 32, 3, 3));
+        // network.add_layer(new MaxPooling<ReLU>(28, 28, 32, 2, 2));
+        // network.add_layer(new Convolutional<ReLU>(14, 14, 32, 64, 3, 3));
+        // network.add_layer(new Convolutional<ReLU>(12, 12, 64, 64, 3, 3));
+        // network.add_layer(new MaxPooling<ReLU>(10, 10, 64, 2, 2));
+        // // network.add_layer(new Convolutional<ReLU>(5, 5, 64, 128, 3, 3));
+        // // network.add_layer(new Convolutional<ReLU>(3, 3, 128, 128, 3, 3));
+        // network.add_layer(new FullyConnected<ReLU>(5 * 5 * 64, 120));
 
     }
     else if (dataset_name == "CIFAR100")
