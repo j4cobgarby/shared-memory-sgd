@@ -262,7 +262,7 @@ int main(int argc, char *argv[]) {
         exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(
             exec, ystrat, o_semisync_period, 
             o_semisync_period_min, o_semisync_reduce_period, o_semisync_reduce_step, // Decay params
-            o_semisync_win_probe_steps, o_semisync_win_exec_steps, 16, 4, 0.3 // Window params
+            o_semisync_win_probe_steps, o_semisync_win_exec_steps, o_semisync_win_offset, o_semisync_win_step, o_semisync_win_loss_scalar // Window params
         ));
         std::cout << "Semi sync dispatcher made\n";
     } else if (o_dispatcher == "fully_sync") {
