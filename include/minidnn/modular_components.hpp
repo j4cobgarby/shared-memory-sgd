@@ -132,10 +132,12 @@ protected:
     SystemExecutor &_exec;
 public:
     virtual ~WorkerPool() = default;
-    WorkerPool(SystemExecutor &exec, int n_workers) : _exec(exec) {};
+    WorkerPool(SystemExecutor &exec, int n_workers) : _exec(exec), num_workers(n_workers) {};
 
     virtual void wait_for_all() = 0;
     virtual void start_all() = 0;
+
+    int num_workers;
 };
 
 /* This base ModelInterface implements a simple interface to a LeNet type

@@ -138,10 +138,6 @@ int main(int argc, char *argv[]) {
             break;
         case 'c':
             o_semisync_y_strat = std::string(optarg);
-            if (o_semisync_y_strat != "decay" && o_semisync_y_strat != "probe") {
-                std::cout << "Illegal strategy: " << o_semisync_y_strat << "\n";
-                std::exit(-1);
-            }
             break;
         case '?':
             std::cout << "Unknown option: " << optopt << std::endl;
@@ -254,10 +250,14 @@ int main(int argc, char *argv[]) {
         exec.set_dispatcher(std::make_shared<AsyncDispatcher>(exec));
         std::cout << "Async dispatcher made\n";
     } else if (o_dispatcher == "semisync") {
-        SemiSyncDispatcher::update_strat ystrat =
-            o_semisync_y_strat == "decay" 
-                ? SemiSyncDispatcher::YUPDATE_DECAY
-                : SemiSyncDispatcher::YUPDATE_PROBE;
+        SemiSyncDispatcher::update_strat ystrat;
+        if (o_semisync_y_strat == "decay") ystrat = MiniDNN::SemiSyncDispatcher::YUPDATE_DECAY;
+        else if (o_semisync_y_strat == "probe") ystrat = MiniDNN::SemiSyncDispatcher::YUPDATE_PROBE;
+        else if (o_semisync_y_strat == "follow_m") ystrat = MiniDNN::SemiSyncDispatcher::YUPDATE_FOLLOW_M;
+        else {
+            std::cerr << "Unrecognised y strat: " << o_semisync_y_strat << "\n";
+            return -1;
+        }
 
         exec.set_dispatcher(std::make_shared<SemiSyncDispatcher>(
             exec, ystrat, o_semisync_period, 
