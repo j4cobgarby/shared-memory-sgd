@@ -131,9 +131,9 @@ namespace MiniDNN {
 
             if (res / m_din.cols() == 0) {
                 std::cout << "## MultiClassEntropy.h:loss() == 0\n";
-                for (int i = 0; i < nelem; i++) {
-                    std::cout << "##   " << i << ": " << din_data[i] << std::endl;
-                }
+                // for (int i = 0; i < nelem; i++) {
+                //     std::cout << "##   " << i << ": " << din_data[i] << std::endl;
+                // }
             }
 
             return res / m_din.cols();

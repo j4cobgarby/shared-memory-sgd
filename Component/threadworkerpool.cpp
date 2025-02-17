@@ -33,7 +33,6 @@ ThreadWorkerPoolAsync<WorkerType>::ThreadWorkerPoolAsync(SystemExecutor &exec, i
 
 template<typename WorkerType>
 void ThreadWorkerPoolAsync<WorkerType>::wait_for_all() {
-    std::cout << "Joining all threads.\n";
     for (auto p : worker_threads) {
         if (p->joinable()) {
             p->join();

@@ -96,7 +96,7 @@ void SemiSyncDispatcher::_window_probe() {
     
     /* First: Based on phase in probing cycle, update log(period) */
     if (win_phase_counter < win_n_steps) { // Just finished a probe
-        std::cout << "Finished probe at y = " << async_period << "\n";
+        // std::cout << "Finished probe at y = " << async_period << "\n";
         const double phase_dur = (double)(HRClock::now() - win_phase_start_time).count() * 1e-9;
         const double this_rate = win_phase_start_loss >= 0
             ? (loss_now - win_phase_start_loss) / phase_dur
@@ -105,7 +105,7 @@ void SemiSyncDispatcher::_window_probe() {
         if (this_rate < win_best_rate) {
             win_best_rate = this_rate;
             win_best_period = async_period;
-            std::cout << "New best rate: y =" << win_best_period << ", rate = " << win_best_rate << "\n";
+            // std::cout << "New best rate: y =" << win_best_period << ", rate = " << win_best_rate << "\n";
         }
 
         win_phase_counter++;
@@ -128,8 +128,8 @@ void SemiSyncDispatcher::_window_probe() {
         const double loss_perc = _exec.got_first_loss ? loss_now / _exec.first_loss : 1.0;
         const double scale_factor = loss_perc * win_loss_scalar + (1 - win_loss_scalar);
 
-        std::cout << "Finished exec at y = " << async_period << "\n";
-        std::cout << "Loss % = " << loss_perc << " => scale factor = " << scale_factor << "\n";
+        // std::cout << "Finished exec at y = " << async_period << "\n";
+        // std::cout << "Loss % = " << loss_perc << " => scale factor = " << scale_factor << "\n";
 
         win_phase_counter = 0;
 
@@ -154,7 +154,7 @@ void SemiSyncDispatcher::_window_probe() {
 }
 
 bool SemiSyncDispatcher::is_finished() {
-    return this->_exec.elapsed_time() >= 1000 * 900;
+    return this->_exec.elapsed_time() >= 1000 * 300;
     // return this->_steps_done >= _exec._epoch_target * _exec._steps_per_epoch;
 }
 

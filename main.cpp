@@ -56,11 +56,11 @@ int main(int argc, char *argv[]) {
     int o_semisync_reduce_step = 1;
     int o_semisync_period_min = 4;
 
-    int o_semisync_win_exec_steps = 8192;
-    int o_semisync_win_probe_steps = 1024;
+    int o_semisync_win_exec_steps = 32768;
+    int o_semisync_win_probe_steps = 16384;
     int o_semisync_win_offset = 16;
     int o_semisync_win_step = 4;
-    float o_semisync_win_loss_scalar = 0.4;
+    float o_semisync_win_loss_scalar = 0.9;
 
     SystemExecutor exec(500, 3125);
 
