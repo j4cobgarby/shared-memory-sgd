@@ -153,6 +153,11 @@ void SemiSyncDispatcher::_window_probe() {
     win_phase_start_time = HRClock::now();
 }
 
+void SemiSyncDispatcher::_follow_m() {
+    const float m_frac = ((float)this->_exec.get_paracontr()->get_parallelism() / (float)this->_exec.get_workers()->num_workers);
+    async_period = 512 * (1 - m_frac);
+}
+
 bool SemiSyncDispatcher::is_finished() {
     return this->_exec.elapsed_time() >= 1000 * 900;
     // return this->_steps_done >= _exec._epoch_target * _exec._steps_per_epoch;

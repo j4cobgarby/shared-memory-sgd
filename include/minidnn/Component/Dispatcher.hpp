@@ -49,12 +49,16 @@ private:
         case YUPDATE_PROBE:
             _window_probe();
             break;
+        case YUPDATE_FOLLOW_M:
+            _follow_m();
+            break;
         }
     }
     void _window_probe();
     void _period_decay();
+    void _follow_m();
 public:
-    enum update_strat { YUPDATE_DECAY, YUPDATE_PROBE };
+    enum update_strat { YUPDATE_DECAY, YUPDATE_PROBE, YUPDATE_FOLLOW_M };
 
     SemiSyncDispatcher(SystemExecutor &exec,
                        update_strat strat, long P_0,
