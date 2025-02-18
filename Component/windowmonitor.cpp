@@ -8,6 +8,8 @@ namespace MiniDNN {
 SlidingWindowMonitor::SlidingWindowMonitor(SystemExecutor &exec, const int window_size) : Monitor(exec),
                                                                                           window_size(window_size) {
     window.resize(window_size);
+
+    std::cout << "Starting accuracy computation thread.\n";
 }
 
 void SlidingWindowMonitor::update(double loss, long duration_ns, long step) {
@@ -32,8 +34,8 @@ void SlidingWindowMonitor::update(double loss, long duration_ns, long step) {
 
         // std::cout << "[monitor] Completed epoch " << step / _exec._steps_per_epoch
                   // << ". Loss = " << avg_loss << std::endl;
-        
-        std::cout << "[monitor] Completed epoch " << step / _exec._steps_per_epoch << "\tAccuracy = " << eval_accuracy(false) << "\n";
+        std::cout << "-> Submitted network for accuracy\n";
+        background_submit_accuracy();
 
         if (step / _exec._steps_per_epoch == 1) {
             _exec.first_loss = avg_loss;

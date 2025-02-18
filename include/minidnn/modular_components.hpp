@@ -4,6 +4,7 @@
 #include "NetworkTopology.h"
 #include "Optimizer.h"
 #include "ParameterContainer.h"
+#include <deque>
 #include <memory>
 #include <utility>
 #include <MiniDNN.h>
@@ -88,9 +89,16 @@ public:
 class Monitor {
 protected:
     SystemExecutor &_exec;
+
+    void _thread_submit_accuracy();
+    std::deque<NetworkTopology *> _netws_to_eval;
+    std::mutex _qmtx;
+    std::unique_ptr<std::thread> _accur_thread;
 public:
     virtual ~Monitor() = default;
-    Monitor(SystemExecutor &exec) : _exec(exec) {}
+    Monitor(SystemExecutor &exec) : _exec(exec) {
+        _accur_thread = std::unique_ptr<std::thread>(new std::thread(&Monitor::_thread_submit_accuracy, this));
+    }
 
     virtual void update(double loss, long duration_ns, long step) = 0;
 
@@ -104,6 +112,10 @@ public:
     virtual double get_loss_accur() = 0;
 
     virtual double eval_accuracy(bool training_set = true);
+
+    void background_submit_accuracy();
+
+    std::vector<double> accuracies;
 };
 
 class Worker {

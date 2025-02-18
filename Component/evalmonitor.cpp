@@ -13,6 +13,7 @@ double Monitor::eval_accuracy(bool training_set) {
 
     const auto t1 = HRClock::now();
 
+    std::cout << "Forward pass over training set...\n";
     netw->forward(training_set 
                   ? this->_exec.get_batcher()->_train_x 
                   : this->_exec.get_batcher()->_test_x);
@@ -26,6 +27,32 @@ double Monitor::eval_accuracy(bool training_set) {
     const auto t2 = HRClock::now();
     std::cout << "Evaluating accuracy took " << std::chrono::duration<double>(t2 - t1).count() << " seconds \n";
     return accur;
+}
+
+void Monitor::background_submit_accuracy() {
+    _qmtx.lock();
+    _netws_to_eval.push_back(new NetworkTopology(*_exec.get_model()->get_network()));
+    _qmtx.unlock();
+}
+
+void Monitor::_thread_submit_accuracy() {
+    while (!_exec.get_dispatcher()->is_finished() && !_netws_to_eval.empty()) {
+        if (!_netws_to_eval.empty()) {
+            _qmtx.lock();
+            auto *netw = std::move(_netws_to_eval.front());
+            _netws_to_eval.pop_front();
+            _qmtx.unlock();
+
+            netw->forward(this->_exec.get_batcher()->_test_x);
+
+            const Matrix &preds = netw->get_last_layer()->output();
+            double accur = compute_accuracy(preds, this->_exec.get_batcher()->_test_y);
+            delete netw;
+
+            std::cout << "<- Computed accuracy = " << accur << "\n";
+            this->accuracies.push_back(accur);
+        }
+    }
 }
 
 EvalMonitor::EvalMonitor(SystemExecutor &exec, double alpha, long eval_interval,

@@ -307,8 +307,6 @@ int main(int argc, char *argv[]) {
     }
     std::cout << "Done.\n";
 
-    // double end_accuracy = exec.get_monitor()->eval_accuracy(false);
-
     json results;
     results["async_period_mstimes"] = exec._async_period_mstimes;
     results["async_period_values"] = exec._async_period_values;
@@ -320,6 +318,7 @@ int main(int argc, char *argv[]) {
 
     results["epoch_loss"] = exec._epoch_losses;
     results["epoch_mstimes"] = exec._epoch_mstimes;
+    results["epoch_accuracy"] = exec.get_monitor()->accuracies;
 
     results["alt_epoch_loss"] = exec._thread_epoch_sums;
 

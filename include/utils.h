@@ -55,8 +55,6 @@ inline Matrix one_hot_encode(const Matrix &y, int n_value) {
 inline MiniDNN::Scalar compute_accuracy(const Matrix &predictions, const Matrix &labels) {
     int n = predictions.cols();
 
-    std::cout << "compute_accuracy() called\n";
-
     MiniDNN::Scalar acc = 0;
     for (int i = 0; i < n; i++) {
         Matrix::Index max_index;
