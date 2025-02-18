@@ -100,7 +100,7 @@ void WindowParaController::update(const long step) {
                     << " Rate=" << best_convrate << std::endl;
             }
 
-            if (this->curr_parallelism < this->window_btm) {
+            if (this->curr_parallelism <= this->window_btm) {
             // if (this->curr_parallelism >= this->window_btm + this->window_size) {
                 /* We've just finished the window, so switch to execution */
                 this->is_probing = false;
