@@ -154,12 +154,25 @@ void SemiSyncDispatcher::_window_probe() {
 }
 
 void SemiSyncDispatcher::_follow_m() {
-    const float m_frac = ((float)this->_exec.get_paracontr()->get_parallelism() / (float)this->_exec.get_workers()->num_workers);
-    async_period = 512 * (1 - m_frac);
+    const float loss_frac = _exec.got_first_loss ? _exec.get_monitor()->get_loss_estim() / _exec.first_loss : 1.0;
+    const float x_intercept = 0.2; // When loss is this proportion of initial loss, y scale gets to 0 (but note lower bound below)
+    const float y_intercept = x_intercept / (x_intercept-1);
+    const float y_scalar = (1 - y_intercept) * loss_frac + y_intercept;
+    // const float m_frac = ((float)this->_exec.get_paracontr()->get_latest_exec_parallelism() / (float)this->_exec.get_workers()->num_workers);
+    int new_y = 512 * y_scalar;
+    // int new_y = 512 * (m_frac);
+    // int new_y = 512 * (1 - m_frac);
+    if (new_y < 4) async_period = 4;
+    else async_period = new_y;
+
+    this->_exec.mtx_async_period_vec.lock();
+    this->_exec._async_period_mstimes.push_back(this->_exec.elapsed_time());
+    this->_exec._async_period_values.push_back(async_period);
+    this->_exec.mtx_async_period_vec.unlock();
 }
 
 bool SemiSyncDispatcher::is_finished() {
-    return this->_exec.elapsed_time() >= 1000 * 300;
+    return this->_exec.elapsed_time() >= 1000 * 500;
     // return this->_steps_done >= _exec._epoch_target * _exec._steps_per_epoch;
 }
 
