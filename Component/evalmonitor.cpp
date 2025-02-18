@@ -11,7 +11,7 @@ namespace MiniDNN {
 double Monitor::eval_accuracy(bool training_set) {
     auto *netw = new NetworkTopology(*_exec.get_model()->get_network());
 
-    std::cout << "Forward pass on evaluation set\n";
+    const auto t1 = HRClock::now();
 
     netw->forward(training_set 
                   ? this->_exec.get_batcher()->_train_x 
@@ -23,6 +23,8 @@ double Monitor::eval_accuracy(bool training_set) {
                                     : this->_exec.get_batcher()->_test_y);
 
     delete netw;
+    const auto t2 = HRClock::now();
+    std::cout << "Evaluating accuracy took " << std::chrono::duration<double>(t2 - t1).count() << " seconds \n";
     return accur;
 }
 

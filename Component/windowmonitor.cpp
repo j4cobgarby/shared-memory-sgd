@@ -32,6 +32,8 @@ void SlidingWindowMonitor::update(double loss, long duration_ns, long step) {
 
         // std::cout << "[monitor] Completed epoch " << step / _exec._steps_per_epoch
                   // << ". Loss = " << avg_loss << std::endl;
+        
+        std::cout << "[monitor] Completed epoch " << step / _exec._steps_per_epoch << "\tAccuracy = " << eval_accuracy(false) << "\n";
 
         if (step / _exec._steps_per_epoch == 1) {
             _exec.first_loss = avg_loss;

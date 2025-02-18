@@ -59,8 +59,8 @@ void WindowParaController::update(const long step) {
 
         switch_to_para(this->window_btm + this->window_size - 1);
 
-        std::cout << "[window_probe] START_PROBING window_btm="
-            << this->window_btm << std::endl;
+        // std::cout << "[window_probe] START_PROBING window_btm="
+        //     << this->window_btm << std::endl;
 
         return;
     }
@@ -90,14 +90,14 @@ void WindowParaController::update(const long step) {
             /* The next stage uses this stage's end loss as its starting loss */
             this->loss_start_of_stage = loss_compd;
 
-            std::cout << "[window_probe] PROBE_DONE @step " << step
-                << " LOSS=" << loss_compd << ", Rate=" << stage_convrate << "\n";
+            // std::cout << "[window_probe] PROBE_DONE @step " << step
+            //     << " LOSS=" << loss_compd << ", Rate=" << stage_convrate << "\n";
 
             if (stage_convrate < this->best_convrate) {
                 best_convrate = stage_convrate;
                 best_probe_m = curr_parallelism;
-                std::cout << "[window_probe] \tBEST_PROBE m=" << best_probe_m
-                    << " Rate=" << best_convrate << std::endl;
+                // std::cout << "[window_probe] \tBEST_PROBE m=" << best_probe_m
+                //     << " Rate=" << best_convrate << std::endl;
             }
 
             if (this->curr_parallelism <= this->window_btm) {
@@ -107,15 +107,15 @@ void WindowParaController::update(const long step) {
                 this->best_convrate = std::numeric_limits<double>::infinity();
                 switch_to_para(best_probe_m);
 
-                std::cout << "[window_probe] START_EXEC m=" <<
+                std::cout << "[window_probe] Execution at m = " <<
                     this->curr_parallelism << std::endl;
 
                 return;
             }
 
             switch_to_para(this->curr_parallelism - 1 < 1 ? 1 : this->curr_parallelism - 1);
-            std::cout << "[window_probe] PROBE_START m=" <<
-                this->curr_parallelism << std::endl;
+            // std::cout << "[window_probe] PROBE_START m=" <<
+            //     this->curr_parallelism << std::endl;
         }
     }
 }
