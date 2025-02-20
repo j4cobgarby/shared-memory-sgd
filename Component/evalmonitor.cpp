@@ -36,8 +36,12 @@ void Monitor::background_submit_accuracy() {
 }
 
 void Monitor::_thread_submit_accuracy() {
-    while (!_exec.get_dispatcher()->is_finished() && !_netws_to_eval.empty()) {
+    std::cout << "Accuracy worker: running.\n";
+    set_cpu(129);
+    while (true) {
+        if (_exec.get_dispatcher()->is_finished() && _netws_to_eval.empty()) break;
         if (!_netws_to_eval.empty()) {
+            std::cout << "Accuracy worker: starting work\n";
             _qmtx.lock();
             auto *netw = std::move(_netws_to_eval.front());
             _netws_to_eval.pop_front();

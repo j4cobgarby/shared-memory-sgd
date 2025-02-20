@@ -116,6 +116,8 @@ public:
     void background_submit_accuracy();
 
     std::vector<double> accuracies;
+
+    void wait_for_thread() {_accur_thread->join();}
 };
 
 class Worker {

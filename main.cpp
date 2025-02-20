@@ -307,6 +307,10 @@ int main(int argc, char *argv[]) {
     }
     std::cout << "Done.\n";
 
+    std::cout << "Waiting for accuracy thread to finish...\n";
+    exec.get_monitor()->wait_for_thread();
+    std::cout << "Done.\n";
+
     json results;
     results["async_period_mstimes"] = exec._async_period_mstimes;
     results["async_period_values"] = exec._async_period_values;
