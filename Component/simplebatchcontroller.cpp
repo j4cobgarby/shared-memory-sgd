@@ -2,6 +2,7 @@
 #include "cifar100_reader.hpp"
 #include "cifar10_reader.hpp"
 #include "minidnn/Component/BatchController.hpp"
+#include "mnist.h"
 #include "modular_components.hpp"
 #include <cstdlib>
 #include "utils.h"
@@ -135,11 +136,21 @@ SimpleBatchController::SimpleBatchController(SystemExecutor &exec, std::string d
         std::cout << "\tx columns = " << _train_x.cols() << std::endl;
         std::cout << "\ttest_x columns = " << _test_x.cols() << std::endl;
     } else if (dataset == "MNIST") {
-        std::cerr << "MNIST is not supported right now...\n";
-        std::exit(-1);
+        this->_y_dim = 10;
+        MNIST dataset("./data/mnist/");
+        dataset.read();
+        _train_x = dataset.train_data;
+        _train_y = dataset.train_labels;
+        _test_x = dataset.test_data;
+        _test_y = dataset.test_labels;
     } else if (dataset == "FASHION-MNIST") {
-        std::cerr << "FASHION-MNIST is not supported right now...\n";
-        std::exit(-1);
+        this->_y_dim = 10;
+        MNIST dataset("./data/fashion-mnist/");
+        dataset.read();
+        _train_x = dataset.train_data;
+        _train_y = dataset.train_labels;
+        _test_x = dataset.test_data;
+        _test_y = dataset.test_labels;
     } else {
         std::cerr << "Unsupported dataset '" << dataset << "'\n";
         std::exit(-1);

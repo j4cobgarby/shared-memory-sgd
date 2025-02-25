@@ -1,5 +1,6 @@
 #include "cifar10_reader.hpp"
 #include "cifar100_reader.hpp"
+#include <cstdint>
 
 namespace cifar {
 
@@ -21,6 +22,8 @@ int read_cifar100_file(Images &images, Labels &labels, const std::string &path, 
 
     size_t img_plus_labels_size = 1 + 1 + 3072; // coarse label, fine label, 3072 pixels
     size_t num_images = file_size / img_plus_labels_size;
+
+    std::cout << num_images << " images in " << path << "\n";
 
     images.reserve(num_images);
     labels.reserve(num_images);
