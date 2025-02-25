@@ -90,14 +90,19 @@ class Monitor {
 protected:
     SystemExecutor &_exec;
 
-    void _thread_submit_accuracy();
-    std::deque<NetworkTopology *> _netws_to_eval;
+    void _thread_submit_accuracy(int cpu);
+    std::deque<std::pair<int, NetworkTopology *>> _netws_to_eval;
     std::mutex _qmtx;
+    std::vector<std::thread> _accur_thread_vec;
     std::unique_ptr<std::thread> _accur_thread;
 public:
     virtual ~Monitor() = default;
     Monitor(SystemExecutor &exec) : _exec(exec) {
-        _accur_thread = std::unique_ptr<std::thread>(new std::thread(&Monitor::_thread_submit_accuracy, this));
+        for (int i = 0; i < 64; i++) {
+            _accur_thread_vec.emplace_back(&Monitor::_thread_submit_accuracy, this, 128 + i);
+        }
+        std::cout << "[monitor] Made all accuracy threads.\n";
+        // _accur_thread = std::unique_ptr<std::thread>(new std::thread(&Monitor::_thread_submit_accuracy, this));
     }
 
     virtual void update(double loss, long duration_ns, long step) = 0;
@@ -113,11 +118,17 @@ public:
 
     virtual double eval_accuracy(bool training_set = true);
 
-    void background_submit_accuracy();
+    void background_submit_accuracy(int epoch_nr);
 
     std::vector<double> accuracies;
+    std::map<int, double> epoch_accuracies;
+    std::mutex _accmtx;
 
-    void wait_for_thread() {_accur_thread->join();}
+    void wait_for_thread() {
+        for (auto &thr : _accur_thread_vec) {
+            thr.join();
+        }
+    }
 };
 
 class Worker {

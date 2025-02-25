@@ -58,3 +58,5 @@ data1.json
 final_experiments/
 Session.vim
 test_exps/
+cifar100_with_accuracy
+yprobe

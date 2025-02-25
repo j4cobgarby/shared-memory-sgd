@@ -13,7 +13,7 @@ double Monitor::eval_accuracy(bool training_set) {
 
     const auto t1 = HRClock::now();
 
-    std::cout << "Forward pass over training set...\n";
+    // std::cout << "Forward pass over training set...\n";
     netw->forward(training_set 
                   ? this->_exec.get_batcher()->_train_x 
                   : this->_exec.get_batcher()->_test_x);
@@ -29,32 +29,40 @@ double Monitor::eval_accuracy(bool training_set) {
     return accur;
 }
 
-void Monitor::background_submit_accuracy() {
+void Monitor::background_submit_accuracy(int epoch_nr) {
     _qmtx.lock();
-    _netws_to_eval.push_back(new NetworkTopology(*_exec.get_model()->get_network()));
+    _netws_to_eval.emplace_back(epoch_nr, new NetworkTopology(*_exec.get_model()->get_network()));
     _qmtx.unlock();
 }
 
-void Monitor::_thread_submit_accuracy() {
-    std::cout << "Accuracy worker: running.\n";
-    set_cpu(129);
+void Monitor::_thread_submit_accuracy(int cpu) {
+    // std::cout << "Accuracy worker: running.\n";
+    set_cpu(cpu);
     while (true) {
         if (_exec.get_dispatcher()->is_finished() && _netws_to_eval.empty()) break;
-        if (!_netws_to_eval.empty()) {
-            std::cout << "Accuracy worker: starting work\n";
-            _qmtx.lock();
-            auto *netw = std::move(_netws_to_eval.front());
+        _qmtx.lock();
+        if (_netws_to_eval.empty()) {
+            _qmtx.unlock();
+            continue;
+        } else {
+            // const auto t1 = HRClock::now();
+            auto [epoch_nr, netw] = std::move(_netws_to_eval.front());
             _netws_to_eval.pop_front();
             _qmtx.unlock();
 
             netw->forward(this->_exec.get_batcher()->_test_x);
 
             const Matrix &preds = netw->get_last_layer()->output();
-            double accur = compute_accuracy(preds, this->_exec.get_batcher()->_test_y);
+            const double accur = compute_accuracy(preds, this->_exec.get_batcher()->_test_y);
             delete netw;
 
-            std::cout << "<- Computed accuracy = " << accur << "\n";
-            this->accuracies.push_back(accur);
+            // const auto t2 = HRClock::now();
+
+            // std::cout << "[accur " << cpu << "] Computed accuracy. Queue sz = " << _netws_to_eval.size() << "\n";
+            // std::cout << "[accur " << cpu << "] Took " << std::chrono::duration<double>(t2 - t1).count() << " secs\n";
+            _accmtx.lock();
+            this->epoch_accuracies[epoch_nr] = accur;
+            _accmtx.unlock();
         }
     }
 }

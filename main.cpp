@@ -53,11 +53,11 @@ int main(int argc, char *argv[]) {
     std::string o_semisync_y_strat = "decay";
     int o_semisync_period = 8000;
     int o_semisync_reduce_period = 4096;
-    int o_semisync_reduce_step = 1;
+    int o_semisync_reduce_step = 0;
     int o_semisync_period_min = 4;
 
-    int o_semisync_win_exec_steps = 32768;
-    int o_semisync_win_probe_steps = 16384;
+    int o_semisync_win_exec_steps = 8192;
+    int o_semisync_win_probe_steps = 1024;
     int o_semisync_win_offset = 16;
     int o_semisync_win_step = 4;
     float o_semisync_win_loss_scalar = 0.9;
@@ -164,6 +164,7 @@ int main(int argc, char *argv[]) {
 
         network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
 
+        network.add_layer(new FullyConnected<Softmax>(120, batcher->get_y_dimension()));
         //
         
         // network.add_layer(new Convolutional<ReLU>(32, 32, 3, 32, 3, 3));
@@ -179,25 +180,30 @@ int main(int argc, char *argv[]) {
     }
     else if (dataset_name == "CIFAR100")
     {
-        network.add_layer(new Convolutional<ReLU>(32, 32, 3, 32, 5, 5));
-        network.add_layer(new MaxPooling<ReLU>(28, 28, 32, 2, 2));
+        network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
+        network.add_layer(new MaxPooling<ReLU>(28, 28, 6, 2, 2));
 
-        network.add_layer(new Convolutional<ReLU>(14, 14, 32, 64, 5, 5));
-        network.add_layer(new MaxPooling<ReLU>(10, 10, 64, 2, 2));
+        network.add_layer(new Convolutional<ReLU>(14, 14, 6, 16, 5, 5));
+        network.add_layer(new MaxPooling<ReLU>(10, 10, 16, 2, 2));
 
-        network.add_layer(new FullyConnected<ReLU>(5 * 5 * 64, 120));
-        // network.add_layer(new Convolutional<ReLU>(32, 32, 3, 32, 3, 3));
-        // network.add_layer(new MaxPooling<ReLU>(30, 30, 32, 2, 2));
-        //
-        // network.add_layer(new Convolutional<ReLU>(15, 15, 32, 64, 3, 3));
-        // network.add_layer(new MaxPooling<ReLU>(13, 13, 64, 2, 2)); // -> Makes a 6x6
-        //
-        // network.add_layer(new Convolutional<ReLU>(6, 6, 64, 128, 3, 3));
-        // network.add_layer(new MaxPooling<ReLU>(4, 4, 128, 2, 2));
-        //
-        // network.add_layer(new FullyConnected<ReLU>(2 * 2 * 128, 256));
-        // network.add_layer(new FullyConnected<ReLU>(256, 120));
+        network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
+        network.add_layer(new FullyConnected<ReLU>(120, 84));
+        network.add_layer(new FullyConnected<Softmax>(84, batcher->get_y_dimension()));
     }
+    /* {
+        network.add_layer(new Convolutional<ReLU>(32, 32, 3, 96, 3, 3));
+        network.add_layer(new MaxPooling<ReLU>(30, 30, 96, 2, 2));
+
+        network.add_layer(new Convolutional<ReLU>(15, 15, 96, 256, 5, 5));
+        network.add_layer(new MaxPooling<ReLU>(11, 11, 256, 2, 2)); // -> 6,6
+        network.add_layer(new Convolutional<ReLU>(6, 6, 256, 384, 3, 3));
+        network.add_layer(new Convolutional<ReLU>(4, 4, 384, 384, 3, 3));
+        network.add_layer(new Convolutional<ReLU>(2, 2, 384, 256, 3, 3));
+
+        network.add_layer(new FullyConnected<ReLU>(5 * 5 * 32, 200));
+        network.add_layer(new FullyConnected<ReLU>(200, 128));
+        network.add_layer(new FullyConnected<Softmax>(128, batcher->get_y_dimension()));
+    } */
     else if (dataset_name == "MNIST" || dataset_name == "FASHION-MNIST")
     {
         network.add_layer(new Convolutional<ReLU>(28, 28, 1, 6, 5, 5));
@@ -207,9 +213,9 @@ int main(int argc, char *argv[]) {
         network.add_layer(new MaxPooling<ReLU>(8, 8, 16, 2, 2));
 
         network.add_layer(new FullyConnected<ReLU>(4 * 4 * 16, 120));
+        network.add_layer(new FullyConnected<Softmax>(120, batcher->get_y_dimension()));
     }
 
-    network.add_layer(new FullyConnected<Softmax>(120, batcher->get_y_dimension()));
 
     network.set_output(new MultiClassEntropy());
     network.init(0, 0.01, seed);
@@ -307,9 +313,14 @@ int main(int argc, char *argv[]) {
     }
     std::cout << "Done.\n";
 
-    std::cout << "Waiting for accuracy thread to finish...\n";
+    std::cout << "Waiting for accuracy threads to finish...\n";
     exec.get_monitor()->wait_for_thread();
     std::cout << "Done.\n";
+
+    std::vector<double> epoch_accuracies;
+    for (int i = 0; i < exec._epoch_losses.size(); i++) {
+        epoch_accuracies.push_back(exec.get_monitor()->epoch_accuracies.at(i));
+    }
 
     json results;
     results["async_period_mstimes"] = exec._async_period_mstimes;
@@ -322,7 +333,7 @@ int main(int argc, char *argv[]) {
 
     results["epoch_loss"] = exec._epoch_losses;
     results["epoch_mstimes"] = exec._epoch_mstimes;
-    results["epoch_accuracy"] = exec.get_monitor()->accuracies;
+    results["epoch_accuracy"] = epoch_accuracies;
 
     results["alt_epoch_loss"] = exec._thread_epoch_sums;
 
