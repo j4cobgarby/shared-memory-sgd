@@ -60,3 +60,5 @@ Session.vim
 test_exps/
 cifar100_with_accuracy
 yprobe
+cifar10_with_accuracy
+fashionmnist

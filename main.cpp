@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     int o_semisync_period_min = 4;
 
     int o_semisync_win_exec_steps = 8192;
-    int o_semisync_win_probe_steps = 1024;
+    int o_semisync_win_probe_steps = 512;
     int o_semisync_win_offset = 16;
     int o_semisync_win_step = 4;
     float o_semisync_win_loss_scalar = 0.9;
@@ -165,45 +165,18 @@ int main(int argc, char *argv[]) {
         network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
 
         network.add_layer(new FullyConnected<Softmax>(120, batcher->get_y_dimension()));
-        //
-        
-        // network.add_layer(new Convolutional<ReLU>(32, 32, 3, 32, 3, 3));
-        // network.add_layer(new Convolutional<ReLU>(30, 30, 32, 32, 3, 3));
-        // network.add_layer(new MaxPooling<ReLU>(28, 28, 32, 2, 2));
-        // network.add_layer(new Convolutional<ReLU>(14, 14, 32, 64, 3, 3));
-        // network.add_layer(new Convolutional<ReLU>(12, 12, 64, 64, 3, 3));
-        // network.add_layer(new MaxPooling<ReLU>(10, 10, 64, 2, 2));
-        // // network.add_layer(new Convolutional<ReLU>(5, 5, 64, 128, 3, 3));
-        // // network.add_layer(new Convolutional<ReLU>(3, 3, 128, 128, 3, 3));
-        // network.add_layer(new FullyConnected<ReLU>(5 * 5 * 64, 120));
-
     }
     else if (dataset_name == "CIFAR100")
     {
-        network.add_layer(new Convolutional<ReLU>(32, 32, 3, 6, 5, 5));
-        network.add_layer(new MaxPooling<ReLU>(28, 28, 6, 2, 2));
+        network.add_layer(new Convolutional<ReLU>(32, 32, 3, 32, 5, 5));
+        network.add_layer(new MaxPooling<ReLU>(28, 28, 32, 2, 2));
 
-        network.add_layer(new Convolutional<ReLU>(14, 14, 6, 16, 5, 5));
-        network.add_layer(new MaxPooling<ReLU>(10, 10, 16, 2, 2));
+        network.add_layer(new Convolutional<ReLU>(14, 14, 32, 64, 5, 5));
+        network.add_layer(new MaxPooling<ReLU>(10, 10, 64, 2, 2));
 
-        network.add_layer(new FullyConnected<ReLU>(5 * 5 * 16, 120));
-        network.add_layer(new FullyConnected<ReLU>(120, 84));
-        network.add_layer(new FullyConnected<Softmax>(84, batcher->get_y_dimension()));
+        network.add_layer(new FullyConnected<ReLU>(5 * 5 * 64, 120));
+        network.add_layer(new FullyConnected<Softmax>(120, batcher->get_y_dimension()));
     }
-    /* {
-        network.add_layer(new Convolutional<ReLU>(32, 32, 3, 96, 3, 3));
-        network.add_layer(new MaxPooling<ReLU>(30, 30, 96, 2, 2));
-
-        network.add_layer(new Convolutional<ReLU>(15, 15, 96, 256, 5, 5));
-        network.add_layer(new MaxPooling<ReLU>(11, 11, 256, 2, 2)); // -> 6,6
-        network.add_layer(new Convolutional<ReLU>(6, 6, 256, 384, 3, 3));
-        network.add_layer(new Convolutional<ReLU>(4, 4, 384, 384, 3, 3));
-        network.add_layer(new Convolutional<ReLU>(2, 2, 384, 256, 3, 3));
-
-        network.add_layer(new FullyConnected<ReLU>(5 * 5 * 32, 200));
-        network.add_layer(new FullyConnected<ReLU>(200, 128));
-        network.add_layer(new FullyConnected<Softmax>(128, batcher->get_y_dimension()));
-    } */
     else if (dataset_name == "MNIST" || dataset_name == "FASHION-MNIST")
     {
         network.add_layer(new Convolutional<ReLU>(28, 28, 1, 6, 5, 5));

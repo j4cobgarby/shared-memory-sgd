@@ -36,10 +36,12 @@ void Monitor::background_submit_accuracy(int epoch_nr) {
 }
 
 void Monitor::_thread_submit_accuracy(int cpu) {
+    using namespace std::chrono_literals;
     // std::cout << "Accuracy worker: running.\n";
     set_cpu(cpu);
     while (true) {
         if (_exec.get_dispatcher()->is_finished() && _netws_to_eval.empty()) break;
+        std::this_thread::sleep_for(1000ms);
         _qmtx.lock();
         if (_netws_to_eval.empty()) {
             _qmtx.unlock();
