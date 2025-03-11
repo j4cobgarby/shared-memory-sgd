@@ -52,3 +52,5 @@ meeting-8mar
 
 .venv
 __pycache__
+runtime_logs
+profiling

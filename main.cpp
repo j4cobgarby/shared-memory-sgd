@@ -464,7 +464,7 @@ int main(int argc, char *argv[]) {
             executor.run_parallel_async(batch_size, num_epochs, rounds_per_epoch, start, rand_seed);
             break;
         case ALGORITHM::HOG:
-            executor.run_parallel_async(batch_size, num_epochs, rounds_per_epoch, start, rand_seed);
+            executor.run_parallel_async(batch_size, num_epochs, rounds_per_epoch, start, rand_seed, false);
             break;
         case ALGORITHM::LSH:
             executor.run_parallel_leashed(batch_size, num_epochs, rounds_per_epoch, cas_backoff, check_concurrent_updates, rand_seed);

@@ -15,9 +15,12 @@ void MiniDNN::NetworkExecutor::run_parallel_sync(int batch_size, int epoch, int 
     const int nbatch = internal::create_shuffled_batches(x, y, batch_size, m_rng,
                                                             x_batches, y_batches);
 
+
     if (rounds_per_epoch < 0) {
         rounds_per_epoch = nbatch;
     }
+
+    std::cout << "rounds per epoch = " << rounds_per_epoch << "\n";
 
     std::vector<NetworkTopology *> thread_local_networks(num_threads);
     std::vector<MultiClassEntropy *> thread_local_outputs(num_threads);
@@ -77,7 +80,7 @@ void MiniDNN::NetworkExecutor::run_parallel_sync(int batch_size, int epoch, int 
 
             round_loss /= num_threads;
 
-            std::cerr << "[Step " << step << "] Loss = " << round_loss << std::endl;
+            if (step % 100 == 0) std::cerr << "[Step " << step << "] Loss = " << round_loss << std::endl;
 
             epoch_loss += round_loss;
 

@@ -1,6 +1,7 @@
 #include "NetworkExecutor.h"
 
 void MiniDNN::NetworkExecutor::run_parallel_async(int batch_size, int num_epochs, int rounds_per_epoch, struct timeval start_time, int seed, bool use_lock) {
+    std::cout << "Using lock?: " << use_lock << "\n";
 
     opt->reset();
 
@@ -124,6 +125,7 @@ void MiniDNN::NetworkExecutor::run_parallel_async(int batch_size, int num_epochs
             }
 
             if (epoch_step == rounds_per_epoch - 1) {
+                std::cout << "Completed epoch " << epoch << "\n";
                 struct timeval now;
                 gettimeofday(&now, NULL);
 
