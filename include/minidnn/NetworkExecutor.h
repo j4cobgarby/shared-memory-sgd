@@ -2,6 +2,8 @@
 #define NETWORKEXECUTOR_H_
 
 #include <bits/types/struct_timeval.h>
+#include <deque>
+#include <map>
 #include <stdlib.h>     /* exit, EXIT_FAILURE */
 #include <sys/select.h>
 
@@ -26,6 +28,8 @@ namespace MiniDNN {
         std::vector<Optimizer *> thread_local_opts;
         const Eigen::MatrixBase<Matrix> &x;
         const Eigen::MatrixBase<Matrix> &y;
+        const Eigen::MatrixBase<Matrix> &x_test;
+        const Eigen::MatrixBase<Matrix> &y_test;
         RNG m_default_rng;      // Built-in RNG
         RNG &m_rng;              // Reference to the RNG provided by the user,
         // otherwise reference to m_default_rng
@@ -68,6 +72,14 @@ namespace MiniDNN {
 
         struct timeval exe_start;
 
+        std::mutex _qmtx;
+        std::deque<std::pair<int, NetworkTopology *>> _netws_to_eval;
+        std::mutex _accmtx;
+        std::vector<std::thread> _accur_thread_vec;
+
+        void thread_submit_accuracy(int cpu);
+        void background_submit_accuracy(int epoch_nr);
+
     public:
         double scalar_loss_grad, scalar_loss_jitter, scalar_m_trend;
 
@@ -77,20 +89,29 @@ namespace MiniDNN {
         /// \param x          The predictors. Each column is an observation.
         /// \param y          The response variable. Each column is an observation.
         NetworkExecutor(NetworkTopology *_net, Optimizer *_opt, std::vector<Optimizer *> _thread_local_opts, const Eigen::MatrixBase<DerivedX> &_x,
-                        const Eigen::MatrixBase<DerivedY> &_y, std::string _tauadaptstrat, int _num_threads, double _base_stepsize, int _algorithm_id, int _arch_id)
+                        const Eigen::MatrixBase<DerivedY> &_y, std::string _tauadaptstrat, int _num_threads, double _base_stepsize, int _algorithm_id, int _arch_id, const Eigen::MatrixBase<DerivedX> &_x_test, const Eigen::MatrixBase<DerivedY> &_y_test)
                 : m_default_rng(1),
                   m_rng(m_default_rng),
                   thread_local_opts(std::move(_thread_local_opts)),
                   opt(_opt),
                   x(_x),
                   y(_y),
+                  x_test(_x_test),
+                  y_test(_y_test),
                   tauadaptstrat(std::move(_tauadaptstrat)),
                   num_threads(_num_threads),
                   base_stepsize(_base_stepsize),
                   algorithm_id(_algorithm_id),
                   arch_id(_arch_id),
                   net(_net) {
+            std::cout << "Creating accuracy thread pool.\n";
+            for (int i = 0; i < 32; i++) {
+                _accur_thread_vec.emplace_back(&NetworkExecutor::thread_submit_accuracy, this, 128 + i);
+            }
+            std::cout << "Done.\n";
         }
+
+        std::map<int, double> epoch_accuracies;
 
         void run_training(int, int, int, int seed = -1);
         void run_parallel_sync(int, int, int, int seed = -1);

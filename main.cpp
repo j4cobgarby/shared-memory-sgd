@@ -264,6 +264,7 @@ int main(int argc, char *argv[]) {
 
     Matrix x;
     Matrix y;
+    Matrix x_test, y_test;
 
     int in_dim_x;
     int in_dim_y;
@@ -282,27 +283,41 @@ int main(int argc, char *argv[]) {
 
         std::cout << "# Loaded CIFAR10 dset" << std::endl;
         long n_train = DATASET.training_images.size(); // 50K
+        long n_test = DATASET.test_images.size();
         long dim_in = DATASET.training_images[0].size(); // 3072
 
         typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> Matrix;
         typedef Eigen::Matrix<double, Eigen::Dynamic, 1> Vector;
 
         x = Matrix::Zero(dim_in, n_train);
+        x_test = Matrix::Zero(dim_in, n_test);
 
         for (int i = 0; i < n_train; i++)
             x.col(i) = Vector::Map(&DATASET.training_images[i][0], DATASET.training_images[i].size());
 
+        for (int i = 0; i < n_test; i++)
+            x_test.col(i) = Vector::Map(&DATASET.test_images[i][0], DATASET.test_images[i].size());
+
         x /= 255; // normalize
+        x_test /= 255;
 
         y = Matrix::Zero(10, n_train);
+        y_test = Matrix::Zero(10, n_test);
 
         int T;
-        for (int i = 0; i < n_train; i++){
+        for (int i = 0; i < n_train; i++) {
             T = DATASET.training_labels[i];
             if (T < 10 && T >= 0)
                 y(T, i) = 1;//Vector::Map(&DATASET.training_labels[i][0], DATASET.training_labels[i].size());
             else
                 std::cerr << "# Label value error: " << T << std::endl;
+        }
+        for (int i = 0; i < n_test; i++) {
+            T = DATASET.test_labels[i];
+            if (T < 10 && T >= 0)
+                y_test(T, i) = 1;
+            else
+                std::cerr << "# Label value errror: " << T << std::endl;
         }
         std::cout << "# Finished loading labels" << std::endl;
     } else if (use_dataset == "CIFAR100") {
@@ -321,6 +336,7 @@ int main(int argc, char *argv[]) {
         cifar::read_cifar100_file(dset.test_images, dset.test_labels, "data/cifar-100/test.bin", use_fine_labels);
 
         long n_training = dset.training_images.size();
+        long n_test = dset.test_images.size();
         long img_n_vals = dset.training_images.at(0).size();
         assert(img_n_vals == 3072);
 
@@ -328,14 +344,20 @@ int main(int argc, char *argv[]) {
         typedef Eigen::Matrix<double, Eigen::Dynamic, 1> Vector;
 
         x = Matrix::Zero(img_n_vals, n_training); // One column per training img, one row per pixel
+        x_test = Matrix::Zero(img_n_vals, n_test);
 
         // Copy data from dataset into matrix
         for (int i = 0; i < n_training; i++) {
             x.col(i) = Vector::Map(&dset.training_images[i][0], dset.training_images[i].size());
         }
+        for (int i = 0; i < n_test; i++) {
+            x_test.col(i) = Vector::Map(&dset.test_images[i][0], dset.test_images[i].size());
+        }
 
         x /= 255;
+        x_test /= 255;
         y = Matrix::Zero(n_labels, n_training);
+        y_test = Matrix::Zero(n_labels, n_test);
 
         for (int i = 0; i < n_training; i++) {
             int lbl = dset.training_labels.at(i);
@@ -343,6 +365,14 @@ int main(int argc, char *argv[]) {
                 std::cerr << "# Label error (" << lbl << ")\n";
             } else {
                 y(lbl, i) = 1;
+            }
+        }
+        for (int i = 0; i < n_test; i++) {
+            int lbl = dset.test_labels.at(i);
+            if (lbl < 0 || lbl >= n_labels) {
+                std::cerr << "# Label error (" << lbl << ")\n";
+            } else {
+                y_test(lbl, i) = 1;
             }
         }
     } else {
@@ -446,7 +476,7 @@ int main(int argc, char *argv[]) {
 
     int algorithm_id = static_cast<int>(run_algo);
     int architecture_id = static_cast<int>(use_arch);
-    NetworkExecutor executor(&network, opt, thread_local_opts, x, y, tauadaptstrat, num_threads, learning_rate, algorithm_id, architecture_id);
+    NetworkExecutor executor(&network, opt, thread_local_opts, x, y, tauadaptstrat, num_threads, learning_rate, algorithm_id, architecture_id, x_test, y_test);
 
     struct timeval start, end;
     gettimeofday(&start, nullptr);
@@ -533,6 +563,12 @@ int main(int argc, char *argv[]) {
     out_json["mlist"] = mlist;
     out_json["lossgrad"] = lossgrad;
     out_json["meta"] = meta;
+
+    std::vector<double> epoch_accuracies;
+    for (int i = 0; i < executor.get_losses_per_epoch().size(); i++) {
+        epoch_accuracies.push_back(executor.epoch_accuracies.at(i));
+    }
+    out_json["epoch_accuracy"] = epoch_accuracies;
  
     const std::filesystem::path exp_dir = "experiments";
     std::filesystem::create_directory(exp_dir);

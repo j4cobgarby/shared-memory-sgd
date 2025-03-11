@@ -43,11 +43,47 @@ void copy_nets_vec(std::vector<MiniDNN::NetworkTopology *> &from,
     }
 }
 
+void MiniDNN::NetworkExecutor::background_submit_accuracy(int epoch_nr) {
+    _qmtx.lock();
+    _netws_to_eval.emplace_back(epoch_nr, new NetworkTopology(*net));
+    _qmtx.unlock();
+}
+
+void MiniDNN::NetworkExecutor::thread_submit_accuracy(int cpu) {
+    using namespace std::chrono_literals;
+    set_cpu(cpu);
+    while (true) {
+        // if (_exec.get_dispatcher()->is_finished() && _netws_to_eval.empty()) break;
+        std::this_thread::sleep_for(1000ms);
+        _qmtx.lock();
+        if (_netws_to_eval.empty()) {
+            _qmtx.unlock();
+            continue;
+        } else {
+            auto [epoch_nr, netw] = std::move(_netws_to_eval.front());
+            _netws_to_eval.pop_front();
+            _qmtx.unlock();
+
+            netw->forward(x_test);
+
+            const Matrix &preds = netw->get_last_layer()->output();
+            const double accur = compute_accuracy(preds, y_test);
+            delete netw;
+
+            _accmtx.lock();
+            this->epoch_accuracies[epoch_nr] = accur;
+            _accmtx.unlock();
+        }
+    }
+}
+
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                                                  int rounds_per_epoch, int window,
                                                  int probing_interval, int probing_duration,
                                                  int m_0, struct timeval start_time, int seed,
                                                  bool use_lock) {
+    typedef std::chrono::high_resolution_clock HRClock;
+
     const unsigned recent_loss_window = 20;
     opt->reset();
 
@@ -123,16 +159,23 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     int num_iterations = -1;
     std::atomic_flag should_stop = ATOMIC_FLAG_INIT;
 
+    HRClock::duration total_time_in_steps = HRClock::duration::zero();
+    long total_steps_timed = 0;
+    std::mutex total_steptime_count_mtx;
+
     auto f = [&](int id) {
         if (id >= current_parallelism) {
             return;
         } else {
+            HRClock::duration acc_step_time = HRClock::duration::zero();
+            long num_steps_done = 0;
             while (true) {
                 if (should_stop.test())
                     break; // Stop execution once at least one worker has reached
                            // num_iterations
 
                 long local_step = step.fetch_add(1);
+                // std::cout << "* Doing step " << local_step << std::endl;
 
                 #if 1
                 if (local_step - phase_firststep > num_iterations) {
@@ -180,7 +223,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
 
                 // compute gradient, store in Network object
                 thread_local_networks[id]->forward(x_batches[batch_index]);
+                auto step_t1 = HRClock::now();
                 thread_local_networks[id]->backprop(x_batches[batch_index], y_batches[batch_index]);
+                auto step_t2 = HRClock::now();
                 const Scalar loss = thread_local_networks[id]->get_loss();
 
                 /* std::cerr << id << ": [Epoch " << epoch << "] Loss = " << loss <<
@@ -229,7 +274,15 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
                                              (double)(now.tv_usec - start_time.tv_usec) / 1000000);
                     epoch_time_vector_lock.unlock();
                 }
+
+                acc_step_time += step_t2 - step_t1;
+                num_steps_done++;
             }
+
+            total_steptime_count_mtx.lock();
+            total_steps_timed += num_steps_done;
+            total_time_in_steps += acc_step_time;
+            total_steptime_count_mtx.unlock();
         }
     };
 
@@ -664,6 +717,9 @@ void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,
     }
 
     workers.stop();
+
+    std::cout << "Average time to complete a step = " << total_time_in_steps / total_steps_timed << std::endl;
+    std::cout << "(steps=" << total_steps_timed << ", total t=" << total_time_in_steps << ")\n";
 
     for (int k = 0; k < latest_epoch; k++) {
         loss = 0;

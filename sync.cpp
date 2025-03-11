@@ -91,6 +91,9 @@ void MiniDNN::NetworkExecutor::run_parallel_sync(int batch_size, int epoch, int 
             }
 
         }
+
+        background_submit_accuracy(k);
+
         epoch_loss /= rounds_per_epoch;
         loss_per_epoch.push_back(epoch_loss);
 

@@ -54,3 +54,5 @@ meeting-8mar
 __pycache__
 runtime_logs
 profiling
+
+perf.data*
