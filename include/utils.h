@@ -49,15 +49,27 @@ inline Matrix one_hot_encode(const Matrix &y, int n_value) {
 }
 
 // classification accuracy
-inline MiniDNN::Scalar compute_accuracy(const Matrix &preditions, const Matrix &labels) {
-    int n = preditions.cols();
+inline MiniDNN::Scalar compute_accuracy(const Matrix &predictions, const Matrix &labels) {
+    int n = predictions.cols();
+
     MiniDNN::Scalar acc = 0;
     for (int i = 0; i < n; i++) {
         Matrix::Index max_index;
-        MiniDNN::Scalar max_value = preditions.col(i).maxCoeff(&max_index);
-        acc += int(max_index) == labels(i);
+        Matrix::Index lbl_max_index;
+        MiniDNN::Scalar max_value = predictions.col(i).maxCoeff(&max_index);
+        MiniDNN::Scalar lbl_max_value = labels.col(i).maxCoeff(&lbl_max_index);
+        acc += int(max_index) == int(lbl_max_index);
     }
-    return acc / n;
+
+    return (double)acc / (double)n;
+    // int n = preditions.cols();
+    // MiniDNN::Scalar acc = 0;
+    // for (int i = 0; i < n; i++) {
+    //     Matrix::Index max_index;
+    //     MiniDNN::Scalar max_value = preditions.col(i).maxCoeff(&max_index);
+    //     acc += int(max_index) == labels(i);
+    // }
+    // return acc / n;
 }
 
 #ifdef __cplusplus
