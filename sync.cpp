@@ -104,6 +104,7 @@ void MiniDNN::NetworkExecutor::run_parallel_sync(int batch_size, int epoch, int 
         //std::cerr << "[Epoch " << k << "] Loss = " << epoch_loss << std::endl;
 
     }
+    _accur_thread_stop = true;
 
     workers.stop();
     loss = 0;

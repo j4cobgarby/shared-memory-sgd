@@ -44,6 +44,7 @@ void copy_nets_vec(std::vector<MiniDNN::NetworkTopology *> &from,
 }
 
 void MiniDNN::NetworkExecutor::background_submit_accuracy(int epoch_nr) {
+    std::cout << "Submitting network for evaluation, epoch=" << epoch_nr << "\n";
     _qmtx.lock();
     _netws_to_eval.emplace_back(epoch_nr, new NetworkTopology(*net));
     _qmtx.unlock();
@@ -53,7 +54,7 @@ void MiniDNN::NetworkExecutor::thread_submit_accuracy(int cpu) {
     using namespace std::chrono_literals;
     set_cpu(cpu);
     while (true) {
-        // if (_exec.get_dispatcher()->is_finished() && _netws_to_eval.empty()) break;
+        if (_accur_thread_stop && _netws_to_eval.empty()) break;
         std::this_thread::sleep_for(1000ms);
         _qmtx.lock();
         if (_netws_to_eval.empty()) {
@@ -61,6 +62,7 @@ void MiniDNN::NetworkExecutor::thread_submit_accuracy(int cpu) {
             continue;
         } else {
             auto [epoch_nr, netw] = std::move(_netws_to_eval.front());
+            std::cout << "Evaluating epoch accuracy " << epoch_nr << "\n";
             _netws_to_eval.pop_front();
             _qmtx.unlock();
 
@@ -73,8 +75,14 @@ void MiniDNN::NetworkExecutor::thread_submit_accuracy(int cpu) {
             _accmtx.lock();
             this->epoch_accuracies[epoch_nr] = accur;
             _accmtx.unlock();
+
+            std::cout << "Finished evaluation accuracy for " << epoch_nr << "\n";
         }
     }
+}
+
+void MiniDNN::NetworkExecutor::wait_for_accuracy_threads() {
+    for (auto &thr : _accur_thread_vec) thr.join();
 }
 
 void MiniDNN::NetworkExecutor::run_elastic_async(int batch_size, int num_epochs,

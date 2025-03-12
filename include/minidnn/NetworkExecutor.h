@@ -76,6 +76,7 @@ namespace MiniDNN {
         std::deque<std::pair<int, NetworkTopology *>> _netws_to_eval;
         std::mutex _accmtx;
         std::vector<std::thread> _accur_thread_vec;
+        bool _accur_thread_stop = false;
 
         void thread_submit_accuracy(int cpu);
         void background_submit_accuracy(int epoch_nr);
@@ -112,6 +113,7 @@ namespace MiniDNN {
         }
 
         std::map<int, double> epoch_accuracies;
+        void wait_for_accuracy_threads();
 
         void run_training(int, int, int, int seed = -1);
         void run_parallel_sync(int, int, int, int seed = -1);

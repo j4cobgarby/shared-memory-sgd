@@ -524,6 +524,8 @@ int main(int argc, char *argv[]) {
     time_t duration;
     duration = end.tv_sec - start.tv_sec;
 
+    executor.wait_for_accuracy_threads();
+
     Scalar epoch_loss = executor.get_loss();
 
     jsoncons::json out_json;
@@ -566,6 +568,7 @@ int main(int argc, char *argv[]) {
 
     std::vector<double> epoch_accuracies;
     for (int i = 0; i < executor.get_losses_per_epoch().size(); i++) {
+        std::cout << "Adding accuracy for epoch id " << i << "\n";
         epoch_accuracies.push_back(executor.epoch_accuracies.at(i));
     }
     out_json["epoch_accuracy"] = epoch_accuracies;
