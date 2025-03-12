@@ -1,7 +1,10 @@
 #include "NetworkExecutor.h"
+#include <sys/select.h>
 
 void MiniDNN::NetworkExecutor::run_parallel_sync(int batch_size, int epoch, int rounds_per_epoch, int seed) {
 
+    struct timeval start;
+    gettimeofday(&start, nullptr);
     opt->reset();
 
     // Create shuffled mini-batches
@@ -55,6 +58,12 @@ void MiniDNN::NetworkExecutor::run_parallel_sync(int batch_size, int epoch, int 
     // Iterations on the whole data set
     for (int k; k < epoch; k++) {
 
+        struct timeval t_now;
+        gettimeofday(&t_now, nullptr);
+        if (t_now.tv_sec - start.tv_sec > 60 * 20) {
+            std::cout << "Breaking due to time\n";
+            break;
+        }
         Scalar epoch_loss = 0;
 
         for (int round = 0; round < rounds_per_epoch; ++round) {
