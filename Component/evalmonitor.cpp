@@ -37,7 +37,6 @@ void Monitor::background_submit_accuracy(int epoch_nr) {
 
 void Monitor::_thread_submit_accuracy(int cpu) {
     using namespace std::chrono_literals;
-    // std::cout << "Accuracy worker: running.\n";
     set_cpu(cpu);
     while (true) {
         if (_exec.get_dispatcher()->is_finished() && _netws_to_eval.empty()) break;
@@ -47,7 +46,6 @@ void Monitor::_thread_submit_accuracy(int cpu) {
             _qmtx.unlock();
             continue;
         } else {
-            // const auto t1 = HRClock::now();
             auto [epoch_nr, netw] = std::move(_netws_to_eval.front());
             _netws_to_eval.pop_front();
             _qmtx.unlock();
@@ -58,10 +56,6 @@ void Monitor::_thread_submit_accuracy(int cpu) {
             const double accur = compute_accuracy(preds, this->_exec.get_batcher()->_test_y);
             delete netw;
 
-            // const auto t2 = HRClock::now();
-
-            // std::cout << "[accur " << cpu << "] Computed accuracy. Queue sz = " << _netws_to_eval.size() << "\n";
-            // std::cout << "[accur " << cpu << "] Took " << std::chrono::duration<double>(t2 - t1).count() << " secs\n";
             _accmtx.lock();
             this->epoch_accuracies[epoch_nr] = accur;
             _accmtx.unlock();
